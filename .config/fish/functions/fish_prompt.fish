@@ -1,4 +1,4 @@
-function _promtp_git_branch
+function _prompt_git_branch
   echo (git rev-parse --abbrev-ref HEAD 2> /dev/null | awk '{print " (" $1 ")"}')
 end
 
@@ -89,7 +89,7 @@ function fish_prompt
 
   set -q CMD_DURATION; and echo $elapsed_color"# elapsed time" (_elapsed_time (echo "$CMD_DURATION/1000" | bc -l))$normal
   echo ''
-  echo -s $green$USER$white@$cyan(hostname)$normal ' ' $yellow(prompt_pwd)$normal $purple(_promtp_git_branch)$normal
+  echo -s $green$USER$white@$cyan(hostname)$normal ' ' $yellow(prompt_pwd)$normal $purple(_prompt_git_branch)$normal
   echo -s -n $white $_venv
   echo $red'❯'$yellow'❯'$green'❯ '$normal
 
