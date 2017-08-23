@@ -1,0 +1,39 @@
+browser
+coreutils
+cowsay
+ctop
+curl
+diffutils
+direnv
+distribution
+docker
+docker-compose
+docker-machine
+emacs
+findutils --with-default-names
+fish
+gawk
+git
+gnu-sed --with-default-names
+gnu-tar --with-default-names
+gnu-which --with-default-names
+go
+grep --with-default-names
+gzip
+htop
+httpie
+moreutils
+node
+noti
+openssl@1.1
+python
+python3
+rsync
+ruby
+sqlite
+tmux
+unzip
+vim --override-system-vi
+watch
+watchman
+wget
