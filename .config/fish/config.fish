@@ -3,4 +3,12 @@ eval (direnv hook fish)
 
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 
-set -gx PATH /usr/local/bin /usr/local/sbin /usr/local/opt/coreutils/libexec/gnubin $PATH
+set -gx PATH \
+    /usr/local/bin \
+    /usr/local/sbin \
+    /usr/local/opt/coreutils/libexec/gnubin \
+    $PATH
+
+set -gx MANPATH \
+    /usr/local/opt/coreutils/libexec/gnuman \
+    $MANPATH
