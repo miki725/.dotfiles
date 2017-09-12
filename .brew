@@ -31,6 +31,7 @@ python3
 rsync
 ruby
 sqlite
+TomAnthony/brews/itermocil
 tmux
 unzip
 vim --override-system-vi
