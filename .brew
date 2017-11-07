@@ -24,6 +24,7 @@ grep --with-default-names
 gzip
 htop
 httpie
+libmagic
 moreutils
 node
 noti
