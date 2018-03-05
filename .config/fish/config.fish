@@ -9,6 +9,7 @@ set -gx ANDROID_HOME /usr/local/opt/android-sdk
 
 set -l path \
     $HOME/.local/bin \
+    $HOME/.cargo/bin \
     /usr/local/bin \
     /usr/local/sbin \
     /usr/local/opt/coreutils/libexec/gnubin
