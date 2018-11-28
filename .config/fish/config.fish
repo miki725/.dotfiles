@@ -42,5 +42,9 @@ if test (which itermocil)
     complete -c itermocil -a "(itermocil --list)"
 end
 
+if test -d $HOME/.ssh
+    cat $HOME/.ssh/*.config > $HOME/.ssh/.config
+end
+
 fortune | cowsay
 
