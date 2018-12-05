@@ -1,5 +1,7 @@
 ag
 browser
+cloc
+colordiff
 coreutils
 cowsay
 ctop
@@ -10,12 +12,13 @@ distribution
 docker
 docker-compose
 docker-machine
-entr
 emacs
+entr
 findutils --with-default-names
 fish
 gawk
 git
+git-lfs
 gnu-sed --with-default-names
 gnu-tar --with-default-names
 gnu-which --with-default-names
@@ -24,21 +27,30 @@ grep --with-default-names
 gzip
 htop
 httpie
+iperf
 libmagic
+make
 moreutils
+mtr
 node
 noti
 openssl@1.1
+postgresql
+pypy
+pypy3
 python
-python3
+python@2
 rsync
 ruby
 sqlite
-TomAnthony/brews/itermocil
+tldr
 tmux
+TomAnthony/brews/itermocil
 tree
+um
 unzip
 vim --override-system-vi
 watch
 watchman
 wget
+wine
