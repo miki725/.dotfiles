@@ -1,5 +1,6 @@
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx LANG en_US.utf-8
+set -gx GPG_TTY (tty)
 
 set -l path \
     $HOME/.local/bin \
