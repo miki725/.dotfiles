@@ -19,10 +19,12 @@ fish
 gawk
 git
 git-lfs
+git-quick-stats
 gnu-sed --with-default-names
 gnu-tar --with-default-names
 gnu-which --with-default-names
 go
+gpg
 grep --with-default-names
 gzip
 htop
