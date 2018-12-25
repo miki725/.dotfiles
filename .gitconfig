@@ -1,8 +1,13 @@
 [user]
 	name = Miroslav Shubernetskiy
 	email = miroslav@miki725.com
+	signingkey = 2850F7E59914A698
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[gpg]
+	program = /usr/local/bin/gpg
+[commit]
+	gpgsign = true
