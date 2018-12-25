@@ -27,6 +27,8 @@ go
 gpg
 grep --with-default-names
 gzip
+homebrew/cask-drivers/yubico-yubikey-manager
+homebrew/cask-drivers/yubico-yubikey-personalization-gui
 htop
 httpie
 iperf
@@ -37,11 +39,14 @@ mtr
 node
 noti
 openssl@1.1
+paperkey
+pinentry-mac
 postgresql
 pypy
 pypy3
 python
 python@2
+qrencode
 rsync
 ruby
 sqlite
@@ -56,3 +61,4 @@ watch
 watchman
 wget
 wine
+zbar
