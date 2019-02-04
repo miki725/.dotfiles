@@ -6,6 +6,7 @@ coreutils
 cowsay
 ctop
 curl
+dcraw
 diffutils
 direnv
 distribution
@@ -16,19 +17,20 @@ emacs
 entr
 findutils --with-default-names
 fish
+fortune
+fswatch
 gawk
+gettext
 git
 git-lfs
 git-quick-stats
 gnu-sed --with-default-names
 gnu-tar --with-default-names
 gnu-which --with-default-names
+gnupg
 go
-gpg
 grep --with-default-names
 gzip
-homebrew/cask-drivers/yubico-yubikey-manager
-homebrew/cask-drivers/yubico-yubikey-personalization-gui
 htop
 httpie
 iperf
@@ -36,12 +38,17 @@ libmagic
 make
 moreutils
 mtr
+neovim
 node
 noti
+openssh
+openssl
 openssl@1.1
 paperkey
 pinentry-mac
 postgresql
+pv
+pyenv
 pypy
 pypy3
 python
@@ -50,6 +57,8 @@ qrencode
 rsync
 ruby
 sqlite
+sshuttle
+the_silver_searcher
 tldr
 tmux
 TomAnthony/brews/itermocil
@@ -61,4 +70,5 @@ watch
 watchman
 wget
 wine
+ykpers
 zbar
