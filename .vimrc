@@ -22,6 +22,14 @@ set hidden
 " default tab config - customized with autocmd below per file type
 " http://vimcasts.org/episodes/tabs-and-spaces/
 set ts=4 sts=4 sw=4 expandtab
+set colorcolumn=120
+" autoreflow text with par
+set formatprg=par\ -w79\ -q
+" preserve existing indent for new lines
+set autoindent
+set smartindent
+" allow backspace to remove indent, etc
+set backspace=indent,eol,start
 " easier switch between windows
 map <C-h> <C-w>h
 map <C-j> <C-w>j
@@ -65,4 +73,4 @@ endfunction
 
 " PLUGINS
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-
+let g:netrw_list_hide= '.*\.swp$,.*\.py[co]$'

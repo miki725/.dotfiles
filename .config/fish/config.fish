@@ -1,5 +1,6 @@
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx LANG en_US.utf-8
+set -gx EDITOR vim
 set -gx GPG_TTY (tty)
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 set -gx SSH_AGENT_PID ""

@@ -45,8 +45,10 @@ openssh
 openssl
 openssl@1.1
 paperkey
+par
 pinentry-mac
 postgresql
+proxychains-ng
 pv
 pyenv
 pypy
@@ -61,7 +63,7 @@ sshuttle
 the_silver_searcher
 tldr
 tmux
-TomAnthony/brews/itermocil
+tomanthony/brews/itermocil
 tree
 um
 unzip
@@ -70,5 +72,6 @@ watch
 watchman
 wget
 wine
+xo/xo/usql --with-oracle
 ykpers
 zbar
