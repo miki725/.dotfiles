@@ -30,7 +30,7 @@ if test (which direnv)
     eval (direnv hook fish)
 end
 
-set -gx manpath \
+set -l manpath \
     /usr/local/opt/coreutils/libexec/gnuman
 
 for i in $manpath[-1..1]
@@ -49,6 +49,12 @@ end
 
 if test -d $HOME/.ssh
     cat $HOME/.ssh/*.config > $HOME/.ssh/.config
+end
+
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
 end
 
 fortune | cowsay
