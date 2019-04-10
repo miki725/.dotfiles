@@ -1,3 +1,4 @@
+set -gx SPACEFISH_PYENV_SHOW false
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx LANG en_US.utf-8
 set -gx EDITOR vim
