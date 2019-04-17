@@ -7,6 +7,8 @@ set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 set -gx SSH_AGENT_PID ""
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
+alias l="ls -la"
+
 set -l path \
     $HOME/.local/bin \
     $HOME/.cargo/bin \
