@@ -12,11 +12,20 @@ set -l path \
     $HOME/.cargo/bin \
     $HOME/go/bin \
     $HOME/Library/Python/3.7/bin \
-    /usr/local/opt/python/libexec/bin \
     /usr/local/bin \
     /usr/local/sbin \
     $HOME/.pyenv/shims \
-    /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/python/libexec/bin \
+    /usr/local/opt/coreutils/libexec/gnubin \
+    /usr/local/opt/coreutils/libexec/gnubi \
+    /usr/local/opt/curl/bin \
+    /usr/local/opt/openssl/bin \
+    /usr/local/opt/gettext/bin \
+    /usr/local/opt/gnu-sed/libexec/gnubin \
+    /usr/local/opt/gnu-tar/libexec/gnubi \
+    /usr/local/opt/gnu-which/libexec/gnubi \
+    /usr/local/opt/grep/libexec/gnubin \
+    /usr/local/opt/ruby/bin
 
 for i in $path[-1..1]
     if test -d $i
