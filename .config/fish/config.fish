@@ -55,6 +55,10 @@ if test -e $HOME/.iterm2_shell_integration.fish
     source $HOME/.iterm2_shell_integration.fish
 end
 
+if test -f /usr/local/share/chtf/chtf.fish
+    source /usr/local/share/chtf/chtf.fish
+end
+
 if test (which itermocil)
     complete -c itermocil -a "(itermocil --list)"
 end
