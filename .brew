@@ -15,7 +15,7 @@ docker-compose
 docker-machine
 emacs
 entr
-findutils --with-default-names
+findutils
 fish
 fortune
 fswatch
@@ -24,12 +24,12 @@ gettext
 git
 git-lfs
 git-quick-stats
-gnu-sed --with-default-names
-gnu-tar --with-default-names
-gnu-which --with-default-names
+gnu-sed
+gnu-tar
+gnu-which
 gnupg
 go
-grep --with-default-names
+grep
 gzip
 htop
 httpie
@@ -67,7 +67,7 @@ tomanthony/brews/itermocil
 tree
 um
 unzip
-vim --override-system-vi
+vim
 watch
 watchman
 wget
