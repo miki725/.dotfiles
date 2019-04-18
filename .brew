@@ -60,6 +60,7 @@ rsync
 ruby
 sqlite
 sshuttle
+telnet
 the_silver_searcher
 tldr
 tmux
