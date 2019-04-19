@@ -3,6 +3,7 @@ set SPACEFISH_PROMPT_ORDER \
     dir \
     host \
     git \
+    venv \
     package \
     node \
     docker \
