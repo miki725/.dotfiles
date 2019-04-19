@@ -1,4 +1,16 @@
-set -gx SPACEFISH_PYENV_SHOW false
+set SPACEFISH_PROMPT_ORDER \
+    user \
+    dir \
+    host \
+    git \
+    package \
+    node \
+    docker \
+    aws  \
+    exec_time \
+    line_sep \
+    exit_code \
+    char
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx LANG en_US.utf-8
 set -gx EDITOR vim
