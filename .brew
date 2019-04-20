@@ -19,6 +19,7 @@ findutils
 fish
 fortune
 fswatch
+fzf
 gawk
 gettext
 git
