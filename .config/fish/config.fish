@@ -51,7 +51,7 @@ end
 if test (python3 -m virtualfish 2> /dev/null)
     eval (python3 -m virtualfish auto_activation compat_aliases projects)
 end
-if test (which direnv)
+if test (which direnv 2> /dev/null)
     eval (direnv hook fish)
 end
 
@@ -72,7 +72,7 @@ if test -f /usr/local/share/chtf/chtf.fish
     source /usr/local/share/chtf/chtf.fish
 end
 
-if test (which itermocil)
+if test (which itermocil 2> /dev/null)
     complete -c itermocil -a "(itermocil --list)"
 end
 
@@ -86,5 +86,6 @@ if not functions -q fisher
     fish -c fisher
 end
 
-fortune | cowsay
-
+if test (which fortune 2> /dev/null); and test (which cowsay 2> /dev/null)
+    fortune | cowsay
+end
