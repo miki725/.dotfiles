@@ -1,3 +1,6 @@
+scriptencoding utf-8
+set encoding=utf-8
+
 syntax enable
 colorscheme monokai
 set mouse=a
