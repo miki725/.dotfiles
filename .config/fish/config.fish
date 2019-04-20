@@ -48,7 +48,7 @@ for i in $path[-1..1]
     end
 end
 
-if test (python3 -m virtualfish 2> /dev/null)
+if test (which python3); and test (python3 -m virtualfish 2> /dev/null)
     eval (python3 -m virtualfish auto_activation compat_aliases projects)
 end
 if test (which direnv 2> /dev/null)
