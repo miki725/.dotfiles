@@ -35,6 +35,7 @@ gzip
 htop
 httpie
 iperf
+jq
 libmagic
 lolcat
 make

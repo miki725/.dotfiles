@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>build</key>
-	<real>1087</real>
+	<string>1090</string>
 	<key>license</key>
 	<dict>
 		<key>email</key>
@@ -13,6 +13,31 @@
 	</dict>
 	<key>preferences</key>
 	<dict>
+		<key>Battery_DisableBluetooth</key>
+		<integer>1</integer>
+		<key>Battery_MenubarCustomizeStates</key>
+		<integer>0</integer>
+		<key>Battery_MenubarMode</key>
+		<array>
+			<dict>
+				<key>key</key>
+				<string>2</string>
+				<key>uuid</key>
+				<string>6F5CA602-BC4D-4E01-9AFF-CA649F110DFF</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>0</string>
+				<key>uuid</key>
+				<string>D831A97E-C7EF-464C-ADBF-29756FD949FA</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>1</string>
+				<key>uuid</key>
+				<string>F0202394-3809-4A02-8AFA-82A9481448A9</string>
+			</dict>
+		</array>
 		<key>CPU_DropdownOrderDisabled</key>
 		<string></string>
 		<key>CPU_MenubarMode</key>
@@ -32,37 +57,43 @@
 				<key>key</key>
 				<string>7</string>
 				<key>uuid</key>
-				<string>22824068-3CF3-449D-89D6-9504E6600CBB</string>
+				<string>045E3BE7-5F74-42B7-A49A-ECB14FAAA51C</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>1</string>
 				<key>uuid</key>
-				<string>8C26DF87-45FB-4921-9EF9-2957F02D825E</string>
+				<string>27EE7564-5411-4F61-A3DB-8EC163F62FD3</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>2</string>
 				<key>uuid</key>
-				<string>6D92243D-E825-446E-8133-998F32090CA5</string>
+				<string>7B1F9839-A9CB-4230-A5BD-B07D38E5E629</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>4</string>
 				<key>uuid</key>
-				<string>E81D56B3-293A-402E-AD92-87D954289812</string>
+				<string>607BFAC9-EDA6-43E7-A8EA-CE08C5E891D0</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>5</string>
 				<key>uuid</key>
-				<string>829C69AD-BB10-4444-BBE1-72BF57AD3743</string>
+				<string>4CE600DD-8B44-4EBA-A330-45EA7BD94CFA</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>3</string>
+				<key>uuid</key>
+				<string>A3B67D27-AEA6-49F1-9AC6-E09343360885</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>6</string>
 				<key>uuid</key>
-				<string>B52D1BC9-E5A2-4FA8-8265-D6760179405F</string>
+				<string>AD0845C3-494F-4098-BA11-766C1C103BEF</string>
 			</dict>
 		</array>
 		<key>CombinedMenubarDisplayMode</key>
@@ -71,25 +102,37 @@
 				<key>key</key>
 				<string>1</string>
 				<key>uuid</key>
-				<string>CF4E9B7C-553C-421E-A2C1-C3435D7AB86F</string>
+				<string>A8268740-E8B1-4715-BD99-FFEF60B4E693</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>2</string>
 				<key>uuid</key>
-				<string>4939B950-544F-4F78-937A-3C5C3E1FB190</string>
+				<string>ECB883CB-0853-4F5F-9324-16135AF2FEE8</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>4</string>
 				<key>uuid</key>
-				<string>ADFA58AA-C9A7-421E-BAB5-BD0564533BF3</string>
+				<string>31CB183E-B0E0-476C-81B5-6FA7D8FF3DC6</string>
 			</dict>
 			<dict>
 				<key>key</key>
 				<string>5</string>
 				<key>uuid</key>
-				<string>91D13265-6B47-4099-B31E-A3CA3956C0B9</string>
+				<string>40BE8B51-D365-4FC8-AEF3-CF3E2C24BDB2</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>6</string>
+				<key>uuid</key>
+				<string>9EDDFF8D-A92B-420F-83B3-DFAC2420684D</string>
+			</dict>
+			<dict>
+				<key>key</key>
+				<string>7</string>
+				<key>uuid</key>
+				<string>5D05CD34-E61F-40B0-9369-0548F3F9624F</string>
 			</dict>
 		</array>
 		<key>Diagnostics_Enabled</key>
@@ -101,85 +144,12 @@
 				<true/>
 				<key>key</key>
 				<string>919532D6-5A90-32F1-A12E-BD4B8F5F3266</string>
-				<key>name</key>
-				<string>Mac</string>
 			</dict>
 		</array>
 		<key>DropdownTheme-Dark</key>
 		<integer>3</integer>
 		<key>FanControl_Sets</key>
-		<array>
-			<dict>
-				<key>model</key>
-				<string>MacBookPro11,4</string>
-				<key>name</key>
-				<string>Medium</string>
-				<key>speeds</key>
-				<array>
-					<dict>
-						<key>fan</key>
-						<string>F0Ac</string>
-						<key>high</key>
-						<integer>6156</integer>
-						<key>low</key>
-						<integer>2160</integer>
-						<key>percentage</key>
-						<real>0.5</real>
-						<key>speed</key>
-						<integer>4158</integer>
-					</dict>
-					<dict>
-						<key>fan</key>
-						<string>F1Ac</string>
-						<key>high</key>
-						<integer>5700</integer>
-						<key>low</key>
-						<integer>2000</integer>
-						<key>percentage</key>
-						<real>0.5</real>
-						<key>speed</key>
-						<integer>3850</integer>
-					</dict>
-				</array>
-				<key>uuid</key>
-				<string>9F1A171D-5FB7-4A4B-B059-38914E986385</string>
-			</dict>
-			<dict>
-				<key>model</key>
-				<string>MacBookPro11,4</string>
-				<key>name</key>
-				<string>High</string>
-				<key>speeds</key>
-				<array>
-					<dict>
-						<key>fan</key>
-						<string>F0Ac</string>
-						<key>high</key>
-						<integer>6156</integer>
-						<key>low</key>
-						<integer>2160</integer>
-						<key>percentage</key>
-						<real>1</real>
-						<key>speed</key>
-						<integer>6156</integer>
-					</dict>
-					<dict>
-						<key>fan</key>
-						<string>F1Ac</string>
-						<key>high</key>
-						<integer>5700</integer>
-						<key>low</key>
-						<integer>2000</integer>
-						<key>percentage</key>
-						<real>1</real>
-						<key>speed</key>
-						<integer>5700</integer>
-					</dict>
-				</array>
-				<key>uuid</key>
-				<string>8667B5F5-D513-497C-9042-2F4DA321F05F</string>
-			</dict>
-		</array>
+		<array/>
 		<key>Memory_DisplayFormat</key>
 		<integer>1</integer>
 		<key>Memory_DropdownOrder</key>
@@ -410,7 +380,6 @@
 			<string>':'</string>
 			<string>mm</string>
 			<string>' '</string>
-			<string>a</string>
 		</array>
 		<key>Time_DropdownOrderDisabled</key>
 		<string></string>
@@ -445,7 +414,7 @@
 		<key>Zarya-TLE</key>
 		<dict>
 			<key>time</key>
-			<real>1554907440.3970242</real>
+			<real>1556228000.4029179</real>
 			<key>tle</key>
 			<string>ISS (ZARYA)             
 1 25544U 98067A   19024.69130787  .00000289  00000-0  11946-4 0  9991
@@ -453,6 +422,6 @@
 		</dict>
 	</dict>
 	<key>version</key>
-	<real>6.3000001907348633</real>
+	<string>6.31</string>
 </dict>
 </plist>
