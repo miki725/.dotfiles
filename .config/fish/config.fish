@@ -13,7 +13,7 @@ set SPACEFISH_PROMPT_ORDER \
     exit_code \
     char
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
-set -gx LANG en_US.utf-8
+set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 set -gx GPG_TTY (tty)
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
