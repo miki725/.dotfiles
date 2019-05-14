@@ -1,4 +1,5 @@
 ag
+awscli
 bash
 browser
 cloc
@@ -77,6 +78,7 @@ watch
 watchman
 wget
 wine
+wrk
 xo/xo/usql --with-oracle
 ykpers
 zbar

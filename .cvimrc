@@ -1,0 +1,3 @@
+site '*://github.com/*' {
+      unmap t
+}
