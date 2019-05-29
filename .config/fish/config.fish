@@ -21,6 +21,7 @@ set -gx SSH_AGENT_PID ""
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
 alias l="ls -la"
+alias vim=nvim
 
 set -l path \
     $HOME/.local/bin \
