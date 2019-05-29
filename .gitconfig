@@ -15,3 +15,5 @@
 	edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
 	add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
     branch-clean = "!git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs git branch -d"
+    latest = "!git checkout master && git fetch --prune && git rebase origin/master && git branch-clean"
+    update = "!git fetch --prune && git rebase origin/master"
