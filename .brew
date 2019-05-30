@@ -66,6 +66,7 @@ ruby
 sqlite
 sshuttle
 telnet
+testssl.sh
 the_silver_searcher
 tldr
 tmux
@@ -79,6 +80,6 @@ watchman
 wget
 wine
 wrk
-xo/xo/usql --with-oracle
+xo/xo/usql
 ykpers
 zbar
