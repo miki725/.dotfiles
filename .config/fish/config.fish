@@ -20,6 +20,13 @@ set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 set -gx SSH_AGENT_PID ""
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
+# modify macOS system SSH_AUTH_SOCK if it does not match
+if test (which launchctl) \
+    -a (id -u) -gt 0 \
+    -a (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
+    launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK)
+end
+
 alias l="ls -la"
 alias vim=nvim
 
