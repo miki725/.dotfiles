@@ -1,19 +1,20 @@
 [user]
-	name = Miroslav Shubernetskiy
-	email = miroslav@miki725.com
-	signingkey = 2850F7E59914A698
+    name = Miroslav Shubernetskiy
+    email = miroslav@miki725.com
+    signingkey = 2850F7E59914A698
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 [gpg]
-	program = /usr/local/bin/gpg
+    program = /usr/local/bin/gpg
 [commit]
-	gpgsign = true
+    gpgsign = true
 [alias]
-	edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
-	add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
+    cdiff = "!git diff --cached"
+    edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
+    add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
     branch-clean = "!git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs git branch -d"
     latest = "!git checkout master && git fetch --prune && git rebase origin/master && git branch-clean"
     update = "!git fetch --prune && git rebase origin/master"
