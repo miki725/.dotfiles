@@ -13,6 +13,7 @@ set SPACEFISH_PROMPT_ORDER \
     exit_code \
     char
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
+set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/.ripgreprc
 set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 set -gx GPG_TTY (tty)
@@ -33,8 +34,10 @@ alias vim=nvim
 set -l path \
     $HOME/.local/bin \
     $HOME/.cargo/bin \
+    $HOME/.yarn/bin \
     $HOME/go/bin \
     $HOME/Library/Python/3.7/bin \
+    $HOME/.config/yarn/global/node_modules/.bin \
     /usr/local/bin \
     /usr/local/sbin \
     $HOME/.pyenv/shims \
@@ -94,6 +97,6 @@ if not functions -q fisher
     fish -c fisher
 end
 
-if test (which fortune 2> /dev/null); and test (which cowsay 2> /dev/null)
-    fortune | cowsay
+if test (which fortune 2> /dev/null); and test (which cowsay 2> /dev/null); and status --is-interactive
+    fortune -s | cowsay
 end
