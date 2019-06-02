@@ -61,6 +61,7 @@ pypy3
 python
 python@2
 qrencode
+ripgrep
 rsync
 ruby
 sqlite
