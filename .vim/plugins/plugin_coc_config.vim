@@ -1,9 +1,9 @@
 let g:coc_global_extensions = [
-    \'coc-git',
     \'coc-highlight',
     \'coc-json',
     \'coc-python',
     \]
+    " \'coc-git', causing buffer to flicker
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
