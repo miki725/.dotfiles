@@ -22,7 +22,7 @@ set -gx SSH_AGENT_PID ""
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
 # modify macOS system SSH_AUTH_SOCK if it does not match
-if test (which launchctl) \
+if test (which launchctl 2> /dev/null) \
     -a (id -u) -gt 0 \
     -a (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
     launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK)
@@ -47,6 +47,7 @@ set -l path \
     /usr/local/opt/curl/bin \
     /usr/local/opt/openssl/bin \
     /usr/local/opt/gettext/bin \
+    /usr/local/opt/findutils/libexec/gnubin \
     /usr/local/opt/gnu-sed/libexec/gnubin \
     /usr/local/opt/gnu-tar/libexec/gnubi \
     /usr/local/opt/gnu-which/libexec/gnubi \
@@ -89,6 +90,11 @@ end
 
 if test -d $HOME/.ssh
     cat $HOME/.ssh/*.config > $HOME/.ssh/.config
+end
+
+if test (which src-hilite-lesspipe.sh 2> /dev/null);
+    set -gx LESSOPEN "| src-hilite-lesspipe.sh %s"
+    set -gx LESS " -R "
 end
 
 if not functions -q fisher

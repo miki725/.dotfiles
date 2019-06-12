@@ -1,6 +1,7 @@
 ag
 awscli
 bash
+brew-gem
 browser
 cloc
 colordiff
@@ -41,6 +42,7 @@ jq
 libmagic
 lolcat
 make
+miki725/brews/hint
 moreutils
 mtr
 neovim
@@ -64,6 +66,7 @@ qrencode
 ripgrep
 rsync
 ruby
+source-highlight
 sqlite
 sshuttle
 telnet
