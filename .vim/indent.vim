@@ -15,3 +15,4 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType json setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType tf setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType md setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType fish setlocal ts=4 sts=4 sw=4 noexpandtab
