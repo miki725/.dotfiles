@@ -12,9 +12,10 @@
 [commit]
     gpgsign = true
 [alias]
-    cdiff = "!git diff --cached"
-    edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
     add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
     branch-clean = "!git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs --no-run-if-empty git branch -d"
+    cdiff = "!git diff --cached"
+    edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
     latest = "!git checkout master && git fetch --prune && git rebase origin/master && git branch-clean"
+    undo = "!git reset --soft HEAD~1"
     update = "!git fetch --prune && git rebase origin/master"
