@@ -1,6 +1,5 @@
 function until --description 'run command until it suceeds'
-	while true
-		eval $argv
+	while ! eval $argv
 		sleep 1
 	end
 end
