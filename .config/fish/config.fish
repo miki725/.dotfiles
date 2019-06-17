@@ -60,11 +60,19 @@ for i in $path[-1..1]
     end
 end
 
+if test (which direnv 2> /dev/null)
+    eval (direnv hook fish)
+end
+
 if test (which python3 2> /dev/null); and test (python3 -m virtualfish 2> /dev/null)
     eval (python3 -m virtualfish auto_activation compat_aliases projects)
 end
-if test (which direnv 2> /dev/null)
-    eval (direnv hook fish)
+# sometimes within subshell when VIRTUAL_ENV is already set
+# above PATH adjustements will put VIRTUAL_ENV not on top of PATH
+# hence ignoring most of PATH order
+if set -q VIRTUAL_ENV; and contains $VIRTUAL_ENV/bin $PATH
+	set -e PATH[(contains -i $VIRTUAL_ENV/bin $PATH)]
+	set -gx PATH $VIRTUAL_ENV/bin $PATH
 end
 
 set -l manpath \
