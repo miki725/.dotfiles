@@ -3,6 +3,7 @@ awscli
 bash
 brew-gem
 browser
+ccat
 cloc
 colordiff
 coreutils
