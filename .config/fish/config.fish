@@ -19,18 +19,18 @@ set -gx EDITOR vim
 set -gx GPG_TTY (tty)
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 set -gx SSH_AGENT_PID ""
-gpg-connect-agent updatestartuptty /bye > /dev/null
+gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
 
 # modify macOS system SSH_AUTH_SOCK if it does not match
 # only for non-root user
-if which launchctl > /dev/null
+if which launchctl > /dev/null 2>&1
         and test (id -u) -gt 0
         and test (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
     launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK)
 end
 
 alias l="ls -la"
-if which nvim > /dev/null
+if which nvim > /dev/null 2>&1
     alias vim=nvim
 end
 
@@ -67,11 +67,12 @@ for i in $path[-1..1]
     end
 end
 
-if which direnv > /dev/null
+if which direnv > /dev/null 2>&1
     eval (direnv hook fish)
 end
 
-if which python3 > /dev/null; and python3 -m virtualfish > /dev/null
+if which python3 > /dev/null 2>&1
+        and python3 -m virtualfish > /dev/null 2>&1
     eval (python3 -m virtualfish auto_activation compat_aliases projects)
 end
 # sometimes within subshell when VIRTUAL_ENV is already set
@@ -117,7 +118,7 @@ if test -f /usr/local/share/chtf/chtf.fish
     source /usr/local/share/chtf/chtf.fish
 end
 
-if which itermocil > /dev/null
+if which itermocil > /dev/null 2>&1
     complete -c itermocil -a "(itermocil --list)"
 end
 
@@ -125,7 +126,7 @@ if test -d $HOME/.ssh
     cat $HOME/.ssh/*.config > $HOME/.ssh/.config
 end
 
-if which src-hilite-lesspipe.sh > /dev/null
+if which src-hilite-lesspipe.sh > /dev/null 2>&1
     set -gx LESSOPEN "| src-hilite-lesspipe.sh %s"
     set -gx LESS " -R "
 end
@@ -136,8 +137,8 @@ if not functions -q fisher
     fish -c fisher
 end
 
-if which fortune > /dev/null
-        and which cowsay > /dev/null
+if which fortune > /dev/null 2>&1
+        and which cowsay > /dev/null 2>&1
         and status --is-interactive
     fortune -s | cowsay
 end
