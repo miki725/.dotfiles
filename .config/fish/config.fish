@@ -22,14 +22,17 @@ set -gx SSH_AGENT_PID ""
 gpg-connect-agent updatestartuptty /bye > /dev/null
 
 # modify macOS system SSH_AUTH_SOCK if it does not match
-if test (which launchctl 2> /dev/null) \
-    -a (id -u) -gt 0 \
-    -a (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
+# only for non-root user
+if which launchctl > /dev/null
+        and test (id -u) -gt 0
+        and test (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
     launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK)
 end
 
 alias l="ls -la"
-alias vim=nvim
+if which nvim > /dev/null
+    alias vim=nvim
+end
 
 set -l path \
     $HOME/.local/bin \
@@ -45,6 +48,7 @@ set -l path \
     /usr/local/opt/coreutils/libexec/gnubin \
     /usr/local/opt/coreutils/libexec/gnubi \
     /usr/local/opt/curl/bin \
+    /usr/local/opt/openssl@1.1/bin \
     /usr/local/opt/openssl/bin \
     /usr/local/opt/gettext/bin \
     /usr/local/opt/findutils/libexec/gnubin \
@@ -55,16 +59,19 @@ set -l path \
     /usr/local/opt/ruby/bin
 
 for i in $path[-1..1]
+    while contains $i $PATH
+        set -e PATH[(contains -i $i $PATH)]
+    end
     if test -d $i
         set -gx PATH $i $PATH
     end
 end
 
-if test (which direnv 2> /dev/null)
+if which direnv > /dev/null
     eval (direnv hook fish)
 end
 
-if test (which python3 2> /dev/null); and test (python3 -m virtualfish 2> /dev/null)
+if which python3 > /dev/null; and python3 -m virtualfish > /dev/null
     eval (python3 -m virtualfish auto_activation compat_aliases projects)
 end
 # sometimes within subshell when VIRTUAL_ENV is already set
@@ -73,6 +80,24 @@ end
 if set -q VIRTUAL_ENV; and contains $VIRTUAL_ENV/bin $PATH
 	set -e PATH[(contains -i $VIRTUAL_ENV/bin $PATH)]
 	set -gx PATH $VIRTUAL_ENV/bin $PATH
+end
+
+set -l compilepath \
+    /usr/local/opt/openssl@1.1
+
+for i in $compilepath[-1..1]
+    if test -d $i/lib
+            and not echo $LDFLAGS | grep $i/lib > /dev/null
+        set -gx LDFLAGS "-L$i/lib $LDFLAGS"
+    end
+    if test -d $i/include
+            and not echo $LDFLAGS | grep $i/include > /dev/null
+        set -gx CPPFLAGS "-I$i/include $LDFLAGS"
+    end
+    if test -d $i/lib/pkgconfig
+            and not echo $PKG_CONFIG_PATH | grep $i/lib/pkgconfig > /dev/null
+        set -gx PKG_CONFIG_PATH "$i/lib/pkgconfig:$PKG_CONFIG_PATH"
+    end
 end
 
 set -l manpath \
@@ -92,7 +117,7 @@ if test -f /usr/local/share/chtf/chtf.fish
     source /usr/local/share/chtf/chtf.fish
 end
 
-if test (which itermocil 2> /dev/null)
+if which itermocil > /dev/null
     complete -c itermocil -a "(itermocil --list)"
 end
 
@@ -100,7 +125,7 @@ if test -d $HOME/.ssh
     cat $HOME/.ssh/*.config > $HOME/.ssh/.config
 end
 
-if test (which src-hilite-lesspipe.sh 2> /dev/null);
+if which src-hilite-lesspipe.sh > /dev/null
     set -gx LESSOPEN "| src-hilite-lesspipe.sh %s"
     set -gx LESS " -R "
 end
@@ -111,6 +136,8 @@ if not functions -q fisher
     fish -c fisher
 end
 
-if test (which fortune 2> /dev/null); and test (which cowsay 2> /dev/null); and status --is-interactive
+if which fortune > /dev/null
+        and which cowsay > /dev/null
+        and status --is-interactive
     fortune -s | cowsay
 end
