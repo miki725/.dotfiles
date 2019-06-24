@@ -17,5 +17,6 @@
     cdiff = "!git diff --cached"
     edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
     latest = "!git checkout master && git fetch --prune && git rebase origin/master && git branch-clean"
+    pushu = "!git push origin $(git rev-parse --abbrev-ref HEAD) -u"
     undo = "!git reset --soft HEAD~1"
     update = "!git fetch --prune && git rebase origin/master"
