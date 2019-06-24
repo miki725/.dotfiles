@@ -22,7 +22,8 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 
 Plug 'plasticboy/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 Plug 'vim-python/python-syntax'
 Plug 'Vimjas/vim-python-pep8-indent'
