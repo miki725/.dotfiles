@@ -46,19 +46,21 @@ set -l path \
     $HOME/.pyenv/shims \
     /usr/local/opt/python/libexec/bin \
     /usr/local/opt/coreutils/libexec/gnubin \
-    /usr/local/opt/coreutils/libexec/gnubi \
     /usr/local/opt/curl/bin \
     /usr/local/opt/openssl@1.1/bin \
     /usr/local/opt/openssl/bin \
     /usr/local/opt/gettext/bin \
     /usr/local/opt/findutils/libexec/gnubin \
     /usr/local/opt/gnu-sed/libexec/gnubin \
-    /usr/local/opt/gnu-tar/libexec/gnubi \
-    /usr/local/opt/gnu-which/libexec/gnubi \
+    /usr/local/opt/gnu-tar/libexec/gnubin \
+    /usr/local/opt/gnu-which/libexec/gnubin \
     /usr/local/opt/grep/libexec/gnubin \
     /usr/local/opt/ruby/bin
 
 for i in $path[-1..1]
+    # remove duplicates
+    # cant simply use contains condition since order could be changed
+    # better to remove and then add back to PATH
     while contains $i $PATH
         set -e PATH[(contains -i $i $PATH)]
     end
@@ -67,20 +69,21 @@ for i in $path[-1..1]
     end
 end
 
-if which direnv > /dev/null 2>&1
-    eval (direnv hook fish)
-end
-
-if which python3 > /dev/null 2>&1
-        and python3 -m virtualfish > /dev/null 2>&1
-    eval (python3 -m virtualfish auto_activation compat_aliases projects)
-end
 # sometimes within subshell when VIRTUAL_ENV is already set
 # above PATH adjustements will put VIRTUAL_ENV not on top of PATH
 # hence ignoring most of PATH order
 if set -q VIRTUAL_ENV; and contains $VIRTUAL_ENV/bin $PATH
 	set -e PATH[(contains -i $VIRTUAL_ENV/bin $PATH)]
 	set -gx PATH $VIRTUAL_ENV/bin $PATH
+end
+
+if ! test -e $HOME/.manpath
+    generate_manpath > $HOME/.manpath
+end
+for i in (cat $HOME/.manpath)
+    if test -d $i
+        set -gx MANPATH $i $MANPATH
+    end
 end
 
 set -l compilepath \
@@ -101,13 +104,12 @@ for i in $compilepath[-1..1]
     end
 end
 
-set -l manpath \
-    /usr/local/opt/coreutils/libexec/gnuman
-
-for i in $manpath[-1..1]
-    if test -d $i
-        set -gx MANPATH $i $MANPATH
-    end
+if which python3 > /dev/null 2>&1
+        and python3 -m virtualfish > /dev/null 2>&1
+    eval (python3 -m virtualfish auto_activation compat_aliases projects)
+end
+if which direnv > /dev/null 2>&1
+    eval (direnv hook fish)
 end
 
 if test -e $HOME/.iterm2_shell_integration.fish
