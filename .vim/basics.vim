@@ -36,7 +36,7 @@ autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
 
 " clear scrollback completely when in terminal
 if exists('##TermOpen')
-    command CS call ClearScrollback()
+    command! CS call ClearScrollback()
     autocmd TermOpen * setlocal scrollback=-1
     autocmd TermOpen * tnoremap <c-h> <C-l><C-\><C-n>:CS<CR><s-a>
 endif

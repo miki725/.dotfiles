@@ -33,6 +33,8 @@ Plug 'vim-scripts/fish-syntax'
 
 Plug 'ekalinin/Dockerfile.vim'
 
+Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 Plug 'rhysd/committia.vim'
