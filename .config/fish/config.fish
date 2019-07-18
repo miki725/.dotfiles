@@ -4,7 +4,6 @@ set SPACEFISH_PROMPT_ORDER \
     host \
     git \
     venv \
-    package \
     node \
     docker \
     aws  \
@@ -55,7 +54,8 @@ set -l path \
     /usr/local/opt/gnu-tar/libexec/gnubin \
     /usr/local/opt/gnu-which/libexec/gnubin \
     /usr/local/opt/grep/libexec/gnubin \
-    /usr/local/opt/ruby/bin
+    /usr/local/opt/ruby/bin \
+    /Library/TeX/texbin
 
 for i in $path[-1..1]
     # remove duplicates
