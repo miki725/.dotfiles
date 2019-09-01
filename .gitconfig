@@ -13,7 +13,10 @@
     gpgsign = true
 [alias]
     add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
-    ammend = "!git commit -a --amend"
+    amend = "!git commit -a --amend"
+    amendp = "!git amend && git pushf"
+    ammend = "!git amend"
+    ammendp = "!git amendp"
     branch-clean = "!git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs --no-run-if-empty git branch -d"
     cdiff = "!git diff --cached"
     edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
