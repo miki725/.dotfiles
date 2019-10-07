@@ -7,14 +7,22 @@ function md2pdf-ieee --description 'Convert md to pdb via pandoc with ieee forma
 
     set pandoc_path ~/.pandoc
     set bibliography_path /tmp/bibliography-(openssl rand -hex 10).bib
+    set ieee_path $pandoc_path/IEEEtran.cls
     set template_path $pandoc_path/template-ieee.latex
     set bibliography_csl_path $pandoc_path/bibliography-ieee.csl
 
+    if not test -f $ieee_path
+        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/IEEEtran.cls \
+            > $ieee_path
+    end
     if not test -f $template_path
-        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/template.latex > $template_path
+        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/template.latex \
+            | sed "s#IEEEtran#$HOME/.pandoc/IEEEtran#" \
+            > $template_path
     end
     if not test -f $bibliography_csl_path
-        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/bibliography.csl > $bibliography_csl_path
+        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/bibliography.csl \
+            > $bibliography_csl_path
     end
 
     cat $md_path | python -c "
