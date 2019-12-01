@@ -6,6 +6,13 @@ set termguicolors
 colorscheme monokai
 set mouse=a
 
+set nowrap
+
+" paste from clipboard
+" https://medium.com/swlh/8-vim-tricks-that-will-take-you-from-beginner-to-expert-817ff4870245
+set clipboard=unnamed
+set clipboard=unnamedplus
+
 " show line numbers
 set number
 " highlight current line
@@ -21,6 +28,9 @@ set listchars=tab:▸\ ,eol:¬
 " show all characters
 set conceallevel=0
 
+" spell check words
+autocmd FileType markdown set spell
+
 " allow to cycle from hidden buffers - with unsaved changes
 " http://vimcasts.org/episodes/working-with-buffers/
 set hidden
@@ -30,6 +40,9 @@ set shell=fish
 
 " enable file type detection
 filetype on
+
+" maximize current buffer
+nnoremap <C-\> :call ToggleMaximize()<CR>
 
 " automatically strip trailing whitespace
 autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
@@ -58,15 +71,27 @@ endfunction
 
 " toggle scrollback which allows to clear scrollback in terminal in neovim
 function! ToggleScrollback(...)
-  if &scrollback == 0
-    set scrollback=-1
-  else
-    set scrollback=0
-  endif
+    if &scrollback == 0
+        set scrollback=-1
+    else
+        set scrollback=0
+    endif
 endfunction
 
 function! ClearScrollback()
     call ToggleScrollback()
     let timer = timer_start(5, 'ToggleScrollback', {'repeat': 1})
+endfunction
+
+let s:maximized = 0
+function! ToggleMaximize()
+    if s:maximized
+        wincmd =
+        let s:maximized = 0
+    else
+        wincmd |
+        wincmd _
+        let s:maximized= 1
+    endif
 endfunction
 " }}}

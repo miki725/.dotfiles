@@ -1,9 +1,12 @@
+
 let g:coc_global_extensions = [
+    \'coc-git',
     \'coc-highlight',
     \'coc-json',
     \'coc-python',
+    \'coc-tslint-plugin',
+    \'coc-tsserver',
     \]
-    " \'coc-git', causing buffer to flicker
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -24,14 +27,33 @@ set updatetime=1000
 hi default CocHighlightText guifg=#eef8ff guibg=#e45c58 ctermbg=223
 " }}}
 
+" navigation {{{
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" }}}
+
 " git {{{
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
 " show chunk diff at current position
 nmap gs <Plug>(coc-git-chunkinfo)
-" show commit ad current position
+" show commit at current position
 nmap gc <Plug>(coc-git-commit)
+" }}}
+
+" python {{{
+function! SetPythonInterpreter()
+    call coc#config('python', {
+    \   'pythonPath': split(execute('!which python'), '\n')[-1],
+    \   'linting.flake8Path': split(execute('!which flake8'), '\n')[-1],
+    \   'linting.mypyPath': split(execute('!which mypy'), '\n')[-1],
+    \ })
+endfunction
+call SetPythonInterpreter()
 " }}}
 
 " utility functions {{{
