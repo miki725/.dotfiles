@@ -40,6 +40,7 @@ htop
 httpie
 iperf
 jq
+knot-resolver
 libmagic
 lolcat
 make
@@ -52,9 +53,12 @@ noti
 openssh
 openssl
 openssl@1.1
+pandoc-citeproc
+pandoc-crossref
 paperkey
 par
 pinentry-mac
+pipx
 postgresql
 proxychains-ng
 pv
@@ -65,11 +69,14 @@ python
 python@2
 qrencode
 ripgrep
+rockymadden/rockymadden/slack-cli
+rsvg-convert
 rsync
 ruby
 source-highlight
 sqlite
 sshuttle
+starship
 telnet
 testssl.sh
 the_silver_searcher

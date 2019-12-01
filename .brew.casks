@@ -5,7 +5,6 @@ android-file-transfer
 arduino
 atom
 bartender
-basictex
 cleanmymac3
 dash
 dbeaver-community
@@ -23,6 +22,7 @@ insomnia
 istat-menus
 iterm2
 keybase
+mactext-no-gui
 marshallofsound-google-play-music-player
 monodraw
 netspot
@@ -30,8 +30,9 @@ peakhour
 postman
 proxpn
 pycharm
+screenflow
 serial
-snagit3
+snagit
 soundflower
 station
 sublime-text
@@ -44,3 +45,4 @@ visual-studio-code
 vlc
 waves-central
 wifi-explorer
+wireshark
