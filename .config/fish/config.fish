@@ -1,15 +1,3 @@
-set SPACEFISH_PROMPT_ORDER \
-    user \
-    dir \
-    host \
-    git \
-    venv \
-    node \
-    aws  \
-    exec_time \
-    line_sep \
-    exit_code \
-    char
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/.ripgreprc
 set -gx LANG en_US.UTF-8
@@ -18,6 +6,10 @@ set -gx GPG_TTY (tty)
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 set -gx SSH_AGENT_PID ""
 set -gx N_PREFIX $HOME/.n
+
+if which starship > /dev/null 2>&1
+    starship init fish | source
+end
 
 gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
 
@@ -30,6 +22,7 @@ if which launchctl > /dev/null 2>&1
 end
 
 alias l="ls -la"
+alias fish_config.fish="vim ~/.config/fish/config.fish"
 if which nvim > /dev/null 2>&1
     alias vim=nvim
 end
@@ -98,7 +91,8 @@ for i in (cat $HOME/.manpath)
 end
 
 set -l compilepath \
-    /usr/local/opt/openssl@1.1
+    /usr/local/opt/openssl@1.1 \
+    /usr/local/opt/gmp
 
 for i in $compilepath[-1..1]
     if test -d $i/lib
@@ -106,8 +100,8 @@ for i in $compilepath[-1..1]
         set -gx LDFLAGS "-L$i/lib $LDFLAGS"
     end
     if test -d $i/include
-            and not echo $LDFLAGS | grep $i/include > /dev/null
-        set -gx CPPFLAGS "-I$i/include $LDFLAGS"
+            and not echo $CPPFLAGS | grep $i/include > /dev/null
+        set -gx CPPFLAGS "-I$i/include $CPPFLAGS"
     end
     if test -d $i/lib/pkgconfig
             and not echo $PKG_CONFIG_PATH | grep $i/lib/pkgconfig > /dev/null
@@ -115,10 +109,16 @@ for i in $compilepath[-1..1]
     end
 end
 
+set -l virtualfish_plugins auto_activation compat_aliases projects
 if ! test -e $HOME/.virtualfish.fish
         and which python3 > /dev/null 2>&1
         and python3 -m virtualfish > /dev/null 2>&1
-    python3 -m virtualfish auto_activation compat_aliases projects > $HOME/.virtualfish.fish
+    python3 -m virtualfish $virtualfish_plugins > $HOME/.virtualfish.fish
+end
+if ! test -e $HOME/.virtualfish.fish
+        and test -e $HOME/.local/pipx/venvs/virtualfish/bin/python > /dev/null 2>&1
+        and $HOME/.local/pipx/venvs/virtualfish/bin/python -m virtualfish > /dev/null 2>&1
+    $HOME/.local/pipx/venvs/virtualfish/bin/python -m virtualfish $virtualfish_plugins > $HOME/.virtualfish.fish
 end
 if test -e $HOME/.virtualfish.fish
     source $HOME/.virtualfish.fish
