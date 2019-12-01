@@ -49,10 +49,12 @@ print('\n'.join(
         -t latex \
         -o $pdf_path \
         --standalone \
+        --filter=(which pandoc-crossref) \
+        --filter=(which pandoc-citeproc) \
         --bibliography=$bibliography_path \
         --csl=$bibliography_csl_path \
         --template=$template_path
-    open $pdf_path
+    and open $pdf_path
 
     rm -f $bibliography_path
     rm -f '/tmp/bibliography*.bib'
