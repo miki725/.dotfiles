@@ -25,3 +25,7 @@
     pushu = "!git push origin $(git rev-parse --abbrev-ref HEAD) -u"
     undo = "!git reset --soft HEAD~1"
     update = "!git fetch --prune && git rebase origin/master"
+[rerere]
+    enabled = true
+[diff]
+    noprefix = true
