@@ -19,7 +19,7 @@
     ammendp = "!git amendp"
     branch-clean = "!git branch --merged | egrep -v \"(^\\*|master|dev)\" | xargs --no-run-if-empty git branch -d"
     cdiff = "!git diff --cached"
-    edit-unmerged = "!$EDITOR `git diff --name-only --diff-filter=U`"
+    edit-unmerged = "!$EDITOR -p `git diff --name-only --diff-filter=U`"
     latest = "!git checkout master && git fetch --prune && git rebase origin/master && git branch-clean"
     pushf = "!git push origin +$(git rev-parse --abbrev-ref HEAD)"
     pushu = "!git push origin $(git rev-parse --abbrev-ref HEAD) -u"
