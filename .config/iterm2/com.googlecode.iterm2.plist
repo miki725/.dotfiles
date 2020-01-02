@@ -568,6 +568,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>Default Arrangement Name</key>
+	<string>vim left + 4 right</string>
 	<key>Default Bookmark Guid</key>
 	<string>D1A162DC-5472-4BA6-A19A-CE2DA04E1448</string>
 	<key>DimBackgroundWindows</key>
@@ -779,9 +781,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>120 292 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 70 1370 743 0 0 1440 900 </string>
+	<string>75 60 1370 743 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>55 134 1385 743 0 0 1440 877 </string>
+	<string>0 134 1385 743 0 0 1440 900 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>78 101 1161 641 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -2625,14 +2627,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{266, 745}</string>
+		<string>{269, 595}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>E3BE9CD1-6BCF-4A97-BE76-06F9727E8394</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>25</integer>
+	<integer>33</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3387,16 +3389,16 @@
 	</array>
 	<key>NoSyncSearchHistory2</key>
 	<array>
-		<string>0OB2yaPl1y6NKRRsV2/q8KsiO3J9nrYYcAb9oI9VcXuLnSeoPRVkWnc6OLQ9U+IU</string>
-		<string>runner-i8a6hbm6-gitlab-1574879620-7c1f029e.gc.com</string>
-		<string>tests/test_data</string>
-		<string>skipping</string>
-		<string>a.b</string>
-		<string>OAUTHo</string>
-		<string>oAUTH</string>
-		<string>" 500</string>
-		<string>dire</string>
-		<string>are_plugins</string>
+		<string>webroot</string>
+		<string>portdocker</string>
+		<string>volume</string>
+		<string>ubuntu</string>
+		<string>cert</string>
+		<string>bagel-client</string>
+		<string>bagel-ci</string>
+		<string>progress</string>
+		<string>bagel-clitn</string>
+		<string>restartcount</string>
 	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>577029658.82419395</real>
@@ -3452,7 +3454,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-12-01T17:07:51Z</date>
+	<date>2020-01-01T02:53:54Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3487,6 +3489,8 @@
 	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
+	<key>Window Arrangements</key>
+	<dict/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
