@@ -46,4 +46,6 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'rhysd/committia.vim'
 Plug 'hotwatermorning/auto-git-diff'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 call plug#end()
