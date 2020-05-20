@@ -77,9 +77,11 @@ source-highlight
 sqlite
 sshuttle
 starship
+tcptraceroute
 telnet
 testssl.sh
 the_silver_searcher
+tidy-html5
 tldr
 tmux
 tomanthony/brews/itermocil

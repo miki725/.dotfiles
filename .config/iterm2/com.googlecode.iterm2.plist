@@ -8,6 +8,8 @@
 	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
+	<key>ApplePressAndHoldEnabled</key>
+	<false/>
 	<key>AppleScrollAnimationEnabled</key>
 	<integer>0</integer>
 	<key>AppleSmoothFixedFontsSizeThreshold</key>
@@ -737,8 +739,8 @@
 	<false/>
 	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
 	<array>
-		<string>0.000000, 0.000000, 224.000000, 258.000000, NO, NO</string>
-		<string>0.000000, 259.000000, 224.000000, 48.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 224.000000, 222.000000, NO, NO</string>
+		<string>0.000000, 223.000000, 224.000000, 48.000000, NO, NO</string>
 	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
@@ -747,7 +749,7 @@
 	gAKACoAN0xAJChEVGVdOUy5rZXlzoxITFIADgASABaMWFxiABoAHgAiACVpJZGVudGlm
 	aWVyVVdpZHRoVkhpZGRlblEwI0BowAAAAAAACNIhIiMkWiRjbGFzc25hbWVYJGNsYXNz
 	ZXNcTlNEaWN0aW9uYXJ5oiMlWE5TT2JqZWN00xAJCicrGaMSExSAA4AEgAWjLC0YgAuA
-	DIAIgAlRMSNAdKGdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
+	DIAIgAlRMSNAc7Gdsi0OVtIhIjM0Xk5TTXV0YWJsZUFycmF5ozM1JVdOU0FycmF5XxAP
 	TlNLZXllZEFyY2hpdmVy0Tg5VUFycmF5gAEACAARABoAIwAtADIANwBGAEwAUQBcAGMA
 	ZgBoAGoAbABzAHsAfwCBAIMAhQCJAIsAjQCPAJEAnACiAKkAqwC0ALUAugDFAM4A2wDe
 	AOcA7gDyAPQA9gD4APwA/gEAAQIBBAEGAQ8BFAEjAScBLwFBAUQBSgAAAAAAAAIBAAAA
@@ -768,6 +770,8 @@
 		<key>TB Is Shown</key>
 		<integer>1</integer>
 	</dict>
+	<key>NSWindow Frame NSColorPanel</key>
+	<string>2036 13 224 239 1440 -70 1920 1080 </string>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>115 109 445 281 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
@@ -781,9 +785,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>120 292 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>75 60 1370 743 0 0 1440 900 </string>
+	<string>-439 901 2559 1416 -439 900 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 134 1385 743 0 0 1440 900 </string>
+	<string>52 1319 1385 743 -439 900 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>78 101 1161 641 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -955,12 +959,16 @@
 			<true/>
 			<key>Background Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.16608485579490662</real>
+				<real>0.21965464949607849</real>
+				<key>Color Space</key>
+				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.14745020866394043</real>
+				<real>0.19450768828392029</real>
 				<key>Red Component</key>
-				<real>0.11278382688760757</real>
+				<real>0.15401235222816467</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
@@ -1648,6 +1656,8 @@
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>2</integer>
 			<key>Transparency</key>
 			<real>0.06296002538071066</real>
 			<key>Unicode Version</key>
@@ -2601,16 +2611,23 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.6</string>
-		<string>3.2.9</string>
+		<string>3.3.8</string>
+		<string>3.3.4</string>
 		<string>3.3.1</string>
 		<string>3.3.3</string>
 		<string>3.3.7</string>
+		<string>3.3.9</string>
 		<string>3.3.0</string>
 		<string>3.3.2</string>
-		<string>3.3.4</string>
+		<string>3.2.9</string>
+	</array>
+	<key>NoSyncBFPFavorites</key>
+	<array>
+		<string>Hack Nerd Font</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
+		<string>JetBrains Mono</string>
 		<string>Hack Nerd Font</string>
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
@@ -2625,16 +2642,16 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1440, 900}}</string>
+		<string>{{-439, 900}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{269, 595}</string>
+		<string>{613, 1998}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>E3BE9CD1-6BCF-4A97-BE76-06F9727E8394</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>33</integer>
+	<integer>56</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3375,31 +3392,6 @@
 			</dict>
 		</array>
 	</dict>
-	<key>NoSyncSearchHistory</key>
-	<array>
-		<string>sqs</string>
-		<string>eden</string>
-		<string>memc</string>
-		<string>EDEN_SQS_ENDPOINT</string>
-		<string>queue</string>
-		<string>install</string>
-		<string>intsall</string>
-		<string>mount</string>
-		<string>timeout</string>
-	</array>
-	<key>NoSyncSearchHistory2</key>
-	<array>
-		<string>webroot</string>
-		<string>portdocker</string>
-		<string>volume</string>
-		<string>ubuntu</string>
-		<string>cert</string>
-		<string>bagel-client</string>
-		<string>bagel-ci</string>
-		<string>progress</string>
-		<string>bagel-clitn</string>
-		<string>restartcount</string>
-	</array>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>577029658.82419395</real>
 	<key>PMPrintingExpandedStateForPrint2</key>
@@ -3441,6 +3433,8 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/miki725/.config/iterm2</string>
+	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
+	<false/>
 	<key>Print In Black And White</key>
 	<true/>
 	<key>SUAutomaticallyUpdate</key>
@@ -3454,7 +3448,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-01-01T02:53:54Z</date>
+	<date>2020-05-08T14:01:14Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3462,7 +3456,7 @@
 	<key>SeparateStatusBarsPerPane</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>ShowNewOutputIndicator</key>
 	<true/>
 	<key>ShowPaneTitles</key>
@@ -3481,6 +3475,8 @@
 	<integer>5</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>TabsHaveCloseButton</key>
+	<true/>
 	<key>TraditionalVisualBell</key>
 	<true/>
 	<key>UKCrashReporterLastCrashReportDate</key>
@@ -3491,6 +3487,8 @@
 	<false/>
 	<key>Window Arrangements</key>
 	<dict/>
+	<key>WindowNumber</key>
+	<true/>
 	<key>WordCharacters</key>
 	<string>/-+\~_.</string>
 	<key>findIgnoreCase_iTerm</key>
@@ -3500,7 +3498,7 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>3.3.7</string>
+	<string>3.3.9</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

@@ -25,6 +25,10 @@ alias l="ls -la"
 alias fish_config.fish="vim ~/.config/fish/config.fish"
 if which nvim > /dev/null 2>&1
     alias vim=nvim
+    set -gx EDITOR nvim
+end
+if which fzf > /dev/null 2>&1
+    alias vimz='vim (fzf)'
 end
 
 if not contains $HOME/.fish-path-hook $PATH
