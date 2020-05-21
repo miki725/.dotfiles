@@ -34,6 +34,10 @@ end
 if not contains $HOME/.fish-path-hook $PATH
     set -gx PATH $PATH $HOME/.fish-path-hook
 
+    if ! test -e $HOME/.path
+        generate_path > $HOME/.path
+    end
+
     set path \
         $HOME/.local/bin \
         $HOME/.cargo/bin \
@@ -44,18 +48,7 @@ if not contains $HOME/.fish-path-hook $PATH
         $HOME/.config/yarn/global/node_modules/.bin \
         /usr/local/bin \
         /usr/local/sbin \
-        /usr/local/opt/python/libexec/bin \
-        /usr/local/opt/coreutils/libexec/gnubin \
-        /usr/local/opt/curl/bin \
-        /usr/local/opt/openssl@1.1/bin \
-        /usr/local/opt/openssl/bin \
-        /usr/local/opt/gettext/bin \
-        /usr/local/opt/findutils/libexec/gnubin \
-        /usr/local/opt/gnu-sed/libexec/gnubin \
-        /usr/local/opt/gnu-tar/libexec/gnubin \
-        /usr/local/opt/gnu-which/libexec/gnubin \
-        /usr/local/opt/grep/libexec/gnubin \
-        /usr/local/opt/ruby/bin \
+        (cat $HOME/.path) \
         /Library/TeX/texbin
 
     if test -d $HOME/.pyenv/versions
