@@ -4,7 +4,18 @@ function _ssh_completion() {
 }
 complete -W "$(_ssh_completion)" ssh
 
-PATH=$HOME/bin:$HOME/.cargo/bin:/usr/local/bin:$PATH
+PATH=$HOME/bin:/usr/local/bin:$PATH
+
+if [ -e $HOME/.path ]
+then
+    for i in $(tac $HOME/.path);
+    do
+        if [ -e $i ]
+        then
+            PATH=$i:$PATH
+        fi
+    done
+fi
 export PATH
 
 source $HOME/.bash_prompt.sh

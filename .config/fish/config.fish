@@ -38,26 +38,7 @@ if not contains $HOME/.fish-path-hook $PATH
         generate_path > $HOME/.path
     end
 
-    set path \
-        $HOME/.local/bin \
-        $HOME/.cargo/bin \
-        $HOME/.yarn/bin \
-        $HOME/.n/bin \
-        $HOME/go/bin \
-        $HOME/Library/Python/3.7/bin \
-        $HOME/.config/yarn/global/node_modules/.bin \
-        /usr/local/bin \
-        /usr/local/sbin \
-        (cat $HOME/.path) \
-        /Library/TeX/texbin
-
-    if test -d $HOME/.pyenv/versions
-        for i in (find ~/.pyenv/versions/ -depth 2 -name bin -type d)
-            set -a path $i
-        end
-    end
-
-    for i in $path[-1..1]
+    for i in (cat $HOME/.path)[-1..1]
         # remove duplicates
         # cant simply use contains condition since order could be changed
         # better to remove and then add back to PATH
