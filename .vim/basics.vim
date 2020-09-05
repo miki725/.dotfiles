@@ -19,6 +19,7 @@ set number
 set cursorline
 " show right margin at 120 chars
 set colorcolumn=120
+autocmd FileType markdown setlocal colorcolumn=80
 
 " show hidden chars
 set list
@@ -46,6 +47,11 @@ nnoremap <C-\> :call ToggleMaximize()<CR>
 
 " automatically strip trailing whitespace
 autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
+
+" jump to the last position when reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 " clear scrollback completely when in terminal
 if exists('##TermOpen')

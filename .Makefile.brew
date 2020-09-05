@@ -1,0 +1,241 @@
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+export HOMEBREW_FORCE_BREWED_CURL=1
+
+brew: ## install all brew packages/apps
+brew: brew-libs
+brew: brew-network
+brew: brew-docker
+brew: brew-graphics
+brew: brew-pandoc
+brew: brew-gpg
+brew: brew-libs-other
+brew: brew-casks
+brew: brew-fonts
+	brew cleanup
+
+brew-upgrade: brew-update  ## upgrade all brew packages/apps
+	brew list | grep -v pandoc | xargs brew upgrade
+	brew cask upgrade
+
+brew-update:
+	brew update
+	brew cleanup
+
+brew-libs: brew-update  ## install main brew packages
+	brew install ag
+	brew install bash
+	brew install ccat
+	brew install colordiff
+	brew install coreutils
+	brew install cowsay
+	brew install curl
+	brew install diffutils
+	brew install direnv
+	brew install findutils
+	brew install fish
+	brew install fortune
+	brew install fswatch  # watch files and execute
+	brew install fzf
+	brew install gamechanger/brews/sshtohosts
+	brew install gawk
+	brew install git
+	brew install gnu-sed
+	brew install gnu-tar
+	brew install gnu-which
+	brew install grep
+	brew install gzip
+	brew install htop
+	brew install jq
+	brew install make
+	brew install moreutils
+	brew install n
+	brew install neovim
+	brew install node
+	brew install openssh
+	brew install openssl
+	brew install pipx
+	brew install pyenv
+	brew install python
+	brew install ripgrep
+	brew install source-highlight  # used by less with default highlight
+	brew install starship  # shell prompt
+	brew install tldr
+	brew install tree
+	brew install unzip
+	brew install vim
+	brew install watch
+	brew install wget
+	brew install yq
+
+brew-network: brew-update  ## install network tools
+	# brew install cipherscan  # scan all cipher suites for https
+	# brew install dnsperf  # profile dns server
+	# brew install proxychains-ng  # proxy tcp traffic
+	$(MAKE) brew-cask-osxfuse  # necessary for sshfs
+	brew install iperf
+	brew install mosh  # roaming ssh
+	brew install mtr  # traceroute and ping
+	brew install rsync
+	brew install socat
+	brew install sshfs
+	brew install sshuttle  # proxy over ssh
+	brew install sslscan  # scan all cipher suites for https
+	brew install tcptraceroute
+	brew install telnet
+	brew install termshark
+	brew install testssl  # similar to ssltest in terminal
+	brew install wrk  # http benchmarks
+
+brew-docker: brew-update  ## install docker tools
+	$(MAKE) brew-cask-docker
+	brew install ctop
+	brew install docker-machine
+
+brew-graphics: brew-update
+	# brew install dcraw  # decode raw files
+	# brew install libmagic
+	# brew install qrencode  # generate qrcode
+	# brew install zbar  # reading barcode
+
+/usr/local/Cellar/pandoc:
+	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-2.9.2.1.catalina.bottle.tar.gz \
+		| tar -zxv -C /usr/local/Cellar
+
+/usr/local/Cellar/pandoc-crossref:
+	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-crossref-0.3.6.4.catalina.bottle.tar.gz \
+		| tar -zxv -C /usr/local/Cellar
+
+/usr/local/Cellar/pandoc-citeproc:
+	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-citeproc-0.17.0.1.catalina.bottle.tar.gz \
+		| tar -zxv -C /usr/local/Cellar
+
+brew-pandoc:  ## install pandoc and related tools
+brew-pandoc: /usr/local/Cellar/pandoc
+brew-pandoc: /usr/local/Cellar/pandoc-crossref
+brew-pandoc: /usr/local/Cellar/pandoc-citeproc
+brew-pandoc: brew-update
+	brew install librsvg  # necessary to embed svg images
+	$(MAKE) brew-cask-mactex-no-gui  # latex
+	# brew install pandoc
+	# brew install pandoc-citeproc
+	# brew install pandoc-crossref
+	# manually downloading older versions as newer versions changed pandoc AST
+	# see https://github.com/ickc/pantable
+	# > Warning: panflute and pantable only support pandoc < 2.10 and is so
+	# > far incompatible with pandoc 2.10+. This is because there’s a new AST
+	# > change related to table spans. See https://github.com/jgm/pandoc/issues/1024,
+	# > https://github.com/sergiocorreia/panflute/issues/142. Until that is resolved,
+	# > please stick with 2.9.2.1 or below when used together with pantable.
+
+/usr/local/bin/pinentry-gpg:
+	ln -s $$(which pinentry-mac) /usr/local/bin/pinentry-gpg
+
+brew-gpg: brew-update  ## install gpg tools
+	brew install gnupg
+	brew install pinentry-mac  # gpg pin enter gui
+	$(MAKE) /usr/local/bin/pinentry-gpg
+
+brew-libs-other: brew-update  ## install other brew libs
+	# brew install brew-gem
+	# brew install pv  # monitor pipe progress
+	# brew install rockymadden/rockymadden/slack-cli
+	# brew install tidy-html5
+	# brew install um  # personal man pages
+	# brew install xo/xo/usql  # universal sql client
+	# brew install xz  # data-compession similar to gzip
+	# brew install ykpers  # yubikey personalization
+	# brew install zstd  # data-compression from facebook
+	brew install browser  # pipe html to browser
+	brew install cloc  # stats for code
+	brew install distribution  # histograms
+	brew install drone-cli
+	brew install entr  # watch files and execute - similar to fswatch
+	brew install gamechanger/brews/awsprey
+	brew install gcc
+	brew install gettext  # i18n - internatiolization
+	brew install git-lfs
+	brew install git-quick-stats
+	brew install go
+	brew install knot-resolver  # dnssec resolver
+	brew install libyaml
+	brew install llvm  # clangd for c language server in coc-vim
+	brew install lolcat  # colorful cats
+	brew install miki725/brews/hint
+	brew install noti  # notify when command finishes
+	brew install paperkey  # just secret from gpg key
+	brew install par  # adjust line width in text in vim
+	brew install postgresql
+	brew install ruby
+	brew install source-highlight
+	brew install sqlite
+	brew install tfenv  # change terraform version
+	brew install tidy-html5
+	brew install tmux
+	brew install tomanthony/brews/itermocil  # split screen iterm2
+	brew install watchman  # lib for watching files
+
+brew-cask-%:
+	brew cask list | grep $$(echo $* | tr ":" "/" | rev | cut -d/ -f1 | rev) || brew cask install $(CASK_OPTIONS) $$(echo $* | tr ":" "/")
+
+brew-casks: brew-update  ## install all cask apps
+	# $(MAKE) brew-cask-adoptopenjdk8
+	# $(MAKE) brew-cask-alacritty # gpu terminal emulator
+	# $(MAKE) brew-cask-android-platform-tools
+	# $(MAKE) brew-cask-cool-retro-term
+	# $(MAKE) brew-cask-datagrip
+	# $(MAKE) brew-cask-dbeaver-community
+	# $(MAKE) brew-cask-fluor # change fn keys per app
+	# $(MAKE) brew-cask-hazeover # hide all apps
+	# $(MAKE) brew-cask-homebrew/cask-drivers/yubico-yubikey-manager¬
+	# $(MAKE) brew-cask-homebrew/cask-drivers/yubico-yubikey-personalization-gui
+	# $(MAKE) brew-cask-insomnia # rest apis
+	# $(MAKE) brew-cask-keybase
+	# $(MAKE) brew-cask-openvpn-connect
+	# $(MAKE) brew-cask-serial # serial port connectivity
+	# $(MAKE) brew-cask-textual # irc
+	# $(MAKE) brew-cask-ukelele # keyboard layout
+	# $(MAKE) brew-cask-vagrant
+	# $(MAKE) brew-cask-virtualbox
+	# $(MAKE) brew-cask-wifi-explorer
+	$(MAKE) brew-cask-1password
+	$(MAKE) brew-cask-adobe-creative-cloud
+	$(MAKE) brew-cask-android-file-transfer
+	$(MAKE) brew-cask-arduino
+	$(MAKE) brew-cask-bartender
+	$(MAKE) brew-cask-charles # proxy
+	$(MAKE) brew-cask-chrysalis # keyboardio
+	$(MAKE) brew-cask-cleanmymac
+	$(MAKE) brew-cask-dash
+	$(MAKE) brew-cask-firefox
+	$(MAKE) brew-cask-homebrew:cask-drivers:datacolor-spyder-elite
+	$(MAKE) brew-cask-homebrew:cask-versions:google-chrome-beta
+	$(MAKE) brew-cask-istat-menus
+	$(MAKE) brew-cask-iterm2
+	$(MAKE) brew-cask-loopback
+	$(MAKE) brew-cask-marshallofsound-google-play-music-player
+	$(MAKE) brew-cask-monodraw
+	$(MAKE) brew-cask-moom
+	$(MAKE) brew-cask-netspot
+	$(MAKE) brew-cask-obs
+	$(MAKE) brew-cask-obs-virtualcam
+	$(MAKE) brew-cask-openaudible
+	$(MAKE) brew-cask-peakhour
+	$(MAKE) brew-cask-postman
+	$(MAKE) brew-cask-screen # screen sharing conference
+	$(MAKE) brew-cask-signal-beta
+	$(MAKE) brew-cask-slack
+	$(MAKE) brew-cask-snagit
+	$(MAKE) brew-cask-soundsource
+	$(MAKE) brew-cask-station
+	$(MAKE) brew-cask-sublime-text
+	$(MAKE) brew-cask-teamviewer
+	$(MAKE) brew-cask-vimr
+	$(MAKE) brew-cask-visual-studio-code
+	$(MAKE) brew-cask-vlc
+	$(MAKE) brew-cask-waves-central
+	$(MAKE) brew-cask-wine-stable
+	$(MAKE) brew-cask-wireshark
+
+brew-fonts: brew-update  ## install all fonts
+	$(MAKE) brew-cask-homebrew:cask-fonts:font-hack-nerd-font

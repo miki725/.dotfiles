@@ -11,6 +11,7 @@ set backspace=indent,eol,start
 
 " syntax of these languages is fussy over tabs Vs spaces
 autocmd BufRead,BufNewFile Makefile.* set filetype=make
+autocmd BufRead,BufNewFile .Makefile.* set filetype=make
 autocmd BufRead,BufNewFile *.yml.j2 set filetype=yaml
 autocmd BufRead,BufNewFile *.sh.j2 set filetype=sh
 autocmd BufRead,BufNewFile *.r2py set filetype=python

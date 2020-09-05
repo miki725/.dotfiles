@@ -6,8 +6,18 @@ $HOME/.cargo/bin
 $HOME/.yarn/bin
 $HOME/.n/bin
 $HOME/go/bin
-$HOME/Library/Python/3.7/bin
 $HOME/.config/yarn/global/node_modules/.bin
+"
+
+    if test -d $HOME/Library/Python
+        find $HOME/Library/Python/ -name bin -type d | sort -r
+    end
+
+    if test -d $HOME/.pyenv/versions
+        find $HOME/.pyenv/versions -maxdepth 2 -name bin -type d | sort -r
+    end
+
+    echo -n "\
 /usr/local/bin
 /usr/local/sbin
 "
@@ -19,12 +29,15 @@ $HOME/.config/yarn/global/node_modules/.bin
             | sort
     end
 
+    if test -d /usr/local/Cellar
+        find -L /usr/local/Cellar -maxdepth 3 -type d -name '*bin' \
+            | grep -v '/node_modules/' \
+            | grep -v '/gems/' \
+            | sort
+    end
+
     echo -n "\
 /Library/TeX/texbin
 "
-
-    if test -d $HOME/.pyenv/versions
-        find $HOME/.pyenv/versions -maxdepth 2 -name bin -type d
-    end
 
 end

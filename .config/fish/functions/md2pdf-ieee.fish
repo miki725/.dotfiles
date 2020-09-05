@@ -5,6 +5,7 @@ function md2pdf-ieee --description 'Convert md to pdb via pandoc with ieee forma
 
     mkdir -p ~/.pandoc
 
+    set -gx PYTHONPATH (pandocfilters.sh --python)
     set pandoc_path ~/.pandoc
     set bibliography_path /tmp/bibliography-(openssl rand -hex 10).bib
     set ieee_path $pandoc_path/IEEEtran.cls
@@ -97,8 +98,9 @@ print('\n'.join(
         --csl=$bibliography_csl_path \
         --template=$template_path
     $command
-    and open $pdf_path
+    and open --background $pdf_path
     and rm -f $bibliography_path
     and rm -f '/tmp/bibliography*.bib'
+    and echo (date) "Generated PDF"
     or echo $command
 end

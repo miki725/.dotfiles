@@ -1,11 +1,15 @@
 {
   "coc.preferences.colorSupport": true,
   "diagnostic.checkCurrentLine": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.enable": true,
+  "git.addGBlameToVirtualText": false,
+  "git.enableGutters": true,
   "python.jediEnabled": true,
-  "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.mypyEnabled" : true,
-  "typescript.suggest.autoImports": true,
-  "tslint.autoFixOnSave": true,
-  "git.enableGutters": true
+  "python.linting.pylintEnabled": false,
+  "tslint.autoFixOnSave": false,
+  "tsserver.enableJavascript": true,
+  "typescript.suggest.autoImports": true
 }

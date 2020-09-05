@@ -18,6 +18,8 @@ Plug 'mhinz/vim-startify'
 Plug 'vim-airline/vim-airline'
 " requires to show git branch in airline
 Plug 'itchyny/vim-gitbranch'
+" adds git commands such as :Gdiffssplit for 3-way-merge
+Plug 'tpope/vim-fugitive'
 
 " shows indent indicators
 Plug 'Yggdroot/indentLine'
@@ -28,18 +30,22 @@ Plug 'Yggdroot/indentLine'
 Plug 'Konfekt/FastFold'
 
 " search with Rg with keybindings
-Plug 'miki725/vim-ripgrep'
+Plug 'miki725/vim-ripgrep', { 'on': 'Rg' }
 " saves changes to files from quickfix window
-Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'stefandtw/quickfix-reflector.vim', { 'on': 'Rg' }
 
 " shows file tree
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
 " search files with C-p
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
 
-" Plug 'haya14busa/incsearch.vim'
 " fuzzy search text with z/
+Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
+
+" honors editorconfig configs
+Plug 'editorconfig/editorconfig-vim'
 
 " }}}
 
@@ -52,11 +58,11 @@ Plug 'tpope/vim-rsi'
 " automatically toggle comments with c-<space>
 Plug 'scrooloose/nerdcommenter'
 
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 Plug 'vim-python/python-syntax', {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
@@ -72,10 +78,12 @@ Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
+" git commit window
 Plug 'rhysd/committia.vim'
+" for interactive rebase
 Plug 'hotwatermorning/auto-git-diff'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 
+" use neovim in the browser
 " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 
 call plug#end()

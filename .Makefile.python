@@ -1,0 +1,41 @@
+PYTHON=$(shell which python3)
+
+pipx:  ## install all pipx packages
+	pipx install -e $$HOME/Code/miki725/importanize/
+	pipx install aws-mfa
+	pipx install aws-sam-cli
+	pipx install awscli
+	pipx install black
+	pipx install check-manifest
+	pipx install flake8
+	pipx install httpie
+	pipx install johnnydep
+	pipx install mypy
+	pipx install pandocfilter-sh
+	pipx install pip-tools
+	pipx install pipenv
+	pipx install poetry
+	pipx install pre-commit
+	pipx install ptpython
+	pipx install pygments  # used in hint
+	pipx install python-language-server[rope,pyflakes,flake8,mccabe]
+	pipx install twine
+	pipx install virtualenvwrapper
+	pipx install virtualfish --include-deps
+	pipx runpip flake8 install flake8-bugbear mccabe
+	pipx runpip python-language-server install pyls-black pyls-mypy
+
+pipx-upgrade: ## upgrade pipx packages
+	pipx upgrade-all
+
+pipx-clean:  ## clean pipx
+	rm -rf ~/.local/pipx
+
+pyenv:  ## install diff python versions
+	brew upgrade pyenv
+	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.8.\d+)' | sort -V | tail -1)
+	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.7.\d+)' | sort -V | tail -1)
+	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(2.7.\d+)' | sort -V | tail -1)
+
+pyenv-clean:  ## clean pyenv
+	rm -rf ~/.pyenv

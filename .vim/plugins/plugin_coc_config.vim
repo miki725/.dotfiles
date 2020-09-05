@@ -1,9 +1,13 @@
 
 let g:coc_global_extensions = [
+    \'coc-clangd',
+    \'coc-eslint',
     \'coc-git',
     \'coc-highlight',
     \'coc-json',
+    \'coc-prettier',
     \'coc-python',
+    \'coc-sh',
     \'coc-tslint-plugin',
     \'coc-tsserver',
     \]
@@ -59,6 +63,11 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 " }}}
 
+" actions {{{
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+" }}}
+
 " git {{{
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
@@ -70,14 +79,21 @@ nmap gc <Plug>(coc-git-commit)
 " }}}
 
 " python {{{
-function! SetPythonInterpreter()
-    call coc#config('python', {
-    \   'pythonPath': split(execute('!which python'), '\n')[-1],
-    \   'linting.flake8Path': split(execute('!which flake8'), '\n')[-1],
-    \   'linting.mypyPath': split(execute('!which mypy'), '\n')[-1],
-    \ })
+function! s:SetCocPythonOption(job_id, data, event) dict
+    if (len(a:data[0]) > 0)
+        call coc#config('python', {self.option: a:data[0] })
+        " call append(line('$'), self.option . a:data[0])
+    endif
 endfunction
-call SetPythonInterpreter()
+
+let _ = jobstart(['bash', '-c', 'which python'],
+            \extend({'option': 'pythonPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
+let _ = jobstart(['bash', '-c', 'find $(head -n1 $(which pyls) | cut -d! -f2- | rev | cut -d/ -f3- | rev) -maxdepth 3 -name site-packages -type d'],
+            \extend({'option': 'jediPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
+let _ = jobstart(['bash', '-c', 'which flake8'],
+            \extend({'option': 'linting.flake8Path'}, {'on_stdout': function('s:SetCocPythonOption')}))
+let _ = jobstart(['bash', '-c', 'which mypy'],
+            \extend({'option': 'linting.mypyPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
 " }}}
 
 " utility functions {{{
