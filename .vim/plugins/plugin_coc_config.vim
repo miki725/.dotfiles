@@ -86,14 +86,17 @@ function! s:SetCocPythonOption(job_id, data, event) dict
     endif
 endfunction
 
-let _ = jobstart(['bash', '-c', 'which python'],
-            \extend({'option': 'pythonPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
-let _ = jobstart(['bash', '-c', 'find $(head -n1 $(which pyls) | cut -d! -f2- | rev | cut -d/ -f3- | rev) -maxdepth 3 -name site-packages -type d'],
-            \extend({'option': 'jediPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
-let _ = jobstart(['bash', '-c', 'which flake8'],
-            \extend({'option': 'linting.flake8Path'}, {'on_stdout': function('s:SetCocPythonOption')}))
-let _ = jobstart(['bash', '-c', 'which mypy'],
-            \extend({'option': 'linting.mypyPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
+" jobstart is only in neovim
+if exists("*jobstart")
+    let _ = jobstart(['bash', '-c', 'which python'],
+                \extend({'option': 'pythonPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
+    let _ = jobstart(['bash', '-c', 'find $(head -n1 $(which pyls) | cut -d! -f2- | rev | cut -d/ -f3- | rev) -maxdepth 3 -name site-packages -type d'],
+                \extend({'option': 'jediPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
+    let _ = jobstart(['bash', '-c', 'which flake8'],
+                \extend({'option': 'linting.flake8Path'}, {'on_stdout': function('s:SetCocPythonOption')}))
+    let _ = jobstart(['bash', '-c', 'which mypy'],
+                \extend({'option': 'linting.mypyPath'}, {'on_stdout': function('s:SetCocPythonOption')}))
+endif
 " }}}
 
 " utility functions {{{
