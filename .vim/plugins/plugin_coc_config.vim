@@ -1,3 +1,4 @@
+if PlugLoaded('coc.nvim')
 
 let g:coc_global_extensions = [
     \'coc-clangd',
@@ -106,3 +107,5 @@ function! s:IsPreviousCharWhitespace() abort
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " }}}
+
+endif

@@ -5,6 +5,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+function! PlugLoaded(name)
+    return has_key(g:plugs, a:name) && isdirectory(g:plugs[a:name].dir)
+endfunction
+
 " Define plugins.
 " Can use :PlugInstall to install missing deps and :PlugClean to remove old plugins
 call plug#begin('~/.vim/plugged')
