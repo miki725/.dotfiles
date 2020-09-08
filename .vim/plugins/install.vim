@@ -76,7 +76,9 @@ Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 
 Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+if executable("node") && executable("yarn")
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+endif
 
 " git commit window
 Plug 'rhysd/committia.vim'
