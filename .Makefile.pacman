@@ -38,8 +38,10 @@ pacman-tools: pacman/iproute2  # ip
 pacman-tools: pacman/mosh
 pacman-tools: pacman/neovim
 pacman-tools: pacman/net-tools  # ifconfig
+pacman-tools: pacman/nodejs
 pacman-tools: pacman/openssh
 pacman-tools: pacman/pacman-contrib  # rankmirrors
+pacman-tools: pacman/pyenv
 pacman-tools: pacman/python
 pacman-tools: pacman/ripgrep
 pacman-tools: pacman/screen

@@ -32,7 +32,6 @@ pipx-clean:  ## clean pipx
 	rm -rf ~/.local/pipx
 
 pyenv:  ## install diff python versions
-	brew upgrade pyenv
 	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.8.\d+)' | sort -V | tail -1)
 	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.7.\d+)' | sort -V | tail -1)
 	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(2.7.\d+)' | sort -V | tail -1)
