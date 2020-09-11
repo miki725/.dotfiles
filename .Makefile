@@ -9,12 +9,14 @@ OS=$(shell uname)
 include .Makefile.brew
 include .Makefile.fsh
 include .Makefile.node
+include .Makefile.pacman
 include .Makefile.python
 include .Makefile.vim
 
 all:  ## install everything
 all: mac
 all: brew
+all: pacman
 all: pyenv
 all: pipx
 all: npm
@@ -22,12 +24,14 @@ all: fish
 
 upgrade:  ## upgrade everything
 upgrade: brew-upgrade
+upgrade: pacman-upgrade
 upgrade: pipx-upgrade
 upgrade: pyenv
 upgrade: npm-upgrade
 
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
+mac: .iterm2_shell_integration.fish
 	defaults write -g KeyRepeat -int 1
 else
 mac:

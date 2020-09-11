@@ -102,21 +102,6 @@ for i in $compilepath[-1..1]
     end
 end
 
-set -l virtualfish_plugins auto_activation compat_aliases projects
-if ! test -e $HOME/.virtualfish.fish
-        and which python3 > /dev/null 2>&1
-        and python3 -m virtualfish > /dev/null 2>&1
-    python3 -m virtualfish $virtualfish_plugins > $HOME/.virtualfish.fish
-end
-if ! test -e $HOME/.virtualfish.fish
-        and test -e $HOME/.local/pipx/venvs/virtualfish/bin/python > /dev/null 2>&1
-        and $HOME/.local/pipx/venvs/virtualfish/bin/python -m virtualfish > /dev/null 2>&1
-    $HOME/.local/pipx/venvs/virtualfish/bin/python -m virtualfish $virtualfish_plugins > $HOME/.virtualfish.fish
-end
-if test -e $HOME/.virtualfish.fish
-    source $HOME/.virtualfish.fish
-end
-
 if which direnv > /dev/null 2>&1
     eval (direnv hook fish)
 end

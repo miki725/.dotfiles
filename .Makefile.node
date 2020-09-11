@@ -1,9 +1,12 @@
 npm:  ## install global node deps
-	npm install -g doctoc
-	npm install -g npm
-	npm install -g prettier
-	npm install -g yarn
-	npm install -g yarn-why
+npm: npm/doctoc.install
+npm: npm/npm.install
+npm: npm/prettier.install
+npm: npm/yarn.install
+npm: npm/yarn-why.install
 
 npm-upgrade:  ## upgrade npm deps
 	npm upgrade -g
+
+npm/%.install:
+	npm install -g $*

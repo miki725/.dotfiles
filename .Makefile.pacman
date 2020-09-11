@@ -1,0 +1,91 @@
+PACMAN_MIRRORS=/tmp/pacman-mirrors
+
+PACMAN=$(shell which pacman 2> /dev/null)
+
+ifneq "$(PACMAN)" ""
+pacman:  ## install pacman packages
+pacman: pacman-mirrors
+pacman: pacman-tools
+pacman: pacman-yay
+else
+pacman:
+endif
+
+ifneq "$(PACMAN)" ""
+pacman-upgrade:  ## upgrade all pacman packages
+	yay -Suy
+else
+pacman:
+endif
+
+pacman-tools:
+pacman-tools: pacman-update
+pacman-tools: pacman/arch-install-scripts  # genfstab
+pacman-tools: pacman/base-devel # sudo, which, sed, etc
+pacman-tools: pacman/bind  # dig
+pacman-tools: pacman/colordiff
+pacman-tools: pacman/coreutils
+pacman-tools: pacman/curl
+pacman-tools: pacman/docker
+pacman-tools: pacman/fish
+pacman-tools: pacman/fzf
+pacman-tools: pacman/git
+pacman-tools: pacman/go  # required for yay
+pacman-tools: pacman/htop
+pacman-tools: pacman/inetutils  # telnet, ftp
+pacman-tools: pacman/iperf
+pacman-tools: pacman/iproute2  # ip
+pacman-tools: pacman/mosh
+pacman-tools: pacman/neovim
+pacman-tools: pacman/net-tools  # ifconfig
+pacman-tools: pacman/openssh
+pacman-tools: pacman/pacman-contrib  # rankmirrors
+pacman-tools: pacman/python
+pacman-tools: pacman/ripgrep
+pacman-tools: pacman/screen
+pacman-tools: pacman/tcpdump
+pacman-tools: pacman/traceroute
+pacman-tools: pacman/tree
+pacman-tools: pacman/wget
+pacman-tools: pacman/wireshark-cli
+
+pacman-yay:  ## install AUR package manager
+pacman-yay: pacman-tools
+pacman-yay: /usr/bin/yay
+pacman-yay: pacman-yay/ctop-bin
+pacman-yay: pacman-yay/termshark
+
+pacman-mirrors: pacman-update
+pacman-mirrors: pacman/pacman-contrib
+pacman-mirrors: $(PACMAN_MIRRORS)
+
+pacman-update:
+	pacman -Sy
+
+$(PACMAN_MIRRORS):
+	curl -s "https://www.archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" \
+		| sed -e 's/^#Server/Server/' -e '/^#/d' \
+		| rankmirrors -n 5 - \
+		| tee $(PACMAN_MIRRORS)
+	cp -f $(PACMAN_MIRRORS) /etc/pacman.d/mirrorlist
+	pacman -Sy
+
+pacman/%:
+	pacman -S --needed --noconfirm $*
+
+pacman-yay/%:
+	# needed flag does not seem to be working now
+	# https://github.com/Jguer/yay/issues/885
+	su yay -c 'yay -S --noconfirm $(shell \
+		yay -Qi $* 2>&1 >/dev/null | \
+		grep "error: package" | \
+		grep "was not found" | \
+		cut -d"'" -f2 | \
+		tr "\n" " " \
+	)'
+
+/usr/bin/yay:
+	useradd --system --create-home --groups wheel yay
+	sed -i 's/^#\s*\(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
+	su yay -c "git clone https://aur.archlinux.org/yay.git /tmp/yay"
+	su yay -c "cd /tmp/yay && yes | HOME=/tmp/yay makepkg -si"
