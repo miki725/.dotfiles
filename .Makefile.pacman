@@ -43,6 +43,7 @@ pacman-tools: pacman/openssh
 pacman-tools: pacman/pacman-contrib  # rankmirrors
 pacman-tools: pacman/pyenv
 pacman-tools: pacman/python
+pacman-tools: pacman/python-pipx
 pacman-tools: pacman/ripgrep
 pacman-tools: pacman/screen
 pacman-tools: pacman/tcpdump

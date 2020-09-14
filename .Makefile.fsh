@@ -10,7 +10,6 @@ fish-virtualfish:
 fish-clean:
 	-rm .path
 	-rm .manpath
-	-rm .virtualfish.fish
 	-vf uninstall
 
 fish-upgrade:  ## upgrade fish tools and regeneate computed components
