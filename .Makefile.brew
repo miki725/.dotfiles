@@ -45,6 +45,7 @@ brew-tools: brew/cowsay.install
 brew-tools: brew/curl.install
 brew-tools: brew/diffutils.install
 brew-tools: brew/direnv.install
+brew-tools: brew/fd.install  # better find - used in fzf
 brew-tools: brew/findutils.install
 brew-tools: brew/fish.install
 brew-tools: brew/fortune.install

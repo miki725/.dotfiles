@@ -6,6 +6,9 @@ set termguicolors
 colorscheme monokai
 set mouse=a
 
+set splitright
+set splitbelow
+
 set nowrap
 
 " paste from clipboard
@@ -55,9 +58,14 @@ endif
 
 " clear scrollback completely when in terminal
 if exists('##TermOpen')
+    " start terminal in insert mode
+    autocmd TermOpen * startinsert
+    echo "hello"
+
     command! CS call ClearScrollback()
     autocmd TermOpen * setlocal scrollback=-1
-    autocmd TermOpen * tnoremap <c-h> <C-l><C-\><C-n>:CS<CR><s-a>
+    autocmd TermOpen * tnoremap <leader><c-k> <C-l><C-\><C-n>:CS<CR><s-a>
+    autocmd TermOpen * tnoremap <Esc> <C-\><C-n>
 endif
 
 " utility functions {{{
@@ -77,10 +85,10 @@ endfunction
 
 " toggle scrollback which allows to clear scrollback in terminal in neovim
 function! ToggleScrollback(...)
-    if &scrollback == 0
+    if &scrollback == 1
         set scrollback=-1
     else
-        set scrollback=0
+        set scrollback=1
     endif
 endfunction
 

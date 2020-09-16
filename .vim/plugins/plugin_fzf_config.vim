@@ -1,1 +1,1 @@
-nnoremap <C-P> :FZF<CR>
+nnoremap <C-P> :GFiles<CR>

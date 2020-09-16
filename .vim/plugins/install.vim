@@ -20,10 +20,13 @@ Plug 'mhinz/vim-startify'
 
 "status bar on the bottom
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " requires to show git branch in airline
 Plug 'itchyny/vim-gitbranch'
 " adds git commands such as :Gdiffssplit for 3-way-merge
 Plug 'tpope/vim-fugitive'
+" adds Gbrowse to open file in github
+Plug 'tpope/vim-rhubarb'
 
 " shows indent indicators
 Plug 'Yggdroot/indentLine'
@@ -42,7 +45,9 @@ Plug 'stefandtw/quickfix-reflector.vim', { 'on': 'Rg' }
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
 " search files with C-p
-Plug 'junegunn/fzf', { 'on': 'FZF', 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'on': ['FZF', 'GFiles'], 'dir': '~/.fzf', 'do': './install --all' }
+" fzf prompt only list git files
+Plug 'junegunn/fzf.vim', { 'on': 'GFiles' }
 
 " fuzzy search text with z/
 Plug 'haya14busa/incsearch.vim'

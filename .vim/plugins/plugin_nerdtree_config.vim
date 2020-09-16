@@ -1,3 +1,7 @@
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+
 map <leader>t :call NERDTreeToggleInCurDir()<CR>
 
 function! NERDTreeToggleInCurDir()

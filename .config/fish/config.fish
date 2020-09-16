@@ -72,6 +72,7 @@ if which nvim > /dev/null 2>&1
 end
 if which fzf > /dev/null 2>&1
     alias vimz='vim (fzf)'
+    set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 end
 
 if ! test -e $HOME/.manpath
