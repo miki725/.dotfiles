@@ -60,7 +60,6 @@ endif
 if exists('##TermOpen')
     " start terminal in insert mode
     autocmd TermOpen * startinsert
-    echo "hello"
 
     command! CS call ClearScrollback()
     autocmd TermOpen * setlocal scrollback=-1

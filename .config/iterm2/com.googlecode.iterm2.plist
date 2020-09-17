@@ -576,6 +576,8 @@
 	<string>D1A162DC-5472-4BA6-A19A-CE2DA04E1448</string>
 	<key>DimBackgroundWindows</key>
 	<true/>
+	<key>DimInactiveSplitPanes</key>
+	<true/>
 	<key>DimOnlyText</key>
 	<true/>
 	<key>DisableFullscreenTransparency</key>
@@ -726,8 +728,12 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Downloads</string>
+	<string>~/Documents</string>
+	<key>NSNavLastUserSetHideExtensionButtonState</key>
+	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
+	<string>{712, 448}</string>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
@@ -774,6 +780,8 @@
 	<string>2036 13 224 239 1440 -70 1920 1080 </string>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>115 109 445 281 0 0 1680 1027 </string>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>2546 698 347 181 0 0 1440 900 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>520 561 400 129 0 0 1440 877 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
@@ -785,9 +793,9 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>120 292 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1742 -50 1370 743 1440 -234 2560 1417 </string>
+	<string>1440 -246 2034 1417 1440 -246 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>28 40 1370 743 0 0 1440 877 </string>
+	<string>2718 -234 1282 1417 1440 -234 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>78 101 1161 641 0 0 1440 877 </string>
 	<key>New Bookmarks</key>
@@ -2646,16 +2654,16 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{1440, -234}, {2560, 1440}}</string>
+		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{2505, 457}</string>
+		<string>{678, 630}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>E3BE9CD1-6BCF-4A97-BE76-06F9727E8394</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>82</integer>
+	<integer>100</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3038,6 +3046,14 @@
 			</dict>
 			<dict>
 				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>currentTab.currentSession.lastCommand</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
 				<false/>
 				<key>name</key>
 				<string>currentTab</string>
@@ -3396,6 +3412,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>NoSyncSaveDocumentAsPathSet_saveDocumentAs:</key>
+	<true/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>577029658.82419395</real>
 	<key>PMPrintingExpandedStateForPrint2</key>
@@ -3452,7 +3470,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-07-11T16:29:01Z</date>
+	<date>2020-09-16T01:18:11Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -3468,7 +3486,7 @@
 	<key>SoundForEsc</key>
 	<false/>
 	<key>SplitPaneDimmingAmount</key>
-	<real>0.2715369591346154</real>
+	<real>0.13352171985815603</real>
 	<key>StatusBarPosition</key>
 	<integer>0</integer>
 	<key>StretchTabsToFillBar</key>
