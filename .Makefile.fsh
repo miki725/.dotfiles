@@ -2,6 +2,7 @@ fish:  ## install fish deps
 fish: fish-virtualfish
 
 fish-virtualfish:
+	-vf uninstall
 	vf install auto_activation compat_aliases projects
 
 .iterm2_shell_integration.fish:
@@ -10,7 +11,6 @@ fish-virtualfish:
 fish-clean:
 	-rm .path
 	-rm .manpath
-	-vf uninstall
 
 fish-upgrade:  ## upgrade fish tools and regeneate computed components
 fish-upgrade: fish-clean

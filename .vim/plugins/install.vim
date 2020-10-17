@@ -45,9 +45,9 @@ Plug 'stefandtw/quickfix-reflector.vim', { 'on': 'Rg' }
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
 " search files with C-p
-Plug 'junegunn/fzf', { 'on': ['FZF', 'GFiles'], 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'on': ['FZF', 'GFiles', 'Buffers', 'Tags', 'BTags'], 'dir': '~/.fzf', 'do': './install --all' }
 " fzf prompt only list git files
-Plug 'junegunn/fzf.vim', { 'on': 'GFiles' }
+Plug 'junegunn/fzf.vim', { 'on': ['GFiles', 'Buffers', 'Tags', 'BTags'] }
 
 " fuzzy search text with z/
 Plug 'haya14busa/incsearch.vim'
@@ -58,7 +58,8 @@ Plug 'editorconfig/editorconfig-vim'
 
 " }}}
 
-
+" Plug 'vimwiki/vimwiki'
+" Plug 'mattn/calendar-vim'
 
 " allows to nativate with readme keybindings
 " in insert and normal modes - e.g. C-a, C-e
@@ -70,23 +71,20 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'sheerun/vim-polyglot'
+
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
-Plug 'vim-python/python-syntax', {'for': 'python'}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 
-Plug 'vim-scripts/fish-syntax', {'for': 'fish'}
-
-Plug 'ekalinin/Dockerfile.vim', {'for': 'docker'}
-
-Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-
-Plug 'hashivim/vim-terraform', {'for': 'terraform'}
 
 if executable("node") && executable("yarn")
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+endif
+
+if executable("ctags")
+    Plug 'ludovicchabant/vim-gutentags'
 endif
 
 " git commit window

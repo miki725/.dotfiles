@@ -3,6 +3,7 @@ function md2pdf --description 'Convert md to pdb via pandoc and open generated p
     pandoc $md_path \
         --pdf-engine=xelatex \
         -f markdown-smart \
+        --filter pandoc-fignos \
         -t latex-smart \
         -o $pdf_path \
         $argv[2..-1]

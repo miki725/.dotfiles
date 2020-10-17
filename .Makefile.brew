@@ -172,6 +172,7 @@ brew-other: brew/libyaml.install
 brew-other: brew/llvm.install  # clangd for c language server in coc-vim
 brew-other: brew/lolcat.install  # colorful cats
 brew-other: brew/miki725/brews/hint.install
+brew-other: brew/nmap.install
 brew-other: brew/noti.install  # notify when command finishes
 brew-other: brew/paperkey.install  # just secret from gpg key
 brew-other: brew/par.install  # adjust line width in text in vim

@@ -14,6 +14,7 @@ autocmd BufRead,BufNewFile Makefile.* set filetype=make
 autocmd BufRead,BufNewFile .Makefile.* set filetype=make
 autocmd BufRead,BufNewFile *.yml.j2 set filetype=yaml
 autocmd BufRead,BufNewFile *.sh.j2 set filetype=sh
+autocmd BufRead,BufNewFile *.ini.j2 set filetype=dosini
 autocmd BufRead,BufNewFile *.r2py set filetype=python
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
