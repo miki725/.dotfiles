@@ -1,4 +1,8 @@
+$(HOME)/.n/bin/node:
+	bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts
+
 npm:  ## install global node deps
+npm: $(HOME)/.n/bin/node
 npm: npm/doctoc.install
 npm: npm/npm.install
 npm: npm/prettier.install
@@ -9,4 +13,6 @@ npm-upgrade:  ## upgrade npm deps
 	npm upgrade -g
 
 npm/%.install:
-	npm install -g $*
+	npm list -g --depth=0 \
+		| grep $* > /dev/null \
+		|| npm install -g $*
