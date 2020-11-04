@@ -25,6 +25,7 @@ pacman-tools: pacman/base-devel # sudo, which, sed, etc
 pacman-tools: pacman/bind  # dig
 pacman-tools: pacman/colordiff
 pacman-tools: pacman/coreutils
+pacman-tools: pacman/ctags
 pacman-tools: pacman/curl
 pacman-tools: pacman/docker
 pacman-tools: pacman/fish
