@@ -49,6 +49,8 @@ pacman-tools: pacman/python-pipx
 pacman-tools: pacman/ripgrep
 pacman-tools: pacman/screen
 pacman-tools: pacman/tcpdump
+pacman-tools: pacman/tldr
+pacman-tools: pacman/tmux
 pacman-tools: pacman/traceroute
 pacman-tools: pacman/tree
 pacman-tools: pacman/wget
