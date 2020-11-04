@@ -141,6 +141,7 @@ if which fortune > /dev/null 2>&1
 end
 
 if which gpgconf > /dev/null 2>&1
+        and which gpg --card-status > /dev/null 2>&1
     set -gx GPG_TTY (tty)
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     set -gx SSH_AGENT_PID ""
