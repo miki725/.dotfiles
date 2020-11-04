@@ -32,7 +32,12 @@ upgrade: npm-upgrade
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
 mac: .iterm2_shell_integration.fish
+mac: .config/bin/imgcat
 	defaults write -g KeyRepeat -int 1
 else
 mac:
 endif
+
+.config/bin/imgcat:
+	curl https://iterm2.com/utilities/imgcat > ~/.config/bin/imgcat
+	chmod ~/.config/bin/imgcat

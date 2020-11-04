@@ -1,7 +1,7 @@
 PYTHON=$(shell which python3)
 
 pipx:  ## install all pipx packages
-	pipx install -e $$HOME/Code/miki725/importanize/
+	pipx install git+https://github.com/miki725/importanize.git@master
 	pipx install 'aws-mfa'
 	pipx install 'aws-sam-cli'
 	pipx install 'awscli'
