@@ -2,7 +2,7 @@ fish:  ## install fish deps
 fish: fish-virtualfish
 
 fish-virtualfish:
-	-vf uninstall
+	-fish -c 'vf uninstall'
 	vf install auto_activation compat_aliases projects
 
 .iterm2_shell_integration.fish:
