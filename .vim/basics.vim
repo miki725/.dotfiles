@@ -14,7 +14,7 @@ set nowrap
 " paste from clipboard
 " https://medium.com/swlh/8-vim-tricks-that-will-take-you-from-beginner-to-expert-817ff4870245
 set clipboard=unnamed
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 " show line numbers
 set number
