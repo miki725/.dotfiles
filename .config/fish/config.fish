@@ -33,23 +33,12 @@ set -gx EDITOR vim
 set -gx N_PREFIX $HOME/.n
 
 if not contains $HOME/.fish-path-hook $PATH
-    set -gx PATH $PATH $HOME/.fish-path-hook
-
+        and status --is-interactive
     if ! test -e $HOME/.path
         generate_path > $HOME/.path
     end
 
-    for i in (cat $HOME/.path)[-1..1]
-        # remove duplicates
-        # cant simply use contains condition since order could be changed
-        # better to remove and then add back to PATH
-        while contains $i $PATH
-            set -e PATH[(contains -i $i $PATH)]
-        end
-        if test -d $i
-            set -gx PATH $i $PATH
-        end
-    end
+    set -gx PATH (cat $HOME/.path) $HOME/.fish-path-hook
 
     # sometimes within subshell when VIRTUAL_ENV is already set
     # above PATH adjustements will put VIRTUAL_ENV not on top of PATH
@@ -104,6 +93,7 @@ for i in $compilepath[-1..1]
 end
 
 if which direnv > /dev/null 2>&1
+        and status --is-interactive
     eval (direnv hook fish)
 end
 
@@ -129,6 +119,7 @@ if which src-hilite-lesspipe.sh > /dev/null 2>&1
 end
 
 if not functions -q fisher
+        and status --is-interactive
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
     fish -c fisher
@@ -142,6 +133,7 @@ end
 
 if which gpgconf > /dev/null 2>&1
         and which gpg --card-status > /dev/null 2>&1
+        and status --is-interactive
     set -gx GPG_TTY (tty)
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     set -gx SSH_AGENT_PID ""
@@ -155,6 +147,6 @@ if which gpgconf > /dev/null 2>&1
     if which launchctl > /dev/null 2>&1
             and test (id -u) -gt 0
             and test (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
-        launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK)
+        launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK) &
     end
 end
