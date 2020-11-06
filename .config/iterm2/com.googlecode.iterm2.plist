@@ -751,8 +751,8 @@
 	<false/>
 	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
 	<array>
-		<string>0.000000, 0.000000, 228.000000, 294.000000, NO, NO</string>
-		<string>0.000000, 295.000000, 228.000000, 48.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 228.000000, 258.000000, NO, NO</string>
+		<string>0.000000, 259.000000, 228.000000, 48.000000, NO, NO</string>
 	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
@@ -783,7 +783,7 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>2367 -126 228 275 1440 -246 2560 1417 </string>
+	<string>2367 -125 228 239 1440 -246 2560 1417 </string>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>115 109 445 281 0 0 1680 1027 </string>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
@@ -799,7 +799,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>120 292 592 584 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1644 253 1370 743 1440 -246 2560 1417 </string>
+	<string>2265 275 1370 743 1440 -246 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1440 -246 2554 1440 1440 -246 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
@@ -1461,13 +1461,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.20392156862745098</real>
+				<real>0.24705882352941178</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.71372549019607845</real>
+				<real>0.84313725490196079</real>
 				<key>Red Component</key>
-				<real>0.74901960784313726</real>
+				<real>1</real>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -3250,11 +3250,11 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.24705882352941178</real>
+				<real>0.24705882370471954</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.84313725490196079</real>
+				<real>0.84313726425170898</real>
 				<key>Red Component</key>
 				<real>1</real>
 			</dict>
@@ -3497,14 +3497,14 @@
 		<key>screenFrame</key>
 		<string>{{1440, -246}, {2560, 1440}}</string>
 		<key>topLeft</key>
-		<string>{1695, 365}</string>
+		<string>{1719, 401}</string>
 	</dict>
 	<key>NoSyncHaveWarnedAboutPasteConfirmationChange</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>E3BE9CD1-6BCF-4A97-BE76-06F9727E8394</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>119</integer>
+	<integer>120</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -4365,7 +4365,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-11-04T14:41:06Z</date>
+	<date>2020-11-05T14:41:28Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>

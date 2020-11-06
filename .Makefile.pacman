@@ -15,7 +15,7 @@ ifneq "$(PACMAN)" ""
 pacman-upgrade:  ## upgrade all pacman packages
 	yay -Suy
 else
-pacman:
+pacman-upgrade:
 endif
 
 pacman-tools:
