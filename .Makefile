@@ -11,6 +11,7 @@ include .Makefile.fsh
 include .Makefile.node
 include .Makefile.pacman
 include .Makefile.python
+include .Makefile.tmux
 include .Makefile.vim
 
 all:  ## install everything
@@ -21,6 +22,7 @@ all: pyenv
 all: pipx
 all: npm
 all: fish
+all: tmux
 
 upgrade:  ## upgrade everything
 upgrade: brew-upgrade
@@ -28,6 +30,8 @@ upgrade: pacman-upgrade
 upgrade: pipx-upgrade
 upgrade: pyenv
 upgrade: npm-upgrade
+upgrade: fish-upgrade
+upgrade: tmux-upgrade
 
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
