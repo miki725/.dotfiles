@@ -19,6 +19,7 @@ pipx:  ## install all pipx packages
 	pipx install 'pip-tools'
 	pipx install 'pipenv'
 	pipx install 'poetry'
+	pipx install 'powerline-status'
 	pipx install 'pre-commit'
 	pipx install 'ptpython'
 	pipx install 'pygments'  # used in hint
