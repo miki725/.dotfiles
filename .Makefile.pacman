@@ -57,7 +57,7 @@ pacman-tools: pacman/tree
 pacman-tools: pacman/wget
 pacman-tools: pacman/wireshark-cli
 pacman-tools: pacman/xclip
-pacman-tools: pacmna/xorg-xauth  # X server auth
+pacman-tools: pacman/xorg-xauth  # X server auth
 
 pacman-yay:  ## install AUR package manager
 pacman-yay: pacman-tools
