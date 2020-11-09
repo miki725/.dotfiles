@@ -1,0 +1,6 @@
+{
+  "groups": {
+    "mem_usage":                 { "fg": "gray8", "bg": "gray0", "attrs": [] },
+    "mem_usage_gradient":        { "fg": "green_yellow_orange_red", "bg": "gray0", "attrs": [] }
+  }
+}

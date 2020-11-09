@@ -29,6 +29,7 @@ pipx:  ## install all pipx packages
 	pipx install 'virtualenvwrapper'
 	pipx install 'virtualfish' --include-deps
 	pipx runpip flake8 install flake8-bugbear mccabe
+	pipx runpip powerline-status install psutil powerline-mem-segment
 	pipx runpip python-language-server install pyls-black pyls-mypy
 
 pipx-upgrade: ## upgrade pipx packages
