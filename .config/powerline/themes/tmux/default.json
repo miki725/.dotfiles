@@ -16,7 +16,8 @@
       {
         "function": "powerlinemem.mem_usage.mem_swap",
         "args": {
-          "format": "S %s"
+          "format": "S %s",
+          "short": true
         }
       },
       {
