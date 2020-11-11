@@ -14,6 +14,12 @@
         }
       },
       {
+        "function": "powerlinemem.mem_usage.mem_swap",
+        "args": {
+          "format": "S %s"
+        }
+      },
+      {
         "function": "powerline.segments.common.time.date"
       },
       {
