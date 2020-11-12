@@ -1,0 +1,15 @@
+# dont allow super long lines
+--max-columns=150
+--max-columns-preview
+
+# ignores case unless search is made with uppercase
+--smart-case
+
+# https://github.com/BurntSushi/ripgrep/blob/master/FAQ.md#silver-searcher-output
+--colors=line:fg:yellow
+--colors=line:style:bold
+--colors=path:fg:green
+--colors=path:style:bold
+--colors=match:fg:black
+--colors=match:bg:yellow
+--colors=match:style:nobold
