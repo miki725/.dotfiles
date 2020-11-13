@@ -15,5 +15,5 @@ fish-clean:
 fish-upgrade:  ## upgrade fish tools and regeneate computed components
 fish-upgrade: fish-clean
 fish-upgrade: fish-virtualfish
-	fish -c fisher
-	fish -c fish_update_completions
+	fish -c 'fisher update'
+	fish -c 'fish_update_completions'
