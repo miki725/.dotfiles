@@ -29,7 +29,6 @@ pacman-tools: pacman/ctags
 pacman-tools: pacman/curl
 pacman-tools: pacman/docker
 pacman-tools: pacman/docker-compose
-pacman-tools: pacman/fish
 pacman-tools: pacman/fzf
 pacman-tools: pacman/git
 pacman-tools: pacman/go  # required for yay
@@ -63,6 +62,7 @@ pacman-yay:  ## install AUR package manager
 pacman-yay: pacman-tools
 pacman-yay: /usr/bin/yay
 pacman-yay: pacman-yay/ctop-bin
+pacman-yay: pacman-yay/fish-git
 pacman-yay: pacman-yay/termshark
 
 pacman-mirrors: pacman-update
