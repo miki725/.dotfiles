@@ -34,6 +34,7 @@ set -gx N_PREFIX $HOME/.n
 
 if not contains $HOME/.fish-path-hook $PATH
         and status --is-interactive
+        or status --is-login
     if ! test -e $HOME/.path
         generate_path > $HOME/.path
     end
