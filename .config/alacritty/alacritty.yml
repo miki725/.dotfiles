@@ -1,6 +1,6 @@
 shell:
   program: /usr/local/bin/fish
-  args: []
+  args: [--login, -c, tmux]
 
 window:
   dimensions:
