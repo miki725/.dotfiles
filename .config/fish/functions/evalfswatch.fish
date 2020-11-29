@@ -1,6 +1,5 @@
 function evalfswatch
-
-    argparse 'w-watch=' 'r/reset' -- $argv
+    argparse -i 'w-watch=' 'r/reset' -- $argv
     or return
 
     if test -z "$_flag_watch"
@@ -11,7 +10,7 @@ function evalfswatch
         if test -n "$_flag_r"
             reset
         end
-        fswatch $_flag_watch | $argv
+        fswatch $_flag_watch | fish -c "$argv"
         sleep 1
     end
 end
