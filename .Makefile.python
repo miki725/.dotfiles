@@ -33,7 +33,9 @@ pipx:  ## install all pipx packages
 	pipx runpip python-language-server install -U pyls-black pyls-mypy
 
 pipx-upgrade: ## upgrade pipx packages
-	pipx upgrade-all || pipx reinstall-all && $(MAKE) pipx
+	# handle when pipx python version changed
+	black --version || (pipx uninstall-all && $(MAKE) $(OPTIONS) pipx)
+	-pipx upgrade-all
 
 pipx-clean:  ## clean pipx
 	rm -rf ~/.local/pipx
