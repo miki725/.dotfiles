@@ -23,7 +23,7 @@ endif
 ifeq "$(OS)" "Darwin"
 brew-upgrade:  ## upgrade all brew packages/apps
 brew-upgrade: brew-update
-	brew list | grep -v pandoc | xargs brew upgrade
+	brew list --formula | grep -v pandoc | xargs brew upgrade
 	brew cask upgrade
 	brew cleanup
 else
