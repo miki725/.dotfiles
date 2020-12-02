@@ -23,6 +23,7 @@ all: pipx
 all: npm
 all: fish
 all: tmux
+all: git
 
 upgrade:  ## upgrade everything
 upgrade: brew-upgrade
@@ -32,6 +33,7 @@ upgrade: pyenv
 upgrade: npm-upgrade
 upgrade: fish-upgrade
 upgrade: tmux-upgrade
+upgrade: git
 
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
