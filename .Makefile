@@ -50,6 +50,7 @@ endif
 
 git:  ## adjust git cofig - conditionally enable gpg signing
 git: .gitconfig.user
+git: .git-template/hooks/pre-commit
 
 .PHONY: .gitconfig.user
 .gitconfig.user:
@@ -61,3 +62,6 @@ git: .gitconfig.user
 								| grep -oP '(?<=/)([\w]+)')" >> .gitconfig.user && \
 	echo "[commit]" >> .gitconfig.user && \
     echo "    gpgsign = true" >> .gitconfig.user
+
+.git-template/hooks/pre-commit:
+	pre-commit init-templatedir .git-template

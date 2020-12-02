@@ -31,3 +31,5 @@
     noprefix = true
 [pull]
     rebase = false
+[init]
+    templateDir = ~/.git-template
