@@ -1,7 +1,8 @@
 [user]
     name = Miroslav Shubernetskiy
     email = miroslav@miki725.com
-    signingkey = 2850F7E59914A698
+[include]
+    path = .gitconfig.user
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f

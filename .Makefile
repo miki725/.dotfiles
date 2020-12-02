@@ -45,3 +45,16 @@ endif
 .config/bin/imgcat:
 	curl https://iterm2.com/utilities/imgcat > ~/.config/bin/imgcat
 	chmod ~/.config/bin/imgcat
+
+git:  ## adjust git cofig - conditionally enable gpg signing
+git: .gitconfig.user
+
+.PHONY: .gitconfig.user
+.gitconfig.user:
+	@echo > .gitconfig.user
+	@-gpg --list-keys --keyid-format LONG miroslav@miki725.com &> /dev/null && \
+	echo "[user]" > .gitconfig.user && \
+	echo "    signingkey = $$(gpg --list-keys --keyid-format LONG miroslav@miki725.com \
+								| grep '\[S\]' \
+								| grep -oP '(?<=/)([\w]+)')" >> .gitconfig.user
+	cat .gitconfig.user
