@@ -58,4 +58,6 @@ git: .gitconfig.user
 	echo "[user]" > .gitconfig.user && \
 	echo "    signingkey = $$(gpg --list-keys --keyid-format LONG miroslav@miki725.com \
 								| grep '\[S\]' \
-								| grep -oP '(?<=/)([\w]+)')" >> .gitconfig.user
+								| grep -oP '(?<=/)([\w]+)')" >> .gitconfig.user && \
+	echo "[commit]" >> .gitconfig.user && \
+    echo "    gpgsign = true" >> .gitconfig.user

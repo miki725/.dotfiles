@@ -10,8 +10,6 @@
     required = true
 [gpg]
     program = /usr/local/bin/gpg
-[commit]
-    gpgsign = true
 [alias]
     add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
     amend = "!git commit -a --amend"
