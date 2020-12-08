@@ -63,6 +63,7 @@ pacman-yay: pacman-tools
 pacman-yay: /usr/bin/yay
 pacman-yay: pacman-yay/ctop-bin
 pacman-yay: pacman-yay/fish-git
+pacman-yay: pacman-yay/fswatch
 pacman-yay: pacman-yay/termshark
 
 pacman-mirrors: pacman-update
