@@ -32,6 +32,7 @@ pacman-tools: pacman/docker-compose
 pacman-tools: pacman/fzf
 pacman-tools: pacman/git
 pacman-tools: pacman/go  # required for yay
+pacman-tools: pacman/go-yq
 pacman-tools: pacman/gvim  # installs GTK/X support for clipboard forwarding
 pacman-tools: pacman/htop
 pacman-tools: pacman/inetutils  # telnet, ftp
@@ -43,6 +44,7 @@ pacman-tools: pacman/net-tools  # ifconfig
 pacman-tools: pacman/nodejs
 pacman-tools: pacman/openssh
 pacman-tools: pacman/pacman-contrib  # rankmirrors
+pacman-tools: pacman/par  # text reflow
 pacman-tools: pacman/pyenv
 pacman-tools: pacman/python
 pacman-tools: pacman/python-pipx
@@ -62,6 +64,7 @@ pacman-yay:  ## install AUR package manager
 pacman-yay: pacman-tools
 pacman-yay: /usr/bin/yay
 pacman-yay: pacman-yay/ctop-bin
+pacman-yay: pacman-yay/direnv
 pacman-yay: pacman-yay/fish-git
 pacman-yay: pacman-yay/fswatch
 pacman-yay: pacman-yay/termshark
