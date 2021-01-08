@@ -132,7 +132,8 @@ if which fortune > /dev/null 2>&1
     fortune -s | cowsay
 end
 
-if which gpgconf > /dev/null 2>&1
+if not set -q SSH_CONNECTION
+        and which gpgconf > /dev/null 2>&1
         and which gpg --card-status > /dev/null 2>&1
         and status --is-interactive
     set -gx GPG_TTY (tty)
