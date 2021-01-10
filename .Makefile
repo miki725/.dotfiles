@@ -5,6 +5,7 @@ help:  ## show help
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
 
 OS=$(shell uname)
+SYSTEMD=$(shell which systemctl 2> /dev/null)
 
 include .Makefile.brew
 include .Makefile.fsh
@@ -24,6 +25,7 @@ all: npm
 all: fish
 all: tmux
 all: git
+all: gpg
 
 upgrade:  ## upgrade everything
 upgrade: brew-upgrade
@@ -34,6 +36,7 @@ upgrade: npm-upgrade
 upgrade: fish-upgrade
 upgrade: tmux-upgrade
 upgrade: git
+upgrade: gpg
 
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
@@ -65,3 +68,21 @@ git: .git-template/hooks/pre-commit
 
 .git-template/hooks/pre-commit:
 	pre-commit init-templatedir .git-template
+
+gpg:  ## setup gpg config
+gpg: .gnupg/pubring.kbx
+gpg: /etc/ssh/sshd_config
+gpg: .gitconfig.user
+
+.gnupg/pubring.kbx:
+	curl https://keybase.io/miki725/pgp_keys.asc | gpg --import
+
+ifneq "$(SYSTEMD)" ""
+.PHONY: /etc/ssh/sshd_config
+/etc/ssh/sshd_config:
+	grep StreamLocalBindUnlink /etc/ssh/sshd_config &> /dev/null || \
+		echo "StreamLocalBindUnlink yes" >> /etc/ssh/sshd_config
+	systemctl restart sshd.service
+else
+/etc/ssh/sshd_config:
+endif
