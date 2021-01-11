@@ -8,8 +8,6 @@
     smudge = git-lfs smudge -- %f
     process = git-lfs filter-process
     required = true
-[gpg]
-    program = /usr/local/bin/gpg
 [alias]
     add-unmerged = "!git add `git diff --name-only --diff-filter=U`"
     amend = "!git commit -a --amend"

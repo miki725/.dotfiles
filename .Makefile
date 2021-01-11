@@ -64,7 +64,9 @@ git: .git-template/hooks/pre-commit
 								| grep '\[S\]' \
 								| grep -oP '(?<=/)([\w]+)')" >> .gitconfig.user && \
 	echo "[commit]" >> .gitconfig.user && \
-    echo "    gpgsign = true" >> .gitconfig.user
+    echo "    gpgsign = true" >> .gitconfig.user && \
+	echo "[gpg]" >> .gitconfig.user && \
+	echo "    program = $(shell which gpg)" >> .gitconfig.user
 
 .git-template/hooks/pre-commit:
 	pre-commit init-templatedir .git-template
