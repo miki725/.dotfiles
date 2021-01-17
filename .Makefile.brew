@@ -68,6 +68,7 @@ brew-tools: brew/neovim.install
 brew-tools: brew/node.install
 brew-tools: brew/openssh.install
 brew-tools: brew/openssl.install
+brew-tools: brew/pass.install
 brew-tools: brew/pipx.install
 brew-tools: brew/pyenv.install
 brew-tools: brew/python.install
@@ -235,6 +236,7 @@ brew-casks: brew-cask/vlc.install
 brew-casks: brew-cask/waves-central.install
 brew-casks: brew-cask/wine-stable.install
 brew-casks: brew-cask/wireshark.install
+brew-casks: brew-cask/yubico-authenticator.install
 # brew-casks: brew-cask/adoptopenjdk8.install
 # brew-casks: brew-cask/alacritty.install # gpu terminal emulator
 # brew-casks: brew-cask/android-platform-tools.install

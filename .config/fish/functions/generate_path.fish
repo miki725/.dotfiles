@@ -46,6 +46,7 @@ $HOME/.config/yarn/global/node_modules/.bin
 
     echo -n "\
 /Library/TeX/texbin
+/opt/X11/bin
 /usr/bin
 /bin
 /usr/sbin
