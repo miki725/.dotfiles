@@ -16,8 +16,8 @@ include .Makefile.tmux
 include .Makefile.vim
 
 all:  ## install everything
-all: mac
 all: brew
+all: mac
 all: pacman
 all: pyenv
 all: pipx
@@ -29,6 +29,7 @@ all: gpg
 
 upgrade:  ## upgrade everything
 upgrade: brew-upgrade
+upgrade: mac
 upgrade: pacman-upgrade
 upgrade: pipx-upgrade
 upgrade: pyenv
@@ -42,14 +43,24 @@ ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
 mac: .iterm2_shell_integration.fish
 mac: .config/bin/imgcat
+mac: browserpass
 	defaults write -g KeyRepeat -int 1
 else
 mac:
 endif
 
+browserpass:
+	PREFIX='/usr/local/opt/browserpass' \
+		   make hosts-firefox-user \
+		   -f /usr/local/opt/browserpass/lib/browserpass/Makefile
+	PREFIX='/usr/local/opt/browserpass' \
+		   make hosts-firefox-user \
+		   -f /usr/local/opt/browserpass/lib/browserpass/Makefile
+
 .config/bin/imgcat:
+	mkdir -p .config/bin
 	curl https://iterm2.com/utilities/imgcat > ~/.config/bin/imgcat
-	chmod ~/.config/bin/imgcat
+	chmod +x ~/.config/bin/imgcat
 
 git:  ## adjust git cofig - conditionally enable gpg signing
 git: .gitconfig.user
