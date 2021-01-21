@@ -70,6 +70,7 @@ brew-tools: brew/openssh.install
 brew-tools: brew/openssl.install
 brew-tools: brew/pass.install
 brew-tools: brew/pipx.install
+brew-tools: brew/pwgen.install
 brew-tools: brew/pyenv.install
 brew-tools: brew/python.install
 brew-tools: brew/ripgrep.install
