@@ -82,6 +82,7 @@ brew-tools: brew/unzip.install
 brew-tools: brew/vim.install
 brew-tools: brew/watch.install
 brew-tools: brew/wget.install
+brew-tools: brew/ykman.install  # yubikey manager cli version
 brew-tools: brew/yq.install
 
 brew-network:
@@ -194,7 +195,6 @@ brew-other: brew/watchman.install  # lib for watching files
 # brew-other: brew/um.install  # personal man pages
 # brew-other: brew/xo/xo/usql.install  # universal sql client
 # brew-other: brew/xz.install  # data-compession similar to gzip
-# brew-other: brew/ykpers.install  # yubikey personalization
 # brew-other: brew/zstd.install  # data-compression from facebook
 
 brew-casks: ## install all cask apps
@@ -238,6 +238,7 @@ brew-casks: brew-cask/waves-central.install
 brew-casks: brew-cask/wine-stable.install
 brew-casks: brew-cask/wireshark.install
 brew-casks: brew-cask/yubico-authenticator.install
+brew-casks: brew-cask/yubico-yubikey-manager.install
 # brew-casks: brew-cask/adoptopenjdk8.install
 # brew-casks: brew-cask/alacritty.install # gpu terminal emulator
 # brew-casks: brew-cask/android-platform-tools.install
@@ -246,8 +247,6 @@ brew-casks: brew-cask/yubico-authenticator.install
 # brew-casks: brew-cask/dbeaver-community.install
 # brew-casks: brew-cask/fluor.install # change fn keys per app
 # brew-casks: brew-cask/hazeover.install # hide all apps
-# brew-casks: brew-cask/homebrew/cask-drivers/yubico-yubikey-manager¬.install
-# brew-casks: brew-cask/homebrew/cask-drivers/yubico-yubikey-personalization-gui.install
 # brew-casks: brew-cask/insomnia.install # rest apis
 # brew-casks: brew-cask/keybase.install
 # brew-casks: brew-cask/openvpn-connect.install
