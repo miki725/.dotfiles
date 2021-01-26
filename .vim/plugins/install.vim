@@ -40,6 +40,8 @@ Plug 'Konfekt/FastFold'
 Plug 'miki725/vim-ripgrep', { 'on': 'Rg' }
 " saves changes to files from quickfix window
 Plug 'stefandtw/quickfix-reflector.vim', { 'on': 'Rg' }
+" persistent undo history of files
+Plug 'simnalamburt/vim-mundo'
 
 " shows file tree
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
