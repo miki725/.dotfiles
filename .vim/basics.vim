@@ -98,6 +98,21 @@ if has("gui_gtk") || has("gui_gtk2") || has("gui_gnome") || has("unix")
   nnoremap <leader>ch :let @+=expand("%:p:h")<CR>
 endif
 
+" configuring neovim host python {{{
+function! s:SetPythonHostProg(job_id, data, event)
+    if (len(a:data[0]) > 0)
+        execute(a:data[0])
+        " call append(line('$'), a:data[0])
+    endif
+endfunction
+
+" jobstart is only in neovim
+if exists("*jobstart")
+    let _ = jobstart(['neovim2.sh', '--vim'], {'on_stdout': function('s:SetPythonHostProg')})
+    let _ = jobstart(['neovim3.sh', '--vim'], {'on_stdout': function('s:SetPythonHostProg')})
+endif
+" }}}
+
 " utility functions {{{
 " function applies a command and maintains cursor position
 " http://vimcasts.org/episodes/tidying-whitespace/
