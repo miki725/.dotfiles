@@ -41,7 +41,7 @@ Plug 'miki725/vim-ripgrep', { 'on': 'Rg' }
 " saves changes to files from quickfix window
 Plug 'stefandtw/quickfix-reflector.vim', { 'on': 'Rg' }
 " persistent undo history of files
-Plug 'simnalamburt/vim-mundo'
+Plug 'simnalamburt/vim-mundo', { 'on':  [ 'MundoToggle', 'MundoShow'] }
 
 " shows file tree
 Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeFind', 'NERDTreeToggle'] }
