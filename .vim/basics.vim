@@ -113,6 +113,12 @@ if exists("*jobstart")
 endif
 " }}}
 
+" security {{{
+" https://github.com/gopasspw/gopass/blob/master/docs/setup.md#securing-your-editor
+au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+au BufNewFile,BufRead /private/**/gopass** setlocal noswapfile nobackup noundofile
+" }}}
+
 " utility functions {{{
 " function applies a command and maintains cursor position
 " http://vimcasts.org/episodes/tidying-whitespace/
