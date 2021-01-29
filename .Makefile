@@ -42,7 +42,7 @@ upgrade: gpg
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
 mac: .iterm2_shell_integration.fish
-mac: .config/bin/imgcat
+mac: .local/bin/imgcat
 mac: browserpass
 	defaults write -g KeyRepeat -int 1
 else
@@ -57,10 +57,10 @@ browserpass:
 		   make hosts-firefox-user \
 		   -f /usr/local/opt/browserpass/lib/browserpass/Makefile
 
-.config/bin/imgcat:
-	mkdir -p .config/bin
-	curl https://iterm2.com/utilities/imgcat > ~/.config/bin/imgcat
-	chmod +x ~/.config/bin/imgcat
+.local/bin/imgcat:
+	mkdir -p .local/bin
+	curl https://iterm2.com/utilities/imgcat > ~/.local/bin/imgcat
+	chmod +x ~/.local/bin/imgcat
 
 git:  ## adjust git cofig - conditionally enable gpg signing
 git: .gitconfig.user
