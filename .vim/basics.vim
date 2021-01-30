@@ -17,7 +17,7 @@ set clipboard=unnamed
 set clipboard+=unnamedplus
 
 " show line numbers
-set number relativenumber
+set number
 " highlight current line
 set cursorline
 " show right margin at 120 chars

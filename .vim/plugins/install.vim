@@ -15,6 +15,9 @@ call plug#begin('~/.vim/plugged')
 
 " {{{ GENERIC
 
+" toggle relative line number
+Plug 'jeffkreeftmeijer/vim-numbertoggle'
+
 " shows startup screen with most recent files
 Plug 'mhinz/vim-startify'
 
