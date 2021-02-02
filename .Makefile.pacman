@@ -19,7 +19,6 @@ pacman-upgrade:
 endif
 
 pacman-tools:
-pacman-tools: pacman-update
 pacman-tools: pacman/arch-install-scripts  # genfstab
 pacman-tools: pacman/base-devel # sudo, which, sed, etc
 pacman-tools: pacman/bind  # dig
@@ -70,7 +69,6 @@ pacman-yay: pacman-yay/fish-git
 pacman-yay: pacman-yay/fswatch
 pacman-yay: pacman-yay/termshark
 
-pacman-mirrors: pacman-update
 pacman-mirrors: pacman/pacman-contrib
 pacman-mirrors: $(PACMAN_MIRRORS)
 
@@ -85,7 +83,7 @@ $(PACMAN_MIRRORS):
 	cp -f $(PACMAN_MIRRORS) /etc/pacman.d/mirrorlist
 	pacman -Sy
 
-pacman/%:
+pacman/%: pacman-update
 	pacman -S --needed --noconfirm $*
 
 pacman-yay/%:

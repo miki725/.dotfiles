@@ -3,16 +3,16 @@ $(HOME)/.n/bin/node:
 
 npm:  ## install global node deps
 npm: $(HOME)/.n/bin/node
-npm: npm/doctoc.install
-npm: npm/npm.install
-npm: npm/prettier.install
-npm: npm/yarn.install
-npm: npm/yarn-why.install
+npm: npm/doctoc
+npm: npm/npm
+npm: npm/prettier
+npm: npm/yarn
+npm: npm/yarn-why
 
 npm-upgrade:  ## upgrade npm deps
 	npm upgrade -g
 
-npm/%.install:
+npm/%:
 	npm list -g --depth=0 \
 		| grep $* > /dev/null \
 		|| npm install -g $*
