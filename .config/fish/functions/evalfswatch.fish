@@ -1,5 +1,5 @@
 function evalfswatch
-    argparse -i 'w-watch=' 'r/reset' -- $argv
+    argparse -i 'w/watch=' 'r/reset' -- $argv
     or return
 
     if test -z "$_flag_watch"
@@ -10,7 +10,9 @@ function evalfswatch
         if test -n "$_flag_r"
             reset
         end
-        fswatch $_flag_watch | fish -c "$argv"
+        # eval allows to work with expand wildcards
+        # which fswatch does not expand itself
+        eval "fswatch $_flag_watch | fish -c \"$argv\""
         sleep 1
     end
 end
