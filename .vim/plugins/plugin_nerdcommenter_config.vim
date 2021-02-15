@@ -9,6 +9,7 @@ let g:NERDDefaultAlign = 'left'
 
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_java = 1
+let g:NERDAltDelims_c = 1
 
 " Add your own custom formats or override the defaults
 " let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
