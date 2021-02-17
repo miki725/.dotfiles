@@ -54,6 +54,10 @@ if which starship > /dev/null 2>&1
     starship init fish | source
 end
 
+if which zoxide > /dev/null 2>&1
+    zoxide init fish | source
+end
+
 alias l="ls -la"
 alias fish_config.fish="vim ~/.config/fish/config.fish"
 if which nvim > /dev/null 2>&1

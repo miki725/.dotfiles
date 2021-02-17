@@ -37,6 +37,7 @@ pacman-tools: pacman/htop
 pacman-tools: pacman/inetutils  # telnet, ftp
 pacman-tools: pacman/iperf
 pacman-tools: pacman/iproute2  # ip
+pacman-tools: pacman/iptraf-ng # network interface monitoring
 pacman-tools: pacman/lsof
 pacman-tools: pacman/mosh
 pacman-tools: pacman/neovim
@@ -68,6 +69,7 @@ pacman-yay: pacman-yay/direnv
 pacman-yay: pacman-yay/fish-git
 pacman-yay: pacman-yay/fswatch
 pacman-yay: pacman-yay/termshark
+pacman-yay: pacman-yay/zoxide-bin
 
 pacman-mirrors: pacman/pacman-contrib
 pacman-mirrors: $(PACMAN_MIRRORS)

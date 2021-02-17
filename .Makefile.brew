@@ -82,6 +82,7 @@ brew-tools: brew/watch
 brew-tools: brew/wget
 brew-tools: brew/ykman  # yubikey manager cli version
 brew-tools: brew/yq
+brew-tools: brew/zoxide  # cd to folders quickly
 
 brew-network:
 brew-network: brew-cask/osxfuse  # necessary for sshfs
