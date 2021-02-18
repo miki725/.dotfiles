@@ -44,7 +44,6 @@ pacman-tools: pacman/net-tools  # ifconfig
 pacman-tools: pacman/nodejs
 pacman-tools: pacman/openssh
 pacman-tools: pacman/pacman-contrib  # rankmirrors
-pacman-tools: pacman/par  # text reflow
 pacman-tools: pacman/pyenv
 pacman-tools: pacman/python
 pacman-tools: pacman/python-pipx
@@ -68,6 +67,7 @@ pacman-yay: pacman-yay/direnv
 pacman-yay: pacman-yay/fish-git
 pacman-yay: pacman-yay/fswatch
 pacman-yay: pacman-yay/go-yq
+pacman-yay: pacman-yay/par  # text reflow
 pacman-yay: pacman-yay/termshark
 pacman-yay: pacman-yay/zoxide-bin
 
