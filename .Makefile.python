@@ -29,14 +29,14 @@ pipx:  ## install all pipx packages
 	pipx install 'vimwiki-markdown'
 	pipx install 'virtualenvwrapper'
 	pipx install 'virtualfish' --include-deps
-	pipx runpip flake8 install -U flake8-bugbear mccabe
-	pipx runpip powerline-status install -U psutil powerline-mem-segment
-	pipx runpip python-language-server install -U pyls-black pyls-mypy
+	pipx inject flake8 flake8-bugbear mccabe
+	pipx inject powerline-status psutil powerline-mem-segment
+	pipx inject python-language-server pyls-black pyls-mypy
 
 pipx-upgrade: ## upgrade pipx packages
 	# handle when pipx python version changed
 	black --version || (pipx uninstall-all && $(MAKE) $(OPTIONS) pipx)
-	-pipx upgrade-all
+	-pipx upgrade-all --include-injected --skip pandoc-fignos
 
 pipx-clean:  ## clean pipx
 	rm -rf ~/.local/pipx
