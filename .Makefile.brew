@@ -206,12 +206,11 @@ brew-casks: brew-cask/homebrew/cask-versions/google-chrome-beta
 brew-casks: brew-cask/istat-menus
 brew-casks: brew-cask/iterm2
 brew-casks: brew-cask/loopback
-brew-casks: brew-cask/marshallofsound-google-play-music-player
 brew-casks: brew-cask/monodraw
 brew-casks: brew-cask/moom
 brew-casks: brew-cask/netspot
-brew-casks: brew-cask/obs-virtualcam # use stream as webcam input
 brew-casks: brew-cask/obs # stream generation
+brew-casks: brew-cask/obs-virtualcam # use stream as webcam input
 brew-casks: brew-cask/openaudible
 brew-casks: brew-cask/peakhour
 brew-casks: brew-cask/postman
@@ -229,6 +228,7 @@ brew-casks: brew-cask/vlc
 brew-casks: brew-cask/waves-central
 brew-casks: brew-cask/wine-stable
 brew-casks: brew-cask/wireshark
+brew-casks: brew-cask/yt-music
 brew-casks: brew-cask/yubico-authenticator
 brew-casks: brew-cask/yubico-yubikey-manager
 # brew-casks: brew-cask/adoptopenjdk8
