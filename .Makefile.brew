@@ -75,6 +75,7 @@ brew-tools: brew/ripgrep
 brew-tools: brew/source-highlight  # used by less with default highlight
 brew-tools: brew/starship  # shell prompt
 brew-tools: brew/tldr
+brew-tools: brew/tmux-xpanes
 brew-tools: brew/tree
 brew-tools: brew/unzip
 brew-tools: brew/vim
