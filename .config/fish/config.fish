@@ -44,8 +44,7 @@ if not contains $HOME/.fish-path-hook $PATH
     # sometimes within subshell when VIRTUAL_ENV is already set
     # above PATH adjustements will put VIRTUAL_ENV not on top of PATH
     # hence ignoring most of PATH order
-    if set -q VIRTUAL_ENV; and contains $VIRTUAL_ENV/bin $PATH
-        set -e PATH[(contains -i $VIRTUAL_ENV/bin $PATH)]
+    if set -q VIRTUAL_ENV
         set -gx PATH $VIRTUAL_ENV/bin $PATH
     end
 end
