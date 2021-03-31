@@ -13,7 +13,8 @@ endif
 
 ifneq "$(PACMAN)" ""
 pacman-upgrade:  ## upgrade all pacman packages
-	yay -Suy
+	su yay -c 'yay -Suy'
+
 else
 pacman-upgrade:
 endif
