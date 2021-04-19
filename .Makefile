@@ -94,7 +94,9 @@ ifneq "$(SYSTEMD)" ""
 .PHONY: /etc/ssh/sshd_config
 /etc/ssh/sshd_config:
 	grep StreamLocalBindUnlink /etc/ssh/sshd_config &> /dev/null || \
-		echo "StreamLocalBindUnlink yes" >> /etc/ssh/sshd_config
+		echo "StreamLocalBindUnlink yes" >> $@
+	sed 's/^#X11Forwarding.*/X11Forwarding yes/' -i $@
+	sed 's/^#X11UseLocalhost.*/X11UseLocalhost yes/' -i $@
 	systemctl restart sshd.service
 else
 /etc/ssh/sshd_config:

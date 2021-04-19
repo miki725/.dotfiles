@@ -61,6 +61,7 @@ pacman-tools: pacman/wget
 pacman-tools: pacman/wireshark-cli
 pacman-tools: pacman/xclip
 pacman-tools: pacman/xorg-xauth  # X server auth
+pacman-tools: pacman/xorg-xclock
 
 pacman-yay:  ## install AUR package manager
 pacman-yay: pacman-tools
@@ -91,8 +92,9 @@ pacman/%: pacman-update
 	pacman -S --needed --noconfirm $*
 
 pacman-yay/%:
-	# needed flag does not seem to be working now
-	# https://github.com/Jguer/yay/issues/885
+	@# needed flag does not seem to be working now
+	@# https://github.com/Jguer/yay/issues/885
+	# $*
 	su yay -c 'yay -S --noconfirm $(shell \
 		yay -Qi $* 2>&1 >/dev/null | \
 		grep "error: package" | \
