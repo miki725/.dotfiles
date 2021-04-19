@@ -1,34 +1,34 @@
 PYTHON=$(shell which python3)
 
 pipx:  ## install all pipx packages
-	pipx install git+https://github.com/miki725/importanize.git@master
-	pipx install 'aws-mfa'
-	pipx install 'aws-sam-cli'
-	pipx install 'awscli'
-	pipx install 'black'
-	pipx install 'bpytop'
-	pipx install 'certbot'
-	pipx install 'check-manifest'
-	pipx install 'flake8'
-	pipx install 'git-of-theseus' --python=$$(which python3.8)
-	pipx install 'httpie'
-	pipx install 'johnnydep'
-	pipx install 'mypy'
-	pipx install 'neovim-sh'
-	pipx install 'pandoc-fignos<2.3.1'
-	pipx install 'pandocfilter-sh'
-	pipx install 'pip-tools'
-	pipx install 'pipenv'
-	pipx install 'poetry'
-	pipx install 'powerline-status'
-	pipx install 'pre-commit'
-	pipx install 'ptpython'
-	pipx install 'pygments'  # used in hint
-	pipx install 'python-language-server[rope,pyflakes,flake8,mccabe]'
-	pipx install 'twine'
-	pipx install 'vimwiki-markdown'
-	pipx install 'virtualenvwrapper'
-	pipx install 'virtualfish' --include-deps
+	pipx install git+https://github.com/miki725/importanize.git@master $(PIPX_OPTIONS)
+	pipx install 'aws-mfa' $(PIPX_OPTIONS)
+	pipx install 'aws-sam-cli' $(PIPX_OPTIONS)
+	pipx install 'awscli' $(PIPX_OPTIONS)
+	pipx install 'black' $(PIPX_OPTIONS)
+	pipx install 'bpytop' $(PIPX_OPTIONS)
+	pipx install 'certbot' $(PIPX_OPTIONS)
+	pipx install 'check-manifest' $(PIPX_OPTIONS)
+	pipx install 'flake8' $(PIPX_OPTIONS)
+	pipx install 'git-of-theseus' --python=$$(which python3.8) $(PIPX_OPTIONS)
+	pipx install 'httpie' $(PIPX_OPTIONS)
+	pipx install 'johnnydep' $(PIPX_OPTIONS)
+	pipx install 'mypy' $(PIPX_OPTIONS)
+	pipx install 'neovim-sh' $(PIPX_OPTIONS)
+	pipx install 'pandoc-fignos<2.3.1' $(PIPX_OPTIONS)
+	pipx install 'pandocfilter-sh' $(PIPX_OPTIONS)
+	pipx install 'pip-tools' $(PIPX_OPTIONS)
+	pipx install 'pipenv' $(PIPX_OPTIONS)
+	pipx install 'poetry' $(PIPX_OPTIONS)
+	pipx install 'powerline-status' $(PIPX_OPTIONS)
+	pipx install 'pre-commit' $(PIPX_OPTIONS)
+	pipx install 'ptpython' $(PIPX_OPTIONS)
+	pipx install 'pygments'  # used in hint $(PIPX_OPTIONS)
+	pipx install 'python-language-server[rope,pyflakes,flake8,mccabe]' $(PIPX_OPTIONS)
+	pipx install 'twine' $(PIPX_OPTIONS)
+	pipx install 'vimwiki-markdown' $(PIPX_OPTIONS)
+	pipx install 'virtualenvwrapper' $(PIPX_OPTIONS)
+	pipx install 'virtualfish' --include-deps $(PIPX_OPTIONS)
 	pipx inject flake8 flake8-bugbear mccabe
 	pipx inject powerline-status psutil powerline-mem-segment
 	pipx inject python-language-server pyls-black pyls-mypy

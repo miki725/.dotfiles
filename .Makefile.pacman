@@ -51,6 +51,7 @@ pacman-tools: pacman/python
 pacman-tools: pacman/python-pipx
 pacman-tools: pacman/ripgrep
 pacman-tools: pacman/screen
+pacman-tools: pacman/starship
 pacman-tools: pacman/tcpdump
 pacman-tools: pacman/tldr
 pacman-tools: pacman/tmux

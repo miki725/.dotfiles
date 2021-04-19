@@ -1,7 +1,6 @@
-fishpkg/fish-git-util
 edc/bass
 jethrokuan/fzf
 miki725/fish-docker
 oh-my-fish/plugin-hash
 oh-my-fish/plugin-osx
-jorgebucaran/fisher
+re3turn/fish-git-util
