@@ -29,6 +29,7 @@ pacman-tools: pacman/ctags
 pacman-tools: pacman/curl
 pacman-tools: pacman/docker
 pacman-tools: pacman/docker-compose
+pacman-tools: pacman/fd
 pacman-tools: pacman/fish
 pacman-tools: pacman/fzf
 pacman-tools: pacman/git
