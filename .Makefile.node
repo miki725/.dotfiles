@@ -1,3 +1,5 @@
+PATH:=$(HOME)/.n/bin:$(PATH)
+
 $(HOME)/.n/bin/node:
 	bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts
 
