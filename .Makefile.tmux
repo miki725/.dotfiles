@@ -10,5 +10,6 @@ tmux: $(TMUX_TPM)
 
 tmux-upgrade:  ## upgrade tmux packages
 tmux-upgrade: $(TMUX_TPM)
+	cd $(TMUX_TPM) && git pull
 	$(TMUX_TPM)/bin/install_plugins
 	$(TMUX_TPM)/bin/update_plugins all
