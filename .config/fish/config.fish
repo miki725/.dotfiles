@@ -126,7 +126,7 @@ if not functions -q fisher
         and status --is-interactive
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl -sL https://git.io/fisher | source
-    fisher
+    fisher update
 end
 
 if which fortune > /dev/null 2>&1
