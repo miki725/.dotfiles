@@ -220,7 +220,6 @@ brew-casks: brew-cask/signal-beta
 brew-casks: brew-cask/slack
 brew-casks: brew-cask/snagit
 brew-casks: brew-cask/soundsource
-brew-casks: brew-cask/station
 brew-casks: brew-cask/sublime-text
 brew-casks: brew-cask/teamviewer
 brew-casks: brew-cask/vimr
