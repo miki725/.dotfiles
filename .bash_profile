@@ -30,7 +30,7 @@ export NVM_DIR="$HOME/.nvm"
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
-if [ -n $TMUX ]
+if [[ -n "$TMUX" ]]
 then
     exec fish
 fi
