@@ -101,3 +101,15 @@ ifneq "$(SYSTEMD)" ""
 else
 /etc/ssh/sshd_config:
 endif
+
+ssh:  ## setup ssh to allow ssh from gpg key
+ssh: gpg
+ssh: .ssh/authorized_keys
+
+.ssh:
+	mkdir $@
+	chmod 0700 $@
+
+.ssh/authorized_keys: .ssh
+	gpg --export-ssh-key miroslav@miki725.com > $@
+	chmod 0600 $@
