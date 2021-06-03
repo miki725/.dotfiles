@@ -6,6 +6,7 @@ $(HOME)/.n/bin/node:
 npm:  ## install global node deps
 npm: $(HOME)/.n/bin/node
 npm: npm/doctoc
+npm: npm/n
 npm: npm/npm
 npm: npm/prettier
 npm: npm/yarn
