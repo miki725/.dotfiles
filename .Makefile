@@ -80,7 +80,7 @@ git: .git-template/hooks/pre-commit
 	echo "    program = $(shell which gpg)" >> .gitconfig.user
 
 .git-template/hooks/pre-commit:
-	pre-commit init-templatedir .git-template
+	$$(fish --login -c 'which pre-commit') init-templatedir .git-template
 
 gpg:  ## setup gpg config
 gpg: .gnupg/pubring.kbx
