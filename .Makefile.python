@@ -23,7 +23,7 @@ pipx:  ## install all pipx packages
 	pipx install 'powerline-status' $(PIPX_OPTIONS)
 	pipx install 'pre-commit' $(PIPX_OPTIONS)
 	pipx install 'ptpython' $(PIPX_OPTIONS)
-	pipx install 'pygments'  # used in hint $(PIPX_OPTIONS)
+	pipx install 'pygments'  $(PIPX_OPTIONS) # used in hint $(PIPX_OPTIONS)
 	pipx install 'python-language-server[rope,pyflakes,flake8,mccabe]' $(PIPX_OPTIONS)
 	pipx install 'twine' $(PIPX_OPTIONS)
 	pipx install 'vimwiki-markdown' $(PIPX_OPTIONS)
