@@ -10,7 +10,7 @@ pipx:  ## install all pipx packages
 	pipx install 'certbot' $(PIPX_OPTIONS)
 	pipx install 'check-manifest' $(PIPX_OPTIONS)
 	pipx install 'flake8' $(PIPX_OPTIONS)
-	pipx install 'git-of-theseus' --python=$$(which python3.8) $(PIPX_OPTIONS)
+	pipx install 'git-of-theseus' --python=$$(fish --login -c 'which python3.8') $(PIPX_OPTIONS)
 	pipx install 'httpie' $(PIPX_OPTIONS)
 	pipx install 'johnnydep' $(PIPX_OPTIONS)
 	pipx install 'mypy' $(PIPX_OPTIONS)
