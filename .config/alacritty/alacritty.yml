@@ -16,7 +16,7 @@ scrolling:
 
 mouse:
   hide_when_typing: false
-  url:
+  hints:
     # Default:
     #   - (macOS) open
     #   - (Linux/BSD) xdg-open

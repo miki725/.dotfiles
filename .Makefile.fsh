@@ -1,9 +1,10 @@
 fish:  ## install fish deps
+fish: fish-clean
 fish: fish-virtualfish
 
 fish-virtualfish:
-	-vf uninstall
-	if [[ $$(which vf) ]]; then vf install auto_activation compat_aliases projects; fi
+	-fish --login -c 'vf uninstall'
+	fish --login -c 'which vf; and vf install auto_activation compat_aliases projects'
 
 .iterm2_shell_integration.fish:
 	curl -L https://iterm2.com/shell_integration/fish -o ~/.iterm2_shell_integration.fish

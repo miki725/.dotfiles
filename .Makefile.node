@@ -1,7 +1,7 @@
 PATH:=$(HOME)/.n/bin:$(PATH)
 
 $(HOME)/.n/bin/node:
-	bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts
+	bash -c 'bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts'
 
 npm:  ## install global node deps
 npm: $(HOME)/.n/bin/node

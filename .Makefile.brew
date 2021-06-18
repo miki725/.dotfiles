@@ -1,11 +1,12 @@
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_FORCE_BREWED_CURL=1
+BREW=/usr/local/bin/brew
 
 OS=$(shell uname)
 
 ifeq "$(OS)" "Darwin"
-brew: ## install all brew packages/apps
+brew: $(BREW)  ## install all brew packages/apps
 brew: brew-tools
 brew: brew-network
 brew: brew-docker
@@ -21,7 +22,7 @@ brew:
 endif
 
 ifeq "$(OS)" "Darwin"
-brew-upgrade:  ## upgrade all brew packages/apps
+brew-upgrade: $(BREW)  ## upgrade all brew packages/apps
 	brew list --formula | grep -v pandoc | xargs brew upgrade
 	brew upgrade --cask
 	brew cleanup
@@ -29,12 +30,13 @@ else
 brew-upgrade:
 endif
 
-brew-update:
+brew-update: $(BREW)
 	brew update
 	brew cleanup
 
 brew-tools:
 brew-tools: brew/ag
+brew-tools: brew/amar1729/formulae/browserpass
 brew-tools: brew/bash
 brew-tools: brew/ccat
 brew-tools: brew/colordiff
@@ -55,6 +57,7 @@ brew-tools: brew/git
 brew-tools: brew/gnu-sed
 brew-tools: brew/gnu-tar
 brew-tools: brew/gnu-which
+brew-tools: brew/gopass
 brew-tools: brew/grep
 brew-tools: brew/gzip
 brew-tools: brew/htop
@@ -86,13 +89,11 @@ brew-tools: brew/yq
 brew-tools: brew/zoxide  # cd to folders quickly
 
 brew-network:
-brew-network: brew-cask/osxfuse  # necessary for sshfs
 brew-network: brew/iperf
 brew-network: brew/mosh  # roaming ssh
 brew-network: brew/mtr  # traceroute and ping
 brew-network: brew/rsync
 brew-network: brew/socat
-brew-network: brew/sshfs
 brew-network: brew/sshuttle  # proxy over ssh
 brew-network: brew/sslscan  # scan all cipher suites for https
 brew-network: brew/tcptraceroute
@@ -100,6 +101,8 @@ brew-network: brew/telnet
 brew-network: brew/termshark
 brew-network: brew/testssl  # similar to ssltest in terminal
 brew-network: brew/wrk  # http benchmarks
+# brew-network: brew-cask/macfuse  # necessary for sshfs
+# brew-network: brew/sshfs
 # brew-network: brew/cipherscan  # scan all cipher suites for https
 # brew-network: brew/dnsperf  # profile dns server
 # brew-network: brew/proxychains-ng  # proxy tcp traffic
@@ -194,6 +197,7 @@ brew-other: brew/watchman  # lib for watching files
 brew-casks: ## install all cask apps
 brew-casks: brew-cask/1password
 brew-casks: brew-cask/adobe-creative-cloud
+brew-casks: brew-cask/alacritty # gpu terminal emulator
 brew-casks: brew-cask/android-file-transfer
 brew-casks: brew-cask/arduino
 brew-casks: brew-cask/bartender
@@ -201,6 +205,7 @@ brew-casks: brew-cask/charles # proxy
 brew-casks: brew-cask/chrysalis # keyboardio
 brew-casks: brew-cask/cleanmymac
 brew-casks: brew-cask/dash
+brew-casks: brew-cask/ferdi
 brew-casks: brew-cask/firefox
 brew-casks: brew-cask/homebrew/cask-drivers/datacolor-spyder-elite
 brew-casks: brew-cask/homebrew/cask-versions/google-chrome-beta
@@ -214,8 +219,8 @@ brew-casks: brew-cask/obs # stream generation
 brew-casks: brew-cask/obs-virtualcam # use stream as webcam input
 brew-casks: brew-cask/openaudible
 brew-casks: brew-cask/peakhour
+brew-casks: brew-cask/pop # screen sharing conference
 brew-casks: brew-cask/postman
-brew-casks: brew-cask/screen # screen sharing conference
 brew-casks: brew-cask/signal-beta
 brew-casks: brew-cask/slack
 brew-casks: brew-cask/snagit
@@ -228,11 +233,9 @@ brew-casks: brew-cask/vlc
 brew-casks: brew-cask/waves-central
 brew-casks: brew-cask/wine-stable
 brew-casks: brew-cask/wireshark
-brew-casks: brew-cask/yt-music
 brew-casks: brew-cask/yubico-authenticator
 brew-casks: brew-cask/yubico-yubikey-manager
 # brew-casks: brew-cask/adoptopenjdk8
-# brew-casks: brew-cask/alacritty # gpu terminal emulator
 # brew-casks: brew-cask/android-platform-tools
 # brew-casks: brew-cask/cool-retro-term
 # brew-casks: brew-cask/datagrip
@@ -252,13 +255,14 @@ brew-casks: brew-cask/yubico-yubikey-manager
 brew-fonts:  ## install all fonts
 brew-fonts: brew-cask/homebrew/cask-fonts/font-hack-nerd-font
 
-brew/fish: brew-update
-	brew install fish --HEAD
-
 brew/%: brew-update
 	brew install $* $(BREW_OPTIONS)
 
 brew-cask/%: brew-update
 	brew list --cask \
 		| grep $$(echo $* | rev | cut -d/ -f1 | rev) > /dev/null \
-		|| brew cask install $(CASK_OPTIONS) $*
+		|| brew install --cask $(CASK_OPTIONS) $*
+
+$(BREW):
+	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	brew tap homebrew/cask
