@@ -201,6 +201,7 @@ brew-casks: brew-cask/alacritty # gpu terminal emulator
 brew-casks: brew-cask/alfred
 brew-casks: brew-cask/android-file-transfer
 brew-casks: brew-cask/arduino
+brew-casks: brew-cask/audio-hijack
 brew-casks: brew-cask/bartender
 brew-casks: brew-cask/charles # proxy
 brew-casks: brew-cask/chrysalis # keyboardio
@@ -232,7 +233,6 @@ brew-casks: brew-cask/vimr
 brew-casks: brew-cask/visual-studio-code
 brew-casks: brew-cask/vlc
 brew-casks: brew-cask/waves-central
-brew-casks: brew-cask/wine-stable
 brew-casks: brew-cask/wireshark
 brew-casks: brew-cask/yubico-authenticator
 brew-casks: brew-cask/yubico-yubikey-manager
