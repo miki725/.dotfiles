@@ -27,6 +27,7 @@ set -U fish_pager_color_progress brwhite\x1e\x2d\x2dbackground\x3dcyan
 set -U fish_greeting Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive\x20shell
 
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
+set -gx GOPATH $HOME/.go
 set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/.ripgreprc
 set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
