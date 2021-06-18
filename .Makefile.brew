@@ -198,6 +198,7 @@ brew-casks: ## install all cask apps
 brew-casks: brew-cask/1password
 brew-casks: brew-cask/adobe-creative-cloud
 brew-casks: brew-cask/alacritty # gpu terminal emulator
+brew-casks: brew-cask/alfred
 brew-casks: brew-cask/android-file-transfer
 brew-casks: brew-cask/arduino
 brew-casks: brew-cask/bartender
