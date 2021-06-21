@@ -207,7 +207,6 @@ brew-casks: brew-cask/alacritty # gpu terminal emulator
 brew-casks: brew-cask/alfred
 brew-casks: brew-cask/android-file-transfer
 brew-casks: brew-cask/arduino
-brew-casks: brew-cask/audio-hijack
 brew-casks: brew-cask/bartender
 brew-casks: brew-cask/charles # proxy
 brew-casks: brew-cask/chrysalis # keyboardio
