@@ -11,6 +11,7 @@ brew: brew-tools
 brew: brew-network
 brew: brew-docker
 brew: brew-graphics
+brew: brew-music
 brew: brew-pandoc
 brew: brew-gpg
 brew: brew-other
@@ -111,6 +112,11 @@ brew-docker:
 brew-docker: brew-cask/docker
 brew-docker: brew/ctop
 brew-docker: brew/docker-machine
+
+brew-music:
+brew-music: brew-cask/audio-hijack
+brew-music: brew-cask/ilok-license-manager
+brew-music: brew-cask/loopback
 
 brew-graphics:
 # brew-graphics: brew/dcraw  # decode raw files
@@ -213,7 +219,6 @@ brew-casks: brew-cask/homebrew/cask-drivers/datacolor-spyder-elite
 brew-casks: brew-cask/homebrew/cask-versions/google-chrome-beta
 brew-casks: brew-cask/istat-menus
 brew-casks: brew-cask/iterm2
-brew-casks: brew-cask/loopback
 brew-casks: brew-cask/monodraw
 brew-casks: brew-cask/moom
 brew-casks: brew-cask/netspot
