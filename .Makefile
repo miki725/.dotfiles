@@ -50,12 +50,9 @@ mac:
 endif
 
 browserpass:
-	PREFIX='/usr/local/opt/browserpass' \
-		   make hosts-firefox-user \
-		   -f /usr/local/opt/browserpass/lib/browserpass/Makefile
-	PREFIX='/usr/local/opt/browserpass' \
-		   make hosts-firefox-user \
-		   -f /usr/local/opt/browserpass/lib/browserpass/Makefile
+	cat /usr/local/opt/browserpass/lib/browserpass/Makefile | sed 's/Chrome/Chrome Beta/g' \
+	| PREFIX='/usr/local/opt/browserpass' \
+	make -f - hosts-firefox-user hosts-chrome-user
 
 .local/bin/imgcat:
 	mkdir -p .local/bin
