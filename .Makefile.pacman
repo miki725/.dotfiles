@@ -75,6 +75,7 @@ pacman-yay: pacman-yay/go-yq
 pacman-yay: pacman-yay/par  # text reflow
 pacman-yay: pacman-yay/termshark
 pacman-yay: pacman-yay/tfenv
+pacman-yay: pacman-yay/tmux-xpanes
 pacman-yay: pacman-yay/zoxide-bin
 
 pacman-mirrors: pacman/pacman-contrib
