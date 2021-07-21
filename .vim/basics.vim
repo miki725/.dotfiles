@@ -107,8 +107,10 @@ function! s:SetPythonHostProg(job_id, data, event)
 endfunction
 
 " jobstart is only in neovim
-if exists("*jobstart")
+if exists("*jobstart") && exists('neovim2.sh')
     let _ = jobstart(['neovim2.sh', '--vim'], {'on_stdout': function('s:SetPythonHostProg')})
+endif
+if exists("*jobstart") && exists('neovim3.sh')
     let _ = jobstart(['neovim3.sh', '--vim'], {'on_stdout': function('s:SetPythonHostProg')})
 endif
 " }}}
