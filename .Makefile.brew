@@ -72,6 +72,7 @@ brew-tools: brew/openssh
 brew-tools: brew/openssl
 brew-tools: brew/pass
 brew-tools: brew/pipx
+brew-tools: brew/progress  # track progress of io programs like dd
 brew-tools: brew/pwgen
 brew-tools: brew/pyenv
 brew-tools: brew/python
