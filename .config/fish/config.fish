@@ -136,6 +136,7 @@ if which fortune > /dev/null 2>&1
     fortune -s | cowsay
 end
 
+set -gx GNUPGHOME $HOME/.gnupg
 if not set -q SSH_CONNECTION
         and which gpgconf > /dev/null 2>&1
         and gpg --card-status > /dev/null 2>&1
@@ -152,7 +153,10 @@ if not set -q SSH_CONNECTION
     # only for non-root user
     if which launchctl > /dev/null 2>&1
             and test (id -u) -gt 0
-            and test (launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK) != $SSH_AUTH_SOCK
+            and test (
+                launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK 2> /dev/null;
+                or echo $SSH_AUTH_SOCK
+            ) != $SSH_AUTH_SOCK
         launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK) &
     end
 end

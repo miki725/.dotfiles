@@ -93,6 +93,7 @@ git: .git-template/hooks/pre-commit
 
 gpg:  ## setup gpg config
 gpg: .gnupg/pubring.kbx
+gpg: .gnupg/gpg-agent.conf
 gpg: /etc/ssh/sshd_config
 gpg: .gitconfig.user
 	chmod 0700 .gnupg
