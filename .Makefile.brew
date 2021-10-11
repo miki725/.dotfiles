@@ -1,7 +1,16 @@
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_FORCE_BREWED_CURL=1
+export PATH:=/usr/local/bin:/opt/homebrew/bin:$(PATH)
+
+IS_M1=$(shell uname -v | grep -i arm > /dev/null && echo true || echo false)
+ifeq "$(IS_M1)" "true"
+BREW=/opt/homebrew/bin/brew
+BREW_CMD=arch -arm64 brew
+else
 BREW=/usr/local/bin/brew
+BREW_CMD=arch -arm64 brew
+endif
 
 OS=$(shell uname)
 
@@ -24,16 +33,16 @@ endif
 
 ifeq "$(OS)" "Darwin"
 brew-upgrade: $(BREW)  ## upgrade all brew packages/apps
-	brew list --formula | grep -v pandoc | xargs brew upgrade
-	brew upgrade --cask
-	brew cleanup
+	$(BREW_CMD) list --formula | grep -v pandoc | xargs $(BREW_CMD) upgrade
+	$(BREW_CMD) upgrade --cask
+	$(BREW_CMD) cleanup
 else
 brew-upgrade:
 endif
 
 brew-update: $(BREW)
-	brew update
-	brew cleanup
+	$(BREW_CMD) update
+	$(BREW_CMD) cleanup
 
 brew-tools:
 brew-tools: brew/ag
@@ -154,13 +163,9 @@ brew-pandoc: brew-cask/mactex-no-gui  # latex
 # > https://github.com/sergiocorreia/panflute/issues/142. Until that is resolved,
 # > please stick with 2.9.2.1 or below when used together with pantable.
 
-/usr/local/bin/pinentry-gpg:
-	ln -s $$(which pinentry-mac) /usr/local/bin/pinentry-gpg
-
 brew-gpg:
 brew-gpg: brew/gnupg
 brew-gpg: brew/pinentry-mac  # gpg pin enter gui
-brew-gpg: /usr/local/bin/pinentry-gpg
 
 brew-other:
 brew-other: brew/browser  # pipe html to browser
@@ -262,7 +267,7 @@ brew-fonts:  ## install all fonts
 brew-fonts: brew-cask/homebrew/cask-fonts/font-hack-nerd-font
 
 brew/%: brew-update
-	brew install $* $(BREW_OPTIONS)
+	$(BREW_CMD) install $* $(BREW_OPTIONS)
 
 brew-cask/%: brew-update
 	brew list --cask \
@@ -271,4 +276,4 @@ brew-cask/%: brew-update
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	brew tap homebrew/cask
+	$(BREW_CMD) tap homebrew/cask

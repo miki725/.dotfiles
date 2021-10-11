@@ -29,6 +29,7 @@ $HOME/.config/yarn/global/node_modules/.bin
     echo -n "\
 /usr/local/bin
 /usr/local/sbin
+/opt/homebrew/bin
 " | filter_valid_paths
 
     if test -d /usr/local/opt

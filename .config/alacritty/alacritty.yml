@@ -1,6 +1,8 @@
 shell:
-  program: /usr/local/bin/fish
-  args: [--login, -c, tmux]
+  program: /bin/bash
+  args:
+    - --login
+    - .config/alacritty/tmux_or_fish.sh
 
 window:
   dimensions:

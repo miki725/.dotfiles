@@ -44,33 +44,45 @@ mac:  ## adjust various mac settings
 mac: .iterm2_shell_integration.fish
 mac: .local/bin/imgcat
 mac: browserpass
-	defaults write -g KeyRepeat -int 1
+mac: mac-keyboard
 else
 mac:
 endif
 
+mac-keyboard:
+	defaults write -g KeyRepeat -int 1
+
+ifneq "$(wildcard /Applications/iTerm2.app)" ""
 browserpass:
 	cat /usr/local/opt/browserpass/lib/browserpass/Makefile | sed 's/Chrome/Chrome Beta/g' \
 	| PREFIX='/usr/local/opt/browserpass' \
 	make -f - hosts-firefox-user hosts-chrome-user
+else
+browserpass:
+endif
 
+ifneq "$(wildcard /Applications/iTerm2.app)" ""
 .local/bin/imgcat:
 	mkdir -p .local/bin
 	curl https://iterm2.com/utilities/imgcat > ~/.local/bin/imgcat
 	chmod +x ~/.local/bin/imgcat
+else
+.local/bin/imgcat:
+endif
 
 git:  ## adjust git cofig - conditionally enable gpg signing
 git: .gitconfig.user
 git: .git-template/hooks/pre-commit
 
 .PHONY: .gitconfig.user
-.gitconfig.user:
+.gitconfig.user: .gnupg/pubring.kbx
 	@echo > .gitconfig.user
 	@-gpg --list-keys --keyid-format LONG miroslav@miki725.com &> /dev/null && \
 	echo "[user]" > .gitconfig.user && \
 	echo "    signingkey = $$(gpg --list-keys --keyid-format LONG miroslav@miki725.com \
 								| grep '\[S\]' \
-								| grep -oP '(?<=/)([\w]+)')" >> .gitconfig.user && \
+								| cut -d/ -f2 \
+								| awk '{print $$1}')" >> .gitconfig.user && \
 	echo "[commit]" >> .gitconfig.user && \
     echo "    gpgsign = true" >> .gitconfig.user && \
 	echo "[gpg]" >> .gitconfig.user && \
@@ -83,6 +95,15 @@ gpg:  ## setup gpg config
 gpg: .gnupg/pubring.kbx
 gpg: /etc/ssh/sshd_config
 gpg: .gitconfig.user
+	chmod 0700 .gnupg
+
+.gnupg/gpg-agent.conf::
+	echo "enable-ssh-support" > $@
+
+ifneq "$(shell which pinentry-mac 2> /dev/null)" ""
+.gnupg/gpg-agent.conf::
+	echo "pinentry-program $(shell which pinentry-mac)" >> $@
+endif
 
 .gnupg/pubring.kbx:
 	curl https://keybase.io/miki725/pgp_keys.asc | gpg --import

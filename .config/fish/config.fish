@@ -138,7 +138,7 @@ end
 
 if not set -q SSH_CONNECTION
         and which gpgconf > /dev/null 2>&1
-        and which gpg --card-status > /dev/null 2>&1
+        and gpg --card-status > /dev/null 2>&1
         and status --is-interactive
     set -gx GPG_TTY (tty)
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)

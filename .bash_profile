@@ -8,7 +8,7 @@ PATH=$HOME/bin:/usr/local/bin:$PATH
 
 if [ -e $HOME/.path ]
 then
-    for i in $(tac $HOME/.path);
+    for i in $(nl $HOME/.path  | sort -nr | cut -f 2-);
     do
         if [ -e $i ]
         then

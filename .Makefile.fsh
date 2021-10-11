@@ -6,8 +6,12 @@ fish-virtualfish:
 	-fish --login -c 'vf uninstall'
 	fish --login -c 'which vf; and vf install auto_activation compat_aliases projects'
 
+ifneq "$(wildcard /Applications/iTerm2.app)" ""
 .iterm2_shell_integration.fish:
 	curl -L https://iterm2.com/shell_integration/fish -o ~/.iterm2_shell_integration.fish
+else
+.iterm2_shell_integration.fish:
+endif
 
 fish-clean:
 	-rm .path
