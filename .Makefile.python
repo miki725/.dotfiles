@@ -43,10 +43,10 @@ pipx-clean:  ## clean pipx
 
 pyenv:  ## install diff python versions
 pyenv: fish-clean
-	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.9.\d+)' | sort -V | tail -1)
-	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.8.\d+)' | sort -V | tail -1)
-	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.7.\d+)' | sort -V | tail -1)
-	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(2.7.\d+)' | sort -V | tail -1)
+	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.9.\d+)' | sort -V | tail -1)
+	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.8.\d+)' | sort -V | tail -1)
+	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.7.\d+)' | sort -V | tail -1)
+	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(2.7.\d+)' | sort -V | tail -1)
 
 pyenv-clean:  ## clean pyenv
 	rm -rf ~/.pyenv
