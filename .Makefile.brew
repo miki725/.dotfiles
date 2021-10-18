@@ -9,7 +9,7 @@ BREW=/opt/homebrew/bin/brew
 BREW_CMD=arch -arm64 brew
 else
 BREW=/usr/local/bin/brew
-BREW_CMD=arch -arm64 brew
+BREW_CMD=brew
 endif
 
 OS=$(shell uname)
