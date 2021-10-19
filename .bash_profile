@@ -34,3 +34,5 @@ if [[ -n "$TMUX" ]]
 then
     exec fish
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
