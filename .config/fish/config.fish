@@ -160,3 +160,5 @@ if not set -q SSH_CONNECTION
         launchctl asuser (id -u) launchctl setenv SSH_AUTH_SOCK (echo $SSH_AUTH_SOCK) &
     end
 end
+
+fish_vi_key_bindings
