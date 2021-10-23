@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 PATH=$PATH
 if [ -e $HOME/.path ]
@@ -13,4 +13,10 @@ then
 fi
 export PATH
 
-which tmux 2> /dev/null && exec tmux || exec fish --login
+for arg do
+    shift
+    which $(echo "$arg" | awk '{print $1}') > /dev/null 2>&1 && exec $arg
+    set -- "$@" "@arg"
+done
+
+exec sh

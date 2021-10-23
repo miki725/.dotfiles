@@ -2,7 +2,11 @@ shell:
   program: /bin/bash
   args:
     - --login
-    - .config/alacritty/tmux_or_fish.sh
+    - .bin/exec_first_found.sh
+    - tmux
+    - fish --login
+    - bash --login
+    - zsh --login
 
 window:
   dimensions:
