@@ -35,4 +35,4 @@ then
     exec fish
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh 2> /dev/null
