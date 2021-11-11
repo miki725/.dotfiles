@@ -72,6 +72,7 @@ brew-tools: brew/grep
 brew-tools: brew/gzip
 brew-tools: brew/htop
 brew-tools: brew/jq
+brew-tools: brew/lsd
 brew-tools: brew/make
 brew-tools: brew/moreutils
 brew-tools: brew/n

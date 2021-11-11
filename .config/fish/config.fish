@@ -68,6 +68,9 @@ if which fzf > /dev/null 2>&1
     alias vimz='vim (fzf)'
     set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 end
+if which lsd > /dev/null 2>&1
+    alias ls='lsd'
+end
 
 if ! test -e $HOME/.manpath
     generate_manpath > $HOME/.manpath

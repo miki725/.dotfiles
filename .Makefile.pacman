@@ -41,6 +41,7 @@ pacman-tools: pacman/iperf
 pacman-tools: pacman/iproute2  # ip
 pacman-tools: pacman/iptraf-ng # network interface monitoring
 pacman-tools: pacman/jq
+pacman-tools: pacman/lsd
 pacman-tools: pacman/lsof
 pacman-tools: pacman/mosh
 pacman-tools: pacman/neovim
