@@ -25,6 +25,7 @@ pipx:  ## install all pipx packages
 	pipx install 'ptpython' $(PIPX_OPTIONS)
 	pipx install 'pygments'  $(PIPX_OPTIONS) # used in hint $(PIPX_OPTIONS)
 	pipx install 'python-language-server[rope,pyflakes,flake8,mccabe]' $(PIPX_OPTIONS)
+	pipx install 'tmuxp' $(PIPX_OPTIONS)
 	pipx install 'twine' $(PIPX_OPTIONS)
 	pipx install 'vimwiki-markdown' $(PIPX_OPTIONS)
 	pipx install 'virtualenvwrapper' $(PIPX_OPTIONS)
