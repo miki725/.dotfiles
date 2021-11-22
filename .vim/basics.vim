@@ -46,7 +46,9 @@ set shell=fish
 filetype on
 
 " maximize current buffer
-nnoremap <C-\> :call ToggleMaximize()<CR>
+nnoremap <C-\> :MaximizerToggle<CR>
+vnoremap <C-\> :MaximizerToggle<CR>gv
+inoremap <C-\> <C-o>:MaximizerToggle<CR>
 
 " automatically strip trailing whitespace
 autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
@@ -98,23 +100,6 @@ if has("gui_gtk") || has("gui_gtk2") || has("gui_gnome") || has("unix")
   nnoremap <leader>ch :let @+=expand("%:p:h")<CR>
 endif
 
-" configuring neovim host python {{{
-function! s:SetPythonHostProg(job_id, data, event)
-    if (len(a:data[0]) > 0)
-        execute(a:data[0])
-        " call append(line('$'), a:data[0])
-    endif
-endfunction
-
-" jobstart is only in neovim
-if exists("*jobstart") && exists('neovim2.sh')
-    let _ = jobstart(['neovim2.sh', '--vim'], {'on_stdout': function('s:SetPythonHostProg')})
-endif
-if exists("*jobstart") && exists('neovim3.sh')
-    let _ = jobstart(['neovim3.sh', '--vim'], {'on_stdout': function('s:SetPythonHostProg')})
-endif
-" }}}
-
 " security {{{
 " https://github.com/gopasspw/gopass/blob/master/docs/setup.md#securing-your-editor
 au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
@@ -148,17 +133,5 @@ endfunction
 function! ClearScrollback()
     call ToggleScrollback()
     let timer = timer_start(5, 'ToggleScrollback', {'repeat': 1})
-endfunction
-
-let s:maximized = 0
-function! ToggleMaximize()
-    if s:maximized
-        wincmd =
-        let s:maximized = 0
-    else
-        wincmd |
-        wincmd _
-        let s:maximized= 1
-    endif
 endfunction
 " }}}

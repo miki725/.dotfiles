@@ -39,6 +39,9 @@ Plug 'Yggdroot/indentLine'
 " especially in markdown this is very annoying
 Plug 'Konfekt/FastFold'
 
+" maximizes buffle to fullscreen
+Plug 'szw/vim-maximizer', { 'on': 'MaximizerToggle' }
+
 " search with Rg with keybindings
 Plug 'miki725/vim-ripgrep', { 'on': 'Rg' }
 " saves changes to files from quickfix window
@@ -83,6 +86,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}
 Plug 'tmhedberg/SimpylFold', {'for': 'python'}
 
+Plug 'puremourning/vimspector', { 'on': ['<Plug>VimspectorContinue', '<Plug>VimspectorToggleBreakpoint'] }
 
 if executable("node") && executable("yarn")
     Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
