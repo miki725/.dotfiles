@@ -9,7 +9,7 @@
   "python.linting.flake8Enabled": true,
   "python.linting.mypyEnabled" : true,
   "python.linting.pylintEnabled": false,
-  "tslint.autoFixOnSave": false,
+  "tsserver.enable": true,
   "tsserver.enableJavascript": true,
   "typescript.suggest.autoImports": true
 }

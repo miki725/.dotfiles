@@ -2,14 +2,13 @@ if PlugLoaded('coc.nvim')
 
 let g:coc_global_extensions = [
     \'coc-clangd',
-    \'coc-eslint',
+    \'coc-eslint8',
     \'coc-git',
     \'coc-highlight',
     \'coc-json',
     \'coc-prettier',
     \'coc-python',
     \'coc-sh',
-    \'coc-tslint-plugin',
     \'coc-tsserver',
     \]
 
