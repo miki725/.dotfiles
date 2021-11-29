@@ -13,7 +13,10 @@ endif
 
 ifneq "$(PACMAN)" ""
 pacman-upgrade:  ## upgrade all pacman packages
-	su yay -c 'yay -Suy'
+	su yay -c '\
+		unset GOPATH && \
+		yay -Suy\
+	'
 
 else
 pacman-upgrade:
@@ -100,13 +103,17 @@ pacman-yay/%:
 	@# needed flag does not seem to be working now
 	@# https://github.com/Jguer/yay/issues/885
 	# $*
-	su yay -c 'yay -S --noconfirm $(shell \
-		yay -Qi $* 2>&1 >/dev/null | \
-		grep "error: package" | \
-		grep "was not found" | \
-		cut -d"'" -f2 | \
-		tr "\n" " " \
-	)'
+	su yay -c '\
+		unset GOPATH && \
+		yay -S --noconfirm \
+			$(shell \
+				yay -Qi $* 2>&1 >/dev/null | \
+				grep "error: package" | \
+				grep "was not found" | \
+				cut -d"'" -f2 | \
+				tr "\n" " " \
+			)\
+		'
 
 /usr/bin/yay:
 	useradd --system --create-home --groups wheel yay
