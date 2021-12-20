@@ -36,7 +36,7 @@ pipx:  ## install all pipx packages
 
 pipx-upgrade: ## upgrade pipx packages
 	# handle when pipx python version changed
-	black --version || (pipx uninstall-all && $(MAKE) $(OPTIONS) pipx)
+	black --version || (pipx uninstall-all && rm -rf $(HOME)/.local/pipx && $(MAKE) $(OPTIONS) pipx)
 	-pipx upgrade-all --include-injected --skip pandoc-fignos
 
 pipx-clean:  ## clean pipx
