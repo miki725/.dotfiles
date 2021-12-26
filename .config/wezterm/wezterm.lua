@@ -20,7 +20,23 @@ return {
 
   font = wezterm.font("Hack Nerd Font"),
   font_size = 14,
+  bold_brightens_ansi_colors = false,
   adjust_window_size_when_changing_font_size = false,
+  font_rules= {
+    {
+      italic = true,
+      font = wezterm.font("Hack Nerd Font", {italic=true}),
+    },
+    {
+      italic = true,
+      intensity = "Bold",
+      font = wezterm.font("Hack Nerd Font", {bold=true, italic=true}),
+    },
+    {
+      intensity = "Bold",
+      font = wezterm.font("Hack Nerd Font", {bold=true}),
+    },
+  },
 
   colors = {
     background = "#26282a",
