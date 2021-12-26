@@ -244,6 +244,7 @@ brew-casks: brew-cask/vimr
 brew-casks: brew-cask/visual-studio-code
 brew-casks: brew-cask/vlc
 brew-casks: brew-cask/waves-central
+brew-casks: brew-cask/wezterm # gpu terminal emulator
 brew-casks: brew-cask/wireshark
 brew-casks: brew-cask/yubico-authenticator
 brew-casks: brew-cask/yubico-yubikey-manager
