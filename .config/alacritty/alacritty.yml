@@ -1,7 +1,6 @@
 shell:
   program: /bin/bash
   args:
-    - --login
     - .bin/exec_first_found.sh
     - tmux
     - fish --login
