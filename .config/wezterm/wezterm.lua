@@ -25,16 +25,16 @@ return {
   font_rules= {
     {
       italic = true,
-      font = wezterm.font("Hack Nerd Font", {italic=true}),
+      font = wezterm.font_with_fallback({"Hack Nerd Font", "SF Mono"}, {italic=true}),
     },
     {
       italic = true,
       intensity = "Bold",
-      font = wezterm.font("Hack Nerd Font", {bold=true, italic=true}),
+      font = wezterm.font_with_fallback({"Hack Nerd Font", "SF Mono"}, {bold=true, italic=true}),
     },
     {
       intensity = "Bold",
-      font = wezterm.font("Hack Nerd Font", {bold=true}),
+      font = wezterm.font_with_fallback({"Hack Nerd Font", "SF Mono"}, {bold=true}),
     },
   },
 
