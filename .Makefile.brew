@@ -4,6 +4,7 @@ export HOMEBREW_FORCE_BREWED_CURL=1
 export PATH:=/usr/local/bin:/opt/homebrew/bin:$(PATH)
 
 IS_M1=$(shell uname -v | grep -i arm > /dev/null && echo true || echo false)
+BREW_PREFIX=$(shell brew --prefix 2> /dev/null)
 ifeq "$(IS_M1)" "true"
 BREW=/opt/homebrew/bin/brew
 BREW_CMD=arch -arm64 brew
@@ -15,7 +16,7 @@ endif
 OS=$(shell uname)
 
 ifeq "$(OS)" "Darwin"
-brew: $(BREW)  ## install all brew packages/apps
+brew: ## install all brew packages/apps
 brew: brew-tools
 brew: brew-network
 brew: brew-docker
@@ -27,17 +28,16 @@ brew: brew-other
 brew: brew-casks
 brew: brew-fonts
 	brew cleanup
-else
-brew:
-endif
 
-ifeq "$(OS)" "Darwin"
 brew-upgrade: $(BREW)  ## upgrade all brew packages/apps
 	$(BREW_CMD) list --formula | grep -v pandoc | xargs $(BREW_CMD) upgrade
 	$(BREW_CMD) upgrade --cask
 	$(BREW_CMD) cleanup
 else
+brew:
+	@
 brew-upgrade:
+	@
 endif
 
 brew-update: $(BREW)
@@ -45,9 +45,8 @@ brew-update: $(BREW)
 	$(BREW_CMD) cleanup
 
 brew-tools:
-brew-tools: brew/ag
-brew-tools: brew/amar1729/formulae/browserpass
 brew-tools: brew/bash
+brew-tools: brew/browserpass
 brew-tools: brew/ccat
 brew-tools: brew/colordiff
 brew-tools: brew/coreutils
@@ -61,7 +60,6 @@ brew-tools: brew/fish
 brew-tools: brew/fortune
 brew-tools: brew/fswatch  # watch files and execute
 brew-tools: brew/fzf
-brew-tools: brew/gamechanger/brews/sshtohosts
 brew-tools: brew/gawk
 brew-tools: brew/git
 brew-tools: brew/gnu-sed
@@ -79,16 +77,18 @@ brew-tools: brew/n
 brew-tools: brew/neovim
 brew-tools: brew/node
 brew-tools: brew/openssh
-brew-tools: brew/openssl
+brew-tools: brew/openssl@3
 brew-tools: brew/pass
 brew-tools: brew/pipx
 brew-tools: brew/progress  # track progress of io programs like dd
 brew-tools: brew/pwgen
 brew-tools: brew/pyenv
-brew-tools: brew/python
+brew-tools: brew/python@3.9
 brew-tools: brew/ripgrep
 brew-tools: brew/source-highlight  # used by less with default highlight
+brew-tools: brew/sshtohosts
 brew-tools: brew/starship  # shell prompt
+brew-tools: brew/the_silver_searcher
 brew-tools: brew/tldr
 brew-tools: brew/tmux-xpanes
 brew-tools: brew/tree
@@ -174,7 +174,7 @@ brew-other: brew/cloc  # stats for code
 brew-other: brew/distribution  # histograms
 brew-other: brew/drone-cli
 brew-other: brew/entr  # watch files and execute - similar to fswatch
-brew-other: brew/gamechanger/brews/awsprey
+brew-other: brew/awsprey
 brew-other: brew/gcc
 brew-other: brew/gettext  # i18n - internatiolization
 brew-other: brew/git-lfs
@@ -184,7 +184,7 @@ brew-other: brew/knot-resolver  # dnssec resolver
 brew-other: brew/libyaml
 brew-other: brew/llvm  # clangd for c language server in coc-vim
 brew-other: brew/lolcat  # colorful cats
-brew-other: brew/miki725/brews/hint
+brew-other: brew/hint
 brew-other: brew/nmap
 brew-other: brew/noti  # notify when command finishes
 brew-other: brew/paperkey  # just secret from gpg key
@@ -196,7 +196,7 @@ brew-other: brew/sqlite
 brew-other: brew/tfenv  # change terraform version
 brew-other: brew/tidy-html5
 brew-other: brew/tmux
-brew-other: brew/tomanthony/brews/itermocil  # split screen iterm2
+brew-other: brew/itermocil  # split screen iterm2
 brew-other: brew/watchman  # lib for watching files
 # brew-other: brew/brew-gem
 # brew-other: brew/pv  # monitor pipe progress
@@ -219,10 +219,10 @@ brew-casks: brew-cask/charles # proxy
 brew-casks: brew-cask/chrysalis # keyboardio
 brew-casks: brew-cask/cleanmymac
 brew-casks: brew-cask/dash
+brew-casks: brew-cask/datacolor-spyder-elite
 brew-casks: brew-cask/ferdi
 brew-casks: brew-cask/firefox
-brew-casks: brew-cask/homebrew/cask-drivers/datacolor-spyder-elite
-brew-casks: brew-cask/homebrew/cask-versions/google-chrome-beta
+brew-casks: brew-cask/google-chrome-beta
 brew-casks: brew-cask/istat-menus
 brew-casks: brew-cask/iterm2
 brew-casks: brew-cask/monodraw
@@ -266,15 +266,34 @@ brew-casks: brew-cask/yubico-yubikey-manager
 # brew-casks: brew-cask/wifi-explorer
 
 brew-fonts:  ## install all fonts
-brew-fonts: brew-cask/homebrew/cask-fonts/font-hack-nerd-font
+brew-fonts: brew-cask/font-hack-nerd-font
 
-brew/%: brew-update
+brew-cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers
+brew-cask/font-hack-nerd-font: TAP=homebrew/font-hack-nerd-font
+brew-cask/google-chrome-beta: TAP=homebrew/cask-versions
+brew/awsprey: TAP=gamechanger/brews
+brew/browserpass: TAP=amar1729/formulae
+brew/hint: TAP=miki725/brews
+brew/itermocil: TAP=tomanthony/brews/
+brew/sshtohosts: TAP=gamechanger/brews/
+
+$(BREW_PREFIX)/Cellar/%:
 	$(BREW_CMD) install $* $(BREW_OPTIONS)
 
-brew-cask/%: brew-update
-	brew list --cask \
-		| grep $$(echo $* | rev | cut -d/ -f1 | rev) > /dev/null \
-		|| brew install --cask $(CASK_OPTIONS) $*
+$(BREW_PREFIX)/Caskroom/%:
+	$(BREW_CMD) install --cask $(TAP)$* $(BREW_OPTIONS)
+
+ifeq "$(OS)" "Darwin"
+brew/%: $(BREW) $(BREW_PREFIX)/Cellar/%
+	@
+brew-cask/%: $(BREW) $(BREW_PREFIX)/Caskroom/%
+	@
+else
+brew/%:
+	@
+brew-cask/%:
+	@
+endif
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

@@ -28,6 +28,7 @@ all: git
 all: gpg
 
 upgrade:  ## upgrade everything
+upgrade: brew
 upgrade: brew-upgrade
 upgrade: mac
 upgrade: pacman-upgrade
