@@ -18,23 +18,24 @@ return {
   initial_rows = 40,
   initial_cols = 120,
 
-  font = wezterm.font("Hack Nerd Font"),
+  font = wezterm.font_with_fallback({"Hack Nerd Font", "Menlo" }),
   font_size = 14,
   bold_brightens_ansi_colors = false,
   adjust_window_size_when_changing_font_size = false,
+  warn_about_missing_glyphs = false,
   font_rules= {
     {
       italic = true,
-      font = wezterm.font_with_fallback({"Hack Nerd Font", "SF Mono"}, {italic=true}),
+      font = wezterm.font_with_fallback({"Hack Nerd Font", "Menlo"}, {italic=true}),
     },
     {
       italic = true,
       intensity = "Bold",
-      font = wezterm.font_with_fallback({"Hack Nerd Font", "SF Mono"}, {bold=true, italic=true}),
+      font = wezterm.font_with_fallback({"Hack Nerd Font", "Menlo"}, {bold=true, italic=true}),
     },
     {
       intensity = "Bold",
-      font = wezterm.font_with_fallback({"Hack Nerd Font", "SF Mono"}, {bold=true}),
+      font = wezterm.font_with_fallback({"Hack Nerd Font", "Menlo"}, {bold=true}),
     },
   },
 
