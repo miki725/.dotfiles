@@ -277,16 +277,16 @@ brew/hint: TAP=miki725/brews
 brew/itermocil: TAP=tomanthony/brews/
 brew/sshtohosts: TAP=gamechanger/brews/
 
-$(BREW_PREFIX)/Cellar/%:
+$(BREW_PREFIX)/Cellar/%: $(BREW)
 	$(BREW_CMD) install $* $(BREW_OPTIONS)
 
-$(BREW_PREFIX)/Caskroom/%:
+$(BREW_PREFIX)/Caskroom/%: $(BREW)
 	$(BREW_CMD) install --cask $(TAP)$* $(BREW_OPTIONS)
 
 ifeq "$(OS)" "Darwin"
-brew/%: $(BREW) $(BREW_PREFIX)/Cellar/%
+brew/%: $(BREW) brew-update $(BREW_PREFIX)/Cellar/%
 	@
-brew-cask/%: $(BREW) $(BREW_PREFIX)/Caskroom/%
+brew-cask/%: $(BREW) brew-update $(BREW_PREFIX)/Caskroom/%
 	@
 else
 brew/%:
