@@ -7,7 +7,7 @@ ifneq "$(PACMAN)" ""
 update:: $(PACMAN_MIRRORS)
 	pacman -Sy
 
-upgrade:: update
+upgrade::
 	su yay -c '\
 		unset GOPATH && \
 		yay -Suy\
