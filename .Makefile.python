@@ -1,6 +1,7 @@
 pipx-clean:  ## clean pipx
 	-rm -rf ~/.local/pipx
 
+ifneq "$(shell which pipx 2> /dev/null)" ""
 upgrade::
 	# handle when pipx underlying python version changed
 	~/.local/pipx/shared/bin/pip --version > /dev/null 2>&1 \
@@ -8,6 +9,7 @@ upgrade::
 			pipx-clean \
 			$(addprefix pipx/,$(notdir $(wildcard ~/.local/pipx/venvs/*)))
 	pipx upgrade-all --include-injected --skip pandoc-fignos
+endif
 
 ifneq "$(wildcard .pyenv/versions/*)" ""
 pipx/%: ## install pip package
