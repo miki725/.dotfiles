@@ -1,0 +1,268 @@
+minimal: pacman/base-devel # sudo, which, sed, etc
+minimal: brew/btop pacman/btop  # c version of bpytop
+minimal: cask/firefox
+minimal: brew/fish pacman/fish
+minimal: cask/font-hack-nerd-font
+minimal: brew/fzf pacman/fzf
+minimal: brew/git pacman/git
+minimal: brew/grep
+minimal: brew/htop pacman/htop
+minimal: brew/neovim pacman/neovim
+minimal: brew/tldr pacman/tldr
+minimal: cask/wezterm # gpu terminal emulator
+
+installers: pyenv/2.7
+installers: pyenv/3.10
+installers: brew/go pacman/go  # required for yay
+installers: npm/n
+installers: brew/node pacman/nodejs
+installers: npm/npm
+installers: brew/pipx pacman/python-pipx
+installers: brew/pyenv pacman/pyenv
+installers: brew/ruby
+
+tools: pacman/arch-install-scripts  # genfstab
+tools: brew/bash
+tools: brew/ccat
+tools: brew/colordiff pacman/colordiff
+tools: brew/coreutils
+tools: pacman/coreutils
+tools: brew/cowsay
+tools: brew/curl pacman/curl
+tools: brew/diffutils
+tools: brew/fd pacman/fd  # better find - used in fzf
+tools: brew/findutils
+tools: brew/fortune
+tools: brew/gawk
+tools: brew/gnu-sed
+tools: brew/gnu-tar
+tools: brew/gnu-which
+tools: brew/gzip
+tools: brew/hint
+tools: pipx/httpie
+tools: brew/jq pacman/jq
+tools: brew/lolcat  # colorful cats
+tools: brew/lsd pacman/lsd
+tools: pacman/lsof
+tools: brew/make
+tools: brew/moreutils
+tools: brew/noti  # notify when command finishes
+tools: brew/openssh pacman/openssh
+tools: brew/openssl@3
+tools: brew/par  yay/par # adjust line width in text in vim
+tools: brew/progress  # track progress of io programs like dd
+tools: brew/ripgrep pacman/ripgrep
+tools: brew/source-highlight  # used by less with default highlight
+tools: brew/starship pacman/starship  # shell prompt
+tools: brew/tree pacman/tree
+tools: brew/unzip
+tools: brew/watch
+tools: brew/wget pacman/wget
+tools: pacman/xclip
+tools: pacman/xorg-xauth  # X server auth
+tools: pacman/xorg-xclock
+tools: brew/yq yay/go-yq
+tools: brew/zoxide yay/zoxide-bin  # cd to folders quickly
+
+sec: pacman/bind  # dig
+sec: brew/browserpass
+sec: brew/gnupg
+sec: brew/gnupg
+sec: brew/gopass
+sec: brew/paperkey  # just secret from gpg key
+sec: brew/pinentry-mac  # gpg pin enter gui
+sec: brew/pwgen
+sec: brew/ykman  # yubikey manager cli version
+sec: cask/yubico-authenticator
+sec: cask/yubico-yubikey-manager
+
+casks: cask/adobe-creative-cloud
+casks: cask/alfred
+casks: cask/android-file-transfer
+casks: cask/bartender
+casks: cask/cleanmymac
+casks: cask/ferdi
+casks: cask/monodraw
+casks: cask/peakhour
+casks: cask/google-chrome-beta
+casks: cask/istat-menus
+casks: cask/datacolor-spyder-elite
+casks: cask/slack
+casks: cask/vlc
+
+net: pacman/inetutils  # telnet, ftp
+net: brew/iperf pacman/iperf
+net: pacman/iproute2  # ip
+net: pacman/iptraf-ng # network interface monitoring
+net: brew/ldns  # drill - sig with dnssec
+net: brew/mosh pacman/mosh
+net: brew/mtr  # traceroute and ping
+net: pacman/net-tools  # ifconfig
+net: brew/nmap
+net: brew/rsync
+net: brew/socat
+net: brew/sslscan  # scan all cipher suites for https
+net: pacman/tcpdump
+net: brew/tcptraceroute yay/tcptraceroute
+net: brew/telnet
+net: brew/termshark yay/termshark
+net: brew/testssl  # similar to ssltest in terminal
+net: pacman/traceroute
+net: cask/wireshark pacman/wireshark-cli
+net: brew/wrk  # http benchmarks
+
+dev: brew/browser  # pipe html to browser
+dev: brew/cloc  # stats for code
+dev: brew/ctop yay/ctop-bin
+dev: cask/dash
+dev: brew/direnv yay/direnv
+dev: brew/distribution  # histograms
+dev: cask/docker
+dev: cask/docker pacman/docker
+dev: pacman/docker-compose
+dev: brew/docker-machine pacman/docker-machine
+dev: npm/doctoc
+dev: brew/entr  # watch files and execute - similar to fswatch
+dev: brew/fswatch  yay/fswatch  # watch files and execute
+dev: brew/gcc
+dev: brew/gettext  # i18n - internatiolization
+dev: brew/git-lfs
+dev: pipx/git-of-theseus
+dev: brew/git-quick-stats
+dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
+dev: brew/libyaml
+dev: pipx/neovim-sh
+dev: cask/pop # screen sharing conference
+dev: cask/postman
+dev: pipx/powerline-status
+dev: pipx/pre-commit
+dev: pipx/pygments
+dev: brew/tmux pacman/tmux
+dev: brew/tmux-xpanes yay/tmux-xpanes
+dev: pipx/tmuxp
+dev: brew/universal-ctags pacman/ctags  # generates tags from codebase
+dev: cask/vimr
+dev: brew/watchman  # lib for watching files
+
+devcloud: pipx/aws-mfa
+devcloud: pipx/awscli
+devcloud: brew/awsprey
+devcloud: pipx/certbot
+devcloud: brew/tfenv yay/tfenv  # change terraform version
+
+devpy: pipx/black
+devpy: pipx/check-manifest
+devpy: pipx/flake8
+devpy: pipx/importanize
+devpy: pipx/johnnydep
+devpy: pipx/mypy
+devpy: pipx/pip-tools
+devpy: pipx/pipenv
+devpy: pipx/poetry
+devpy: pipx/ptpython
+devpy: pipx/python-language-server
+devpy: pipx/twine
+devpy: pipx/virtualfish
+
+devnode: npm/prettier
+devnode: npm/yarn
+devnode: npm/yarn-why
+
+devc: brew/llvm  # clangd for c language server in coc-vim
+
+music: cask/audio-hijack
+music: cask/ilok-license-manager
+music: cask/loopback
+music: cask/waves-central
+
+pandoc: brew/librsvg  # necessary to embed svg images
+pandoc: cask/mactex-no-gui  # latex
+pandoc: brew/pandoc
+pandoc: brew/pandoc-citeproc
+pandoc: brew/pandoc-crossref
+pandoc: pipx/pandoc-fignos
+pandoc: pipx/pandocfilter-sh
+
+brew/awsprey: TAP=gamechanger/brews
+brew/browserpass: TAP=amar1729/formulae
+cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers
+pipx/flake8: pipx-inject/flake8/flake8-bugbear
+pipx/flake8: pipx-inject/flake8/mccabe
+cask/font-hack-nerd-font: TAP=homebrew/font-hack-nerd-font
+cask/google-chrome-beta: TAP=homebrew/cask-versions
+brew/hint: TAP=miki725/brews
+pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master
+brew/itermocil: TAP=tomanthony/brews/
+pipx/pandoc-fignos: VERSION=<2.3.1
+pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
+pipx/powerline-status: pipx-inject/powerline-status/psutil
+pipx/python-language-server: VERSION=[all]
+pipx/python-language-server: pipx-inject/python-language-server/pyls-black
+pipx/python-language-server: pipx-inject/python-language-server/pyls-mypy
+pipx/virtualfish: OPTIONS=--include-deps
+
+# manually downloading older versions as newer versions changed pandoc AST
+# see https://github.com/ickc/pantable
+# > Warning: panflute and pantable only support pandoc < 2.10 and is so
+# > far incompatible with pandoc 2.10+. This is because there’s a new AST
+# > change related to table spans. See https://github.com/jgm/pandoc/issues/1024,
+# > https://github.com/sergiocorreia/panflute/issues/142. Until that is resolved,
+# > please stick with 2.9.2.1 or below when used together with pantable.
+
+$(BREW_PREFIX)/Cellar/pandoc:
+	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-2.9.2.1.catalina.bottle.tar.gz \
+		| tar -zxv -C /usr/local/Cellar
+
+$(BREW_PREFIX)/Cellar/pandoc-crossref:
+	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-crossref-0.3.6.4.catalina.bottle.tar.gz \
+		| tar -zxv -C /usr/local/Cellar
+
+$(BREW_PREFIX)/Cellar/pandoc-citeproc:
+	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-citeproc-0.17.0.1.catalina.bottle.tar.gz \
+		| tar -zxv -C /usr/local/Cellar
+
+# brew/sshuttle  # proxy over ssh
+# brew/cipherscan  # scan all cipher suites for https
+# brew/dnsperf  # profile dns server
+# brew/proxychains-ng  # proxy tcp traffic
+
+# brew/dcraw  # decode raw files
+# brew/libmagic
+# brew/qrencode  # generate qrcode
+# brew/zbar  # reading barcode
+
+# brew/itermocil  # split screen iterm2
+# brew/brew-gem
+# brew/pv  # monitor pipe progress
+# brew/rockymadden/rockymadden/slack-cli
+# brew/tidy-html5
+# brew/um  # personal man pages
+# brew/xo/xo/usql  # universal sql client
+# brew/xz  # data-compession similar to gzip
+# brew/zstd  # data-compression from facebook
+
+# cask/android-platform-tools
+# cask/charles # proxy
+# cask/chrysalis # keyboardio
+# cask/cool-retro-term
+# cask/datagrip
+# cask/dbeaver-community
+# cask/fluor # change fn keys per app
+# cask/hazeover # hide all apps
+# cask/insomnia # rest apis
+# cask/keybase
+# cask/moom
+# cask/netspot # wifi design
+# cask/obs # stream generation
+# cask/obs-virtualcam # use stream as webcam input
+# cask/openaudible
+# cask/openvpn-connect
+# cask/serial # serial port connectivity
+# cask/signal-beta
+# cask/soundsource
+# cask/textual # irc
+# cask/ukelele # keyboard layout
+# cask/vagrant
+# cask/virtualbox
+# cask/visual-studio-code
+# cask/wifi-explorer

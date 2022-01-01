@@ -16,285 +16,39 @@ endif
 OS=$(shell uname)
 
 ifeq "$(OS)" "Darwin"
-brew: ## install all brew packages/apps
-brew: brew-tools
-brew: brew-network
-brew: brew-docker
-brew: brew-graphics
-brew: brew-music
-brew: brew-pandoc
-brew: brew-gpg
-brew: brew-other
-brew: brew-casks
-brew: brew-fonts
-	brew cleanup
+update::
+	$(BREW_CMD) update
 
-brew-upgrade: $(BREW)  ## upgrade all brew packages/apps
+upgrade:: update
+upgrade:: $(BREW)
 	$(BREW_CMD) list --formula | grep -v pandoc | xargs $(BREW_CMD) upgrade
 	$(BREW_CMD) upgrade --cask
 	$(BREW_CMD) cleanup
-else
-brew:
-	@
-brew-upgrade:
-	@
-endif
 
-brew-update: $(BREW)
-	$(BREW_CMD) update
+tidy::
 	$(BREW_CMD) cleanup
 
-brew-tools:
-brew-tools: brew/bash
-brew-tools: brew/browserpass
-brew-tools: brew/ccat
-brew-tools: brew/colordiff
-brew-tools: brew/coreutils
-brew-tools: brew/cowsay
-brew-tools: brew/curl
-brew-tools: brew/diffutils
-brew-tools: brew/direnv
-brew-tools: brew/fd  # better find - used in fzf
-brew-tools: brew/findutils
-brew-tools: brew/fish
-brew-tools: brew/fortune
-brew-tools: brew/fswatch  # watch files and execute
-brew-tools: brew/fzf
-brew-tools: brew/gawk
-brew-tools: brew/git
-brew-tools: brew/gnu-sed
-brew-tools: brew/gnu-tar
-brew-tools: brew/gnu-which
-brew-tools: brew/gopass
-brew-tools: brew/grep
-brew-tools: brew/gzip
-brew-tools: brew/htop
-brew-tools: brew/jq
-brew-tools: brew/lsd
-brew-tools: brew/make
-brew-tools: brew/moreutils
-brew-tools: brew/n
-brew-tools: brew/neovim
-brew-tools: brew/node
-brew-tools: brew/openssh
-brew-tools: brew/openssl@3
-brew-tools: brew/pass
-brew-tools: brew/pipx
-brew-tools: brew/progress  # track progress of io programs like dd
-brew-tools: brew/pwgen
-brew-tools: brew/pyenv
-brew-tools: brew/python@3.9
-brew-tools: brew/ripgrep
-brew-tools: brew/source-highlight  # used by less with default highlight
-brew-tools: brew/sshtohosts
-brew-tools: brew/starship  # shell prompt
-brew-tools: brew/the_silver_searcher
-brew-tools: brew/tldr
-brew-tools: brew/tmux-xpanes
-brew-tools: brew/tree
-brew-tools: brew/unzip
-brew-tools: brew/vim
-brew-tools: brew/watch
-brew-tools: brew/wget
-brew-tools: brew/ykman  # yubikey manager cli version
-brew-tools: brew/yq
-brew-tools: brew/zoxide  # cd to folders quickly
+brew/%: ## install brew formula
+brew/%: $(BREW_PREFIX)/Cellar/%
+	@
 
-brew-network:
-brew-network: brew/iperf
-brew-network: brew/mosh  # roaming ssh
-brew-network: brew/mtr  # traceroute and ping
-brew-network: brew/rsync
-brew-network: brew/socat
-brew-network: brew/sshuttle  # proxy over ssh
-brew-network: brew/sslscan  # scan all cipher suites for https
-brew-network: brew/tcptraceroute
-brew-network: brew/telnet
-brew-network: brew/termshark
-brew-network: brew/testssl  # similar to ssltest in terminal
-brew-network: brew/wrk  # http benchmarks
-# brew-network: brew-cask/macfuse  # necessary for sshfs
-# brew-network: brew/sshfs
-# brew-network: brew/cipherscan  # scan all cipher suites for https
-# brew-network: brew/dnsperf  # profile dns server
-# brew-network: brew/proxychains-ng  # proxy tcp traffic
+cask/%: ## install brew cask
+cask/%: $(BREW_PREFIX)/Caskroom/%
+	@
 
-brew-docker:
-brew-docker: brew-cask/docker
-brew-docker: brew/ctop
-brew-docker: brew/docker-machine
-
-brew-music:
-brew-music: brew-cask/audio-hijack
-brew-music: brew-cask/ilok-license-manager
-brew-music: brew-cask/loopback
-
-brew-graphics:
-# brew-graphics: brew/dcraw  # decode raw files
-# brew-graphics: brew/libmagic
-# brew-graphics: brew/qrencode  # generate qrcode
-# brew-graphics: brew/zbar  # reading barcode
-
-/usr/local/Cellar/pandoc:
-	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-2.9.2.1.catalina.bottle.tar.gz \
-		| tar -zxv -C /usr/local/Cellar
-
-/usr/local/Cellar/pandoc-crossref:
-	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-crossref-0.3.6.4.catalina.bottle.tar.gz \
-		| tar -zxv -C /usr/local/Cellar
-
-/usr/local/Cellar/pandoc-citeproc:
-	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-citeproc-0.17.0.1.catalina.bottle.tar.gz \
-		| tar -zxv -C /usr/local/Cellar
-
-brew-pandoc:
-brew-pandoc: /usr/local/Cellar/pandoc
-brew-pandoc: /usr/local/Cellar/pandoc-crossref
-brew-pandoc: /usr/local/Cellar/pandoc-citeproc
-brew-pandoc: brew/librsvg  # necessary to embed svg images
-brew-pandoc: brew-cask/mactex-no-gui  # latex
-# brew-pandoc: brew/pandoc
-# brew-pandoc: brew/pandoc-citeproc
-# brew-pandoc: brew/pandoc-crossref
-# manually downloading older versions as newer versions changed pandoc AST
-# see https://github.com/ickc/pantable
-# > Warning: panflute and pantable only support pandoc < 2.10 and is so
-# > far incompatible with pandoc 2.10+. This is because there’s a new AST
-# > change related to table spans. See https://github.com/jgm/pandoc/issues/1024,
-# > https://github.com/sergiocorreia/panflute/issues/142. Until that is resolved,
-# > please stick with 2.9.2.1 or below when used together with pantable.
-
-brew-gpg:
-brew-gpg: brew/gnupg
-brew-gpg: brew/pinentry-mac  # gpg pin enter gui
-
-brew-other:
-brew-other: brew/browser  # pipe html to browser
-brew-other: brew/cloc  # stats for code
-brew-other: brew/distribution  # histograms
-brew-other: brew/drone-cli
-brew-other: brew/entr  # watch files and execute - similar to fswatch
-brew-other: brew/awsprey
-brew-other: brew/gcc
-brew-other: brew/gettext  # i18n - internatiolization
-brew-other: brew/git-lfs
-brew-other: brew/git-quick-stats
-brew-other: brew/go
-brew-other: brew/knot-resolver  # dnssec resolver
-brew-other: brew/libyaml
-brew-other: brew/llvm  # clangd for c language server in coc-vim
-brew-other: brew/lolcat  # colorful cats
-brew-other: brew/hint
-brew-other: brew/nmap
-brew-other: brew/noti  # notify when command finishes
-brew-other: brew/paperkey  # just secret from gpg key
-brew-other: brew/par  # adjust line width in text in vim
-brew-other: brew/postgresql
-brew-other: brew/ruby
-brew-other: brew/source-highlight
-brew-other: brew/sqlite
-brew-other: brew/tfenv  # change terraform version
-brew-other: brew/tidy-html5
-brew-other: brew/tmux
-brew-other: brew/itermocil  # split screen iterm2
-brew-other: brew/watchman  # lib for watching files
-# brew-other: brew/brew-gem
-# brew-other: brew/pv  # monitor pipe progress
-# brew-other: brew/rockymadden/rockymadden/slack-cli
-# brew-other: brew/tidy-html5
-# brew-other: brew/um  # personal man pages
-# brew-other: brew/xo/xo/usql  # universal sql client
-# brew-other: brew/xz  # data-compession similar to gzip
-# brew-other: brew/zstd  # data-compression from facebook
-
-brew-casks: ## install all cask apps
-brew-casks: brew-cask/1password
-brew-casks: brew-cask/adobe-creative-cloud
-brew-casks: brew-cask/alacritty # gpu terminal emulator
-brew-casks: brew-cask/alfred
-brew-casks: brew-cask/android-file-transfer
-brew-casks: brew-cask/arduino
-brew-casks: brew-cask/bartender
-brew-casks: brew-cask/charles # proxy
-brew-casks: brew-cask/chrysalis # keyboardio
-brew-casks: brew-cask/cleanmymac
-brew-casks: brew-cask/dash
-brew-casks: brew-cask/datacolor-spyder-elite
-brew-casks: brew-cask/ferdi
-brew-casks: brew-cask/firefox
-brew-casks: brew-cask/google-chrome-beta
-brew-casks: brew-cask/istat-menus
-brew-casks: brew-cask/iterm2
-brew-casks: brew-cask/monodraw
-brew-casks: brew-cask/moom
-brew-casks: brew-cask/netspot
-brew-casks: brew-cask/obs # stream generation
-brew-casks: brew-cask/obs-virtualcam # use stream as webcam input
-brew-casks: brew-cask/openaudible
-brew-casks: brew-cask/peakhour
-brew-casks: brew-cask/pop # screen sharing conference
-brew-casks: brew-cask/postman
-brew-casks: brew-cask/signal-beta
-brew-casks: brew-cask/slack
-brew-casks: brew-cask/snagit
-brew-casks: brew-cask/soundsource
-brew-casks: brew-cask/sublime-text
-brew-casks: brew-cask/teamviewer
-brew-casks: brew-cask/vimr
-brew-casks: brew-cask/visual-studio-code
-brew-casks: brew-cask/vlc
-brew-casks: brew-cask/waves-central
-brew-casks: brew-cask/wezterm # gpu terminal emulator
-brew-casks: brew-cask/wireshark
-brew-casks: brew-cask/yubico-authenticator
-brew-casks: brew-cask/yubico-yubikey-manager
-# brew-casks: brew-cask/adoptopenjdk8
-# brew-casks: brew-cask/android-platform-tools
-# brew-casks: brew-cask/cool-retro-term
-# brew-casks: brew-cask/datagrip
-# brew-casks: brew-cask/dbeaver-community
-# brew-casks: brew-cask/fluor # change fn keys per app
-# brew-casks: brew-cask/hazeover # hide all apps
-# brew-casks: brew-cask/insomnia # rest apis
-# brew-casks: brew-cask/keybase
-# brew-casks: brew-cask/openvpn-connect
-# brew-casks: brew-cask/serial # serial port connectivity
-# brew-casks: brew-cask/textual # irc
-# brew-casks: brew-cask/ukelele # keyboard layout
-# brew-casks: brew-cask/vagrant
-# brew-casks: brew-cask/virtualbox
-# brew-casks: brew-cask/wifi-explorer
-
-brew-fonts:  ## install all fonts
-brew-fonts: brew-cask/font-hack-nerd-font
-
-brew-cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers
-brew-cask/font-hack-nerd-font: TAP=homebrew/font-hack-nerd-font
-brew-cask/google-chrome-beta: TAP=homebrew/cask-versions
-brew/awsprey: TAP=gamechanger/brews
-brew/browserpass: TAP=amar1729/formulae
-brew/hint: TAP=miki725/brews
-brew/itermocil: TAP=tomanthony/brews/
-brew/sshtohosts: TAP=gamechanger/brews/
-
-$(BREW_PREFIX)/Cellar/%: $(BREW)
+$(BREW_PREFIX)/Cellar/%: | $(BREW)
 	$(BREW_CMD) install $* $(BREW_OPTIONS)
 
-$(BREW_PREFIX)/Caskroom/%: $(BREW)
+$(BREW_PREFIX)/Caskroom/%: | $(BREW)
 	$(BREW_CMD) install --cask $(TAP)$* $(BREW_OPTIONS)
-
-ifeq "$(OS)" "Darwin"
-brew/%: $(BREW) brew-update $(BREW_PREFIX)/Cellar/%
-	@
-brew-cask/%: $(BREW) brew-update $(BREW_PREFIX)/Caskroom/%
-	@
-else
-brew/%:
-	@
-brew-cask/%:
-	@
-endif
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	$(BREW_CMD) tap homebrew/cask
+
+else
+brew/%:
+	@
+cask/%:
+	@
+endif

@@ -1,102 +1,31 @@
 PACMAN_MIRRORS=/tmp/pacman-mirrors
-
+PACMAN_PREFIX=/var/lib/pacman/dotfiles
 PACMAN=$(shell which pacman 2> /dev/null)
+YAY=/usr/bin/yay
 
 ifneq "$(PACMAN)" ""
-pacman:  ## install pacman packages
-pacman: pacman-tools
-pacman: pacman-yay
+update:: $(PACMAN_MIRRORS)
+	pacman -Sy
 
-pacman-upgrade:  ## upgrade all pacman packages
+upgrade:: update
 	su yay -c '\
 		unset GOPATH && \
 		yay -Suy\
 	'
-else
-pacman:
-pacman-upgrade:
-endif
 
-pacman-tools:
-pacman-tools: pacman/arch-install-scripts  # genfstab
-pacman-tools: pacman/base-devel # sudo, which, sed, etc
-pacman-tools: pacman/bind  # dig
-pacman-tools: pacman/colordiff
-pacman-tools: pacman/coreutils
-pacman-tools: pacman/ctags
-pacman-tools: pacman/curl
-pacman-tools: pacman/docker
-pacman-tools: pacman/docker-compose
-pacman-tools: pacman/fd
-pacman-tools: pacman/fish
-pacman-tools: pacman/fzf
-pacman-tools: pacman/git
-pacman-tools: pacman/go  # required for yay
-pacman-tools: pacman/gvim  # installs GTK/X support for clipboard forwarding
-pacman-tools: pacman/htop
-pacman-tools: pacman/inetutils  # telnet, ftp
-pacman-tools: pacman/iperf
-pacman-tools: pacman/iproute2  # ip
-pacman-tools: pacman/iptraf-ng # network interface monitoring
-pacman-tools: pacman/jq
-pacman-tools: pacman/lsd
-pacman-tools: pacman/lsof
-pacman-tools: pacman/mosh
-pacman-tools: pacman/neovim
-pacman-tools: pacman/net-tools  # ifconfig
-pacman-tools: pacman/nodejs
-pacman-tools: pacman/openssh
-pacman-tools: pacman/pyenv
-pacman-tools: pacman/python
-pacman-tools: pacman/python-pipx
-pacman-tools: pacman/ripgrep
-pacman-tools: pacman/screen
-pacman-tools: pacman/starship
-pacman-tools: pacman/tcpdump
-pacman-tools: pacman/tldr
-pacman-tools: pacman/tmux
-pacman-tools: pacman/traceroute
-pacman-tools: pacman/tree
-pacman-tools: pacman/wget
-pacman-tools: pacman/wireshark-cli
-pacman-tools: pacman/xclip
-pacman-tools: pacman/xorg-xauth  # X server auth
-pacman-tools: pacman/xorg-xclock
+pacman/%: ## install with pacman
+pacman/%: $(PACMAN_MIRRORS) /var/lib/pacman/dotfiles/%.pacman
+	@
 
-pacman-yay:  ## install AUR package manager
-pacman-yay: pacman-yay/ctop-bin
-pacman-yay: pacman-yay/direnv
-pacman-yay: pacman-yay/fswatch
-pacman-yay: pacman-yay/go-yq
-pacman-yay: pacman-yay/par  # text reflow
-pacman-yay: pacman-yay/termshark
-pacman-yay: pacman-yay/tfenv
-pacman-yay: pacman-yay/tmux-xpanes
-pacman-yay: pacman-yay/zoxide-bin
+yay/%: ## install with yay
+yay/%: $(YAY) /var/lib/pacman/dotfiles/%.yay
+	@
 
-pacman-update: $(PACMAN_MIRRORS)
-	pacman -Sy
-
-$(PACMAN_MIRRORS): /var/lib/pacman/dotfiles/pacman-contrib.pacman # installs rankmirrors
-	curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" \
-		| sed -e 's/^#Server/Server/' -e '/^#/d' \
-		| rankmirrors -n 5 - \
-		| tee $(PACMAN_MIRRORS)
-	cp -f $(PACMAN_MIRRORS) /etc/pacman.d/mirrorlist
-	pacman -Sy
-
-# pacman/%: pacman-update
-
-/var/lib/pacman/dotfiles:
-	mkdir $@
-
-.PRECIOUS: /var/lib/pacman/dotfiles/%.pacman
-/var/lib/pacman/dotfiles/%.pacman: /var/lib/pacman/dotfiles
+$(PACMAN_PREFIX)/%.pacman: $(PACMAN_PREFIX)
 	pacman -S --needed --noconfirm $*
 	touch $@
 
-.PRECIOUS: /var/lib/pacman/dotfiles/%.yay
-/var/lib/pacman/dotfiles/%.yay: /var/lib/pacman/dotfiles
+$(PACMAN_PREFIX)/%.yay: $(PACMAN_PREFIX)
 	@# needed flag does not seem to be working now
 	@# https://github.com/Jguer/yay/issues/885
 	# $*
@@ -113,20 +42,26 @@ $(PACMAN_MIRRORS): /var/lib/pacman/dotfiles/pacman-contrib.pacman # installs ran
 		'
 	touch $@
 
-ifneq "$(PACMAN)" ""
-pacman/%: pacman-update /var/lib/pacman/dotfiles/%.pacman
-	@
-pacman-yay/%: /usr/bin/yay /var/lib/pacman/dotfiles/%.yay
-	@
-else
-pacman/%:
-	@
-pacman-yay/%:
-	@
-endif
+$(PACMAN_PREFIX):
+	mkdir $@
 
-/usr/bin/yay:
+$(PACMAN_MIRRORS): $(PACMAN_PREFIX)/pacman-contrib.pacman
+	curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" \
+		| sed -e 's/^#Server/Server/' -e '/^#/d' \
+		| rankmirrors -n 5 - \
+		| tee $@
+	cp -f $@ /etc/pacman.d/mirrorlist
+	pacman -Sy
+
+$(YAY):
 	useradd --system --create-home --groups wheel yay
 	sed -i 's/^#\s*\(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
 	su yay -c "git clone https://aur.archlinux.org/yay.git /tmp/yay"
 	su yay -c "cd /tmp/yay && yes | HOME=/tmp/yay makepkg -si"
+
+else
+pacman/%:
+	@
+yay/%:
+	@
+endif

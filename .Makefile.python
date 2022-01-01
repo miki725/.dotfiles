@@ -1,53 +1,42 @@
-PYTHON=$(shell which python3)
-
-pipx:  ## install all pipx packages
-	pipx install git+https://github.com/miki725/importanize.git@master $(PIPX_OPTIONS)
-	pipx install 'aws-mfa' $(PIPX_OPTIONS)
-	pipx install 'aws-sam-cli' $(PIPX_OPTIONS)
-	pipx install 'awscli' $(PIPX_OPTIONS)
-	pipx install 'black' $(PIPX_OPTIONS)
-	pipx install 'bpytop' $(PIPX_OPTIONS)
-	pipx install 'certbot' $(PIPX_OPTIONS)
-	pipx install 'check-manifest' $(PIPX_OPTIONS)
-	pipx install 'flake8' $(PIPX_OPTIONS)
-	pipx install 'git-of-theseus' --python=$$(fish --login -c 'which python3.8') $(PIPX_OPTIONS)
-	pipx install 'httpie' $(PIPX_OPTIONS)
-	pipx install 'johnnydep' $(PIPX_OPTIONS)
-	pipx install 'mypy' $(PIPX_OPTIONS)
-	pipx install 'neovim-sh' $(PIPX_OPTIONS)
-	pipx install 'pandoc-fignos<2.3.1' $(PIPX_OPTIONS)
-	pipx install 'pandocfilter-sh' $(PIPX_OPTIONS)
-	pipx install 'pip-tools' $(PIPX_OPTIONS)
-	pipx install 'pipenv' $(PIPX_OPTIONS)
-	pipx install 'poetry' $(PIPX_OPTIONS)
-	pipx install 'powerline-status' $(PIPX_OPTIONS)
-	pipx install 'pre-commit' $(PIPX_OPTIONS)
-	pipx install 'ptpython' $(PIPX_OPTIONS)
-	pipx install 'pygments'  $(PIPX_OPTIONS) # used in hint $(PIPX_OPTIONS)
-	pipx install 'python-language-server[rope,pyflakes,flake8,mccabe]' $(PIPX_OPTIONS)
-	pipx install 'tmuxp' $(PIPX_OPTIONS)
-	pipx install 'twine' $(PIPX_OPTIONS)
-	pipx install 'vimwiki-markdown' $(PIPX_OPTIONS)
-	pipx install 'virtualenvwrapper' $(PIPX_OPTIONS)
-	pipx install 'virtualfish' --include-deps $(PIPX_OPTIONS)
-	pipx inject flake8 flake8-bugbear mccabe
-	pipx inject powerline-status psutil powerline-mem-segment
-	pipx inject python-language-server pyls-black pyls-mypy
-
-pipx-upgrade: ## upgrade pipx packages
-	# handle when pipx python version changed
-	black --version || (pipx uninstall-all && rm -rf $(HOME)/.local/pipx && $(MAKE) $(OPTIONS) pipx)
-	-pipx upgrade-all --include-injected --skip pandoc-fignos
-
 pipx-clean:  ## clean pipx
-	rm -rf ~/.local/pipx
+	-rm -rf ~/.local/pipx
 
-pyenv:  ## install diff python versions
-pyenv: fish-clean
-	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.9.\d+)' | sort -V | tail -1)
-	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.8.\d+)' | sort -V | tail -1)
-	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(3.7.\d+)' | sort -V | tail -1)
-	PATH=/usr/bin:$(PATH) pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)(2.7.\d+)' | sort -V | tail -1)
+upgrade::
+	# handle when pipx underlying python version changed
+	~/.local/pipx/shared/bin/pip --version > /dev/null 2>&1 \
+		|| $(MAKE) $(OPTIONS) \
+			pipx-clean \
+			$(addprefix pipx/,$(notdir $(wildcard ~/.local/pipx/venvs/*)))
+	pipx upgrade-all --include-injected --skip pandoc-fignos
+
+ifneq "$(wildcard .pyenv/versions/*)" ""
+pipx/%: ## install pip package
+pipx/%: $(HOME)/.local/pipx/venvs/%/bin
+	@
+
+pipx-inject/%: ## inject dep into pipx venv
+pipx-inject/%: $(HOME)/.local/pipx/venvs/%.inject
+	@
+
+else
+pipx/%:
+	@eecho there is no pyenv versions for pipx to use. skipping
+pipx-inject/%:
+	@eecho there is no pyenv versions for pipx to use. skipping
+endif
+
+.SECONDEXPANSION:
+$(HOME)/.local/pipx/venvs/%.inject: $$(dir $$@)bin
+	pipx inject $(firstword $(subst /, ,$*)) $(word 2,$(subst /, ,$*))
+	touch $@
+
+$(HOME)/.local/pipx/venvs/%/bin:
+	pipx install '$(firstword $(NAME) $*)$(VERSION)' $(PIPX_OPTIONS)
 
 pyenv-clean:  ## clean pyenv
 	rm -rf ~/.pyenv
+
+pyenv/%: fish-clean
+	@# path hack https://stackoverflow.com/questions/69459268/cant-install-python-3-10-0-with-pyenv-on-macos
+	$(eval export PATH=$(subst $(SPACE),:,$(call not-containing,llvm,$(subst :, ,$(PATH)))))
+	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)($*.\d+)' | sort -V | tail -1)

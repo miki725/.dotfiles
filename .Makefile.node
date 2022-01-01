@@ -1,21 +1,16 @@
-PATH:=$(HOME)/.n/bin:$(PATH)
+N_PREFIX=$(HOME)/.n
+PATH:=$(N_PREFIX)/bin:$(PATH)
 
-$(HOME)/.n/bin/node:
-	bash -c 'bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts'
-
-npm:  ## install global node deps
-npm: $(HOME)/.n/bin/node
-npm: npm/doctoc
-npm: npm/n
-npm: npm/npm
-npm: npm/prettier
-npm: npm/yarn
-npm: npm/yarn-why
-
-npm-upgrade:  ## upgrade npm deps
+upgrade::
 	npm upgrade -g
 
-npm/%:
-	npm list -g --depth=0 \
-		| grep $* > /dev/null \
-		|| npm install -g $*
+npm/%: ## install node package
+npm/%: $(N_PREFIX)/bin/node
+npm/%: $(N_PREFIX)/lib/node_modules/%
+	@
+
+$(N_PREFIX)/lib/node_modules/%:
+	npm install -g $*
+
+$(N_PREFIX)/bin/node:
+	bash -c 'bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts'

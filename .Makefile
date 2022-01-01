@@ -1,49 +1,43 @@
+.SECONDARY:
+EMPTY=
+SPACE=$(EMPTY) $(EMPTY)
+# https://stackoverflow.com/questions/12315834/makefile-how-to-apply-an-equivalent-to-filter-on-multiple-wildcards
+containing = $(foreach v,$2,$(if $(findstring $1,$v),$v))
+not-containing = $(foreach v,$2,$(if $(findstring $1,$v),,$v))
+
 help:  ## show help
-	@grep -E '^[a-zA-Z_\-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
+	@grep -E '^[a-zA-Z_\/%\-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 		cut -d':' -f2- | \
-		sort | \
-		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
+		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' | \
+		sort -t % -k 2.1,2.1
 
 OS=$(shell uname)
 SYSTEMD=$(shell which systemctl 2> /dev/null)
 
-include .Makefile.brew
-include .Makefile.fsh
-include .Makefile.node
-include .Makefile.pacman
-include .Makefile.python
-include .Makefile.tmux
-include .Makefile.vim
+include $(wildcard .Makefile.*)
+
+update::  ## update things for install/upgrade
+	@
+
+upgrade::  ## upgrade everything
+upgrade:: update
+	@
+
+tidy::  ## tidy things up
+	@
 
 all:  ## install everything
-all: brew
+all: minimal
 all: mac
-all: pacman
-all: pyenv
-all: pipx
-all: npm
 all: fish
 all: tmux
+all: vim
 all: git
 all: gpg
-
-upgrade:  ## upgrade everything
-upgrade: brew
-upgrade: brew-upgrade
-upgrade: mac
-upgrade: pacman-upgrade
-upgrade: pipx-upgrade
-upgrade: pyenv
-upgrade: npm-upgrade
-upgrade: fish-upgrade
-upgrade: tmux-upgrade
-upgrade: git
-upgrade: gpg
+	$(MAKE) $(OPTIONS) upgrade tidy
 
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
-mac: .iterm2_shell_integration.fish
-mac: .local/bin/imgcat
 mac: browserpass
 mac: mac-keyboard
 else
@@ -53,22 +47,14 @@ endif
 mac-keyboard:
 	defaults write -g KeyRepeat -int 1
 
-ifneq "$(wildcard /Applications/iTerm2.app)" ""
-browserpass:
-	cat /usr/local/opt/browserpass/lib/browserpass/Makefile | sed 's/Chrome/Chrome Beta/g' \
-	| PREFIX='/usr/local/opt/browserpass' \
-	make -f - hosts-firefox-user hosts-chrome-user
+ifeq "$(OS)" "Darwin"
+browserpass: brew/browserpass
+	cat /usr/local/opt/browserpass/lib/browserpass/Makefile \
+		| sed 's/Chrome/Chrome Beta/g' \
+		| PREFIX='/usr/local/opt/browserpass' \
+			make -f - hosts-firefox-user hosts-chrome-user
 else
 browserpass:
-endif
-
-ifneq "$(wildcard /Applications/iTerm2.app)" ""
-.local/bin/imgcat:
-	mkdir -p .local/bin
-	curl https://iterm2.com/utilities/imgcat > ~/.local/bin/imgcat
-	chmod +x ~/.local/bin/imgcat
-else
-.local/bin/imgcat:
 endif
 
 git:  ## adjust git cofig - conditionally enable gpg signing
@@ -76,6 +62,7 @@ git: .gitconfig.user
 git: .git-template/hooks/pre-commit
 
 .PHONY: .gitconfig.user
+ifneq "$(shell which gpg 2> /dev/null)" ""
 .gitconfig.user: .gnupg/pubring.kbx
 	@echo > .gitconfig.user
 	@-gpg --list-keys --keyid-format LONG miroslav@miki725.com &> /dev/null && \
@@ -88,9 +75,18 @@ git: .git-template/hooks/pre-commit
     echo "    gpgsign = true" >> .gitconfig.user && \
 	echo "[gpg]" >> .gitconfig.user && \
 	echo "    program = $(shell which gpg)" >> .gitconfig.user
+else
+.gitconfig.user:
+	@
+endif
 
+ifneq "$(shell which pre-commit 2> /dev/null)" ""
 .git-template/hooks/pre-commit:
-	$$(fish --login -c 'which pre-commit') init-templatedir .git-template
+	pre-commit init-templatedir .git-template
+else
+.git-template/hooks/pre-commit:
+	@
+endif
 
 gpg:  ## setup gpg config
 gpg: .gnupg/pubring.kbx

@@ -37,7 +37,7 @@ if not contains $HOME/.fish-path-hook $PATH
         and status --is-interactive
         or status --is-login
     if ! test -e $HOME/.path
-        generate_path > $HOME/.path
+        $HOME/.bin/generate_path.sh > $HOME/.path
     end
 
     set -gx PATH (cat $HOME/.path) $HOME/.fish-path-hook
@@ -49,6 +49,11 @@ if not contains $HOME/.fish-path-hook $PATH
         set -gx PATH $VIRTUAL_ENV/bin $PATH
     end
 end
+
+if ! test -e $HOME/.manpath
+    $HOME/.bin/generate_manpath.sh > $HOME/.manpath
+end
+set -gx MANPATH (cat $HOME/.manpath)
 
 if which starship > /dev/null 2>&1
     starship init fish | source
@@ -70,15 +75,6 @@ if which fzf > /dev/null 2>&1
 end
 if which lsd > /dev/null 2>&1
     alias ls='lsd'
-end
-
-if ! test -e $HOME/.manpath
-    generate_manpath > $HOME/.manpath
-end
-for i in (cat $HOME/.manpath)
-    if test -d $i
-        set -gx MANPATH $i $MANPATH
-    end
 end
 
 set -l compilepath \
@@ -111,10 +107,6 @@ end
 
 if test -f /usr/local/share/chtf/chtf.fish
     source /usr/local/share/chtf/chtf.fish
-end
-
-if which itermocil > /dev/null 2>&1
-    complete -c itermocil -a "(itermocil --list)"
 end
 
 if test -d $HOME/.ssh
