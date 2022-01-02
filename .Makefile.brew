@@ -19,7 +19,6 @@ ifeq "$(OS)" "Darwin"
 update::
 	$(BREW_CMD) update
 
-upgrade:: update
 upgrade:: $(BREW)
 	$(BREW_CMD) list --formula | grep -v pandoc | xargs $(BREW_CMD) upgrade
 	$(BREW_CMD) upgrade --cask
