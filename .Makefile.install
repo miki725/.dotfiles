@@ -64,7 +64,6 @@ tools: pacman/xorg-xclock
 tools: brew/yq yay/go-yq
 tools: brew/zoxide yay/zoxide-bin  # cd to folders quickly
 
-sec: pacman/bind  # dig
 sec: brew/browserpass
 sec: brew/gnupg
 sec: brew/gnupg
@@ -90,6 +89,7 @@ casks: cask/datacolor-spyder-elite
 casks: cask/slack
 casks: cask/vlc
 
+net: pacman/bind  # dig
 net: pacman/inetutils  # telnet, ftp
 net: brew/iperf pacman/iperf
 net: pacman/iproute2  # ip
