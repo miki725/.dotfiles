@@ -69,6 +69,7 @@ sec: brew/gnupg
 sec: brew/gnupg
 sec: brew/gopass
 sec: brew/paperkey  # just secret from gpg key
+sec: brew/pass  # browserpass uses pass vs gopass
 sec: brew/pinentry-mac  # gpg pin enter gui
 sec: brew/pwgen
 sec: brew/ykman  # yubikey manager cli version
