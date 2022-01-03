@@ -183,14 +183,14 @@ pandoc: brew/pandoc-crossref
 pandoc: pipx/pandoc-fignos
 pandoc: pipx/pandocfilter-sh
 
-brew/awsprey: TAP=gamechanger/brews
+brew/awsprey: TAP=gamechanger/brews/
 brew/browserpass: TAP=amar1729/formulae
-cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers
+cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 pipx/flake8: pipx-inject/flake8/flake8-bugbear
 pipx/flake8: pipx-inject/flake8/mccabe
-cask/font-hack-nerd-font: TAP=homebrew/font-hack-nerd-font
-cask/google-chrome-beta: TAP=homebrew/cask-versions
-brew/hint: TAP=miki725/brews
+cask/font-hack-nerd-font: TAP=homebrew/font-hack-nerd-font/
+cask/google-chrome-beta: TAP=homebrew/cask-versions/
+brew/hint: TAP=miki725/brews/
 pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master
 brew/itermocil: TAP=tomanthony/brews/
 pipx/pandoc-fignos: VERSION=<2.3.1
