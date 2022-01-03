@@ -5,8 +5,7 @@ upgrade::
 	npm upgrade -g
 
 npm/%: ## install node package
-npm/%: $(N_PREFIX)/bin/node
-npm/%: $(N_PREFIX)/lib/node_modules/%
+npm/%: $(N_PREFIX)/bin/node $(N_PREFIX)/lib/node_modules/%
 	@
 
 $(N_PREFIX)/lib/node_modules/%:
