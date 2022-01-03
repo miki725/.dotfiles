@@ -200,6 +200,8 @@ pipx/python-language-server: VERSION=[all]
 pipx/python-language-server: pipx-inject/python-language-server/pyls-black
 pipx/python-language-server: pipx-inject/python-language-server/pyls-mypy
 pipx/virtualfish: OPTIONS=--include-deps
+cask/yubico-authenticator: TAP=homebrew/cask-drivers/
+cask/yubico-yubiokey-manager: TAP=homebrew/cask-drivers/
 
 # manually downloading older versions as newer versions changed pandoc AST
 # see https://github.com/ickc/pantable
