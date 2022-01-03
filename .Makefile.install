@@ -184,7 +184,7 @@ pandoc: pipx/pandoc-fignos
 pandoc: pipx/pandocfilter-sh
 
 brew/awsprey: TAP=gamechanger/brews/
-brew/browserpass: TAP=amar1729/formulae
+brew/browserpass: TAP=amar1729/formulae/
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 pipx/flake8: pipx-inject/flake8/flake8-bugbear
 pipx/flake8: pipx-inject/flake8/mccabe
