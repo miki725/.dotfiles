@@ -7,7 +7,7 @@ return {
 
   default_prog = {
     "/bin/sh",
-    ".bin/exec_first_found.sh",
+    os.getenv("HOME") .. "/.bin/exec_first_found.sh",
     "tmux",
     "fish --login",
     "bash --login",
