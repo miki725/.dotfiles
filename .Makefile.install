@@ -188,7 +188,7 @@ brew/browserpass: TAP=amar1729/formulae
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 pipx/flake8: pipx-inject/flake8/flake8-bugbear
 pipx/flake8: pipx-inject/flake8/mccabe
-cask/font-hack-nerd-font: TAP=homebrew/font-hack-nerd-font/
+cask/font-hack-nerd-font: TAP=homebrew/cask-fonts/
 cask/google-chrome-beta: TAP=homebrew/cask-versions/
 brew/hint: TAP=miki725/brews/
 pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master
