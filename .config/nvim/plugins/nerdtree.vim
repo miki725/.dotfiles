@@ -1,3 +1,5 @@
+if PlugLoaded('nerdtree')
+
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
@@ -15,3 +17,5 @@ endfunction
 
 "" Automatically close vim if only NERDTree left
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+endif

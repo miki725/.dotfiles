@@ -3,7 +3,7 @@ set encoding=utf-8
 
 syntax enable
 set termguicolors
-colorscheme monokai
+" colorscheme monokai
 set mouse=a
 
 set splitright
