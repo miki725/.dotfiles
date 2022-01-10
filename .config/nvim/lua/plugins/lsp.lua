@@ -131,30 +131,47 @@ return function(use)
 				"terraformls",
 			}
 
-			for _, lsp in ipairs(servers) do
-				nvim_lsp[lsp].setup({
-					on_attach = function(client, bufnr)
-						disable_formatting(client)
-						on_attach(client, bufnr)
-					end,
-					flags = { debounce_text_changes = 150 },
-				})
+			local is_lsp_installed = function(server)
+				return vim.fn.executable(server.document_config.default_config.cmd[1])
 			end
 
-			nvim_lsp.sumneko_lua.setup(luadev.setup({}))
+			for _, lsp in pairs(servers) do
+				if is_lsp_installed(nvim_lsp[lsp]) then
+					nvim_lsp[lsp].setup({
+						on_attach = function(client, bufnr)
+							disable_formatting(client)
+							on_attach(client, bufnr)
+						end,
+						flags = { debounce_text_changes = 150 },
+					})
+				end
+			end
+
+			if is_lsp_installed(nvim_lsp.sumneko_lua) then
+				nvim_lsp.sumneko_lua.setup(luadev.setup({}))
+			end
+
+			local null_sources = {}
+			local requested_sources = {
+				null_ls.builtins.diagnostics.eslint_d,
+				null_ls.builtins.code_actions.eslint_d,
+				null_ls.builtins.formatting.prettierd,
+				null_ls.builtins.formatting.fish_indent,
+				null_ls.builtins.formatting.shfmt,
+				null_ls.builtins.formatting.stylua,
+				null_ls.builtins.formatting.terraform_fmt.with({
+					filetypes = { "hcl", "terraform" },
+				}),
+			}
+
+			for _, v in pairs(requested_sources) do
+				if vim.fn.executable(v._opts.command) then
+					table.insert(null_sources, v)
+				end
+			end
 
 			null_ls.setup({
-				sources = {
-					null_ls.builtins.diagnostics.eslint_d,
-					null_ls.builtins.code_actions.eslint_d,
-					null_ls.builtins.formatting.prettierd,
-					null_ls.builtins.formatting.fish_indent,
-					null_ls.builtins.formatting.shfmt,
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.terraform_fmt.with({
-						filetypes = { "hcl", "terraform" },
-					}),
-				},
+				sources = null_sources,
 				on_attach = on_attach,
 			})
 		end,
