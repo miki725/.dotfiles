@@ -9,6 +9,9 @@ return function(use)
 				noremap = true,
 				silent = true,
 			}
+
+			vim.api.nvim_set_keymap("n", "<leader>ff", ":FzfLua builtin<CR>", opts)
+
 			vim.api.nvim_set_keymap("n", "<c-P>", ":FzfLua git_files<CR>", opts)
 			vim.api.nvim_set_keymap("n", "<c-B>", ":FzfLua buffers<CR>", opts)
 			vim.api.nvim_set_keymap("n", "<c-t>", ":FzfLua btags<CR>", opts)
