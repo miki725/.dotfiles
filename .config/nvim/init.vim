@@ -8,7 +8,4 @@ source ~/.config/nvim/reflow.vim
 for f in split(glob('~/.config/nvim/dotfiles/*.vim'), '\n')
     exe 'source' f
 endfor
-source ~/.config/nvim/plugins.vim
-for f in split(glob('~/.config/nvim/plugins/*.vim'), '\n')
-    exe 'source' f
-endfor
+lua require('init')

@@ -9,6 +9,7 @@ set mouse=a
 set splitright
 set splitbelow
 
+set scrolloff=5
 set nowrap
 
 " paste from clipboard
@@ -46,9 +47,6 @@ set shell=fish
 filetype on
 
 " maximize current buffer
-nnoremap <C-\> :MaximizerToggle<CR>
-vnoremap <C-\> :MaximizerToggle<CR>gv
-inoremap <C-\> <C-o>:MaximizerToggle<CR>
 
 " automatically strip trailing whitespace
 autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
@@ -57,6 +55,7 @@ autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
 
 " clear scrollback completely when in terminal
 if exists('##TermOpen')

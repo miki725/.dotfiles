@@ -1,4 +1,6 @@
 /autoload
 /plugged
 /dotfiles
+/plugin
 /.*
+Session.vim
