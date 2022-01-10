@@ -1,3 +1,3 @@
 function gpgkill
-  gpgconf --kill gpg-agent
+    gpgconf --kill gpg-agent
 end

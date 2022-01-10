@@ -14,16 +14,13 @@ function md2pdf-ieee --description 'Convert md to pdb via pandoc with ieee forma
     set table_filter_path $pandoc_path/table-filter.py
 
     if not test -f $ieee_path
-        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/IEEEtran.cls \
-            > $ieee_path
+        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/IEEEtran.cls >$ieee_path
     end
     if not test -f $bibliography_csl_path
-        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/bibliography.csl \
-            > $bibliography_csl_path
+        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/bibliography.csl >$bibliography_csl_path
     end
     if not test -f $table_filter_path
-        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/table-filter.py \
-            > $table_filter_path
+        curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/table-filter.py >$table_filter_path
     end
     if not test -f $template_path
         curl https://raw.githubusercontent.com/miki725/md2pdf-ieee/master/template.latex \
@@ -62,8 +59,7 @@ to_replace = "\n".join(
     )
 )
 print(data.replace(to_replace, replacement.strip()).strip())
-            ' \
-            > $template_path
+            ' >$template_path
     end
 
     cat $md_path | python -c "
@@ -83,7 +79,7 @@ print('\n'.join(
         )
     )[1:]
 ))
-" > $bibliography_path
+" >$bibliography_path
 
     set -l command pandoc $md_path \
         -f markdown+tex_math_single_backslash \

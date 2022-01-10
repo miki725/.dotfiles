@@ -34,10 +34,10 @@ set -gx EDITOR vim
 set -gx N_PREFIX $HOME/.n
 
 if not contains $HOME/.fish-path-hook $PATH
-        and status --is-interactive
-        or status --is-login
+    and status --is-interactive
+    or status --is-login
     if ! test -e $HOME/.path
-        $HOME/.bin/generate_path.sh > $HOME/.path
+        $HOME/.bin/generate_path.sh >$HOME/.path
     end
 
     set -gx PATH (cat $HOME/.path) $HOME/.fish-path-hook
@@ -51,29 +51,29 @@ if not contains $HOME/.fish-path-hook $PATH
 end
 
 if ! test -e $HOME/.manpath
-    $HOME/.bin/generate_manpath.sh > $HOME/.manpath
+    $HOME/.bin/generate_manpath.sh >$HOME/.manpath
 end
 set -gx MANPATH (cat $HOME/.manpath)
 
-if which starship > /dev/null 2>&1
+if which starship >/dev/null 2>&1
     starship init fish | source
 end
 
-if which zoxide > /dev/null 2>&1
+if which zoxide >/dev/null 2>&1
     zoxide init fish | source
 end
 
 alias l="ls -la"
 alias fish_config.fish="vim ~/.config/fish/config.fish"
-if which nvim > /dev/null 2>&1
+if which nvim >/dev/null 2>&1
     alias vim=nvim
     set -gx EDITOR nvim
 end
-if which fzf > /dev/null 2>&1
+if which fzf >/dev/null 2>&1
     alias vimz='vim (fzf)'
     set -gx FZF_DEFAULT_COMMAND 'fd --type f'
 end
-if which lsd > /dev/null 2>&1
+if which lsd >/dev/null 2>&1
     alias ls='lsd'
 end
 
@@ -83,21 +83,21 @@ set -l compilepath \
 
 for i in $compilepath[-1..1]
     if test -d $i/lib
-            and not echo $LDFLAGS | grep $i/lib > /dev/null
+        and not echo $LDFLAGS | grep $i/lib >/dev/null
         set -gx LDFLAGS "-L$i/lib $LDFLAGS"
     end
     if test -d $i/include
-            and not echo $CPPFLAGS | grep $i/include > /dev/null
+        and not echo $CPPFLAGS | grep $i/include >/dev/null
         set -gx CPPFLAGS "-I$i/include $CPPFLAGS"
     end
     if test -d $i/lib/pkgconfig
-            and not echo $PKG_CONFIG_PATH | grep $i/lib/pkgconfig > /dev/null
+        and not echo $PKG_CONFIG_PATH | grep $i/lib/pkgconfig >/dev/null
         set -gx PKG_CONFIG_PATH "$i/lib/pkgconfig:$PKG_CONFIG_PATH"
     end
 end
 
-if which direnv > /dev/null 2>&1
-        and status --is-interactive
+if which direnv >/dev/null 2>&1
+    and status --is-interactive
     eval (direnv hook fish)
 end
 
@@ -110,45 +110,45 @@ if test -f /usr/local/share/chtf/chtf.fish
 end
 
 if test -d $HOME/.ssh
-    cat $HOME/.ssh/*.config > $HOME/.ssh/.config
+    cat $HOME/.ssh/*.config >$HOME/.ssh/.config
 end
 
-if which src-hilite-lesspipe.sh > /dev/null 2>&1
+if which src-hilite-lesspipe.sh >/dev/null 2>&1
     set -gx LESSOPEN "| src-hilite-lesspipe.sh %s"
     set -gx LESS " -R "
 end
 
 if not functions -q fisher
-        and status --is-interactive
+    and status --is-interactive
     set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
     curl -sL https://git.io/fisher | source
     fisher update
 end
 
-if which fortune > /dev/null 2>&1
-        and which cowsay > /dev/null 2>&1
-        and status --is-interactive
+if which fortune >/dev/null 2>&1
+    and which cowsay >/dev/null 2>&1
+    and status --is-interactive
     fortune -s | cowsay
 end
 
 set -gx GNUPGHOME $HOME/.gnupg
 if not set -q SSH_CONNECTION
-        and which gpgconf > /dev/null 2>&1
-        and gpg --card-status > /dev/null 2>&1
-        and status --is-interactive
+    and which gpgconf >/dev/null 2>&1
+    and gpg --card-status >/dev/null 2>&1
+    and status --is-interactive
     set -gx GPG_TTY (tty)
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     set -gx SSH_AGENT_PID ""
 
-    if which gpg-connect-agent > /dev/null 2>&1
-        gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1 &
+    if which gpg-connect-agent >/dev/null 2>&1
+        gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1 &
     end
 
     # modify macOS system SSH_AUTH_SOCK if it does not match
     # only for non-root user
-    if which launchctl > /dev/null 2>&1
-            and test (id -u) -gt 0
-            and test (
+    if which launchctl >/dev/null 2>&1
+        and test (id -u) -gt 0
+        and test (
                 launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK 2> /dev/null;
                 or echo $SSH_AUTH_SOCK
             ) != $SSH_AUTH_SOCK

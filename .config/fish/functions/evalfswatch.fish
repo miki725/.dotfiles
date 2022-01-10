@@ -1,5 +1,5 @@
 function evalfswatch
-    argparse -i 'w/watch=' 'r/reset' -- $argv
+    argparse -i 'w/watch=' r/reset -- $argv
     or return
 
     if test -z "$_flag_watch"
