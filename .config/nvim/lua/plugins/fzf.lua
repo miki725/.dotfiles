@@ -30,6 +30,13 @@ return function(use)
 				{ noremap = true, silent = true }
 			)
 
+			vim.api.nvim_set_keymap(
+				"n",
+				"gr",
+				"<cmd>lua require('fzf-lua').lsp_references()<CR>",
+				{ noremap = true, silent = true }
+			)
+
 			require("fzf-lua").setup({
 				lsp = {
 					-- make lsp requests synchronous so they work with null-ls
