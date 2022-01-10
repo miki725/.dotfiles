@@ -131,6 +131,7 @@ dev: brew/gettext  # i18n - internatiolization
 dev: brew/git-lfs
 dev: pipx/git-of-theseus
 dev: brew/git-quick-stats
+dev: pacman/git-delta  # git diff syntax highlighting in fzf
 dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
 dev: brew/libyaml
 dev: pipx/neovim-sh
