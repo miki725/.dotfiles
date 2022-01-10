@@ -5,37 +5,18 @@ return function(use)
 			"kyazdani42/nvim-web-devicons",
 		},
 		config = function()
-			vim.api.nvim_set_keymap(
-				"n",
-				"<c-P>",
-				"<cmd>lua require('fzf-lua').git_files()<CR>",
-				{ noremap = true, silent = true }
-			)
-			vim.api.nvim_set_keymap(
-				"n",
-				"<c-B>",
-				"<cmd>lua require('fzf-lua').buffers()<CR>",
-				{ noremap = true, silent = true }
-			)
-			vim.api.nvim_set_keymap(
-				"n",
-				"<c-t>",
-				"<cmd>lua require('fzf-lua').btags()<CR>",
-				{ noremap = true, silent = true }
-			)
-			vim.api.nvim_set_keymap(
-				"n",
-				"<a-t>",
-				"<cmd>lua require('fzf-lua').tags()<CR>",
-				{ noremap = true, silent = true }
-			)
+			local opts = {
+				noremap = true,
+				silent = true,
+			}
+			vim.api.nvim_set_keymap("n", "<c-P>", ":FzfLua git_files<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<c-B>", ":FzfLua buffers<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<c-t>", ":FzfLua btags<CR>", opts)
+			vim.api.nvim_set_keymap("n", "<a-t>", ":FzfLua tags<CR>", opts)
 
-			vim.api.nvim_set_keymap(
-				"n",
-				"gr",
-				"<cmd>lua require('fzf-lua').lsp_references()<CR>",
-				{ noremap = true, silent = true }
-			)
+			vim.api.nvim_set_keymap("n", "z=", ":FzfLua spell_suggest<CR>", opts)
+
+			vim.api.nvim_set_keymap("n", "gr", ":FzfLua lsp_references<CR>", opts)
 
 			require("fzf-lua").setup({
 				lsp = {
