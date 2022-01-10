@@ -26,11 +26,11 @@ return require("packer").startup(function(use)
 	require("plugins.comment")(use)
 	require("plugins.ctags")(use)
 	require("plugins.editorconfig")(use)
-	require("plugins.focus")(use)
 	require("plugins.fugitive")(use)
 	require("plugins.fzf")(use)
 	require("plugins.git")(use)
 	require("plugins.gitsigns")(use)
+	require("plugins.hop")(use)
 	require("plugins.incsearch")(use)
 	require("plugins.indentline")(use)
 	require("plugins.lsp")(use)
@@ -47,6 +47,9 @@ return require("packer").startup(function(use)
 	require("plugins.tree")(use)
 	require("plugins.treesitter")(use)
 	require("plugins.vimspector")(use)
+
+	-- it conflicts with hop so needs to be laster initialized
+	require("plugins.focus")(use)
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
