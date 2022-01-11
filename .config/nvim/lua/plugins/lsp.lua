@@ -121,10 +121,6 @@ return function(use)
                      augroup END
                    ]])
 				end
-
-				if client.resolved_capabilities.document_formatting then
-					vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-				end
 			end
 
 			local servers = {
@@ -173,7 +169,15 @@ return function(use)
 
 			null_ls.setup({
 				sources = null_sources,
-				on_attach = on_attach,
+				on_attach = function(client, bufnr)
+					if client.resolved_capabilities.document_formatting then
+						vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+					end
+
+					vim.cmd("command! NullLsStop lua vim.lsp.stop_client(" .. client.id .. ")")
+
+					on_attach(client, bufnr)
+				end,
 			})
 		end,
 	})
