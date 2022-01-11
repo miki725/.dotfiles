@@ -106,6 +106,7 @@ return function(use)
 				vim.cmd("command! LspDiagNext lua vim.diagnostic.goto_next()")
 				vim.cmd("command! LspDiagLine lua vim.diagnostic.open_float()")
 				vim.cmd("command! LspSignatureHelp lua vim.lsp.buf.signature_help()")
+				vim.cmd("command! LspStopServers lua vim.lsp.stop_client(vim.lsp.get_active_clients())")
 
 				-- delay before float appears or autocomplete shows up
 				vim.o.updatetime = 250
