@@ -148,11 +148,11 @@ return function(use)
 				nvim_lsp.sumneko_lua.setup(luadev.setup({}))
 			end
 
-			local null_sources = {}
-			local requested_sources = {
+			local sources = {
 				null_ls.builtins.diagnostics.eslint_d,
 				null_ls.builtins.code_actions.eslint_d,
 				null_ls.builtins.formatting.prettierd,
+				null_ls.builtins.formatting.black,
 				null_ls.builtins.formatting.fish_indent,
 				null_ls.builtins.formatting.shfmt,
 				null_ls.builtins.formatting.stylua,
@@ -161,14 +161,15 @@ return function(use)
 				}),
 			}
 
-			for _, v in pairs(requested_sources) do
-				if vim.fn.executable(v._opts.command) then
-					table.insert(null_sources, v)
+			for _, v in pairs(sources) do
+				local cmd = v._opts.command
+				v.condition = function()
+					return vim.fn.executable(cmd)
 				end
 			end
 
 			null_ls.setup({
-				sources = null_sources,
+				sources = sources,
 				on_attach = function(client, bufnr)
 					if client.resolved_capabilities.document_formatting then
 						vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
