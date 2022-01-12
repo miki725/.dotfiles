@@ -181,7 +181,7 @@ devc: brew/llvm  # clangd for c language server in coc-vim
 devtf: yay/terraform-ls-bin
 
 devlua: pacman/lua-language-server
-devlua: yay/stylua
+devlua: brew/stylua yay/stylua
 
 devsh: pacman/shfmt
 

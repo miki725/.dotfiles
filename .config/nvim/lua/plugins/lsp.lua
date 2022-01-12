@@ -114,12 +114,12 @@ return function(use)
 
 				if client.resolved_capabilities.document_highlight then
 					vim.cmd([[
-                     augroup lsp_document_highlight
-                       autocmd! * <buffer>
-                       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-                       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-                     augroup END
-                   ]])
+					augroup lsp_document_highlight
+						autocmd! * <buffer>
+						autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+						autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+					augroup END
+					]])
 				end
 			end
 
@@ -129,7 +129,7 @@ return function(use)
 			}
 
 			local is_lsp_installed = function(server)
-				return vim.fn.executable(server.document_config.default_config.cmd[1])
+				return vim.fn.executable(server.document_config.default_config.cmd[1]) > 0
 			end
 
 			for _, lsp in pairs(servers) do
@@ -164,7 +164,7 @@ return function(use)
 			for _, v in pairs(sources) do
 				local cmd = v._opts.command
 				v.condition = function()
-					return vim.fn.executable(cmd)
+					return vim.fn.executable(cmd) > 0
 				end
 			end
 
