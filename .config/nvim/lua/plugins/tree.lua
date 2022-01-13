@@ -1,6 +1,6 @@
 vim.cmd([[
 let g:nvim_tree_disable_window_picker = 1
-map <leader>t :NvimTreeToggle<CR>
+nnoremap <leader>t :NvimTreeToggle<CR>
 ]])
 
 return function(use)
