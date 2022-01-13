@@ -1,6 +1,12 @@
 return function(use)
 	use({
 		"numToStr/Comment.nvim",
+		keys = {
+			{ "n", "gc" },
+			{ "n", "gb" },
+			{ "v", "gc" },
+			{ "v", "gb" },
+		},
 		config = function()
 			require("Comment").setup({
 				padding = true,

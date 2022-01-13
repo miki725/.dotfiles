@@ -1,7 +1,13 @@
 vim.cmd([[
 let g:nvim_tree_disable_window_picker = 1
-nnoremap <leader>t :NvimTreeToggle<CR>
 ]])
+
+local opts = {
+	noremap = true,
+	silent = true,
+}
+
+vim.api.nvim_set_keymap("n", "<leader>t", ":NvimTreeToggle<CR>", opts)
 
 return function(use)
 	use({
@@ -9,6 +15,10 @@ return function(use)
 		requires = {
 			"kyazdani42/nvim-web-devicons",
 		},
+		cmd = {
+			"NvimTreeToggle",
+		},
+		setup = function() end,
 		config = function()
 			require("nvim-tree").setup({
 				disable_netrw = true,
