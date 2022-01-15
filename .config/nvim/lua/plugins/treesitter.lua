@@ -51,8 +51,6 @@ return function(use)
 				},
 				ensure_installed = "maintained",
 			})
-			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 		end,
 	})
 	use({
