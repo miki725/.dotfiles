@@ -27,6 +27,18 @@ return function(use)
 					GitSignsChange = {
 						fg = palette.orange,
 					},
+					TabLine = {
+						bg = palette.base2,
+						fg = palette.base6,
+					},
+					TabLineSel = {
+						bg = palette.base5,
+						fg = palette.white,
+						style = "bold",
+					},
+					TabLineFill = {
+						bg = palette.base2,
+					},
 				},
 			})
 		end,
