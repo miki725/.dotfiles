@@ -29,6 +29,7 @@ set -U fish_greeting Welcome\x20to\x20fish\x2c\x20the\x20friendly\x20interactive
 set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx GOPATH $HOME/.go
 set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/.ripgreprc
+set -gx PTPYTHON_CONFIG_HOME $HOME/.config/ptpython
 set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 set -gx N_PREFIX $HOME/.n
