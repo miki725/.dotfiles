@@ -1,3 +1,3 @@
 return function(use)
-	use("jeffkreeftmeijer/vim-numbertoggle")
+    use("jeffkreeftmeijer/vim-numbertoggle")
 end

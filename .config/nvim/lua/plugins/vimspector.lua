@@ -13,5 +13,5 @@ nmap <Leader>dl <Plug>VimspectorStepInto
 ]])
 
 return function(use)
-	use("puremourning/vimspector")
+    use("puremourning/vimspector")
 end

@@ -5,8 +5,8 @@ inoremap <C-\> <C-o>:MaximizerToggle<CR>
 ]])
 
 return function(use)
-	use({
-		"szw/vim-maximizer",
-		cmd = "MaximizerToggle",
-	})
+    use({
+        "szw/vim-maximizer",
+        cmd = "MaximizerToggle",
+    })
 end

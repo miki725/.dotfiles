@@ -1,3 +1,3 @@
 return function(use)
-	use("editorconfig/editorconfig-vim")
+    use("editorconfig/editorconfig-vim")
 end

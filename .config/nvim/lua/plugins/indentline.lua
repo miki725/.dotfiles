@@ -8,6 +8,6 @@ autocmd FileType json let g:indentLine_conceallevel=0
 ]])
 
 return function(use)
-	-- shows indent indicators
-	use("Yggdroot/indentLine")
+    -- shows indent indicators
+    use("Yggdroot/indentLine")
 end
