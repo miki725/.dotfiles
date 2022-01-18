@@ -4,7 +4,7 @@ pipx-clean:  ## clean pipx
 ifneq "$(shell which pipx 2> /dev/null)" ""
 upgrade::
 	# handle when pipx underlying python version changed
-	~/.local/pipx/shared/bin/pip --version > /dev/null 2>&1 \
+	pipx list > /dev/null 2>&1 \
 		|| $(MAKE) $(OPTIONS) \
 			pipx-clean \
 			$(addprefix pipx/,$(notdir $(wildcard ~/.local/pipx/venvs/*)))
