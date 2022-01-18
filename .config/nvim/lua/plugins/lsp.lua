@@ -155,7 +155,13 @@ return function(use)
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.fish_indent,
                 null_ls.builtins.formatting.shfmt.with({
-                    extra_args = { "-i", "4", "-w", "-ci", "-sr", "-bn" },
+                    extra_args = {
+                        "-i",
+                        "4", -- 4 spaces
+                        "-ci", -- indent switch cases
+                        "-sr", -- redirect operators are followed by space
+                        "-bn", -- binary ops like && or | (pipe) start the line
+                    },
                 }),
                 null_ls.builtins.formatting.stylua.with({
                     extra_args = { "--indent-type", "spaces" },
