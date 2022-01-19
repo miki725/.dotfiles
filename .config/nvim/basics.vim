@@ -46,11 +46,6 @@ set shell=fish
 " enable file type detection
 filetype on
 
-" maximize current buffer
-
-" automatically strip trailing whitespace
-autocmd BufWritePre * :call <SID>PreserveCursorPosition("%s/\\s\\+$//e")
-
 " jump to the last position when reopening a file
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -106,19 +101,6 @@ au BufNewFile,BufRead /private/**/gopass** setlocal noswapfile nobackup noundofi
 " }}}
 
 " utility functions {{{
-" function applies a command and maintains cursor position
-" http://vimcasts.org/episodes/tidying-whitespace/
-function! <SID>PreserveCursorPosition(command)
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    execute a:command
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
 
 " toggle scrollback which allows to clear scrollback in terminal in neovim
 function! ToggleScrollback(...)

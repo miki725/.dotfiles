@@ -48,6 +48,26 @@ return function(use)
                             ["ic"] = "@class.inner",
                         },
                     },
+                    move = {
+                        enable = true,
+                        set_jumps = true, -- whether to set jumps in the jumplist
+                        goto_next_start = {
+                            ["]f"] = "@function.outer",
+                            ["]]"] = "@class.outer",
+                        },
+                        goto_next_end = {
+                            ["]F"] = "@function.outer",
+                            ["]["] = "@class.outer",
+                        },
+                        goto_previous_start = {
+                            ["[f"] = "@function.outer",
+                            ["[["] = "@class.outer",
+                        },
+                        goto_previous_end = {
+                            ["[F"] = "@function.outer",
+                            ["[]"] = "@class.outer",
+                        },
+                    },
                 },
                 ensure_installed = "maintained",
             })
