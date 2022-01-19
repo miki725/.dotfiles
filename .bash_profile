@@ -10,9 +10,9 @@ alias ll="ls -lh"
 alias la="ls -la"
 
 if [ -n "$ZSH_VERSION" ]; then
-   shell=zsh
+    shell=zsh
 elif [ -n "$BASH_VERSION" ]; then
-   shell=bash
+    shell=bash
 fi
 
 which starship > /dev/null 2>&1 && source <(starship init $shell --print-full-init)
