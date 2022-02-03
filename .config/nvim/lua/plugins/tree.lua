@@ -1,6 +1,6 @@
-vim.cmd([[
-let g:nvim_tree_disable_window_picker = 1
-]])
+vim.g.nvim_tree_disable_window_picker = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
 
 local opts = {
     noremap = true,
@@ -30,7 +30,7 @@ return function(use)
                 hijack_cursor = false,
                 update_cwd = false,
                 update_to_buf_dir = {
-                    enable = true,
+                    enable = false,
                     auto_open = true,
                 },
                 diagnostics = {
