@@ -153,6 +153,7 @@ devcloud: brew/awsprey
 devcloud: pipx/certbot
 devcloud: brew/tfenv yay/tfenv  # change terraform version
 
+devpy: npm/pyright
 devpy: pipx/black
 devpy: pipx/check-manifest
 devpy: pipx/flake8
@@ -163,7 +164,6 @@ devpy: pipx/pip-tools
 devpy: pipx/pipenv
 devpy: pipx/poetry
 devpy: pipx/ptpython
-devpy: pipx/python-language-server
 devpy: pipx/twine
 devpy: pipx/virtualfish
 
@@ -211,9 +211,6 @@ brew/itermocil: TAP=tomanthony/brews/
 pipx/pandoc-fignos: VERSION=<2.3.1
 pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
 pipx/powerline-status: pipx-inject/powerline-status/psutil
-pipx/python-language-server: VERSION=[all]
-pipx/python-language-server: pipx-inject/python-language-server/pyls-black
-pipx/python-language-server: pipx-inject/python-language-server/pyls-mypy
 pipx/virtualfish: OPTIONS=--include-deps
 cask/yubico-authenticator: TAP=homebrew/cask-drivers/
 cask/yubico-yubiokey-manager: TAP=homebrew/cask-drivers/
