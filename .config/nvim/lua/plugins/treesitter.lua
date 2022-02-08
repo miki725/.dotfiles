@@ -70,6 +70,10 @@ return function(use)
                     },
                 },
                 ensure_installed = "maintained",
+                ignore_install = {
+                    -- until https://github.com/nvim-neorg/tree-sitter-norg/issues/7 is resolved on Mac
+                    "norg",
+                },
             })
         end,
     })
