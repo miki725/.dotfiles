@@ -76,6 +76,7 @@ if which fzf >/dev/null 2>&1
 end
 if which lsd >/dev/null 2>&1
     alias ls='lsd'
+    alias lt='la --tree'
 end
 
 set -l compilepath \
