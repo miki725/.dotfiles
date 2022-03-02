@@ -3,6 +3,7 @@
     email = miroslav@miki725.com
 [include]
     path = .gitconfig.user
+    path = .gitconfig.diff
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f

@@ -16,6 +16,7 @@ autocmd BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
 autocmd BufRead,BufNewFile *.yml.j2 set filetype=yaml
 autocmd BufRead,BufNewFile *.sh.j2 set filetype=sh
 autocmd BufRead,BufNewFile *.ini.j2 set filetype=dosini
+autocmd BufRead,BufNewFile *.toml.j2 set filetype=toml
 autocmd BufRead,BufNewFile *.r2py set filetype=python
 autocmd FileType make setlocal ts=4 sts=4 sw=4 noexpandtab
 autocmd FileType lua setlocal ts=4 sts=4 sw=4 noexpandtab
