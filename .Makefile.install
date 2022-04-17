@@ -1,3 +1,5 @@
+# !sort -t / -k2
+
 minimal: pacman/base-devel # sudo, which, sed, etc
 minimal: brew/btop pacman/btop  # c version of bpytop
 minimal: cask/firefox
@@ -211,6 +213,7 @@ brew/itermocil: TAP=tomanthony/brews/
 pipx/pandoc-fignos: VERSION=<2.3.1
 pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
 pipx/powerline-status: pipx-inject/powerline-status/psutil
+brew/tmux: brew/reattach-to-user-namespace
 pipx/virtualfish: OPTIONS=--include-deps
 cask/yubico-authenticator: TAP=homebrew/cask-drivers/
 cask/yubico-yubiokey-manager: TAP=homebrew/cask-drivers/
