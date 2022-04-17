@@ -45,6 +45,7 @@ return require("packer").startup(function(use)
     require("plugins.maximizer")(use)
     require("plugins.mundo")(use)
     require("plugins.numbertoggle")(use)
+    require("plugins.pencil")(use)
     require("plugins.ripgrep")(use)
     require("plugins.rsi")(use)
     require("plugins.startuptime")(use)
@@ -53,7 +54,7 @@ return require("packer").startup(function(use)
     require("plugins.treesitter")(use)
     require("plugins.vimspector")(use)
 
-    -- it conflicts with hop so needs to be laster initialized
+    -- it conflicts with hop so needs to be initialized last
     require("plugins.focus")(use)
 
     -- Automatically set up your configuration after cloning packer.nvim

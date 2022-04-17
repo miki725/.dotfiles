@@ -46,8 +46,8 @@ return function(use)
                     -- Default keymap options
                     noremap = true,
 
-                    ["n ]c"] = { expr = true, "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'" },
-                    ["n [c"] = { expr = true, "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'" },
+                    ["n ]h"] = { expr = true, "&diff ? ']h' : '<cmd>Gitsigns next_hunk<CR>'" },
+                    ["n [h"] = { expr = true, "&diff ? '[h' : '<cmd>Gitsigns prev_hunk<CR>'" },
 
                     ["n <leader>hs"] = "<cmd>Gitsigns stage_hunk<CR>",
                     ["v <leader>hs"] = ":Gitsigns stage_hunk<CR>",

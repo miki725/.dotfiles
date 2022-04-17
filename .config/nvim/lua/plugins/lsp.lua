@@ -36,11 +36,17 @@ return function(use)
             "folke/trouble.nvim",
             "folke/lsp-colors.nvim",
             "weilbith/nvim-code-action-menu",
+            "ray-x/lsp_signature.nvim",
             "folke/lua-dev.nvim",
         },
         config = function()
             -- shows all violations in a project
             require("trouble").setup({})
+
+            require("lsp_signature").setup({ --
+                floating_window = true,
+                toggle_key = "<C-L>",
+            })
 
             local nvim_lsp = require("lspconfig")
             local null_ls = require("null-ls")
@@ -149,6 +155,8 @@ return function(use)
                 nvim_lsp.sumneko_lua.setup(luadev.setup({}))
             end
 
+            local helpers = require("null-ls.helpers")
+
             local sources = {
                 null_ls.builtins.diagnostics.eslint_d,
                 null_ls.builtins.diagnostics.mypy,
@@ -170,6 +178,21 @@ return function(use)
                 }),
                 null_ls.builtins.formatting.terraform_fmt.with({
                     filetypes = { "hcl", "terraform" },
+                }),
+                helpers.make_builtin({
+                    name = "importanize",
+                    meta = {
+                        url = "https://github.com/miki725/importanize",
+                        description = "Organize imports",
+                    },
+                    method = null_ls.methods.FORMATTING,
+                    filetypes = { "python" },
+                    generator_opts = {
+                        command = "importanize",
+                        args = {},
+                        to_stdin = true,
+                    },
+                    factory = helpers.formatter_factory,
                 }),
             }
 

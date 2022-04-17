@@ -52,28 +52,29 @@ return function(use)
                         enable = true,
                         set_jumps = true, -- whether to set jumps in the jumplist
                         goto_next_start = {
+                            ["]]"] = "@function.outer",
                             ["]f"] = "@function.outer",
-                            ["]]"] = "@class.outer",
+                            ["]c"] = "@class.outer",
                         },
                         goto_next_end = {
+                            ["]["] = "@function.outer",
                             ["]F"] = "@function.outer",
-                            ["]["] = "@class.outer",
+                            ["]C"] = "@class.outer",
                         },
                         goto_previous_start = {
+                            ["[["] = "@function.outer",
                             ["[f"] = "@function.outer",
-                            ["[["] = "@class.outer",
+                            ["[c"] = "@class.outer",
                         },
                         goto_previous_end = {
+                            ["[]"] = "@function.outer",
                             ["[F"] = "@function.outer",
-                            ["[]"] = "@class.outer",
+                            ["[C"] = "@class.outer",
                         },
                     },
                 },
-                ensure_installed = "maintained",
-                ignore_install = {
-                    -- until https://github.com/nvim-neorg/tree-sitter-norg/issues/7 is resolved on Mac
-                    "norg",
-                },
+                ensure_installed = "all",
+                ignore_install = {},
             })
         end,
     })

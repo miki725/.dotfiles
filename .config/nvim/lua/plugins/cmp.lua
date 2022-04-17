@@ -1,6 +1,4 @@
-vim.cmd([[
-set completeopt=menu,menuone,noselect
-]])
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 return function(use)
     use({
@@ -24,6 +22,12 @@ return function(use)
             lspkind.init()
 
             cmp.setup({
+
+                completion = { autocomplete = false },
+
+                view = {
+                    entries = "custom", -- can be "custom", "wildmenu" or "native"
+                },
 
                 formatting = {
                     format = lspkind.cmp_format({
@@ -49,33 +53,48 @@ return function(use)
                     end,
                 },
 
-                mapping = {
-                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-                    ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-                    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-                    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-                    ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-                    ["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+                mapping = cmp.mapping.preset.insert({
+                    ["<Tab>"] = {
+                        i = function(fallback)
+                            if not cmp.select_next_item() then
+                                fallback()
+                            end
+                        end,
+                    },
+                    ["<S-Tab>"] = {
+                        i = function(fallback)
+                            if not cmp.select_prev_item() then
+                                fallback()
+                            end
+                        end,
+                    },
+                    ["<C-Space>"] = cmp.mapping.complete(),
+                    ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-                },
+                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                }),
 
                 sources = cmp.config.sources({
                     {
                         name = "path",
                         priority_weight = 110,
+                        max_item_count = 5,
                     },
                     {
                         name = "nvim_lsp",
                         priority_weight = 100,
+                        max_item_count = 10,
                     },
                     {
                         name = "treesitter",
                         priority_weight = 90,
+                        max_item_count = 10,
                     },
                     {
                         name = "buffer",
                         priority_weight = 80,
+                        max_item_count = 5,
                     },
                     {
                         name = "spell",
@@ -86,8 +105,43 @@ return function(use)
                 }),
             })
 
-            -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-            cmp.setup.cmdline("/", { sources = { { name = "buffer" } } })
+            cmp.setup.cmdline("/", {
+                completion = { autocomplete = false },
+                mapping = cmp.mapping.preset.cmdline({
+                    ["<C-Space>"] = {
+                        c = cmp.mapping.complete(),
+                    },
+                }),
+                sources = { --
+                    { name = "buffer" },
+                },
+            })
+
+            cmp.setup.cmdline(":", {
+                completion = { autocomplete = false },
+                mapping = cmp.mapping.preset.cmdline({
+                    ["<C-Space>"] = {
+                        c = cmp.mapping.complete(),
+                    },
+                    ["<Tab>"] = {
+                        c = function(fallback)
+                            if cmp.visible() then
+                                cmp.select_next_item()
+                            else
+                                if cmp.complete() then
+                                    cmp.select_next_item()
+                                else
+                                    fallback()
+                                end
+                            end
+                        end,
+                    },
+                }),
+                sources = cmp.config.sources({
+                    { name = "path" },
+                    { name = "cmdline" },
+                }),
+            })
 
             -- Setup lspconfig.
             -- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
