@@ -59,26 +59,16 @@ endif
 
 git:  ## adjust git cofig - conditionally enable gpg signing
 git: .gitconfig.user
+git: .gitconfig.diff
 git: .git-template/hooks/pre-commit
 
 .PHONY: .gitconfig.user
-ifneq "$(shell which gpg 2> /dev/null)" ""
 .gitconfig.user: .gnupg/pubring.kbx
-	@echo > .gitconfig.user
-	@-gpg --list-keys --keyid-format LONG miroslav@miki725.com &> /dev/null && \
-	echo "[user]" > .gitconfig.user && \
-	echo "    signingkey = $$(gpg --list-keys --keyid-format LONG miroslav@miki725.com \
-								| grep '\[S\]' \
-								| cut -d/ -f2 \
-								| awk '{print $$1}')" >> .gitconfig.user && \
-	echo "[commit]" >> .gitconfig.user && \
-    echo "    gpgsign = true" >> .gitconfig.user && \
-	echo "[gpg]" >> .gitconfig.user && \
-	echo "    program = $(shell which gpg)" >> .gitconfig.user
-else
-.gitconfig.user:
-	@
-endif
+	./.bin/gitconfig.user.sh > $@
+
+.PHONY: .gitconfig.diff
+.gitconfig.diff:
+	./.bin/gitconfig.diff.sh > $@
 
 ifneq "$(shell which pre-commit 2> /dev/null)" ""
 .git-template/hooks/pre-commit:
