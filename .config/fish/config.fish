@@ -37,6 +37,7 @@ set -gx N_PREFIX $HOME/.n
 if not contains $HOME/.fish-path-hook $PATH
     and status --is-interactive
     or status --is-login
+
     if ! test -e $HOME/.path
         $HOME/.bin/generate_path.sh >$HOME/.path
     end
@@ -51,10 +52,10 @@ if not contains $HOME/.fish-path-hook $PATH
     end
 end
 
-if ! test -e $HOME/.manpath
-    $HOME/.bin/generate_manpath.sh >$HOME/.manpath
+if ! test -e $HOME/.man_path
+    $HOME/.bin/generate_man_path.sh >$HOME/.man_path
 end
-set -gx MANPATH (cat $HOME/.manpath)
+set -gx MANPATH (cat $HOME/.man_path)
 
 if which starship >/dev/null 2>&1
     starship init fish | source
