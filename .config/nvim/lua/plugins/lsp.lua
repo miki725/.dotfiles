@@ -129,6 +129,11 @@ return function(use)
                 end
             end
 
+            local lsp_on_attach = function(client, bufnr)
+                disable_formatting(client)
+                on_attach(client, bufnr)
+            end
+
             local servers = {
                 "pyright",
                 "tsserver",
@@ -142,17 +147,16 @@ return function(use)
             for _, lsp in pairs(servers) do
                 if is_lsp_installed(nvim_lsp[lsp]) then
                     nvim_lsp[lsp].setup({
-                        on_attach = function(client, bufnr)
-                            disable_formatting(client)
-                            on_attach(client, bufnr)
-                        end,
+                        on_attach = lsp_on_attach,
                         flags = { debounce_text_changes = 150 },
                     })
                 end
             end
 
             if is_lsp_installed(nvim_lsp.sumneko_lua) then
-                nvim_lsp.sumneko_lua.setup(luadev.setup({}))
+                local luadev_options = luadev.setup({})
+                luadev_options.on_attach = lsp_on_attach
+                nvim_lsp.sumneko_lua.setup(luadev_options)
             end
 
             local helpers = require("null-ls.helpers")
