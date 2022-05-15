@@ -14,7 +14,7 @@ fish: fish-virtualfish
 ifneq "$(which vf 2> /dev/null)" ""
 fish-virtualfish:
 	-fish --login -c 'vf uninstall'
-	fish --login -c 'which vf; and vf install auto_activation compat_aliases projects'
+	fish --login -c 'which vf; and vf install; and vf addplugins auto_activation compat_aliases projects'
 else
 fish-virtualfish:
 	@
