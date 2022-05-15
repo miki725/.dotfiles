@@ -46,6 +46,7 @@ return function(use)
             require("lsp_signature").setup({ --
                 floating_window = true,
                 toggle_key = "<C-L>",
+                hint_enable = false,
             })
 
             local nvim_lsp = require("lspconfig")
