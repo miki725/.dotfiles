@@ -53,7 +53,7 @@ if not contains $HOME/.fish-path-hook $PATH
 end
 
 if ! test -e $HOME/.man_path
-    $HOME/.bin/generate_man_path.sh >$HOME/.man_path
+    $HOME/.bin/generate_manpath.sh >$HOME/.man_path
 end
 set -gx MANPATH (cat $HOME/.man_path)
 
