@@ -2,7 +2,7 @@ vim:  ## configure vim
 vim: .config/nvim/dotfiles/python_host.vim
 
 upgrade::
-	vim -C PackerSync
+	vim -c PackerSync
 
 .config/nvim/dotfiles/python_host.vim:
 	echo > $@
