@@ -93,6 +93,11 @@ casks: cask/datacolor-spyder-elite
 casks: cask/slack
 casks: cask/vlc
 
+cask/alfred: alfred/alfred-type-clipboard-workflow
+cask/alfred: alfred/alfred-ykman-oath
+cask/alfred: alfred/gopass-alfred
+cask/alfred: alfred/gpg-start-alfred
+
 net: pacman/bind  # dig
 net: pacman/inetutils  # telnet, ftp
 net: brew/iperf pacman/iperf
