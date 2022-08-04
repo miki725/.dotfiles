@@ -185,6 +185,8 @@ devnode: npm/yarn-why
 
 devc: brew/llvm  # clangd for c language server in coc-vim
 
+devsh: npm/bash-language-server
+
 devtf: yay/terraform-ls-bin
 
 devlua: brew/lua-language-server pacman/lua-language-server

@@ -136,9 +136,11 @@ return function(use)
             end
 
             local servers = {
+                "bashls",
+                "clangd",
                 "pyright",
-                "tsserver",
                 "terraformls",
+                "tsserver",
             }
 
             local is_lsp_installed = function(server)
