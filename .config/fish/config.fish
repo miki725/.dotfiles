@@ -82,6 +82,7 @@ end
 
 set -l compilepath \
     /usr/local/opt/openssl \
+    /usr/lib/gcc/*/* \
     /usr/local/opt/gmp
 
 for i in $compilepath[-1..1]
@@ -91,6 +92,7 @@ for i in $compilepath[-1..1]
     end
     if test -d $i/include
         and not echo $CPPFLAGS | grep $i/include >/dev/null
+        set -gx CFLAGS "-I$i/include $PFLAGS"
         set -gx CPPFLAGS "-I$i/include $CPPFLAGS"
     end
     if test -d $i/lib/pkgconfig
