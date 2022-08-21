@@ -88,6 +88,7 @@ casks: cask/datacolor-spyder-elite
 casks: cask/google-chrome-beta
 casks: cask/istat-menus
 casks: cask/monodraw
+casks: cask/notion
 casks: cask/peakhour
 casks: cask/slack
 casks: cask/vlc
@@ -134,12 +135,13 @@ dev: brew/entr  # watch files and execute - similar to fswatch
 dev: brew/fswatch  yay/fswatch  # watch files and execute
 dev: brew/gcc
 dev: brew/gettext  # i18n - internatiolization
+dev: brew/git-delta pacman/git-delta  pacman/gclibc  # git diff syntax highlighting
 dev: brew/git-lfs
 dev: pipx/git-of-theseus
 dev: brew/git-quick-stats
-dev: brew/git-delta pacman/git-delta  pacman/gclibc  # git diff syntax highlighting
 dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
 dev: brew/libyaml
+dev: cask/neovide
 dev: pipx/neovim-sh
 dev: cask/pop # screen sharing conference
 dev: cask/postman
