@@ -84,12 +84,11 @@ casks: cask/alfred
 casks: cask/android-file-transfer
 casks: cask/bartender
 casks: cask/cleanmymac
-casks: cask/ferdi
-casks: cask/monodraw
-casks: cask/peakhour
+casks: cask/datacolor-spyder-elite
 casks: cask/google-chrome-beta
 casks: cask/istat-menus
-casks: cask/datacolor-spyder-elite
+casks: cask/monodraw
+casks: cask/peakhour
 casks: cask/slack
 casks: cask/vlc
 
