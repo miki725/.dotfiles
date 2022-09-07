@@ -1,6 +1,6 @@
 function lint --description 'run pre-commit lint on all changes files'
     argparse -i a/all d/diff -- $argv
-    set -l diff ""
+    set -l diff
     if test -n "$_flag_diff"
         set diff --show-diff-on-failure
     end
@@ -18,11 +18,11 @@ function lint --description 'run pre-commit lint on all changes files'
             set files (git status --short | awk '{print $2}')
         end
         if test -n "$files"
-            pre-commit run --files $files $diff $args
+            pre-commit run $args --files $files $diff $args
         else
-            pre-commit run $diff $args
+            pre-commit run $args $diff
         end
     else
-        pre-commit run --all-files $diff $argv
+        pre-commit run $argv --all-files $diff
     end
 end
