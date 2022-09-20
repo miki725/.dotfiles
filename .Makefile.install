@@ -161,24 +161,25 @@ devcloud: brew/awsprey
 devcloud: pipx/certbot
 devcloud: brew/tfenv yay/tfenv  # change terraform version
 
-devpy: npm/pyright
 devpy: pipx/black
 devpy: pipx/check-manifest
 devpy: pipx/flake8
 devpy: pipx/importanize
 devpy: pipx/johnnydep
 devpy: pipx/mypy
-devpy: pipx/pip-tools
 devpy: pipx/pipenv
+devpy: pipx/pip-tools
 devpy: pipx/poetry
 devpy: pipx/ptpython
+devpy: npm/pyright
 devpy: pipx/twine
 devpy: pipx/virtualfish
 
 devnode: npm/eslint
 devnode: npm/eslint_d
-devnode: npm/prettier
 devnode: npm/@fsouza/prettierd
+devnode: npm/prettier
+devnode: npm/@prisma/language-server
 devnode: npm/typescript
 devnode: npm/typescript-language-server
 devnode: npm/yarn

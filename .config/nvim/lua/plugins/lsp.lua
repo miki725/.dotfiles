@@ -138,6 +138,7 @@ return function(use)
             local servers = {
                 "bashls",
                 "clangd",
+                "prismals",
                 "pyright",
                 "terraformls",
                 "tsserver",
