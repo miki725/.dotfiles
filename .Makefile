@@ -39,6 +39,7 @@ all: gpg
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
 mac: browserpass
+mac: gopassbridge
 mac: mac-keyboard
 else
 mac:
@@ -53,8 +54,13 @@ browserpass: brew/browserpass
 		| sed 's/Chrome/Chrome Beta/g' \
 		| PREFIX='/usr/local/opt/browserpass' \
 			make -f - hosts-firefox-user hosts-chrome-user
+
+gopassbridge: brew/gopass-jsonapi
+	gopass-jsonapi configure --browser=chrome
+	gopass-jsonapi configure --browser=firefox
 else
 browserpass:
+gopassbridge:
 endif
 
 git:  ## adjust git cofig - conditionally enable gpg signing

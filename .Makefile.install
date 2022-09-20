@@ -71,6 +71,7 @@ sec: brew/browserpass
 sec: brew/gnupg
 sec: brew/gnupg
 sec: brew/gopass
+sec: brew/gopass-jsonapi
 sec: brew/paperkey  # just secret from gpg key
 sec: brew/pass  # browserpass uses pass vs gopass
 sec: brew/pinentry-mac  # gpg pin enter gui
@@ -194,7 +195,7 @@ devtf: yay/terraform-ls-bin
 devlua: brew/lua-language-server pacman/lua-language-server
 devlua: yay/stylua
 
-devsh: pacman/shfmt
+devsh: brew/shfmt pacman/shfmt
 
 music: cask/audio-hijack
 music: cask/ilok-license-manager
