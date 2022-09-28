@@ -8,10 +8,7 @@ update:: $(PACMAN_MIRRORS)
 	pacman -Sy
 
 upgrade::
-	su yay -c '\
-		unset GOPATH && \
-		yay -Suy\
-	'
+	sudo -u yay yay -Suy
 
 pacman/%: ## install with pacman
 pacman/%: $(PACMAN_MIRRORS) /var/lib/pacman/dotfiles/%.pacman
@@ -28,9 +25,7 @@ $(PACMAN_PREFIX)/%.pacman: $(PACMAN_PREFIX)
 $(PACMAN_PREFIX)/%.yay: $(PACMAN_PREFIX)
 	@# needed flag does not seem to be working now
 	@# https://github.com/Jguer/yay/issues/885
-	# $*
-	su yay -c '\
-		unset GOPATH && \
+	sudo -u yay \
 		yay -S --noconfirm \
 			$(shell \
 				yay -Qi $* 2>&1 >/dev/null | \
@@ -38,8 +33,7 @@ $(PACMAN_PREFIX)/%.yay: $(PACMAN_PREFIX)
 				grep "was not found" | \
 				cut -d"'" -f2 | \
 				tr "\n" " " \
-			)\
-		'
+			)
 	touch $@
 
 $(PACMAN_PREFIX):
@@ -56,8 +50,8 @@ $(PACMAN_MIRRORS): $(PACMAN_PREFIX)/pacman-contrib.pacman
 $(YAY):
 	useradd --system --create-home --groups wheel yay
 	sed -i 's/^#\s*\(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
-	su yay -c "git clone https://aur.archlinux.org/yay.git /tmp/yay"
-	su yay -c "cd /tmp/yay && yes | HOME=/tmp/yay makepkg -si"
+	sudo -u yay git clone https://aur.archlinux.org/yay.git /tmp/yay
+	yes | sudo -u yay -D /tmp/yay env HOME=/tmp/yay makepkg -si
 
 else
 pacman/%:
