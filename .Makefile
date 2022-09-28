@@ -14,7 +14,9 @@ help:  ## show help
 OS=$(shell uname)
 SYSTEMD=$(shell which systemctl 2> /dev/null)
 
-include $(wildcard .Makefile.*)
+SYSTEM_MAKEFILE=.Makefile.brew .Makefile.pacman
+include $(SYSTEM_MAKEFILE)
+include $(filter-out, $(SYSTEM_MAKEFILE),$(wildcard .Makefile.*))
 
 update::  ## update things for install/upgrade
 	@
