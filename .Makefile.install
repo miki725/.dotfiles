@@ -65,7 +65,7 @@ tools: pacman/xclip
 tools: pacman/xorg-xauth  # X server auth
 tools: pacman/xorg-xclock
 tools: brew/yq yay/go-yq
-tools: brew/zoxide yay/zoxide-bin  # cd to folders quickly
+tools: brew/zoxide pacman/zoxide  # cd to folders quickly
 
 sec: brew/browserpass
 sec: brew/gnupg
