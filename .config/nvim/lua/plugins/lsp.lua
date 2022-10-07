@@ -138,6 +138,7 @@ return function(use)
             local servers = {
                 "bashls",
                 "clangd",
+                "graphql",
                 "prismals",
                 "pyright",
                 "terraformls",
@@ -167,6 +168,7 @@ return function(use)
 
             local sources = {
                 null_ls.builtins.diagnostics.eslint_d,
+                null_ls.builtins.diagnostics.flake8,
                 null_ls.builtins.diagnostics.mypy,
                 null_ls.builtins.code_actions.eslint_d,
                 null_ls.builtins.formatting.prettierd,

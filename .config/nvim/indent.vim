@@ -15,6 +15,7 @@ autocmd BufRead,BufNewFile .Makefile.* set filetype=make
 autocmd BufRead,BufNewFile Dockerfile.* set filetype=dockerfile
 autocmd BufRead,BufNewFile *.yml.j2 set filetype=yaml
 autocmd BufRead,BufNewFile *.sh.j2 set filetype=sh
+autocmd BufRead,BufNewFile .envrc* set filetype=sh
 autocmd BufRead,BufNewFile *.ini.j2 set filetype=dosini
 autocmd BufRead,BufNewFile *.toml.j2 set filetype=toml
 autocmd BufRead,BufNewFile *.r2py set filetype=python
