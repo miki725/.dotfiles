@@ -51,10 +51,10 @@ mac-keyboard:
 
 ifeq "$(OS)" "Darwin"
 browserpass: brew/browserpass
-	cat /usr/local/opt/browserpass/lib/browserpass/Makefile \
+	cat $(shell brew --prefix)/opt/browserpass/lib/browserpass/Makefile \
 		| sed 's/Chrome/Chrome Beta/g' \
-		| PREFIX='/usr/local/opt/browserpass' \
-			make -f - hosts-firefox-user hosts-chrome-user
+		| PREFIX='$(shell brew --prefix)/opt/browserpass' \
+			make -f - hosts-firefox-user hosts-chrome-user hosts-brave-user
 
 gopassbridge: brew/gopass-jsonapi
 	gopass-jsonapi configure --browser=chrome
