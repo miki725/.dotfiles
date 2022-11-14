@@ -1,9 +1,6 @@
 let g:neovide_cursor_animation_length=0
 set guifont=Hack\ Nerd\ Font
 
-let g:do_filetype_lua = 1
-let g:did_load_filetypes = 0
-
 scriptencoding utf-8
 set encoding=utf-8
 

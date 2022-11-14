@@ -28,6 +28,17 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    float = {
+        source = "always", -- Or "if_many"
+    },
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+})
+
 return function(use)
     use({
         "neovim/nvim-lspconfig",
@@ -37,9 +48,22 @@ return function(use)
             "folke/lsp-colors.nvim",
             "weilbith/nvim-code-action-menu",
             "ray-x/lsp_signature.nvim",
-            "folke/lua-dev.nvim",
+            "folke/neodev.nvim",
+            "nvim-lua/plenary.nvim",
         },
         config = function()
+            local is_binary_installed = function(binary)
+                return vim.fn.executable(binary) > 0
+            end
+
+            local is_lsp_installed = function(server)
+                return is_binary_installed(server.document_config.default_config.cmd[1])
+            end
+
+            if is_binary_installed("lua-language-server") then
+                require("neodev").setup({})
+            end
+
             -- shows all violations in a project
             require("trouble").setup({})
 
@@ -51,36 +75,30 @@ return function(use)
 
             local nvim_lsp = require("lspconfig")
             local null_ls = require("null-ls")
-            local luadev = require("lua-dev")
+            local helpers = require("null-ls.helpers")
+            local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
-            vim.diagnostic.config({
-                virtual_text = false,
-                signs = true,
-                float = {
-                    source = "always", -- Or "if_many"
-                },
-                underline = true,
-                update_in_insert = false,
-                severity_sort = true,
-            })
-
-            local disable_formatting = function(client)
-                for _, filetype in pairs(client.config.filetypes) do
-                    -- attempt to find null-ls formatting source for same filetype
-                    -- in which case disable the native lsp client formatting
-                    for _, source in pairs(null_ls.get_sources()) do
-                        if source.methods[null_ls.methods.FORMATTING] and source.filetypes[filetype] then
-                            client.resolved_capabilities.document_formatting = false
-                            client.resolved_capabilities.document_range_formatting = false
-                            return
+            local lsp_formatting = function(bufnr)
+                vim.lsp.buf.format({
+                    filter = function(client)
+                        -- if null-ls has formatter for this filetype,
+                        -- then only let null-ls format this buffer
+                        -- otherwise anything is valid
+                        local filetype = vim.bo.filetype
+                        for _, source in pairs(null_ls.get_sources()) do
+                            if source.methods[null_ls.methods.FORMATTING] and source.filetypes[filetype] then
+                                return client.name == "null-ls"
+                            end
                         end
-                    end
-                end
+                        return true
+                    end,
+                    bufnr = bufnr,
+                })
             end
 
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
-            local on_attach = function(client, bufnr)
+            local on_attach_common = function(client, bufnr)
                 -- Mappings.
                 local opts = { noremap = true, silent = true }
                 local function nmap(...)
@@ -119,7 +137,7 @@ return function(use)
                 vim.o.updatetime = 250
                 vim.cmd("autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focusable=false})")
 
-                if client.resolved_capabilities.document_highlight then
+                if client.server_capabilities.document_highlight then
                     vim.cmd([[
                     augroup lsp_document_highlight
                         autocmd! * <buffer>
@@ -130,11 +148,6 @@ return function(use)
                 end
             end
 
-            local lsp_on_attach = function(client, bufnr)
-                disable_formatting(client)
-                on_attach(client, bufnr)
-            end
-
             local servers = {
                 "bashls",
                 "clangd",
@@ -143,28 +156,17 @@ return function(use)
                 "pyright",
                 "terraformls",
                 "tsserver",
+                "sumneko_lua",
             }
-
-            local is_lsp_installed = function(server)
-                return vim.fn.executable(server.document_config.default_config.cmd[1]) > 0
-            end
 
             for _, lsp in pairs(servers) do
                 if is_lsp_installed(nvim_lsp[lsp]) then
                     nvim_lsp[lsp].setup({
-                        on_attach = lsp_on_attach,
+                        on_attach = on_attach_common,
                         flags = { debounce_text_changes = 150 },
                     })
                 end
             end
-
-            if is_lsp_installed(nvim_lsp.sumneko_lua) then
-                local luadev_options = luadev.setup({})
-                luadev_options.on_attach = lsp_on_attach
-                nvim_lsp.sumneko_lua.setup(luadev_options)
-            end
-
-            local helpers = require("null-ls.helpers")
 
             local sources = {
                 null_ls.builtins.diagnostics.eslint_d,
@@ -216,13 +218,18 @@ return function(use)
             null_ls.setup({
                 sources = sources,
                 on_attach = function(client, bufnr)
-                    if client.resolved_capabilities.document_formatting then
-                        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-                    end
+                    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = bufnr,
+                        callback = function()
+                            lsp_formatting(bufnr)
+                        end,
+                    })
 
                     vim.cmd("command! NullLsStop lua vim.lsp.stop_client(" .. client.id .. ")")
 
-                    on_attach(client, bufnr)
+                    on_attach_common(client, bufnr)
                 end,
             })
         end,

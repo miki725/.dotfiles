@@ -74,7 +74,7 @@ return function(use)
                     },
                 },
                 ensure_installed = "all",
-                ignore_install = {},
+                ignore_install = {"phpdoc"},
             })
         end,
     })

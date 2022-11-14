@@ -55,6 +55,7 @@ return require("packer").startup(function(use)
     require("plugins.tree")(use)
     require("plugins.treesitter")(use)
     require("plugins.vimspector")(use)
+    require("plugins.wrapping")(use)
 
     -- it conflicts with hop so needs to be initialized last
     require("plugins.focus")(use)
