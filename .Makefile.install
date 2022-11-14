@@ -51,7 +51,7 @@ tools: brew/make
 tools: brew/moreutils
 tools: brew/noti  # notify when command finishes
 tools: brew/openssh pacman/openssh
-tools: brew/openssl@3
+tools: brew/openssl@3 yay/openssl-3.0
 tools: brew/par  yay/par # adjust line width in text in vim
 tools: brew/progress  # track progress of io programs like dd
 tools: brew/ripgrep pacman/ripgrep
