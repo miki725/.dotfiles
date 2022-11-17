@@ -15,6 +15,7 @@ minimal: cask/wezterm # gpu terminal emulator
 
 installers: pyenv/2.7
 installers: pyenv/3.10
+installers: pyenv/3.11
 installers: brew/go pacman/go  # required for yay
 installers: npm/n
 installers: brew/node pacman/nodejs
