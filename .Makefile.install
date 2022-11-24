@@ -101,6 +101,7 @@ cask/alfred: alfred/gopass-alfred
 cask/alfred: alfred/gpg-start-alfred
 
 net: pacman/bind  # dig
+net: brew/dog pacman/dog  # dig rust replacement
 net: pacman/inetutils  # telnet, ftp
 net: brew/iperf pacman/iperf
 net: pacman/iproute2  # ip
