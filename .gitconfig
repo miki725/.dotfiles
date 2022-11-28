@@ -37,3 +37,4 @@
     rebase = false
 [init]
     templateDir = ~/.git-template
+	defaultBranch = main
