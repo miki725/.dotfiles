@@ -43,7 +43,7 @@ tools: brew/gnu-which
 tools: brew/gzip
 tools: brew/hint
 tools: pipx/httpie
-tools: npm/@jarred/git-view # preview any github repo in vim
+tools: npm/@jarred/git-peek # preview any github repo in vim
 tools: brew/jq pacman/jq
 tools: brew/lolcat  # colorful cats
 tools: brew/lsd pacman/lsd
@@ -52,7 +52,7 @@ tools: brew/make
 tools: brew/moreutils
 tools: brew/noti  # notify when command finishes
 tools: brew/openssh pacman/openssh
-tools: brew/openssl@3 yay/openssl-3.0
+tools: brew/openssl@3
 tools: brew/par  yay/par # adjust line width in text in vim
 tools: brew/progress  # track progress of io programs like dd
 tools: brew/ripgrep pacman/ripgrep
@@ -138,7 +138,7 @@ dev: brew/entr  # watch files and execute - similar to fswatch
 dev: brew/fswatch  yay/fswatch  # watch files and execute
 dev: brew/gcc
 dev: brew/gettext  # i18n - internatiolization
-dev: brew/git-delta pacman/git-delta  pacman/gclibc  # git diff syntax highlighting
+dev: brew/git-delta pacman/git-delta  # git diff syntax highlighting
 dev: brew/git-lfs
 dev: pipx/git-of-theseus
 dev: brew/git-quick-stats
