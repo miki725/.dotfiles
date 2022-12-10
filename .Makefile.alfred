@@ -1,7 +1,8 @@
 ALFRED_PREFIX=$(HOME)/.config/alfred/Alfred.alfredpreferences/workflows
 
-upgrade:: $(addprefix alfred-upgrade/,$(notdir $(wildcard $(ALFRED_PREFIX)/*)))
+upgrade:: upgrade/alfred
 
+upgrade/alfred: $(addprefix alfred-upgrade/,$(notdir $(wildcard $(ALFRED_PREFIX)/*)))
 alfred-upgrade/%:
 	cd $(ALFRED_PREFIX)/$* && git pull
 
