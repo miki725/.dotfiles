@@ -4,3 +4,4 @@
 /plugin
 /.*
 Session.vim
+.luarc.json

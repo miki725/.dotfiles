@@ -200,6 +200,9 @@ devlua: yay/stylua
 
 devsh: brew/shfmt pacman/shfmt
 
+devnim: yay/choosenim
+# devnim: nimble/nimlsp
+
 music: cask/audio-hijack
 music: cask/ilok-license-manager
 music: cask/loopback

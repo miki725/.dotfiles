@@ -10,6 +10,7 @@ echo "\
 $HOME/.bin
 $HOME/.local/bin
 $HOME/.cargo/bin
+$HOME/.nimble/bin
 $HOME/.yarn/bin
 $HOME/.n/bin
 $HOME/go/bin

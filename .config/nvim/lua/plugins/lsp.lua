@@ -152,11 +152,12 @@ return function(use)
                 "bashls",
                 "clangd",
                 "graphql",
+                "nimls",
                 "prismals",
                 "pyright",
+                "sumneko_lua",
                 "terraformls",
                 "tsserver",
-                "sumneko_lua",
             }
 
             for _, lsp in pairs(servers) do
@@ -176,6 +177,7 @@ return function(use)
                 null_ls.builtins.formatting.prettierd,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.fish_indent,
+                null_ls.builtins.formatting.nimpretty,
                 null_ls.builtins.formatting.shfmt.with({
                     extra_args = {
                         "-i",

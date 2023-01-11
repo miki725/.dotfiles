@@ -74,7 +74,7 @@ return function(use)
                     },
                 },
                 ensure_installed = "all",
-                ignore_install = {"phpdoc"},
+                ignore_install = { "phpdoc" },
             })
         end,
     })
@@ -100,5 +100,11 @@ return function(use)
         cmd = {
             "TSPlaygroundToggle",
         },
+    })
+    use({
+        -- not in treesitter yet
+        -- https://github.com/helix-editor/helix/issues/3117
+        "alaviss/nim.nvim",
+        ft = { "nim" },
     })
 end
