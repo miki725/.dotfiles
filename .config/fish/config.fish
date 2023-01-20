@@ -73,7 +73,7 @@ if which nvim >/dev/null 2>&1
 end
 if which fzf >/dev/null 2>&1
     alias vimz='vim (fzf)'
-    set -gx FZF_DEFAULT_COMMAND 'fd --type f'
+    set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git --hidden'
 end
 if which lsd >/dev/null 2>&1
     alias ls='lsd'
