@@ -2,6 +2,10 @@
 --max-columns=150
 --max-columns-preview
 
+# search hidden files by default
+--hidden
+--glob=!.git
+
 # ignores case unless search is made with uppercase
 --smart-case
 
