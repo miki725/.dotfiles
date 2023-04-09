@@ -11,7 +11,7 @@ upgrade:: fish-virtualfish
 fish:  ## install fish deps
 fish: fish-virtualfish
 
-ifneq "$(which vf 2> /dev/null)" ""
+ifneq "$(shell which vf 2> /dev/null)" ""
 fish-virtualfish:
 	-fish --login -c 'vf uninstall'
 	fish --login -c 'which vf; and vf install; and vf addplugins auto_activation compat_aliases projects'
