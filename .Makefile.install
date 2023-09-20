@@ -20,7 +20,7 @@ installers: brew/go pacman/go  # required for yay
 installers: npm/n
 installers: brew/node pacman/nodejs
 installers: npm/npm
-installers: brew/pipx pacman/python-pipx
+installers: brew/pipx pacman/python-pipx pacman/python-pip
 installers: brew/pyenv pacman/pyenv
 installers: brew/ruby
 
@@ -130,7 +130,7 @@ dev: cask/dash
 dev: brew/direnv yay/direnv
 dev: brew/distribution  # histograms
 dev: cask/docker
-dev: cask/docker pacman/docker
+dev: cask/docker pacman/docker pacman/docker-buildx
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
 dev: npm/doctoc
@@ -158,9 +158,10 @@ dev: brew/universal-ctags pacman/ctags  # generates tags from codebase
 dev: cask/vimr
 dev: brew/watchman  # lib for watching files
 
-devcloud: pipx/aws-mfa
 devcloud: pipx/awscli
+devcloud: pipx/aws-mfa
 devcloud: brew/awsprey
+devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
 devcloud: brew/tfenv yay/tfenv  # change terraform version
 
@@ -199,6 +200,8 @@ devlua: brew/lua-language-server pacman/lua-language-server
 devlua: yay/stylua
 
 devsh: brew/shfmt pacman/shfmt
+
+devgo: pacman/gopls
 
 devnim: yay/choosenim
 # devnim: nimble/nimlsp
