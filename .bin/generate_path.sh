@@ -27,6 +27,7 @@ if [ -d $HOME/.pyenv/versions ]; then
 fi
 
 echo "\
+/opt/clang-format-static
 /usr/local/bin
 /usr/local/sbin
 /opt/homebrew/bin
