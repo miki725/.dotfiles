@@ -70,31 +70,31 @@ endif
 " copy current file name (relative/absolute) to system clipboard
 if has("mac") || has("gui_macvim") || has("gui_mac")
   " relative path  (src/foo.txt)
-  nnoremap <leader>cf :let @*=expand("%") \| OSCYankReg *<CR>
+  nnoremap <leader>cf :let @*=expand("%") \| OSCYankRegister *<CR>
 
   " absolute path  (/something/src/foo.txt
-  nnoremap <leader>cF :let @*=expand("%:p") \| OSCYankReg *<CR>
+  nnoremap <leader>cF :let @*=expand("%:p") \| OSCYankRegister *<CR>
 
   " filename       (foo.txt)
-  nnoremap <leader>ct :let @*=expand("%:t") \| OSCYankReg *<CR>
+  nnoremap <leader>ct :let @*=expand("%:t") \| OSCYankRegister *<CR>
 
   " directory name (/something/src)
-  nnoremap <leader>ch :let @*=expand("%:p:h") \| OSCYankReg *<CR>
+  nnoremap <leader>ch :let @*=expand("%:p:h") \| OSCYankRegister *<CR>
 endif
 
 " copy current file name (relative/absolute) to system clipboard (Linux version)
 if has("gui_gtk") || has("gui_gtk2") || has("gui_gnome") || has("unix")
   " relative path (src/foo.txt)
-  nnoremap <leader>cf :let @+=expand("%") \| OSCYankReg +<CR>
+  nnoremap <leader>cf :let @+=expand("%") \| OSCYankRegister +<CR>
 
   " absolute path (/something/src/foo.txt)
-  nnoremap <leader>cF :let @+=expand("%:p") \| OSCYankReg +<CR>
+  nnoremap <leader>cF :let @+=expand("%:p") \| OSCYankRegister +<CR>
 
   " filename (foo.txt)
-  nnoremap <leader>ct :let @+=expand("%:t") \| OSCYankReg +<CR>
+  nnoremap <leader>ct :let @+=expand("%:t") \| OSCYankRegister +<CR>
 
   " directory name (/something/src)
-  nnoremap <leader>ch :let @+=expand("%:p:h") \| OSCYankReg +<CR>
+  nnoremap <leader>ch :let @+=expand("%:p:h") \| OSCYankRegister +<CR>
 endif
 
 " security {{{
