@@ -68,12 +68,15 @@ return function(use)
             require("trouble").setup({})
 
             require("lsp_signature").setup({ --
+                -- false until https://github.com/ray-x/lsp_signature.nvim/issues/252
                 floating_window = true,
                 toggle_key = "<C-L>",
                 hint_enable = false,
             })
 
-            local nvim_lsp = require("lspconfig")
+            local lspconfig = require("lspconfig")
+            local lspconfig_configs = require("lspconfig.configs")
+            local lspconfig_util = require("lspconfig.util")
             local null_ls = require("null-ls")
             local helpers = require("null-ls.helpers")
             local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -148,21 +151,38 @@ return function(use)
                 end
             end
 
+            -- Check if the config is already defined (useful when reloading this file)
+            if not lspconfig_configs.nimlangserver then
+                lspconfig_configs.nimlangserver = {
+                    default_config = {
+                        cmd = { "nimlangserver" },
+                        filetypes = { "nim" },
+                        root_dir = function(fname)
+                            return lspconfig_util.root_pattern("*.nimble")(fname)
+                                or lspconfig_util.find_git_ancestor(fname)
+                        end,
+                        single_file_support = true,
+                    },
+                }
+            end
+
             local servers = {
                 "bashls",
                 "clangd",
                 "graphql",
-                "nimls",
+                "gopls",
+                -- "nimls", -- 3rd party LSP
+                -- "nim_langserver", -- official LSP
                 "prismals",
                 "pyright",
-                "sumneko_lua",
+                "lua_ls",
                 "terraformls",
                 "tsserver",
             }
 
             for _, lsp in pairs(servers) do
-                if is_lsp_installed(nvim_lsp[lsp]) then
-                    nvim_lsp[lsp].setup({
+                if is_lsp_installed(lspconfig[lsp]) then
+                    lspconfig[lsp].setup({
                         on_attach = on_attach_common,
                         flags = { debounce_text_changes = 150 },
                     })
@@ -177,7 +197,8 @@ return function(use)
                 null_ls.builtins.formatting.prettierd,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.fish_indent,
-                null_ls.builtins.formatting.nimpretty,
+                null_ls.builtins.formatting.gofmt,
+                -- null_ls.builtins.formatting.nimpretty,
                 null_ls.builtins.formatting.shfmt.with({
                     extra_args = {
                         "-i",
