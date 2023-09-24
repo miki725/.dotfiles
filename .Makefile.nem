@@ -1,0 +1,12 @@
+NIMBLE_PREFIX=$(HOME)/.nimble
+PATH:=$(NIMBLE_PREFIX)/bin:$(PATH)
+
+upgrade::
+	@
+
+nimble/%: ## install node package
+nimble/%: $(NIMBLE_PREFIX)/bin/%
+	@
+
+$(NIMBLE_PREFIX)/bin/%:
+	nimble install -y $*
