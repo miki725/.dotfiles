@@ -22,8 +22,6 @@ return function(use)
             require("nvim-tree").setup({
                 disable_netrw = true,
                 hijack_netrw = true,
-                open_on_setup = false,
-                ignore_ft_on_setup = {},
                 open_on_tab = false,
                 hijack_cursor = false,
                 update_cwd = false,
@@ -63,7 +61,6 @@ return function(use)
                     hide_root_folder = false,
                     side = "left",
                     adaptive_size = false,
-                    mappings = { custom_only = false, list = {} },
                     number = false,
                     relativenumber = false,
                     signcolumn = "yes",
