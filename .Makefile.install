@@ -176,6 +176,7 @@ devpy: pipx/pip-tools
 devpy: pipx/poetry
 devpy: pipx/ptpython
 devpy: npm/pyright
+devpy: pipx/python-lsp-server
 devpy: pipx/twine
 devpy: pipx/virtualfish
 

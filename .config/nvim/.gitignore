@@ -1,7 +1,6 @@
 /autoload
 /plugged
-/dotfiles
-/plugin
+dotfiles*
 /.*
 Session.vim
 .luarc.json

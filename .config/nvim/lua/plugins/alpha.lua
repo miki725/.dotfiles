@@ -1,8 +1,9 @@
-return function(use)
-    use({
+return {
+    {
+        -- startup screen
         "goolord/alpha-nvim",
-        config = function()
-            require("alpha").setup(require("alpha.themes.startify").opts)
+        opts = function()
+            return require("alpha.themes.startify").opts
         end,
-    })
-end
+    },
+}

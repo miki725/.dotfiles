@@ -1,8 +1,6 @@
-return function(use)
-    use({
-        -- git commit window
-        "rhysd/committia.vim",
-        -- for interactive rebase
-        "hotwatermorning/auto-git-diff",
-    })
-end
+return {
+    -- git commit window
+    { "rhysd/committia.vim", event = { "BufReadPost" } },
+    -- for interactive rebase
+    { "hotwatermorning/auto-git-diff" },
+}

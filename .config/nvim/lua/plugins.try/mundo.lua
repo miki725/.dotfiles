@@ -3,12 +3,13 @@ vim.o.undofile = true
 vim.o.undodir = os.getenv("HOME") .. "/.vim/undo"
 vim.g.mundo_prefer_python3 = 1
 
-return function(use)
-    use({
+return {
+    {
         "simnalamburt/vim-mundo",
+        enabled = false,
         cmd = {
             "MundoShow",
             "MundoToggle",
         },
-    })
-end
+    },
+}

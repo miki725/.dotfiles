@@ -1,8 +1,11 @@
-return function(use)
-    use({
+return {
+    {
         "preservim/vim-pencil",
         cmd = {
             "Pencil",
+            "TogglePencil",
+            "SoftPencil",
+            "HardPendil",
         },
-    })
-end
+    },
+}

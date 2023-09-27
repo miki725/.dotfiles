@@ -1,13 +1,20 @@
-vim.cmd([[
-    command! -nargs=* Browse
-]])
-
-return function(use)
+return {
     -- adds git commands such as :Gdiffssplit for 3-way-merge
-    use({
+    {
         "tpope/vim-fugitive",
-        requires = {
-            "tpope/vim-rhubarb",
+        dependencies = {
+            "tpope/vim-rhubarb", -- required for gbrowse
         },
-    })
-end
+        cmd = {
+            "GBrowse",
+            "Gdiffsplit",
+            "Git",
+            "Gvdiffsplit",
+        },
+        init = function()
+            vim.cmd([[
+				command! -nargs=* Browse
+			]])
+        end,
+    },
+}

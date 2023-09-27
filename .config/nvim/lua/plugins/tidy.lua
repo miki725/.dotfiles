@@ -1,10 +1,7 @@
-return function(use)
-    use({
+return {
+    {
         "McAuleyPenney/tidy.nvim",
-		branch = "main",
         event = "BufWritePre",
-        config = function()
-            require("tidy").setup()
-        end,
-    })
-end
+        config = true,
+    },
+}

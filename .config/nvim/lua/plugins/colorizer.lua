@@ -1,8 +1,7 @@
-return function(use)
-    use({
+return {
+    {
+        -- shows colors in editor (e.g. #ff0000 shows as red)
         "norcalli/nvim-colorizer.lua",
-        config = function()
-            require("colorizer").setup()
-        end,
-    })
-end
+        opts = { "*" },
+    },
+}

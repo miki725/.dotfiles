@@ -1,12 +1,13 @@
-return function(use)
-    use({
+return {
+    {
+        -- edit directory in buffer for easy batch rename/etc
         "elihunter173/dirbuf.nvim",
-        config = function()
-            require("dirbuf").setup({
-                hash_padding = 2,
-                show_hidden = true,
-                sort_order = "default",
-            })
-        end,
-    })
-end
+        -- enabled = false,
+        -- ft = { "dirbuf" },
+        opts = {
+            hash_padding = 2,
+            show_hidden = true,
+            sort_order = "default",
+        },
+    },
+}

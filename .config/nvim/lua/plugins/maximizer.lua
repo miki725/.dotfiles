@@ -1,12 +1,10 @@
-vim.cmd([[
-nnoremap <C-\> :MaximizerToggle<CR>
-vnoremap <C-\> :MaximizerToggle<CR>gv
-inoremap <C-\> <C-o>:MaximizerToggle<CR>
-]])
-
-return function(use)
-    use({
+return {
+    {
         "szw/vim-maximizer",
         cmd = "MaximizerToggle",
-    })
-end
+        keys = {
+            { "<C-\\>", ":MaximizerToggle<CR>" },
+            { "<C-\\>", ":MaximizerToggle<CR>", mode = "v" },
+        },
+    },
+}

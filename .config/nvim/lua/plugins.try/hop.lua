@@ -1,6 +1,7 @@
-return function(use)
-    use({
+return {
+    {
         "phaazon/hop.nvim",
+        enabled = false,
         keys = {
             { "n", "<leader>hf" },
             { "n", "<leader>hF" },
@@ -49,5 +50,5 @@ return function(use)
                 {}
             )
         end,
-    })
-end
+    },
+}

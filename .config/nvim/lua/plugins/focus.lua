@@ -1,23 +1,23 @@
-return function(use)
-    use({
+return {
+    {
         "junegunn/goyo.vim",
         cmd = {
             "Goyo",
         },
-        config = function()
+        init = function()
             vim.g.goyo_width = 120
         end,
-    })
-    use({
+    },
+    {
         "junegunn/limelight.vim",
         cmd = {
             "Limelight",
         },
-        config = function()
+        init = function()
             vim.cmd([[
                 autocmd! User GoyoEnter Limelight
                 autocmd! User GoyoLeave Limelight!
             ]])
         end,
-    })
-end
+    },
+}

@@ -1,3 +1,4 @@
-return function(use)
-    use("jeffkreeftmeijer/vim-numbertoggle")
-end
+return {
+    -- relative line numbers
+    { "jeffkreeftmeijer/vim-numbertoggle" },
+}

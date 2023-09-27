@@ -1,6 +1,7 @@
-return function(use)
-    use({
+return {
+    {
         "haya14busa/incsearch-fuzzy.vim",
+        enabled = false,
         requires = {
             "haya14busa/incsearch.vim",
         },
@@ -16,5 +17,5 @@ return function(use)
                 map zg/ <Plug>(incsearch-fuzzy-stay)
             ]])
         end,
-    })
-end
+    },
+}

@@ -1,25 +1,29 @@
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
-return function(use)
-    use({
+return {
+    {
         "hrsh7th/nvim-cmp",
-        requires = {
+        dependencies = {
             "L3MON4D3/LuaSnip",
             "f3fora/cmp-spell",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
-            "onsails/lspkind-nvim",
             -- "quangnguyen30192/cmp-nvim-tags", -- pretty slow
             "ray-x/cmp-treesitter",
+            {
+                -- shows LSP kind for the autocomplete icon+text
+                "onsails/lspkind-nvim",
+                config = function()
+                    require("lspkind").init()
+                end,
+            },
         },
+        init = function()
+            vim.opt.completeopt = { "menu", "menuone", "noselect" }
+        end,
         config = function()
             local cmp = require("cmp")
-
-            -- shows LSP kind for the autocomplete icon+text
             local lspkind = require("lspkind")
-            lspkind.init()
 
             cmp.setup({
 
@@ -150,5 +154,5 @@ return function(use)
             -- capabilities = capabilities
             -- }
         end,
-    })
-end
+    },
+}

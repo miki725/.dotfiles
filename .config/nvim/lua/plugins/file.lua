@@ -1,6 +1,6 @@
-return function(use)
-    use({
+return {
+    {
+        -- open file to specific line
         "bogado/file-line",
-		branch = "main"
-    })
-end
+    },
+}

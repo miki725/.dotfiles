@@ -1,3 +1,3 @@
-return function(use)
-    use("editorconfig/editorconfig-vim")
-end
+return {
+    { "editorconfig/editorconfig-vim" },
+}

@@ -1,6 +1,7 @@
-return function(use)
-    use({
+return {
+    {
         "feline-nvim/feline.nvim",
+        enabled = false,
         requires = {
             "kyazdani42/nvim-web-devicons",
         },
@@ -209,5 +210,5 @@ return function(use)
                 },
             })
         end,
-    })
-end
+    },
+}

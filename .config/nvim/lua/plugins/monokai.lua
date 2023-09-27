@@ -1,10 +1,12 @@
-return function(use)
-    use({
+return {
+    {
         "tanvirtin/monokai.nvim",
-        config = function()
+        lazy = false,
+        priority = 1000,
+        opts = function()
             local monokai = require("monokai")
             local palette = monokai.classic
-            monokai.setup({
+            return {
                 custom_hlgroups = {
                     LspReferenceRead = {
                         bg = palette.red,
@@ -15,6 +17,18 @@ return function(use)
                         fg = palette.white,
                     },
                     LspReferenceWrite = {
+                        bg = palette.red,
+                        fg = palette.white,
+                    },
+                    TSDefinition = {
+                        bg = palette.red,
+                        fg = palette.white,
+                    },
+                    TSDefinitionUsage = {
+                        bg = palette.red,
+                        fg = palette.white,
+                    },
+                    TSCurrentScope = {
                         bg = palette.red,
                         fg = palette.white,
                     },
@@ -40,7 +54,7 @@ return function(use)
                         bg = palette.base2,
                     },
                 },
-            })
+            }
         end,
-    })
-end
+    },
+}

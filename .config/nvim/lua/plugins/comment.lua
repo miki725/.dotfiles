@@ -1,11 +1,11 @@
-return function(use)
-    use({
+return {
+    {
         "numToStr/Comment.nvim",
         keys = {
-            { "n", "gc" },
-            { "n", "gb" },
-            { "v", "gc" },
-            { "v", "gb" },
+            { "gc", "gc", desc = "Comment Lines" },
+            { "gb", "gb", desc = "Comment Block" },
+            { "gc", "gc", desc = "Comment Lines", mode = "v" },
+            { "gb", "gb", desc = "Comment Block", mode = "v" },
         },
         config = function()
             require("Comment").setup({
@@ -34,5 +34,5 @@ return function(use)
                 post_hook = nil,
             })
         end,
-    })
-end
+    },
+}
