@@ -2,7 +2,7 @@
 
 -- vim.o.foldmethod = "syntax"
 
-vim.keymap.set("n", "<space>", "za", { desc = "toggle fold" })
+vim.keymap.set("n", "<space>", "za", { desc = "Toggle fold [folding]" })
 
 vim.o.foldlevel = 1
 

@@ -116,20 +116,24 @@ return {
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
             local on_attach_common = function(client, bufnr)
-                local opts = { buffer = bufnr }
-                vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-                vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, opts)
-                vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+                local map = function(mode, lhs, rhs, opts)
+                    opts = opts or {}
+                    opts.buffer = bufnr
+                    vim.keymap.set(mode, lhs, rhs, opts)
+                end
+                map("n", "gD", vim.lsp.buf.declaration, { desc = "Goto declaration [LSP]" })
+                map("n", "gd", vim.lsp.buf.definition, { desc = "Goto defition [LSP]" })
+                map("n", "gy", vim.lsp.buf.type_definition, { desc = "Goto type [LSP]" })
+                map("n", "gi", vim.lsp.buf.implementation, { desc = "Goto implementation [LSP]" })
                 -- moved to fzf as it allows to easily open in new tab/split/etc
-                -- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                vim.keymap.set("n", "L", vim.lsp.buf.signature_help, opts)
-                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+                -- map("n", "gr", vim.lsp.buf.references, {desc="Show references [LSP]"})
+                map("n", "K", vim.lsp.buf.hover, { desc = "Show type [LSP]" })
+                map("n", "L", vim.lsp.buf.signature_help, { desc = "Show signature [LSP]" })
+                map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename [LSP]" })
                 -- from dep above
-                vim.keymap.set("n", "<leader>qf", ":CodeActionMenu<cr>", opts)
-                vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-                vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+                map("n", "<leader>qf", ":CodeActionMenu<cr>", { desc = "Quick fix menu [LSP]" })
+                map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto prev diagnostic [LSP]" })
+                map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next diagnostic [LSP]" })
 
                 vim.api.nvim_buf_create_user_command(bufnr, "LspHover", vim.lsp.buf.hover, {})
                 vim.api.nvim_buf_create_user_command(bufnr, "LspSignature", vim.lsp.buf.signature_help, {})

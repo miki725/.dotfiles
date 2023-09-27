@@ -2,10 +2,10 @@ return {
     {
         "numToStr/Comment.nvim",
         keys = {
-            { "gc", "gc", desc = "Comment Lines" },
-            { "gb", "gb", desc = "Comment Block" },
-            { "gc", "gc", desc = "Comment Lines", mode = "v" },
-            { "gb", "gb", desc = "Comment Block", mode = "v" },
+            { "gc", "gc", desc = "Comment Lines [Comment]" },
+            { "gb", "gb", desc = "Comment Block [Comment]" },
+            { "gc", "gc", desc = "Comment Lines [Comment]", mode = "v" },
+            { "gb", "gb", desc = "Comment Block [Comment]", mode = "v" },
         },
         config = function()
             require("Comment").setup({

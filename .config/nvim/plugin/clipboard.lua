@@ -7,17 +7,17 @@ vim.opt.clipboard:append("unnamedplus")
 -- copy current file name (relative/absolute) to system clipboard
 
 local names = {
-    cf = "%", -- relative path
-    cF = "%:p", -- absolute path
-    ct = "%:t", -- filename
-    cT = "%:p:h", -- folder
+    cf = { expand = "%", desc = "Copy relative filepath [clipboard]" }, -- relative path
+    cF = { expand = "%:p", desc = "Copy absolute filepath [clipboard]" }, -- absolute path
+    ct = { expand = "%:t", desc = "Copy filename [clipboard]" }, -- filename
+    cT = { expand = "%:p:h", desc = "Copy folder [clipboard]" }, -- folder
 }
 
 for key, lookup in pairs(names) do
     vim.keymap.set("n", "<leader>" .. key, function()
-        local value = vim.fn.expand(lookup)
+        local value = vim.fn.expand(lookup.expand)
         vim.fn.setreg("*", value)
         vim.fn.setreg("+", value)
         print(value)
-    end)
+    end, { desc = lookup.desc })
 end

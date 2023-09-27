@@ -58,7 +58,7 @@ return {
                         gs.next_hunk()
                     end)
                     return "<Ignore>"
-                end, { expr = true })
+                end, { expr = true, desc = "Goto next git hunk [GitSigns]" })
                 map("n", "[h", function()
                     if vim.wo.diff then
                         return "[h"
@@ -67,33 +67,33 @@ return {
                         gs.prev_hunk()
                     end)
                     return "<Ignore>"
-                end, { expr = true })
+                end, { expr = true, desc = "Goto previous git hunk [GitSigns]" })
 
                 -- Actions
-                map("n", "<leader>hs", gs.stage_hunk)
-                map("n", "<leader>hr", gs.reset_hunk)
+                map("n", "<leader>hs", gs.stage_hunk, { desc = "Stage Hunk [GitSigns]" })
+                map("n", "<leader>hr", gs.reset_hunk, { desc = "Reset Hunk [GitSigns]" })
                 map("v", "<leader>hs", function()
                     gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                end)
+                end, { desc = "Stage selection [GitSigns]" })
                 map("v", "<leader>hr", function()
                     gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-                end)
-                map("n", "<leader>hS", gs.stage_buffer)
-                map("n", "<leader>hu", gs.undo_stage_hunk)
-                map("n", "<leader>hR", gs.reset_buffer)
-                map("n", "<leader>hp", gs.preview_hunk)
+                end, { desc = "Reset selection [GitSigns]" })
+                map("n", "<leader>hS", gs.stage_buffer, { desc = "Stage buffer [GitSigns]" })
+                map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "Undo stage hunk [GitSigns]" })
+                map("n", "<leader>hR", gs.reset_buffer, { desc = "Reset buffer [GitSigns]" })
+                map("n", "<leader>hp", gs.preview_hunk, { desc = "Preview hunk diff [GitSigns]" })
                 map("n", "<leader>hb", function()
                     gs.blame_line({ full = true })
-                end)
-                map("n", "<leader>tb", gs.toggle_current_line_blame)
-                map("n", "<leader>hd", gs.diffthis)
+                end, { desc = "Show git blame for line [GitSigns]" })
+                map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "Toggle current line blames [GitSigns]" })
+                map("n", "<leader>hd", gs.diffthis, { desc = "Diff buffer against git index [GitSigns]" })
                 map("n", "<leader>hD", function()
                     gs.diffthis("~")
-                end)
-                map("n", "<leader>td", gs.toggle_deleted)
+                end, { desc = "Diff buffer against last commit [GitSigns]" })
+                map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle showing deleted lines [GitSigns]" })
 
                 -- Text object
-                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk [GitSigns]" })
             end,
         },
     },

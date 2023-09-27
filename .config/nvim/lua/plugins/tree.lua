@@ -13,8 +13,8 @@ return {
             vim.g.loaded_netrwPlugin = 1
         end,
         keys = {
-            { "<leader>t", ":NvimTreeToggle<CR>" },
-            { "<leader>T", ":NvimTreeFocus<CR>" },
+            { "<leader>t", ":NvimTreeToggle<CR>", desc = "Toggle [NvimTree]" },
+            { "<leader>T", ":NvimTreeFocus<CR>", desc = "Focus current buffer [NvimTree]" },
         },
         opts = {
             disable_netrw = true,

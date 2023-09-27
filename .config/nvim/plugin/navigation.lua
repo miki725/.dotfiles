@@ -1,17 +1,17 @@
 -- easier switch between windows
-vim.keymap.set("n", "<C-h>", "<C-w>h")
-vim.keymap.set("n", "<C-j>", "<C-w>j")
-vim.keymap.set("n", "<C-k>", "<C-w>k")
-vim.keymap.set("n", "<C-l>", "<C-w>l")
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left buffer [nagivation]" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to bottom buffer [nagivation]" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to up buffer [nagivation]" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right buffer [nagivation]" })
 
-vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h")
-vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j")
-vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k")
-vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l")
+vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", { desc = "Move to left buffer [nagivation]" })
+vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", { desc = "Move to bottom buffer [nagivation]" })
+vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", { desc = "Move to up buffer [nagivation]" })
+vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { desc = "Move to right buffer [nagivation]" })
 
 -- have %% expand current file directory
 -- http://vimcasts.org/episodes/the-edit-command/
-vim.keymap.set("c", "%%", "<C-R>=fnameescape(expand('%:h')).'/'<cr>")
+vim.keymap.set("c", "%%", "<C-R>=fnameescape(expand('%:h')).'/'<cr>", { desc = "Expand file directory [navigation]" })
 
 -- jump to the last position when reopening a file
 vim.api.nvim_create_autocmd({

@@ -7,7 +7,7 @@ vim.o.ignorecase = true
 -- allow to disable seach highlight with leader+h
 vim.keymap.set({ "n", "v" }, "<leader>h", function()
     vim.o.hlsearch = not vim.o.hlsearch
-end)
+end, { desc = "Togglie highlighting search results [search]" })
 
 -- use very magic mode by default
 -- https://vim.fandom.com/wiki/Simplifying_regular_expressions_using_magic_and_no-magic
