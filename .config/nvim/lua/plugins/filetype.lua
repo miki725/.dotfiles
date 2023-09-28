@@ -12,6 +12,7 @@ return {
                 extensions = {
                     ["ini.j2"] = "dosini",
                     ["r2py"] = "python",
+                    ["sh"] = "sh",
                     ["sh.j2"] = "sh",
                     ["toml.j2"] = "toml",
                     ["yml.j2"] = "yaml",
