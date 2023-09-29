@@ -1,6 +1,7 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
             "nvim-treesitter/nvim-treesitter-refactor",
@@ -8,7 +9,6 @@ return {
         build = function()
             require("nvim-treesitter.install").update({ with_sync = true })()
         end,
-        enabled = true,
         main = "nvim-treesitter.configs",
         opts = {
             ensure_installed = "all",

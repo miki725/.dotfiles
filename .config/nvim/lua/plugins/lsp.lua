@@ -5,13 +5,14 @@ end
 return {
     {
         "neovim/nvim-lspconfig",
-        enabled = true,
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "jose-elias-alvarez/null-ls.nvim",
             "nvim-lua/plenary.nvim",
             -- shows all violations in a project
             {
                 "folke/trouble.nvim",
+                cmd = { "TroubleToggle", "Trouble" },
                 config = true,
             },
             {
