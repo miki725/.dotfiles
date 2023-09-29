@@ -34,14 +34,11 @@ return {
             },
 
             -- additinal plugins
-            -- refactor = {
-            --     highlight_definitions = {
-            --         enable = true,
-            --     },
-            --     -- highlight_current_scope = {
-            --     --     enable = false,
-            --     -- },
-            -- },
+            refactor = {
+                highlight_current_scope = {
+                    enable = false,
+                },
+            },
             textobjects = {
                 enable = true,
                 select = {

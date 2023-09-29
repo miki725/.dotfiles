@@ -91,7 +91,6 @@ return {
             local null_ls = require("null-ls")
             local helpers = require("null-ls.helpers")
             local format_group = vim.api.nvim_create_augroup("LspFormat", { clear = true })
-            local highlight_group = vim.api.nvim_create_augroup("LspHighlight", { clear = true })
 
             local lsp_format = function(bufnr)
                 return function()
@@ -158,20 +157,6 @@ return {
                         vim.diagnostic.open_float(nil, { focusable = false })
                     end,
                 })
-
-                if client.server_capabilities.documentHighlightProvider then
-                    vim.api.nvim_clear_autocmds({ buffer = bufnr, group = highlight_group })
-                    vim.api.nvim_create_autocmd("CursorHold", {
-                        group = highlight_group,
-                        buffer = bufnr,
-                        callback = vim.lsp.buf.document_highlight,
-                    })
-                    vim.api.nvim_create_autocmd("CursorMoved", {
-                        group = highlight_group,
-                        buffer = bufnr,
-                        callback = vim.lsp.buf.clear_references,
-                    })
-                end
             end
 
             -- Check if the config is already defined (useful when reloading this file)

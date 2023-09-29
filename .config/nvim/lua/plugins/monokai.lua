@@ -6,32 +6,15 @@ return {
         opts = function()
             local monokai = require("monokai")
             local palette = monokai.classic
+            local cursor_hold = {
+                bg = palette.red,
+                fg = palette.white,
+            }
             return {
                 custom_hlgroups = {
-                    LspReferenceRead = {
-                        bg = palette.red,
-                        fg = palette.white,
-                    },
-                    LspReferenceText = {
-                        bg = palette.red,
-                        fg = palette.white,
-                    },
-                    LspReferenceWrite = {
-                        bg = palette.red,
-                        fg = palette.white,
-                    },
-                    TSDefinition = {
-                        bg = palette.red,
-                        fg = palette.white,
-                    },
-                    TSDefinitionUsage = {
-                        bg = palette.red,
-                        fg = palette.white,
-                    },
-                    TSCurrentScope = {
-                        bg = palette.red,
-                        fg = palette.white,
-                    },
+                    IlluminatedWordText = cursor_hold,
+                    IlluminatedWordRead = cursor_hold,
+                    IlluminatedWordWrite = cursor_hold,
                     GitSignsAdd = {
                         fg = palette.green,
                     },
