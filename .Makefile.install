@@ -194,13 +194,13 @@ devnode: npm/yarn-why
 devc: brew/llvm  # clangd for c language server in coc-vim
 
 devsh: npm/bash-language-server
+devsh: pipx/shellcheck-py
+devsh: brew/shfmt pacman/shfmt
 
 devtf: yay/terraform-ls-bin
 
 devlua: brew/lua-language-server pacman/lua-language-server
 devlua: yay/stylua
-
-devsh: brew/shfmt pacman/shfmt
 
 devgo: pacman/gopls
 

@@ -14,12 +14,14 @@ return {
                     ["r2py"] = "python",
                     ["sh"] = "sh",
                     ["sh.j2"] = "sh",
+                    ["tf"] = "terraform", -- default is tf which doesnt match treesitter/LSP
                     ["toml.j2"] = "toml",
                     ["yml.j2"] = "yaml",
                 },
                 star_sets = {
                     [".envrc*"] = "sh",
                     ["Dockerfile.*"] = "dockerfile",
+                    [".Makefile*"] = "make",
                 },
             },
         },
