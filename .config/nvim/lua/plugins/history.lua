@@ -11,6 +11,19 @@ return {
         },
     },
     {
+        "jiaoshijie/undotree",
+        dependencies = "nvim-lua/plenary.nvim",
+        config = true,
+        keys = {
+            {
+                "<leader>u",
+                function()
+                    require("undotree").toggle()
+                end,
+            },
+        },
+    },
+    {
         "dawsers/telescope-file-history.nvim",
         event = { "BufWritePost" },
         main = "file_history",
