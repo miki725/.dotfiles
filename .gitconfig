@@ -39,3 +39,5 @@
 [init]
     templateDir = ~/.git-template
 	defaultBranch = main
+[commit]
+    template = ~/.gitcommit

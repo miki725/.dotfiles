@@ -8,7 +8,10 @@ return {
         end,
         opts = {
             overrides = {
-                literal = {},
+                literal = {
+                    COMMIT_EDITMSG = "gitcommit",
+                    MERGE_MSG = "gitcommit",
+                },
                 extensions = {
                     ["ini.j2"] = "dosini",
                     ["r2py"] = "python",
