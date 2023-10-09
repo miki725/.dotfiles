@@ -64,5 +64,6 @@
   "vim-rsi": { "branch": "master", "commit": "45540637ead22f011e8215f1c90142e49d946a54" },
   "vimspector": { "branch": "master", "commit": "831530b85aad02f2c465047a21452409bfaaf784" },
   "which-key.nvim": { "branch": "main", "commit": "7ccf476ebe0445a741b64e36c78a682c1c6118b7" },
-  "wrapping.nvim": { "branch": "master", "commit": "e1ce68aae5ea729fc20e5bc17fb569314f76b9bb" }
+  "wrapping.nvim": { "branch": "master", "commit": "e1ce68aae5ea729fc20e5bc17fb569314f76b9bb" },
+  "yanky.nvim": { "branch": "main", "commit": "636632d70ac00c45bdc1751d7b35c83d47081f36" }
 }
