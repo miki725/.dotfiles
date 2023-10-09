@@ -1,0 +1,6 @@
+(?i)dep
+(?i)devops
+(?i)dotfile
+(?i)makefile
+(?i)repo
+SBOM

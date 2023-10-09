@@ -130,9 +130,9 @@ dev: cask/dash
 dev: brew/direnv yay/direnv
 dev: brew/distribution  # histograms
 dev: cask/docker
-dev: cask/docker pacman/docker pacman/docker-buildx
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
+dev: cask/docker pacman/docker pacman/docker-buildx
 dev: npm/doctoc
 dev: brew/entr  # watch files and execute - similar to fswatch
 dev: brew/fswatch  yay/fswatch  # watch files and execute
@@ -151,10 +151,11 @@ dev: cask/postman
 dev: pipx/powerline-status
 dev: pipx/pre-commit
 dev: pipx/pygments
+dev: pipx/tmuxp
 dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
-dev: pipx/tmuxp
 dev: brew/universal-ctags pacman/ctags  # generates tags from codebase
+dev: yay/vale-bin # prose linter/spell checker
 dev: cask/vimr
 dev: brew/watchman  # lib for watching files
 
