@@ -7,7 +7,7 @@ return {
             "nvim-treesitter/nvim-treesitter-refactor",
         },
         build = function()
-            require("nvim-treesitter.install").update({ with_sync = true })()
+            require("nvim-treesitter.install").update({ with_sync = false })()
         end,
         main = "nvim-treesitter.configs",
         opts = {
