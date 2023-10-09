@@ -1,7 +1,6 @@
 -- paste from clipboard
 -- https://medium.com/swlh/8-vim-tricks-that-will-take-you-from-beginner-to-expert-817ff4870245
-vim.o.clipboard = "unnamed"
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
 -- copy current file name (relative/absolute) to system clipboard
