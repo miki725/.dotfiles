@@ -1,6 +1,14 @@
 (?i)dep
 (?i)devops
 (?i)dotfile
+(?i)heredoc
 (?i)makefile
+(?i)posix
 (?i)repo
 SBOM
+buildx
+config
+dev
+keypair
+serverless
+zsh
