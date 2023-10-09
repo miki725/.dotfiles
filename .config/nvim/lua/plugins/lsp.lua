@@ -7,7 +7,7 @@ return {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            "jose-elias-alvarez/null-ls.nvim",
+            "nvimtools/none-ls.nvim",
             "nvim-lua/plenary.nvim",
             -- shows all violations in a project
             {
