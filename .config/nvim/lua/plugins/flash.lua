@@ -21,6 +21,16 @@ return {
                 desc = "Flash Treesitter [Flash]",
             },
             {
+                "<leader>*",
+                mode = { "n" },
+                function()
+                    require("flash").jump({
+                        pattern = vim.fn.expand("<cword>"),
+                    })
+                end,
+                desc = "Search Current Word [Flash]",
+            },
+            {
                 "r",
                 mode = "o",
                 function()

@@ -15,6 +15,11 @@ return {
                     IlluminatedWordText = cursor_hold,
                     IlluminatedWordRead = cursor_hold,
                     IlluminatedWordWrite = cursor_hold,
+                    FlashLabel = {
+                        bg = palette.base0,
+                        fg = palette.orange,
+                        style = "bold",
+                    },
                     GitSignsAdd = {
                         fg = palette.green,
                     },
