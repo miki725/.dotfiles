@@ -10,7 +10,8 @@ return {
         keys = {
             { "<leader>ff", ":FzfLua builtin<CR>", desc = "Show fzf [FZF]" },
             { "<C-P>", ":FzfLua git_files<CR>", desc = "Search files [FZF]" },
-            { "<C-B>", ":FzfLua buffers<CR>", desc = "Search buffers [FZF]" },
+            { "<A-p>", ":FzfLua tabs<CR>", desc = "Search tabs [FZF]" },
+            { "<A-P>", ":FzfLua buffers<CR>", desc = "Search buffers [FZF]" },
             { "<C-t>", ":FzfLua btags<CR>", desc = "Search buffer tags [FZF]" },
             { "<A-t>", ":FzfLua tags<CR>", desc = "Search tags [FZF]" },
             { "z=", ":FzfLua spell_suggest<CR>", desc = "Show spelling suggestions [FZF]" },
