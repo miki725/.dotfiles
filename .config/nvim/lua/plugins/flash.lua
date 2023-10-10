@@ -37,7 +37,7 @@ return {
                 desc = "Treesitter Search [Flash]",
             },
             {
-                "<leader>f", -- ex c<leader>f to change until char
+                "<leader>f", -- during search (/) this toggles flash
                 mode = { "c" },
                 function()
                     require("flash").toggle()
