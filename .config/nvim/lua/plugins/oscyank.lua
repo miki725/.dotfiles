@@ -4,6 +4,10 @@ return {
         event = {
             "TextYankPost",
         },
+        cond = function()
+            -- only enable without gui == inside terminal
+            return vim.fn.has("gui_running") == 0
+        end,
         init = function()
             vim.api.nvim_create_autocmd("TextYankPost", {
                 callback = function()
