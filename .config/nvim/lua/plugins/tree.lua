@@ -43,11 +43,11 @@ return {
                 width = 30,
                 mappings = {
                     ["<space>"] = "none",
-                    ["<bs>"] = "parent",
-                    ["u"] = "navigate_up",
+                    ["<bs>"] = "none",
+                    ["h"] = "parent",
+                    ["<left>"] = "parent",
                     ["S"] = "none",
                     ["/"] = "none",
-                    ["F"] = "fuzzy_finder",
                     ["s"] = "open_split",
                     ["v"] = "open_vsplit",
                     ["<C-t>"] = "open_tabnew",
@@ -93,6 +93,25 @@ return {
                         ".git",
                         "node_modules",
                     },
+                },
+                window = {
+                    mappings = {
+                        ["u"] = "navigate_up",
+                        ["F"] = "fuzzy_finder",
+                    },
+                },
+            },
+            buffers = {
+                window = {
+                    mappings = {
+                        ["h"] = "parent",
+                        ["<left>"] = "parent",
+                    },
+                },
+            },
+            git_status = {
+                window = {
+                    mappings = {},
                 },
             },
             commands = {
