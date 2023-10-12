@@ -1,7 +1,6 @@
 return {
     {
         "nvim-neo-tree/neo-tree.nvim",
-        cond = false,
         branch = "v3.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -41,6 +40,7 @@ return {
             close_if_last_window = true,
             enable_normal_mode_for_inputs = true,
             window = {
+                width = 30,
                 mappings = {
                     ["<space>"] = "none",
                     ["<bs>"] = "parent",
@@ -97,88 +97,9 @@ return {
             },
             commands = {
                 parent = function(state)
-                    local utils = require("neo-tree.utils")
-                    local renderer = require("neo-tree.ui.renderer")
                     local node = state.tree:get_node()
-                    local parent_path, _ = utils.split_path(node:get_id())
-                    renderer.focus_node(state, parent_path)
+                    require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
                 end,
-            },
-        },
-    },
-    {
-        "kyazdani42/nvim-tree.lua",
-        cond = true,
-        commit = "8b8d457",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        cmd = {
-            "NvimTreeToggle",
-        },
-        init = function()
-            vim.g.loaded_netrw = 1
-            vim.g.loaded_netrwPlugin = 1
-        end,
-        keys = {
-            { "<leader>t", ":NvimTreeToggle<CR>", desc = "Toggle [NvimTree]" },
-            { "<leader>T", ":NvimTreeFocus<CR>", desc = "Focus current buffer [NvimTree]" },
-        },
-        opts = {
-            disable_netrw = true,
-            hijack_netrw = true,
-            open_on_tab = false,
-            hijack_cursor = false,
-            update_cwd = false,
-            hijack_directories = {
-                enable = false,
-                auto_open = true,
-            },
-            diagnostics = {
-                enable = false,
-                icons = {
-                    hint = "",
-                    info = "",
-                    warning = "",
-                    error = "",
-                },
-            },
-            update_focused_file = {
-                enable = true,
-                update_cwd = true,
-                ignore_list = {},
-            },
-            system_open = {
-                cmd = nil,
-                args = {},
-            },
-            filters = {
-                dotfiles = false,
-                custom = {},
-            },
-            git = {
-                enable = true,
-                ignore = true,
-                timeout = 500,
-            },
-            view = {
-                width = 30,
-                side = "left",
-                adaptive_size = false,
-                number = false,
-                relativenumber = false,
-                signcolumn = "yes",
-            },
-            trash = {
-                cmd = "trash",
-                require_confirm = true,
-            },
-            actions = {
-                open_file = {
-                    window_picker = {
-                        enable = false,
-                    },
-                },
             },
         },
     },
