@@ -60,10 +60,10 @@ return {
 
             -- show symbolc in the gutter for error types
             local signs = {
-                Error = " ",
-                Warn = " ",
-                Hint = " ",
-                Info = " ",
+                Error = " ",
+                Warn = " ",
+                Info = " ",
+                Hint = "󰌵",
             }
             for type, icon in pairs(signs) do
                 local hl = "DiagnosticSign" .. type
