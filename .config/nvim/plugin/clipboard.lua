@@ -6,10 +6,10 @@ vim.opt.clipboard = { "unnamed", "unnamedplus" }
 -- copy current file name (relative/absolute) to system clipboard
 
 local names = {
-    cf = { expand = "%", desc = "Copy relative filepath [clipboard]" }, -- relative path
-    cF = { expand = "%:p", desc = "Copy absolute filepath [clipboard]" }, -- absolute path
-    ct = { expand = "%:t", desc = "Copy filename [clipboard]" }, -- filename
-    cT = { expand = "%:p:h", desc = "Copy folder [clipboard]" }, -- folder
+    cf = { expand = "%", desc = "Copy relative filepath [clipboard]" },
+    cF = { expand = "%:p", desc = "Copy absolute filepath [clipboard]" },
+    ct = { expand = "%:t", desc = "Copy filename [clipboard]" },
+    cT = { expand = "%:p:h", desc = "Copy folder [clipboard]" },
 }
 
 for key, lookup in pairs(names) do
