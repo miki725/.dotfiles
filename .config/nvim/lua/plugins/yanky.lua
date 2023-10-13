@@ -2,7 +2,7 @@ return {
     {
         "gbprod/yanky.nvim",
         keys = {
-            { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text [Yankiy]" },
+            { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text [Yanky]" },
             { "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" }, desc = "Put yanked text after cursor [Yanky]" },
             { "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" }, desc = "Put yanked text before cursor [Yanky]" },
             { "[y", "<Plug>(YankyCycleForward)", desc = "Cycle forward through yank history [Yanky]" },
