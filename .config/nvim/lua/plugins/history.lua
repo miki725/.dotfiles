@@ -12,25 +12,25 @@ return {
             archives_dir = vim.fn.stdpath("cache") .. "/fundo",
         },
     },
-    {
-        "jiaoshijie/undotree",
-        dependencies = "nvim-lua/plenary.nvim",
-        config = true,
-        init = function()
-            vim.api.nvim_create_user_command("UndoTree", function()
-                require("undotree").toggle()
-            end, {})
-        end,
-        cmd = { "UndoTree" },
+    telescope_utils.register({
+        "debugloop/telescope-undo.nvim",
         keys = {
             {
                 "<leader>u",
                 function()
-                    require("undotree").toggle()
+                    require("telescope").extensions.undo.undo()
                 end,
             },
         },
-    },
+        extensions = {
+            undo = {
+                layout_strategy = "vertical",
+                layout_config = {
+                    preview_height = 0.8,
+                },
+            },
+        },
+    }),
     telescope_utils.register({
         "dawsers/telescope-file-history.nvim",
         event = { "BufWritePost" },
