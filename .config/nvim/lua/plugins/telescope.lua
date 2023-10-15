@@ -20,9 +20,7 @@ return {
                 },
             }),
             telescope_utils.register({
-                -- "LukasPietzschmann/telescope-tabs",
-                -- https://github.com/LukasPietzschmann/telescope-tabs/pull/18
-                "miki725/telescope-tabs",
+                "LukasPietzschmann/telescope-tabs",
                 extensions = {
                     ["telescope-tabs"] = {},
                 },
