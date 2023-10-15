@@ -6,6 +6,16 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
             telescope_utils.register({
+                "nvim-telescope/telescope-fzf-native.nvim",
+                cond = function()
+                    return vim.fn.executable("make") > 0 and vim.fn.executable("gcc") > 0
+                end,
+                build = "make",
+                extensions = {
+                    fzf = {},
+                },
+            }),
+            telescope_utils.register({
                 -- "OliverChao/telescope-picker-list.nvim",
                 -- https://github.com/OliverChao/telescope-picker-list.nvim/pull/1
                 "miki725/telescope-picker-list.nvim",
@@ -26,13 +36,9 @@ return {
                 },
             }),
             telescope_utils.register({
-                "nvim-telescope/telescope-fzf-native.nvim",
-                cond = function()
-                    return vim.fn.executable("make") > 0 and vim.fn.executable("gcc") > 0
-                end,
-                build = "make",
+                "nvim-telescope/telescope-live-grep-args.nvim",
                 extensions = {
-                    fzf = {},
+                    live_grep_args = {},
                 },
             }),
             telescope_utils.register({
