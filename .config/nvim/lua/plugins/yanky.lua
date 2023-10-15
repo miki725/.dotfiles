@@ -1,5 +1,7 @@
+local telescope_utils = require("utils.telescope")
+
 return {
-    {
+    telescope_utils.register({
         "gbprod/yanky.nvim",
         keys = {
             { "y", "<Plug>(YankyYank)", mode = { "n", "x" }, desc = "Yank text [Yanky]" },
@@ -24,5 +26,8 @@ return {
                 timer = 250,
             },
         },
-    },
+        extensions = {
+            yank_history = {},
+        },
+    }),
 }

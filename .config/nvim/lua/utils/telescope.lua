@@ -18,7 +18,15 @@ M.registered = {}
 
 M.register = function(plugin)
     if is_enabled(plugin.enabled) and is_enabled(plugin.cond) then
-        plugin.extensions = plugin.extensions or { [plugin.main or plugin.name] = {} }
+        if not plugin.extensions then
+            local name = plugin.main or plugin.name
+            if name then
+                plugin.extensions = { [name] = {} }
+            else
+                vim.notify(plugin[1] .. " needs to define telescope extensions or main", vim.log.levels.ERROR)
+                return
+            end
+        end
         for name, opts in pairs(plugin.extensions) do
             opts = vim.tbl_deep_extend("force", default_opts, opts or {})
             table.insert(M.registered, {
