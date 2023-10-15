@@ -9,7 +9,7 @@ return {
                 -- "OliverChao/telescope-picker-list.nvim",
                 -- https://github.com/OliverChao/telescope-picker-list.nvim/pull/1
                 "miki725/telescope-picker-list.nvim",
-                extension = {
+                extensions = {
                     picker_list = {
                         order = 1000, -- last extension
                         excluded_pickers = {
@@ -23,7 +23,7 @@ return {
                 -- "LukasPietzschmann/telescope-tabs",
                 -- https://github.com/LukasPietzschmann/telescope-tabs/pull/18
                 "miki725/telescope-tabs",
-                extension = {
+                extensions = {
                     ["telescope-tabs"] = {},
                 },
             }),
@@ -33,7 +33,7 @@ return {
                     return vim.fn.executable("make") > 0 and vim.fn.executable("gcc") > 0
                 end,
                 build = "make",
-                extension = {
+                extensions = {
                     fzf = {},
                 },
             }),
