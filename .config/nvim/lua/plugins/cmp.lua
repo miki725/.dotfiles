@@ -18,6 +18,7 @@ return {
                 end,
             },
         },
+        event = "InsertEnter",
         init = function()
             vim.opt.completeopt = { "menu", "menuone", "noselect" }
         end,

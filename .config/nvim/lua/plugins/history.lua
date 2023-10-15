@@ -14,6 +14,12 @@ return {
         "jiaoshijie/undotree",
         dependencies = "nvim-lua/plenary.nvim",
         config = true,
+        init = function()
+            vim.api.nvim_create_user_command("UndoTree", function()
+                require("undotree").toggle()
+            end, {})
+        end,
+        cmd = { "UndoTree" },
         keys = {
             {
                 "<leader>u",
@@ -25,10 +31,17 @@ return {
     },
     {
         "dawsers/telescope-file-history.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+        },
         event = { "BufWritePost" },
         main = "file_history",
         opts = {
             backup_dir = vim.fn.stdpath("cache") .. "/file-history-git",
         },
+        config = function(plugin, opts)
+            require(plugin.main).setup(opts)
+            require("telescope").load_extension("file_history")
+        end,
     },
 }
