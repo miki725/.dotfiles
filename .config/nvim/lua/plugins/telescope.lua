@@ -37,6 +37,12 @@ return {
                     fzf = {},
                 },
             }),
+            telescope_utils.register({
+                "xiyaowong/telescope-emoji.nvim",
+                extensions = {
+                    emoji = {},
+                },
+            }),
         },
         cmd = { "Telescope" },
         keys = {
