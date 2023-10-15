@@ -16,7 +16,15 @@ return {
                 function()
                     require("flash").jump()
                 end,
-                desc = "Flash [Flash]",
+                desc = "Flash Find [Flash]",
+            },
+            {
+                "<leader>t",
+                mode = { "o" },
+                function()
+                    require("flash").jump({ jump = { inclusive = false } })
+                end,
+                desc = "Flash Until [Flash]",
             },
             {
                 "<leader>F",
