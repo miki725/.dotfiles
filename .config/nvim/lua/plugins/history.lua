@@ -1,3 +1,5 @@
+local telescope_utils = require("utils.telescope")
+
 return {
     {
         "kevinhwang91/nvim-fundo",
@@ -29,19 +31,12 @@ return {
             },
         },
     },
-    {
+    telescope_utils.register({
         "dawsers/telescope-file-history.nvim",
-        dependencies = {
-            "nvim-telescope/telescope.nvim",
-        },
         event = { "BufWritePost" },
         main = "file_history",
         opts = {
             backup_dir = vim.fn.stdpath("cache") .. "/file-history-git",
         },
-        config = function(plugin, opts)
-            require(plugin.main).setup(opts)
-            require("telescope").load_extension("file_history")
-        end,
-    },
+    }),
 }

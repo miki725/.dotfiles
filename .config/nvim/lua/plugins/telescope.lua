@@ -1,44 +1,51 @@
+local telescope_utils = require("utils.telescope")
+
 return {
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "dawsers/telescope-file-history.nvim", -- history.lua
-            {
-                "LukasPietzschmann/telescope-tabs",
-                keys = {
-                    {
-                        "<A-p>",
-                        function()
-                            require("telescope-tabs").list_tabs()
-                        end,
-                        desc = "Search tabs [Telescope]",
+            telescope_utils.register({
+                -- "OliverChao/telescope-picker-list.nvim",
+                -- https://github.com/OliverChao/telescope-picker-list.nvim/pull/1
+                "miki725/telescope-picker-list.nvim",
+                extension = {
+                    picker_list = {
+                        order = 1000, -- last extension
+                        excluded_pickers = {
+                            "fzf",
+                            "fd",
+                        },
                     },
                 },
-                config = function(_, opts)
-                    require("telescope-tabs").setup(opts)
-                    require("telescope").load_extension("telescope-tabs")
-                end,
-            },
-            {
+            }),
+            telescope_utils.register({
+                -- "LukasPietzschmann/telescope-tabs",
+                -- https://github.com/LukasPietzschmann/telescope-tabs/pull/18
+                "miki725/telescope-tabs",
+                extension = {
+                    ["telescope-tabs"] = {},
+                },
+            }),
+            telescope_utils.register({
                 "nvim-telescope/telescope-fzf-native.nvim",
                 cond = function()
                     return vim.fn.executable("make") > 0 and vim.fn.executable("gcc") > 0
                 end,
                 build = "make",
-                config = function()
-                    require("telescope").load_extension("fzf")
-                end,
-            },
+                extension = {
+                    fzf = {},
+                },
+            }),
         },
         cmd = { "Telescope" },
         keys = {
             {
                 "<leader>ff",
                 function()
-                    require("telescope.builtin").builtin()
+                    require("telescope").extensions.picker_list.picker_list()
                 end,
-                desc = "Show builtins [Telescope]",
+                desc = "Show pickers [Telescope]",
             },
             {
                 "<C-P>",
@@ -46,6 +53,13 @@ return {
                     require("telescope.builtin").git_files()
                 end,
                 desc = "Search files [Telescope]",
+            },
+            {
+                "<A-p>",
+                function()
+                    require("telescope").extensions["telescope-tabs"].list_tabs()
+                end,
+                desc = "Search tabs [Telescope]",
             },
             {
                 "<A-P>",
@@ -83,11 +97,12 @@ return {
                 desc = "Show LSP references [Telescope]",
             },
         },
-        opts = {
+        opts = telescope_utils.opts({
             defaults = {
                 mappings = {
                     n = {
                         ["q"] = "close",
+                        ["<C-c>"] = "close",
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
                     },
@@ -97,6 +112,7 @@ return {
                     },
                 },
             },
-        },
+        }),
+        config = telescope_utils.config(),
     },
 }

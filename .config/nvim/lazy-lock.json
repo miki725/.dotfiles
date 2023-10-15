@@ -49,6 +49,7 @@
   "quickfix-reflector.vim": { "branch": "master", "commit": "6a6a9e28e1713b9e9db99eec1e6672e5666c01b9" },
   "telescope-file-history.nvim": { "branch": "main", "commit": "df585d5decba119e358ea03bd3146936f9642b83" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "6c921ca12321edaa773e324ef64ea301a1d0da62" },
+  "telescope-picker-list.nvim": { "branch": "master", "commit": "3da134747a97996470a8c99e8f1a8317e9bf11c7" },
   "telescope-tabs": { "branch": "master", "commit": "8fa5f3c453f3794c9289f88a05504e86eb8fd582" },
   "telescope.nvim": { "branch": "master", "commit": "74ce793a60759e3db0d265174f137fb627430355" },
   "tidy.nvim": { "branch": "main", "commit": "86eab24e807ed2957d26ca43b2b76b92d0fbf8f4" },
