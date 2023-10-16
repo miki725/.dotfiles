@@ -39,7 +39,9 @@ jq
 keypair
 lodash
 npm
+pytest
 serverless
 stderr
 stdout
+tty
 zsh
