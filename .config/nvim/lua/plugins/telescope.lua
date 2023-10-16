@@ -20,9 +20,7 @@ return {
                 },
             }),
             telescope_utils.register({
-                -- "OliverChao/telescope-picker-list.nvim",
-                -- https://github.com/OliverChao/telescope-picker-list.nvim/pull/1
-                "miki725/telescope-picker-list.nvim",
+                "OliverChao/telescope-picker-list.nvim",
                 extensions = {
                     picker_list = {
                         order = 1000, -- last extension

@@ -2,7 +2,7 @@ vim:  ## configure vim
 vim: .config/nvim/plugin/dotfiles_python_host.vim
 
 upgrade::
-	nvim -c PackerSync
+	nvim --headless "+Lazy! sync" "+qa"
 
 .config/nvim/plugin/dotfiles_python_host.vim:
 	echo > $@
