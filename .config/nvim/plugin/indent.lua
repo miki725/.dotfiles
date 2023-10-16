@@ -1,6 +1,8 @@
 -- default tab config - customized with autocmd below per file type
 -- http://vimcasts.org/episodes/tabs-and-spaces/
 
+vim.o.breakindent = true
+
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
