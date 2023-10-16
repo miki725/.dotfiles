@@ -1,5 +1,9 @@
 local telescope_utils = require("utils.telescope")
 
+local toggle_preview = function(buf)
+    require("telescope.actions.layout").toggle_preview(buf)
+end
+
 return {
     {
         "nvim-telescope/telescope.nvim",
@@ -38,7 +42,13 @@ return {
             telescope_utils.register({
                 "nvim-telescope/telescope-live-grep-args.nvim",
                 extensions = {
-                    live_grep_args = {},
+                    live_grep_args = {
+                        mappings = {
+                            i = {
+                                ["<C-Space>"] = "to_fuzzy_refine",
+                            },
+                        },
+                    },
                 },
             }),
             telescope_utils.register({
@@ -132,10 +142,12 @@ return {
                         ["<C-c>"] = "close",
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
+                        ["<C-p>"] = toggle_preview,
                     },
                     i = {
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
+                        ["<C-p>"] = toggle_preview,
                     },
                 },
             },
