@@ -106,6 +106,23 @@ return {
                 end,
                 desc = "Show LSP references [Telescope]",
             },
+            {
+                "g*",
+                function()
+                    require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({
+                        quote = true,
+                        postfix = "",
+                    })
+                end,
+                desc = "Live Grep CWord [Telescope]",
+            },
+            {
+                "<C-F>",
+                function()
+                    require("telescope").extensions.live_grep_args.live_grep_args()
+                end,
+                desc = "Live Grep [Telescope]",
+            },
         },
         opts = telescope_utils.opts({
             defaults = {
