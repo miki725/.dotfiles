@@ -233,6 +233,7 @@ cask/google-chrome-beta: TAP=homebrew/cask-versions/
 brew/hint: TAP=miki725/brews/
 pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master
 brew/itermocil: TAP=tomanthony/brews/
+pipx/neovim-sh: pipx-inject/neovim-sh/nbformat
 pipx/pandoc-fignos: VERSION=<2.3.1
 pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
 pipx/powerline-status: pipx-inject/powerline-status/psutil
