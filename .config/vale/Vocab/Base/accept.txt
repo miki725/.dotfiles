@@ -1,8 +1,16 @@
 (?i)automagically
 (?i)conformant
 (?i)escrowed
+(?i)freemium
 (?i)implementors
+(?i)insertable
+(?i)openable
 (?i)operationalising
 (?i)overcomplicates
+(?i)rebalance
+(?i)rebundled
 (?i)relatability
+(?i)scheduler
+(?i)undeleted
+(?i)unredacted
 (?i)untampered
