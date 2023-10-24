@@ -8,5 +8,5 @@ nimble/%: ## install node package
 nimble/%: $(NIMBLE_PREFIX)/bin/%
 	@
 
-$(NIMBLE_PREFIX)/bin/%:
+$(NIMBLE_PREFIX)/bin/%: brew/nim pacman/nim
 	nimble install -y $*

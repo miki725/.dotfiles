@@ -27,14 +27,14 @@ upgrade:: update
 tidy::  ## tidy things up
 	@
 
-all:  ## install everything
-all: minimal
-all: mac
-all: fish
-all: tmux
-all: vim
-all: git
-all: gpg
+all::  ## install everything
+all:: minimal
+all:: mac
+all:: fish
+all:: tmux
+all:: vim
+all:: git
+all:: gpg
 	$(MAKE) $(OPTIONS) upgrade tidy
 
 ifeq "$(OS)" "Darwin"

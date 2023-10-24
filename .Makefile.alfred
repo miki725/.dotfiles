@@ -11,4 +11,7 @@ alfred/%: $(ALFRED_PREFIX)/%
 	@
 
 $(ALFRED_PREFIX)/%:
+	@
+ifeq "$(OS)" "Darwin"
 	git clone git@github.com:miki725/$*.git $@
+endif

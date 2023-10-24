@@ -1,5 +1,23 @@
 # !sort -t / -k2
 
+all:: installers
+all:: tools
+all:: sec
+all:: casks
+all:: net
+all:: dev
+all:: devcloud
+all:: devpy
+all:: devnode
+all:: devc
+all:: devsh
+all:: devtf
+all:: devlua
+all:: devgo
+all:: devnim
+all:: music
+all:: pandoc
+
 minimal: pacman/base-devel # sudo, which, sed, etc
 minimal: brew/btop pacman/btop  # c version of bpytop
 minimal: cask/firefox
@@ -145,6 +163,8 @@ dev: brew/git-lfs
 dev: pipx/git-of-theseus
 dev: brew/git-quick-stats
 dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
+dev: brew/lazydocker yay/lazydocker-bin
+dev: brew/lazygit pacman/lazygit
 dev: brew/libyaml
 dev: cask/neovide
 dev: pipx/neovim-sh
@@ -163,7 +183,6 @@ dev: brew/watchman  # lib for watching files
 
 devcloud: pipx/awscli
 devcloud: pipx/aws-mfa
-devcloud: brew/awsprey
 devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
 devcloud: brew/tfenv yay/tfenv  # change terraform version
@@ -207,7 +226,6 @@ devlua: yay/stylua
 
 devgo: pacman/gopls
 
-devnim: yay/choosenim-bin
 devnim: nimble/nimlangserver
 
 music: cask/audio-hijack
@@ -307,3 +325,6 @@ $(BREW_PREFIX)/Cellar/pandoc-citeproc:
 # cask/virtualbox
 # cask/visual-studio-code
 # cask/wifi-explorer
+
+# devnim: yay/choosenim-bin
+# devnim: nimble/choosenim
