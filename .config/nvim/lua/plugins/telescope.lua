@@ -1,7 +1,12 @@
 local telescope_utils = require("utils.telescope")
 
-local toggle_preview = function(buf)
-    require("telescope.actions.layout").toggle_preview(buf)
+local toggle_preview = function(bufnr)
+    require("telescope.actions.layout").toggle_preview(bufnr)
+end
+
+local select_goto = function(bufnr)
+    print("hello")
+    require("telescope.actions.set").edit(bufnr, "drop")
 end
 
 local is_inside_work_tree = {}
@@ -155,11 +160,15 @@ return {
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
                         ["<C-p>"] = toggle_preview,
+                        ["<CR>"] = select_goto,
+                        ["<A-CR>"] = "select_default",
                     },
                     i = {
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
                         ["<C-p>"] = toggle_preview,
+                        ["<CR>"] = select_goto,
+                        ["<A-CR>"] = "select_default",
                     },
                 },
             },
