@@ -79,16 +79,16 @@ return {
     -- https://wezfurlong.org/wezterm/config/keys.html
     disable_default_key_bindings = true,
     keys = {
-        { mods = "CMD", key = "c", action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }) },
-        { mods = "CMD", key = "v", action = wezterm.action({ PasteFrom = "Clipboard" }) },
+        { mods = "CMD", key = "c", action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
+        { mods = "CMD", key = "v", action = wezterm.action.PasteFrom("Clipboard") },
         { mods = "CMD", key = "h", action = "HideApplication" },
         { mods = "CMD", key = "m", action = "Hide" },
         { mods = "CMD", key = "n", action = "SpawnWindow" },
 
-        { mods = "CMD", key = "t", action = wezterm.action({ SpawnTab = "DefaultDomain" }) },
-        { mods = "CMD", key = "w", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
-        { mods = "CMD|ALT", key = "LeftArrow", action = wezterm.action({ ActivateTabRelative = -1 }) },
-        { mods = "CMD|ALT", key = "RightArrow", action = wezterm.action({ ActivateTabRelative = 1 }) },
+        { mods = "CMD", key = "t", action = wezterm.action.SpawnTab("DefaultDomain") },
+        { mods = "CMD", key = "w", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
+        { mods = "CMD|ALT", key = "LeftArrow", action = wezterm.action.ActivateTabRelative(-1) },
+        { mods = "CMD|ALT", key = "RightArrow", action = wezterm.action.ActivateTabRelative(1) },
 
         { mods = "CMD", key = "-", action = "DecreaseFontSize" },
         { mods = "CMD", key = "=", action = "IncreaseFontSize" },
