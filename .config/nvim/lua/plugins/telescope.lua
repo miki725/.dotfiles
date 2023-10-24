@@ -4,6 +4,22 @@ local toggle_preview = function(buf)
     require("telescope.actions.layout").toggle_preview(buf)
 end
 
+local is_inside_work_tree = {}
+
+local project_files = function()
+    local cwd = vim.fn.getcwd()
+    if is_inside_work_tree[cwd] == nil then
+        vim.fn.system("git rev-parse --is-inside-work-tree")
+        is_inside_work_tree[cwd] = vim.v.shell_error == 0
+    end
+
+    if is_inside_work_tree[cwd] then
+        require("telescope.builtin").git_files()
+    else
+        require("telescope.builtin").find_files()
+    end
+end
+
 return {
     {
         "nvim-telescope/telescope.nvim",
@@ -67,9 +83,7 @@ return {
             },
             {
                 "<C-P>",
-                function()
-                    require("telescope.builtin").git_files()
-                end,
+                project_files,
                 desc = "Search files [Telescope]",
             },
             {
