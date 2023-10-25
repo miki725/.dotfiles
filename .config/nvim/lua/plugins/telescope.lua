@@ -184,7 +184,16 @@ return {
             pickers = {
                 git_files = select_goto_mappins,
                 find_files = select_goto_mappins,
-                buffers = select_goto_mappins,
+                buffers = vim.tbl_deep_extend("force", {}, select_goto_mappins, {
+                    mappings = {
+                        n = {
+                            ["<C-d>"] = "delete_buffer",
+                        },
+                        i = {
+                            ["<C-d>"] = "delete_buffer",
+                        },
+                    },
+                }),
             },
         }),
         config = telescope_utils.config(),
