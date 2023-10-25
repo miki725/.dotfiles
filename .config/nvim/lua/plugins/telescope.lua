@@ -5,9 +5,19 @@ local toggle_preview = function(bufnr)
 end
 
 local select_goto = function(bufnr)
-    print("hello")
     require("telescope.actions.set").edit(bufnr, "drop")
 end
+
+local select_goto_mappins = {
+    mappings = {
+        n = {
+            ["<CR>"] = select_goto,
+        },
+        i = {
+            ["<CR>"] = select_goto,
+        },
+    },
+}
 
 local is_inside_work_tree = {}
 
@@ -136,6 +146,7 @@ return {
             {
                 "g*",
                 function()
+                    vim.notify("hello", vim.log.levels.ERROR)
                     require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({
                         quote = true,
                         postfix = "",
@@ -160,17 +171,20 @@ return {
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
                         ["<C-p>"] = toggle_preview,
-                        ["<CR>"] = select_goto,
                         ["<A-CR>"] = "select_default",
                     },
                     i = {
                         ["<C-/>"] = "which_key",
                         ["<C-\\>"] = "which_key",
                         ["<C-p>"] = toggle_preview,
-                        ["<CR>"] = select_goto,
                         ["<A-CR>"] = "select_default",
                     },
                 },
+            },
+            pickers = {
+                git_files = select_goto_mappins,
+                find_files = select_goto_mappins,
+                buffers = select_goto_mappins,
             },
         }),
         config = telescope_utils.config(),

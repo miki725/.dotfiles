@@ -104,6 +104,9 @@ return {
         -- not in treesitter yet
         -- https://github.com/helix-editor/helix/issues/3117
         "alaviss/nim.nvim",
+        init = function()
+            vim.g.no_nim_maps = true
+        end,
         ft = { "nim" },
     },
 }
