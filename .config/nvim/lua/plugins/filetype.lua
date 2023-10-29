@@ -13,6 +13,8 @@ return {
                     MERGE_MSG = "gitcommit",
                 },
                 extensions = {
+                    ["c42spec"] = "con4m",
+                    ["c4m"] = "con4m",
                     ["ini.j2"] = "dosini",
                     ["ipynb"] = "ipynb",
                     ["r2py"] = "python",
