@@ -17,6 +17,8 @@ return {
                     ["c4m"] = "con4m",
                     ["ini.j2"] = "dosini",
                     ["ipynb"] = "ipynb",
+                    ["nimble"] = "nim",
+                    ["nims"] = "nim",
                     ["r2py"] = "python",
                     ["sh"] = "sh",
                     ["sh.j2"] = "sh",
