@@ -32,7 +32,7 @@ return {
             },
             {
                 "folke/neodev.nvim",
-                enabled = function()
+                cond = function()
                     return is_binary_installed("lua-language-server")
                 end,
                 config = true,

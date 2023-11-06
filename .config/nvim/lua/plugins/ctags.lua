@@ -1,7 +1,7 @@
 return {
     {
         "ludovicchabant/vim-gutentags",
-        enabled = function()
+        cond = function()
             if vim.fn.executable("fd") == 0 then
                 return false
             end
