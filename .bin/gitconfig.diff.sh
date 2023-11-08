@@ -11,6 +11,10 @@ cat <<EOF
     diffFilter = delta --color-only
 [delta]
     navigate = true  # use n and N to move between diff sections
+    syntax-theme = Monokai Extended Bright
+    diff-so-fancy = true
+    # diff-highlight = true
+    # side-by-side = true
 [merge]
     conflictstyle = diff3
 [diff]
