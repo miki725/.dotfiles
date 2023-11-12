@@ -241,7 +241,6 @@ pandoc: brew/pandoc-crossref
 pandoc: pipx/pandoc-fignos
 pandoc: pipx/pandocfilter-sh
 
-brew/awsprey: TAP=gamechanger/brews/
 brew/browserpass: TAP=amar1729/formulae/
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 pipx/flake8: pipx-inject/flake8/flake8-bugbear
@@ -289,6 +288,7 @@ $(BREW_PREFIX)/Cellar/pandoc-citeproc:
 # brew/qrencode  # generate qrcode
 # brew/zbar  # reading barcode
 
+# brew/awsprey: TAP=gamechanger/brews/
 # brew/itermocil  # split screen iterm2
 # brew/brew-gem
 # brew/pv  # monitor pipe progress
