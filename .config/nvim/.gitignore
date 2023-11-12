@@ -4,3 +4,4 @@ dotfiles*
 /.*
 Session.vim
 .luarc.json
+*.add.spl
