@@ -173,7 +173,6 @@ dev: cask/postman
 dev: pipx/powerline-status
 dev: pipx/pre-commit
 dev: pipx/pygments
-dev: pipx/tmuxp
 dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
 dev: brew/universal-ctags pacman/ctags  # generates tags from codebase
