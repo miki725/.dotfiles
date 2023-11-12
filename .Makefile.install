@@ -45,7 +45,7 @@ installers: brew/ruby
 
 tools: pacman/arch-install-scripts  # genfstab
 tools: brew/bash
-tools: brew/ccat
+tools: brew/bat  # cat+colors
 tools: brew/colordiff pacman/colordiff
 tools: brew/coreutils
 tools: pacman/coreutils
@@ -255,7 +255,6 @@ pipx/neovim-sh: pipx-inject/neovim-sh/nbformat
 pipx/pandoc-fignos: VERSION=<2.3.1
 pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
 pipx/powerline-status: pipx-inject/powerline-status/psutil
-brew/tmux: brew/reattach-to-user-namespace
 pipx/virtualfish: OPTIONS=--include-deps
 cask/yubico-authenticator: TAP=homebrew/cask-drivers/
 cask/yubico-yubiokey-manager: TAP=homebrew/cask-drivers/
