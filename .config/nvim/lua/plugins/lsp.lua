@@ -127,6 +127,11 @@ return {
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
             local on_attach_common = function(client, bufnr)
+                -- dont overwrite vim formatting with LSP
+                -- so things like gq keep working as normal
+                -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
+                vim.bo[bufnr].formatexpr = nil
+
                 local map = function(mode, lhs, rhs, opts)
                     opts = opts or {}
                     opts.buffer = bufnr
