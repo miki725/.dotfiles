@@ -185,6 +185,9 @@ devcloud: pipx/awscli
 devcloud: pipx/aws-mfa
 devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
+devcloud: pacman/k9s
+devcloud: yay/kubectl
+devcloud: yay/kubeswitch-bin
 devcloud: brew/tfenv yay/tfenv  # change terraform version
 
 devpy: pipx/black

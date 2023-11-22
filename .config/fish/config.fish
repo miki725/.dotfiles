@@ -57,27 +57,34 @@ if ! test -e $HOME/.man_path
 end
 set -gx MANPATH (cat $HOME/.man_path)
 
-if which starship >/dev/null 2>&1
+if type -q starship
     starship init fish | source
 end
 
-if which zoxide >/dev/null 2>&1
+if type -q zoxide
     zoxide init fish | source
 end
 
 alias l="ls -la"
 alias fish_config.fish="vim ~/.config/fish/config.fish"
-if which nvim >/dev/null 2>&1
+if type -q nvim
     alias vim=nvim
     set -gx EDITOR nvim
 end
-if which fzf >/dev/null 2>&1
+if type -q fzf
     alias vimz='vim (fzf)'
     set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git --hidden'
 end
-if which lsd >/dev/null 2>&1
+if type -q lsd
     alias ls='lsd'
     alias lt='la --tree'
+end
+if type -q kubectl
+    alias k="kubectl"
+end
+if type -q k9s
+    alias 9="k9s"
+    alias k9="k9s"
 end
 
 set -l compilepath \
@@ -101,9 +108,17 @@ for i in $compilepath[-1..1]
     end
 end
 
-if which direnv >/dev/null 2>&1
+if type -q direnv
     and status --is-interactive
     eval (direnv hook fish)
+end
+
+if type -q switcher
+    and status --is-interactive
+    source (switcher init fish | psub)
+    alias ks="kubeswitch"
+    alias ktx="kubeswitch"
+    alias kctx="kubeswitch"
 end
 
 if test -e $HOME/.iterm2_shell_integration.fish
@@ -118,7 +133,7 @@ if test -d $HOME/.ssh
     cat $HOME/.ssh/*.config >$HOME/.ssh/.config
 end
 
-if which src-hilite-lesspipe.sh >/dev/null 2>&1
+if type -q src-hilite-lesspipe.sh
     set -gx LESSOPEN "| src-hilite-lesspipe.sh %s"
     set -gx LESS " -R "
 end
@@ -130,28 +145,28 @@ if not functions -q fisher
     fisher update
 end
 
-if which fortune >/dev/null 2>&1
-    and which cowsay >/dev/null 2>&1
+if type -q fortune
+    and type -q cowsay
     and status --is-interactive
     fortune -s | cowsay
 end
 
 set -gx GNUPGHOME $HOME/.gnupg
 if not set -q SSH_CONNECTION
-    and which gpgconf >/dev/null 2>&1
+    and type -q gpgconf
     and gpg --card-status >/dev/null 2>&1
     and status --is-interactive
     set -gx GPG_TTY (tty)
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     set -gx SSH_AGENT_PID ""
 
-    if which gpg-connect-agent >/dev/null 2>&1
+    if type -q gpg-connect-agent
         gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1 &
     end
 
     # modify macOS system SSH_AUTH_SOCK if it does not match
     # only for non-root user
-    if which launchctl >/dev/null 2>&1
+    if type -q launchctl
         and test (id -u) -gt 0
         and test (
                 launchctl asuser (id -u) launchctl getenv SSH_AUTH_SOCK 2> /dev/null;
