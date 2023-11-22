@@ -10,6 +10,7 @@ disabled = false
 
 [kubernetes]
 disabled = false
+detect_files = ["Chart.yaml"]
 detect_folders = ["charts", "k8s"]
 [kubernetes.context_aliases]
 'arn:aws:eks:[\w\d\-]+:[\d]+:cluster/(?P<var_cluster>[\w\d\-_]+)' = 'eks/$var_cluster'
