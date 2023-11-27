@@ -188,6 +188,7 @@ devcloud: pipx/certbot
 devcloud: pacman/k9s
 devcloud: yay/kubectl
 devcloud: yay/kubeswitch-bin
+devcloud: pacman/stern # k8s multi-pod logging
 devcloud: brew/tfenv yay/tfenv  # change terraform version
 
 devpy: pipx/black
