@@ -96,7 +96,9 @@ return {
 
         { mods = "CMD", key = "Enter", action = "ToggleFullScreen" },
 
-        { key = "L", mods = "CTRL", action = wezterm.action.ShowDebugOverlay },
+        { mods = "CTRL", key = "L", action = wezterm.action.ShowDebugOverlay },
+
+        { mods = "ALT", key = "o", action = wezterm.action.SendKey({ key = "ø" }) },
     },
 
     window_padding = {
