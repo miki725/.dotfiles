@@ -2,6 +2,9 @@ function __sshfix --on-event fish_prompt
     if not set -q SSH_AUTH_SOCK
         return
     end
+    if not set -q SSH_CONNECTION
+        return
+    end
     if not set -q TMUX
         return
     end

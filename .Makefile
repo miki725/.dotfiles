@@ -88,6 +88,7 @@ endif
 gpg:  ## setup gpg config
 gpg: .gnupg/pubring.kbx
 gpg: .gnupg/gpg-agent.conf
+gpg: .gnupg/sshcontrol
 gpg: /etc/ssh/sshd_config
 gpg: .gitconfig.user
 	chmod 0700 .gnupg
@@ -101,7 +102,10 @@ ifneq "$(shell which pinentry-mac 2> /dev/null)" ""
 endif
 
 .gnupg/pubring.kbx:
-	curl https://keybase.io/miki725/pgp_keys.asc | gpg --import
+	curl -sfSL https://github.com/miki725.gpg | gpg --import
+
+.gnupg/sshcontrol: .gnupg/pubring.kbx
+	./.bin/gpg.sshcontrol.sh > $@
 
 ifneq "$(SYSTEMD)" ""
 .PHONY: /etc/ssh/sshd_config
@@ -124,5 +128,5 @@ ssh: .ssh/authorized_keys
 	chmod 0700 $@
 
 .ssh/authorized_keys: .ssh
-	gpg --export-ssh-key miroslav@miki725.com > $@
+	curl -sfSL https://github.com/miki725.keys > $@
 	chmod 0600 $@
