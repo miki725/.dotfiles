@@ -1,4 +1,4 @@
-function aws_s3_latest_file
+function aws_s3_cat_latest
     set bucket $argv[1]
     set index $argv[2]
     if test -z "$index"

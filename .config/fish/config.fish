@@ -119,6 +119,7 @@ if type -q switcher
     alias ks="kubeswitch"
     alias ktx="kubeswitch"
     alias kctx="kubeswitch"
+    alias kns="kubeswitch ns"
 end
 
 if test -e $HOME/.iterm2_shell_integration.fish
