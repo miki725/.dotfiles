@@ -185,7 +185,10 @@ devcloud: pipx/awscli
 devcloud: pipx/aws-mfa
 devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
+devcloud: yay/chart-testing
+devcloud: yay/helm
 devcloud: pacman/k9s
+devcloud: yay/knative-client-bin
 devcloud: yay/kubectl
 devcloud: yay/kubeswitch-bin
 devcloud: pacman/stern # k8s multi-pod logging
@@ -231,6 +234,7 @@ devlua: yay/stylua
 devgo: pacman/gopls
 
 devnim: nimble/nimlangserver
+devnim: nimble/inim
 
 music: cask/audio-hijack
 music: cask/ilok-license-manager
