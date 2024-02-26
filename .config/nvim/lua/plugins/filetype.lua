@@ -13,8 +13,10 @@ return {
                     MERGE_MSG = "gitcommit",
                 },
                 extensions = {
+                    ["c"] = "c",
                     ["c42spec"] = "con4m",
                     ["c4m"] = "con4m",
+                    ["h"] = "c",
                     ["ini.j2"] = "dosini",
                     ["ipynb"] = "ipynb",
                     ["nimble"] = "nim",
@@ -24,6 +26,8 @@ return {
                     ["sh.j2"] = "sh",
                     ["tf"] = "terraform", -- default is tf which doesnt match treesitter/LSP
                     ["toml.j2"] = "toml",
+                    ["yaml"] = "yaml",
+                    ["yml"] = "yaml",
                     ["yml.j2"] = "yaml",
                 },
                 star_sets = {

@@ -192,8 +192,7 @@ return {
             end
 
             local servers = {
-                -- nimls, -- 3rd party LSP
-                -- nim_langserver, -- official LSP
+                nim_langserver = {},
                 -- pyright = {}, -- slow compared to pylsp for large files
                 bashls = {},
                 clangd = {},
