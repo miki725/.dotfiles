@@ -10,6 +10,8 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "nvimtools/none-ls.nvim",
+            "nvimtools/none-ls-extras.nvim",
+            "gbprod/none-ls-shellcheck.nvim",
             "nvim-lua/plenary.nvim",
             -- shows all violations in a project
             {
@@ -224,12 +226,13 @@ return {
             end
 
             local sources = {
-                null_ls.builtins.diagnostics.eslint_d,
-                null_ls.builtins.diagnostics.flake8,
+                require("none-ls.diagnostics.eslint_d"),
+                require("none-ls.diagnostics.flake8"),
                 null_ls.builtins.diagnostics.mypy,
-                null_ls.builtins.diagnostics.shellcheck,
+                require("none-ls-shellcheck.diagnostics"),
+                require("none-ls-shellcheck.code_actions"),
                 null_ls.builtins.diagnostics.vale,
-                null_ls.builtins.code_actions.eslint_d,
+                require("none-ls.code_actions.eslint_d"),
                 null_ls.builtins.formatting.prettierd,
                 null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.fish_indent,
