@@ -150,6 +150,7 @@ dev: brew/ctop yay/ctop-bin
 dev: cask/dash
 dev: brew/direnv yay/direnv
 dev: brew/distribution  # histograms
+dev: pacman/dive # inspect docker layers
 dev: cask/docker
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
@@ -186,6 +187,7 @@ devcloud: pipx/aws-mfa
 devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
 devcloud: yay/chart-testing
+devcloud: pacman/eksctl
 devcloud: yay/helm
 devcloud: pacman/k9s
 devcloud: yay/knative-client-bin
