@@ -112,8 +112,10 @@ casks: cask/google-chrome-beta
 casks: cask/istat-menus
 casks: cask/monodraw
 casks: cask/notion
+casks: cask/notunes
 casks: cask/peakhour
 casks: cask/slack
+casks: cask/spotify
 casks: cask/vlc
 
 cask/alfred: alfred/alfred-type-clipboard-workflow

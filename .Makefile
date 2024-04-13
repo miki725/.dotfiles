@@ -42,12 +42,16 @@ mac:  ## adjust various mac settings
 mac: browserpass
 mac: gopassbridge
 mac: mac-keyboard
+mac: mac-notunes
 else
 mac:
 endif
 
 mac-keyboard:
 	defaults write -g KeyRepeat -int 1
+
+mac-notunes:
+	defaults write digital.twisted.noTunes replacement /Applications/Spotify.app
 
 ifeq "$(OS)" "Darwin"
 browserpass: brew/browserpass
