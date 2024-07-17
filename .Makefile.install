@@ -184,7 +184,7 @@ dev: yay/vale-bin # prose linter/spell checker
 dev: cask/vimr
 dev: brew/watchman  # lib for watching files
 
-devcloud: pipx/awscli
+devcloud: yay/aws-cli-v2-bin
 devcloud: pipx/aws-mfa
 devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
