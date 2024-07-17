@@ -86,6 +86,12 @@ return {
                     emoji = {},
                 },
             }),
+            telescope_utils.register({
+                "polirritmico/telescope-lazy-plugins.nvim",
+                extensions = {
+                    lazy_plugins = {},
+                },
+            }),
         },
         cmd = { "Telescope" },
         keys = {

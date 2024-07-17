@@ -57,6 +57,7 @@
   "telescope-emoji.nvim": { "branch": "master", "commit": "86248d97be84a1ce83f0541500ef9edc99ea2aa1" },
   "telescope-file-history.nvim": { "branch": "main", "commit": "0f8dab459f7b76a95d77d2f1d9b16446a97af62e" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "cf48d4dfce44e0b9a2e19a008d6ec6ea6f01a83b" },
+  "telescope-lazy-plugins.nvim": { "branch": "main", "commit": "b87fb828507bb096d47cb01508b19db63163d32e" },
   "telescope-live-grep-args.nvim": { "branch": "master", "commit": "8ad632f793fd437865f99af5684f78300dac93fb" },
   "telescope-picker-list.nvim": { "branch": "master", "commit": "5a5189068131a43f802721ddb07a25279d98272e" },
   "telescope-tabs": { "branch": "master", "commit": "0a678eefcb71ebe5cb0876aa71dd2e2583d27fd3" },
