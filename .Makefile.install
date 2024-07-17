@@ -184,6 +184,8 @@ dev: yay/vale-bin # prose linter/spell checker
 dev: cask/vimr
 dev: brew/watchman  # lib for watching files
 
+devcloud: pacman/argocd
+devcloud: yay/argo-bin
 devcloud: yay/aws-cli-v2-bin
 devcloud: pipx/aws-mfa
 devcloud: yay/aws-session-manager-plugin
