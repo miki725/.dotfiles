@@ -20,7 +20,7 @@
   "goyo.vim": { "branch": "master", "commit": "fa0263d456dd43f5926484d1c4c7022dfcb21ba9" },
   "indent-blankline.nvim": { "branch": "master", "commit": "65e20ab94a26d0e14acac5049b8641336819dfc7" },
   "jupyter-nvim": { "branch": "main", "commit": "90fdc9ba454189a1151b7c238bda58a9b78d29e7" },
-  "lazy.nvim": { "branch": "main", "commit": "6ca90a21202808796418e46d3cebfbb5a44e54a2" },
+  "lazy.nvim": { "branch": "main", "commit": "5473e3d77c13e40fc4758fa977a1f2c14d0b4ceb" },
   "limelight.vim": { "branch": "master", "commit": "785c1e17fe90c587ebca88920baa3146cd6e30fa" },
   "lsp-toggle.nvim": { "branch": "master", "commit": "9685196937ce4a8a0d227314c74c510f4498fd4f" },
   "lsp_signature.nvim": { "branch": "master", "commit": "a38da0a61c172bb59e34befc12efe48359884793" },
