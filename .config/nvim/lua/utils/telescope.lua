@@ -58,7 +58,7 @@ M.config = function()
         local telescope = require("telescope")
         telescope.setup(opts)
         for _, extension in pairs(M.registered) do
-            lazy.load({ plugins = extension.plugin.name }) -- lazy load plugin
+            -- plugin is automatically loaded by lua resolution
             telescope.load_extension(extension.name)
         end
     end

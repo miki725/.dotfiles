@@ -1,3 +1,5 @@
+local telescope_utils = require("utils.telescope")
+
 return {
     {
         "numToStr/Comment.nvim",
@@ -35,7 +37,7 @@ return {
             })
         end,
     },
-    {
+    telescope_utils.register({
         "folke/todo-comments.nvim",
         cond = function()
             return vim.fn.executable("fd") > 0
@@ -62,5 +64,8 @@ return {
                 desc = "Previous todo comment [TodoComments]",
             },
         },
-    },
+        extensions = {
+            ["todo-comments"] = {},
+        },
+    }),
 }

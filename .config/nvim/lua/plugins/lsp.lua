@@ -42,7 +42,9 @@ return {
             telescope_utils.register({
                 "adoyle-h/lsp-toggle.nvim",
                 cmd = { "ToggleLSP", "ToggleNullLSP" },
-                opts = {},
+                opts = {
+                    telescope = false, -- its loaded by register()
+                },
                 extensions = {
                     ToggleLSP = {},
                     ToggleNullLSP = {},
