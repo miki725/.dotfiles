@@ -21,7 +21,7 @@
     branches-rebase = "!for i in $(git branches); do git rebase `git main-branch` $i || git rebase --abort; done;"
     branches-purge = "!git for-each-ref --format '%(refname:short) %(upstream:track)' refs/heads | grep gone | awk '{print $1}' | xargs --no-run-if-empty git branch -D"
     cdiff = "!git diff --cached"
-    commit-id = "!git rev-parse HEAD"
+    commit-id = "!git log -n1 --pretty=format:%H"
     edit-unmerged = "!$EDITOR -p `git diff --name-only --diff-filter=U`"
     fetch-prune = "!git fetch --all --prune --prune-tags"
     latest = "!git checkout `git main-branch` && git fetch-prune && git rebase origin/`git main-branch` && git branches-clean"
