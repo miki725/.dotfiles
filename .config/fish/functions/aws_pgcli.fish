@@ -31,7 +31,7 @@ function aws_pgcli
             --query='ResourceTagMappingList[].ResourceARN' \
             --output=text
     )
-    echo + creds arn: $arn >/dev/stderr
+    echo + creds arn: $arn 1>&2 >/dev/stderr
     set -l uri (
         aws secretsmanager \
             get-secret-value \
