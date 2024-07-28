@@ -24,6 +24,7 @@ minimal: cask/firefox
 minimal: brew/fish pacman/fish
 minimal: cask/font-hack-nerd-font
 minimal: brew/fzf pacman/fzf
+minimal: brew/fd pacman/fd  # better find - used in fzf
 minimal: brew/git pacman/git pacman/git-lfs
 minimal: brew/git-absorb pacman/git-absorb
 minimal: brew/grep
@@ -53,7 +54,6 @@ tools: pacman/coreutils
 tools: brew/cowsay
 tools: brew/curl pacman/curl
 tools: brew/diffutils
-tools: brew/fd pacman/fd  # better find - used in fzf
 tools: brew/findutils
 tools: brew/fortune
 tools: brew/gawk
