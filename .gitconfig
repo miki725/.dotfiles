@@ -26,7 +26,7 @@
     fetch-prune = "!git fetch --all --prune --prune-tags"
     latest = "!git checkout `git main-branch` && git fetch-prune && git rebase origin/`git main-branch` && git branches-clean"
     log-merges = "!git log --first-parent --pretty='format:%aD    %h    %an    %s'"
-    main-branch = "!git branches | grep -P '^main|master$' | sort | tail -n1"
+    main-branch = "!git branches | grep -E '^main$' || git branches | grep -E '^master$'"
     pullf = "!git fetch-prune && git reset --hard origin/`git branch-name`"
     pushf = "!git push origin +`git branch-name`"
     pushu = "!git push origin `git branch-name` -u"
