@@ -1,8 +1,10 @@
 N_PREFIX=$(HOME)/.n
 PATH:=$(N_PREFIX)/bin:$(PATH)
 
+ifneq "$(shell which npm)" ""
 upgrade::
 	npm upgrade -g
+endif
 
 npm/%: ## install node package
 npm/%: $(N_PREFIX)/bin/node $(N_PREFIX)/lib/node_modules/%
