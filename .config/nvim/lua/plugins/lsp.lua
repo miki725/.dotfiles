@@ -197,7 +197,7 @@ return {
 
             local servers = {
                 nim_langserver = {},
-                -- pyright = {}, -- slow compared to pylsp for large files
+                pyright = {}, -- slow compared to pylsp for large files
                 bashls = {},
                 clangd = {},
                 gopls = {},
