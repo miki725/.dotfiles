@@ -15,6 +15,8 @@ $HOME/.yarn/bin
 $HOME/.n/bin
 $HOME/go/bin
 $HOME/.go/bin
+$HOME/.krew/bin
+$HOME/.istioctl/bin
 $HOME/.config/yarn/global/node_modules/.bin
 " | filter_valid_paths
 
