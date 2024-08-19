@@ -184,8 +184,8 @@ dev: yay/vale-bin # prose linter/spell checker
 dev: cask/vimr
 dev: brew/watchman  # lib for watching files
 
-devcloud: pacman/argocd
 devcloud: yay/argo-bin
+devcloud: pacman/argocd
 devcloud: yay/aws-cli-v2-bin
 devcloud: pipx/aws-mfa
 devcloud: yay/aws-session-manager-plugin
@@ -195,6 +195,7 @@ devcloud: pacman/eksctl
 devcloud: yay/helm
 devcloud: pacman/k9s
 devcloud: yay/knative-client-bin
+devcloud: yay/krew-bin
 devcloud: yay/kubectl
 devcloud: yay/kubeswitch-bin
 devcloud: pacman/stern # k8s multi-pod logging
