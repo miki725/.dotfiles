@@ -44,7 +44,9 @@ Sigstore
 Syft
 args
 argv
+binfmt
 bool
+buildkit
 busybox
 cgroup
 config
@@ -79,6 +81,7 @@ stdin
 stdout
 stdout
 subnet
+syscall
 tty
 uid
 umask
