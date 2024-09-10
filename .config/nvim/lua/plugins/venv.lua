@@ -7,9 +7,17 @@ return {
             "nvim-telescope/telescope.nvim",
             "mfussenegger/nvim-dap-python",
         },
-        cmd = { "VenvSelect", "VenvSelectCached" },
+        cmd = { "VenvSelect" },
+        ft = { "python" },
         opts = {
-            auto_refresh = true,
+            settings = {
+                search = {
+                    poetry = {
+                        command = "$FD '/bin/python$' ~/.cache/pypoetry/virtualenvs --full-path --no-ignore",
+                    },
+                },
+            },
+            options = {},
         },
     },
 }
