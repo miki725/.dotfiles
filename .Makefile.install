@@ -165,7 +165,7 @@ dev: brew/gettext  # i18n - internatiolization
 dev: brew/git-delta pacman/git-delta  # git diff syntax highlighting
 dev: brew/git-lfs
 dev: pipx/git-of-theseus
-dev: brew/git-quick-stats
+dev: brew/git-quick-stats yay/git-quick-stats
 dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
 dev: brew/lazydocker yay/lazydocker-bin
 dev: brew/lazygit pacman/lazygit
