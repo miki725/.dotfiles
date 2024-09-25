@@ -66,7 +66,7 @@ if type -q zoxide
 end
 
 alias l="ls -la"
-alias fish_config.fish="vim ~/.config/fish/config.fish"
+alias fish_config.vim="vim ~/.config/fish/config.fish"
 if type -q nvim
     alias vim=nvim
     set -gx EDITOR nvim
@@ -90,7 +90,8 @@ end
 set -l compilepath \
     /usr/local/opt/openssl \
     /usr/lib/gcc/*/* \
-    /usr/local/opt/gmp
+    /usr/local/opt/gmp \
+    /usr
 
 for i in $compilepath[-1..1]
     if test -d $i/lib
@@ -98,9 +99,12 @@ for i in $compilepath[-1..1]
         set -gx LDFLAGS "-L$i/lib $LDFLAGS"
     end
     if test -d $i/include
-        and not echo $CPPFLAGS | grep $i/include >/dev/null
-        set -gx CFLAGS "-I$i/include $PFLAGS"
-        set -gx CPPFLAGS "-I$i/include $CPPFLAGS"
+        if not echo $CPPFLAGS | grep $i/include >/dev/null
+            set -gx CPPFLAGS "-I$i/include $CPPFLAGS"
+        end
+        if not echo $CFLAGS | grep $i/include >/dev/null
+            set -gx CFLAGS "-I$i/include $CFLAGS"
+        end
     end
     if test -d $i/lib/pkgconfig
         and not echo $PKG_CONFIG_PATH | grep $i/lib/pkgconfig >/dev/null
