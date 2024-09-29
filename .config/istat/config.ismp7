@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>build</key>
-	<string>2229</string>
+	<string>2230</string>
 	<key>preferences</key>
 	<dict>
 		<key>Combined.Menu.Cities.Items</key>
@@ -80,26 +80,6 @@
 				<key>timezone</key>
 				<string>Europe/Athens</string>
 			</dict>
-			<dict>
-				<key>city</key>
-				<string>Berlin</string>
-				<key>country</key>
-				<string>Germany</string>
-				<key>countrycode</key>
-				<string>DE</string>
-				<key>identifier</key>
-				<integer>2950159</integer>
-				<key>latitude</key>
-				<real>52.524369999999998</real>
-				<key>longitude</key>
-				<real>13.41053</real>
-				<key>region</key>
-				<string></string>
-				<key>state</key>
-				<string>Berlin</string>
-				<key>timezone</key>
-				<string>Europe/Berlin</string>
-			</dict>
 		</array>
 		<key>Combined.Menu.Items</key>
 		<array>
@@ -116,11 +96,11 @@
 		<key>Combined.Menubar.Items</key>
 		<array/>
 		<key>Device.Auth-Identifier</key>
-		<string>8E517FCF-70F2-4A35-BEA8-B0D882F6BCA3</string>
+		<string>8A480FA2-2BE8-4287-82A7-4FB242A00410</string>
 		<key>Device.Device</key>
-		<string>17d5e656ce6013131007d9cf001f2166131fade8</string>
+		<string>02b9a1e4fb73d652e5e30c811979edbaaf60d3ee</string>
 		<key>Device.Model</key>
-		<string>Macmini8,1</string>
+		<string>MacBookPro15,1</string>
 		<key>License.License</key>
 		<string>earl-cafe-nada-farm-7866-7</string>
 		<key>License.Validation.hashversion</key>
@@ -266,7 +246,7 @@
 		<key>Sensors.Global.DetailLevel</key>
 		<integer>0</integer>
 		<key>Status.Build.Last</key>
-		<real>2229</real>
+		<real>2230</real>
 		<key>Status.Version.Last</key>
 		<real>7.0199999809265137</real>
 		<key>Time.Menu.Calendar.Type</key>
