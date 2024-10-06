@@ -193,6 +193,7 @@ devcloud: pipx/certbot
 devcloud: yay/chart-testing
 devcloud: pacman/eksctl
 devcloud: yay/helm
+devcloud: pacman/istio
 devcloud: pacman/k9s
 devcloud: yay/knative-client-bin
 devcloud: yay/krew-bin
