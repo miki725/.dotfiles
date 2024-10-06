@@ -14,72 +14,6 @@
 				<key>identifier</key>
 				<integer>-7</integer>
 			</dict>
-			<dict>
-				<key>city</key>
-				<string>Portland</string>
-				<key>country</key>
-				<string>United States</string>
-				<key>countrycode</key>
-				<string>US</string>
-				<key>display</key>
-				<string>Portland, Oregon</string>
-				<key>identifier</key>
-				<integer>5746545</integer>
-				<key>latitude</key>
-				<real>45.523449999999997</real>
-				<key>longitude</key>
-				<real>-122.67621</real>
-				<key>region</key>
-				<string>Multnomah County</string>
-				<key>state</key>
-				<string>Oregon</string>
-				<key>timezone</key>
-				<string>America/Los_Angeles</string>
-			</dict>
-			<dict>
-				<key>city</key>
-				<string>London</string>
-				<key>country</key>
-				<string>United Kingdom</string>
-				<key>countrycode</key>
-				<string>GB</string>
-				<key>display</key>
-				<string>London, UK</string>
-				<key>identifier</key>
-				<integer>2643743</integer>
-				<key>latitude</key>
-				<real>51.50853</real>
-				<key>longitude</key>
-				<real>-0.12573999999999999</real>
-				<key>region</key>
-				<string>Greater London</string>
-				<key>state</key>
-				<string>England</string>
-				<key>timezone</key>
-				<string>Europe/London</string>
-			</dict>
-			<dict>
-				<key>city</key>
-				<string>Athens</string>
-				<key>country</key>
-				<string>Greece</string>
-				<key>countrycode</key>
-				<string>GR</string>
-				<key>display</key>
-				<string>Athens, Greece</string>
-				<key>identifier</key>
-				<integer>264371</integer>
-				<key>latitude</key>
-				<real>37.983759999999997</real>
-				<key>longitude</key>
-				<real>23.72784</real>
-				<key>region</key>
-				<string>Nomarchía Athínas</string>
-				<key>state</key>
-				<string>Attica</string>
-				<key>timezone</key>
-				<string>Europe/Athens</string>
-			</dict>
 		</array>
 		<key>Combined.Menu.Items</key>
 		<array>
@@ -87,10 +21,9 @@
 			<string>weather-conditions</string>
 			<string>cpu-cpu</string>
 			<string>sensors-overview</string>
-			<string>memory-overview</string>
 			<string>memory-memory</string>
+			<string>network-bandwidth</string>
 			<string>disks-activity</string>
-			<string>disks-physical</string>
 			<string>battery-combined</string>
 		</array>
 		<key>Combined.Menubar.Items</key>
@@ -108,9 +41,9 @@
 		<key>License.Validation.license</key>
 		<string>earl-cafe-nada-farm-7866-7</string>
 		<key>License.Validation.signature</key>
-		<string>MIGIAkIBMzGnvslven0RmRoH77rDL4c/2+bg+dDuu9CiEpASImKKPY/J4g+95TyU3G2ehe4ddr3wiqobUTjRxNBD/7hVUKICQgDvtdtT0qExmZ2LygDzIpaXMnZhImTX/sPKcFZ5XMeEgF2bc/bNgGIKNRyRvKzKB6QvSaijo2yfWCXQN57C5ppy+A==</string>
+		<string>MIGIAkIBUrn6SYracFQGuoYSO5vIf6HQAGkcWgxF2LPtLrXAIohxPgyLS5RtV4NzSSuR0RnLlWbHAbPTpwJggnftCFf2u/wCQgFjIzb5PyojAJMiaHHX/wXAj6xpMb63K6ewXZUA2z7mljXsV0UYpAQf6bsq6aUHSNa4EkCRzvqB8+IhEZ3+nze6Ug==</string>
 		<key>License.Validation.time</key>
-		<string>1726871185</string>
+		<string>1728128720</string>
 		<key>Memory.Menubar.Mode.PieGraph.Memory.Graph.Background.State.Light</key>
 		<integer>0</integer>
 		<key>Memory.Menubar.Mode.PieGraph.Pressure.Graph.Background.State.Light</key>
@@ -251,6 +184,98 @@
 		<real>7.0199999809265137</real>
 		<key>Time.Menu.Calendar.Type</key>
 		<integer>2</integer>
+		<key>Time.Menu.Calendars.Disabled</key>
+		<array>
+			<string>C5524327-22B4-4302-96AC-4C0DE56F6B82</string>
+			<string>F986356B-CBC9-4E17-A518-826FB2B82509</string>
+			<string>59933D7F-436F-4E71-B24A-E32CBF323307</string>
+			<string>16BA8EFC-C0DF-44EC-8EC1-EA95B75C8FEF</string>
+			<string>7F2C5CE3-D9FE-4124-BB30-4FDD28B60F1B</string>
+			<string>A6C6AE77-0308-41E5-831C-1B568F6F724A</string>
+			<string>EEE7BDFB-6328-4C2F-A294-50B5D6D8C795</string>
+			<string>8C661B27-0773-41CC-919E-65DBC79F4BD5</string>
+		</array>
+		<key>Time.Menu.Cities.Items</key>
+		<array>
+			<dict>
+				<key>city</key>
+				<string>Current Location</string>
+				<key>identifier</key>
+				<integer>-7</integer>
+			</dict>
+			<dict>
+				<key>city</key>
+				<string>Moon</string>
+				<key>identifier</key>
+				<integer>-6</integer>
+			</dict>
+			<dict>
+				<key>city</key>
+				<string>Portland</string>
+				<key>country</key>
+				<string>United States</string>
+				<key>countrycode</key>
+				<string>US</string>
+				<key>display</key>
+				<string>Portland, United States</string>
+				<key>identifier</key>
+				<integer>5746545</integer>
+				<key>latitude</key>
+				<real>45.523449999999997</real>
+				<key>longitude</key>
+				<real>-122.67621</real>
+				<key>region</key>
+				<string>Multnomah County</string>
+				<key>state</key>
+				<string>Oregon</string>
+				<key>timezone</key>
+				<string>America/Los_Angeles</string>
+			</dict>
+			<dict>
+				<key>city</key>
+				<string>London</string>
+				<key>country</key>
+				<string>United Kingdom</string>
+				<key>countrycode</key>
+				<string>GB</string>
+				<key>display</key>
+				<string>London, UK</string>
+				<key>identifier</key>
+				<integer>2643743</integer>
+				<key>latitude</key>
+				<real>51.50853</real>
+				<key>longitude</key>
+				<real>-0.12573999999999999</real>
+				<key>region</key>
+				<string>Greater London</string>
+				<key>state</key>
+				<string>England</string>
+				<key>timezone</key>
+				<string>Europe/London</string>
+			</dict>
+			<dict>
+				<key>city</key>
+				<string>Athens</string>
+				<key>country</key>
+				<string>Greece</string>
+				<key>countrycode</key>
+				<string>GR</string>
+				<key>display</key>
+				<string>Athens, Greece</string>
+				<key>identifier</key>
+				<integer>264371</integer>
+				<key>latitude</key>
+				<real>37.983759999999997</real>
+				<key>longitude</key>
+				<real>23.72784</real>
+				<key>region</key>
+				<string>Nomarchía Athínas</string>
+				<key>state</key>
+				<string>Attica</string>
+				<key>timezone</key>
+				<string>Europe/Athens</string>
+			</dict>
+		</array>
 		<key>Weather.Global.AvailableProviders</key>
 		<array>
 			<dict>
