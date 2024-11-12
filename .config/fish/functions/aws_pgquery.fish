@@ -4,16 +4,20 @@ function aws_pgquery
         'e/env=!test -n "$_flag_value"' \
         'u/user=!test -n "$_flag_value"' \
         'd/db=!test -n "$_flag_value"' \
+        'p/endpoint=!test -n "$_flag_value"' \
         -- $argv
     or return 1
 
     if test $_flag_help
-        echo "aws_pgquery [-e/-env=] -u/--user= -d/--db= <SQL>"
+        echo "aws_pgquery [-e/--env=] [-p/--endpoint=] -u/--user= -d/--db="
         return 1
     end
 
     if test -z "$_flag_env"
         set _flag_env test
+    end
+    if test -z "$_flag_endpoint"
+        set _flag_endpoint write
     end
     if test -z "$_flag_user"
         echo --user is required
@@ -31,7 +35,11 @@ function aws_pgquery
     set -l secret (
         aws resourcegroupstaggingapi get-resources \
             --resource-type-filters=secretsmanager:secret \
-            --tag-filters Key=environment,Values=$_flag_env Key=username,Values=$_flag_user Key=database,Values=$_flag_db \
+            --tag-filters \
+                Key=environment,Values=$_flag_env \
+                Key=endpoint,Values=$_flag_endpoint \
+                Key=username,Values=$_flag_user \
+                Key=database,Values=$_flag_db \
             --query='ResourceTagMappingList[].ResourceARN' \
             --output=text
     )
@@ -50,5 +58,6 @@ function aws_pgquery
         --secret-arn=$secret \
         --database=$_flag_db \
         --sql="$argv[1]" \
-        | jq '.records[]'
+        --cli-read-timeout=600 \
+        | jq 'if .records != null then .records[] else . end'
 end
