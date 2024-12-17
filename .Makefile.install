@@ -52,6 +52,7 @@ tools: brew/colordiff pacman/colordiff
 tools: brew/coreutils
 tools: pacman/coreutils
 tools: brew/cowsay
+tools: pipx/csvkit # sqlite on top of csv files
 tools: brew/curl pacman/curl
 tools: brew/diffutils
 tools: brew/findutils
@@ -83,11 +84,11 @@ tools: brew/unzip
 tools: brew/watch
 tools: brew/wget pacman/wget
 tools: pacman/xclip
+tools: pacman/xh brew/xh # httpie in rust
 tools: pacman/xorg-xauth  # X server auth
 tools: pacman/xorg-xclock
 tools: brew/yq yay/go-yq
 tools: brew/zoxide pacman/zoxide  # cd to folders quickly
-tools: pipx/csvkit # sqlite on top of csv files
 
 sec: brew/browserpass
 sec: brew/gnupg
@@ -144,7 +145,7 @@ net: brew/termshark yay/termshark
 net: brew/testssl  # similar to ssltest in terminal
 net: pacman/traceroute
 net: cask/wireshark pacman/wireshark-cli
-net: brew/wrk  # http benchmarks
+net: brew/wrk yay/wrk  # http benchmarks - load testing
 
 dev: brew/browser  # pipe html to browser
 dev: brew/cloc  # stats for code
@@ -170,6 +171,7 @@ dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
 dev: brew/lazydocker yay/lazydocker-bin
 dev: brew/lazygit pacman/lazygit
 dev: brew/libyaml
+dev: pacman/man-pages
 dev: cask/neovide
 dev: pipx/neovim-sh
 dev: cask/pop # screen sharing conference
@@ -177,6 +179,7 @@ dev: cask/postman
 dev: pipx/powerline-status
 dev: pipx/pre-commit
 dev: pipx/pygments
+dev: yay/regclient-regctl
 dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
 dev: brew/universal-ctags pacman/ctags  # generates tags from codebase

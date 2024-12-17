@@ -86,6 +86,9 @@ if type -q k9s
     alias 9="k9s"
     alias k9="k9s"
 end
+if type -q lazygit
+    alias lg="lazygit"
+end
 
 set -l compilepath \
     /usr/local/opt/openssl \
