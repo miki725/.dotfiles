@@ -205,7 +205,7 @@ return {
                 prismals = {},
                 pylsp = {},
                 terraformls = {},
-                tsserver = {},
+                ts_ls = {},
                 lua_ls = {
                     -- https://github.com/LunarVim/LunarVim/issues/4049#issuecomment-1634539474
                     settings = {
