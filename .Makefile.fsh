@@ -2,9 +2,7 @@ tidy::
 	-rm .path
 	-rm .manpath
 
-upgrade::
-upgrade::
-upgrade:: fish-virtualfish
+upgrade/fish:: fish-virtualfish
 	fish -c 'fisher update'
 	fish -c 'fish_update_completions'
 

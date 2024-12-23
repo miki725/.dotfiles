@@ -1,8 +1,10 @@
 TMUX_TPM=$(HOME)/.tmux/plugins/tpm
 
+upgrade/tmux::
+	@
+
 ifneq "$(wildcard $(TMUX_TPM))" ""
-upgrade::
-upgrade:: $(TMUX_TPM)
+upgrade/tmux:: $(TMUX_TPM)
 	cd $(TMUX_TPM) && git pull
 	$(TMUX_TPM)/bin/install_plugins
 	$(TMUX_TPM)/bin/update_plugins all

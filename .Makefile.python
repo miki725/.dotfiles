@@ -1,23 +1,29 @@
+PIPX_VENVS=$(HOME)/.local/share/pipx/venvs
+
 pipx-clean:  ## clean pipx
-	-rm -rf ~/.local/pipx
+	-rm -rf $(PIPX_VENVS)/..
+
+upgrade/pipx::
+	@
 
 ifneq "$(shell which pipx 2> /dev/null)" ""
-upgrade::
+upgrade/pipx::
 	# handle when pipx underlying python version changed
 	pipx list > /dev/null 2>&1 \
+		&& black --version > /dev/null 2>&1 \
 		|| $(MAKE) $(OPTIONS) \
 			pipx-clean \
-			$(addprefix pipx/,$(notdir $(wildcard ~/.local/pipx/venvs/*)))
+			$(addprefix pipx/,$(notdir $(wildcard $(PIPX_ENVS)/*)))
 	pipx upgrade-all --include-injected --skip pandoc-fignos
 endif
 
 ifneq "$(wildcard .pyenv/versions/*)" ""
 pipx/%: ## install pip package
-pipx/%: $(HOME)/.local/pipx/venvs/%/bin
+pipx/%: $(PIPX_VENVS)/%/bin
 	@
 
 pipx-inject/%: ## inject dep into pipx venv
-pipx-inject/%: $(HOME)/.local/pipx/venvs/%.inject
+pipx-inject/%: $(PIPX_VENVS)/%.inject
 	@
 
 else
@@ -28,11 +34,11 @@ pipx-inject/%:
 endif
 
 .SECONDEXPANSION:
-$(HOME)/.local/pipx/venvs/%.inject: $$(dir $$@)bin
+$(PIPX_VENVS)/%.inject: $$(dir $$@)bin
 	pipx inject $(firstword $(subst /, ,$*)) $(word 2,$(subst /, ,$*))
 	touch $@
 
-$(HOME)/.local/pipx/venvs/%/bin:
+$(PIPX_VENVS)/%/bin:
 	pipx install '$(firstword $(NAME) $*)$(VERSION)' $(PIPX_OPTIONS)
 
 pyenv-clean:  ## clean pyenv

@@ -22,6 +22,14 @@ update::  ## update things for install/upgrade
 
 upgrade::  ## upgrade everything
 upgrade:: update
+upgrade:: upgrade/brew
+upgrade:: upgrade/pacman
+upgrade:: upgrade/alfred
+upgrade:: upgrade/pipx
+upgrade:: upgrade/fish
+upgrade:: upgrade/npm
+upgrade:: upgrade/tmux
+upgrade:: upgrade/vim
 	@
 
 tidy::  ## tidy things up

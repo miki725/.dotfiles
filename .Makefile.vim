@@ -1,7 +1,7 @@
 vim:  ## configure vim
 vim: .config/nvim/plugin/dotfiles_python_host.vim
 
-upgrade::
+upgrade/vim:
 	nvim --headless "+Lazy! sync" "+qa"
 
 .config/nvim/plugin/dotfiles_python_host.vim:

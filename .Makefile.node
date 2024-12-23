@@ -1,8 +1,11 @@
 N_PREFIX=$(HOME)/.n
 PATH:=$(N_PREFIX)/bin:$(PATH)
 
+upgrade/npm::
+	@
+
 ifneq "$(shell which npm)" ""
-upgrade::
+upgrade/npm::
 	npm upgrade -g
 endif
 

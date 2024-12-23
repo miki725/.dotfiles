@@ -3,11 +3,14 @@ PACMAN_PREFIX=/var/lib/pacman/dotfiles
 PACMAN=$(shell which pacman 2> /dev/null)
 YAY=/usr/bin/yay
 
+upgrade/pacman upgrade/yay::
+	@
+
 ifneq "$(PACMAN)" ""
 update:: $(PACMAN_MIRRORS)
 	pacman -Sy
 
-upgrade::
+upgrade/yay upgrade/pacman:: $(YAY)
 	sudo -u yay yay -Suy
 
 pacman/%: ## install with pacman
