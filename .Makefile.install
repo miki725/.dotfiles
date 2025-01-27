@@ -88,6 +88,7 @@ tools: pacman/xh brew/xh # httpie in rust
 tools: pacman/xorg-xauth  # X server auth
 tools: pacman/xorg-xclock
 tools: brew/yq yay/go-yq
+tools: brew/dyff yay/dyff
 tools: brew/zoxide pacman/zoxide  # cd to folders quickly
 
 sec: brew/browserpass
@@ -262,6 +263,7 @@ pandoc: pipx/pandocfilter-sh
 
 brew/browserpass: TAP=amar1729/formulae/
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
+brew/dyff: TAP=homeport/tap/
 pipx/flake8: pipx-inject/flake8/flake8-bugbear
 pipx/flake8: pipx-inject/flake8/mccabe
 cask/font-hack-nerd-font: TAP=homebrew/cask-fonts/
