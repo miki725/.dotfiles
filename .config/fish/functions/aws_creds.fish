@@ -1,5 +1,21 @@
-function aws_creds --description="export aws creds from current profile as env vars"
-    set -gx AWS_ACCESS_KEY_ID (aws configure get aws_access_key_id)
-    set -gx AWS_SECRET_ACCESS_KEY (aws configure get aws_secret_access_key)
-    set -gx AWS_SESSION_TOKEN (aws configure get aws_security_token)
+function aws_creds
+    uv run (echo '
+# /// script
+# dependencies = [
+#   "boto3",
+# ]
+# ///
+import boto3
+s = boto3.Session()
+c = s.get_credentials().get_frozen_credentials()
+print(f"""
+set -fx AWS_REGION {s.region_name}
+set -fx AWS_ACCESS_KEY_ID {c.access_key}
+set -fx AWS_SECRET_ACCESS_KEY {c.secret_key}
+set -fx AWS_SESSION_TOKEN {c.token}
+""")
+    ' | psub -s .py) | source
+    if test -n "$argv"
+        $argv
+    end
 end
