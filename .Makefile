@@ -118,6 +118,7 @@ endif
 
 .gnupg/pubring.kbx:
 	curl -sfSL https://github.com/miki725.gpg | gpg --import
+	chmod 0600 $@
 
 .gnupg/sshcontrol: .gnupg/pubring.kbx
 	./.bin/gpg.sshcontrol.sh > $@
