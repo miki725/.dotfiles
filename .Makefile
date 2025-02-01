@@ -51,6 +51,7 @@ mac: browserpass
 mac: gopassbridge
 mac: mac-keyboard
 mac: mac-notunes
+mac: tridactyl
 else
 mac:
 endif
@@ -71,9 +72,11 @@ browserpass: brew/browserpass
 gopassbridge: brew/gopass-jsonapi
 	gopass-jsonapi configure --browser=chrome
 	gopass-jsonapi configure --browser=firefox
+tridactyl: .local/share/tridactyl/native_main
 else
 browserpass:
 gopassbridge:
+tridactyl:
 endif
 
 git:  ## adjust git cofig - conditionally enable gpg signing
@@ -142,3 +145,6 @@ ssh: .ssh/authorized_keys
 .ssh/authorized_keys: .ssh
 	curl -sfSL https://github.com/miki725.keys > $@
 	chmod 0600 $@
+
+.local/share/tridactyl/native_main:
+	curl -fsSl https://raw.githubusercontent.com/tridactyl/native_messenger/master/installers/install.sh | sh -s -- 1.24.2
