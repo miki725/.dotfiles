@@ -27,7 +27,8 @@ function aws_pgquery
         echo --db is required
         return 1
     end
-    if test -z "$argv[1]"
+    set -l sql "$argv[1]"
+    if test -z "$sql"; and not status --is-interactive
         echo sql is required
         return 1
     end
@@ -53,11 +54,20 @@ function aws_pgquery
             | jq '.cluster' -r
     )
     echo + cluster arn: $cluster 1>&2 >/dev/stderr
-    aws rds-data execute-statement \
-        --resource-arn=$cluster \
-        --secret-arn=$secret \
-        --database=$_flag_db \
-        --sql="$argv[1]" \
-        --cli-read-timeout=600 \
-        | jq 'if .records != null then .records[] else . end'
+    function __query
+        aws rds-data execute-statement \
+            --resource-arn="$argv[1]" \
+            --secret-arn=$argv[2] \
+            --database=$argv[3] \
+            --sql="$argv[4]" \
+            --cli-read-timeout=600 \
+            | jq 'if .records != null then .records[] else . end'
+    end
+    if test -n "$sql"
+        __query "$cluster" "$secret" "$_flag_db" "$sql"
+    else
+        while read -l -P "sql> " sql
+            __query "$cluster" "$secret" "$_flag_db" "$sql"
+        end
+    end
 end
