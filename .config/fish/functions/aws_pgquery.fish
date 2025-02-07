@@ -66,7 +66,7 @@ function aws_pgquery
     if test -n "$sql"
         __query "$cluster" "$secret" "$_flag_db" "$sql"
     else
-        while read -l -P "sql> " sql
+        while read -l -P "$_flag_user@$_flag_env/$_flag_db> " sql
             __query "$cluster" "$secret" "$_flag_db" "$sql"
         end
     end
