@@ -1,3 +1,4 @@
+#! /usr/bin/env -S fish
 function aws_pgcli
     argparse \
         h/help \
@@ -63,4 +64,7 @@ function aws_pgcli
     else
         docker run -it --init --rm --entrypoint=$cmd $image $args $uri
     end
+end
+if test "$_" != source -a "$_" != "."
+    aws_pgcli $argv
 end
