@@ -6,11 +6,12 @@ function aws_pgcli
         'd/db=!test -n "$_flag_value"' \
         'p/endpoint=!test -n "$_flag_value"' \
         s/psql \
+        k/k8s \
         -- $argv
     or return 1
 
     if test $_flag_help
-        echo "aws_pgcli [-e/--env=] [-p/--endpoint=] -u/--user= -d/--db="
+        echo "aws_pgcli [-e/--env=] [-p/--endpoint=] -u/--user= -d/--db= [-s/--psql] [-k/--k8s]"
         return 1
     end
 
@@ -49,9 +50,17 @@ function aws_pgcli
             --output=text \
             | jq '.uri' -r
     )
+    set -l image ghcr.io/crashappsec/pgcli
+    set -l cmd pgcli
+    set -l args "--prompt=\u@$_flag_env/\d> "
     if set -q _flag_psql
-        docker run -it --rm postgres psql $uri
+        set image postgres:alpine
+        set cmd psql
+        set -e args
+    end
+    if set -q _flag_k8s
+        kubectl run -it --rm aws-pgcli-(date +%s) --image=$image --command -- $cmd $args $uri
     else
-        pgcli $uri
+        docker run -it --init --rm --entrypoint=$cmd $image $args $uri
     end
 end
