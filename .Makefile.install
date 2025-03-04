@@ -47,6 +47,7 @@ installers: brew/ruby
 
 tools: pacman/arch-install-scripts  # genfstab
 tools: brew/bash
+tools: brew/bash-completion pacman/bash-completion
 tools: brew/bat  # cat+colors
 tools: brew/colordiff pacman/colordiff
 tools: brew/coreutils
