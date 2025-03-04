@@ -22,6 +22,7 @@ return {
                     ["nimble"] = "nim",
                     ["nims"] = "nim",
                     ["r2py"] = "python",
+                    ["bash"] = "sh",
                     ["sh"] = "sh",
                     ["sh.j2"] = "sh",
                     ["tf"] = "terraform", -- default is tf which doesnt match treesitter/LSP
