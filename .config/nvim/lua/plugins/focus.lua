@@ -5,7 +5,7 @@ return {
             "Goyo",
         },
         init = function()
-            vim.g.goyo_width = 80
+            vim.g.goyo_width = 83
             vim.g.goyo_linenr = 0
         end,
     },
