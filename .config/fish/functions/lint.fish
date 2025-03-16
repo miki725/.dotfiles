@@ -18,7 +18,7 @@ function lint --description 'run pre-commit lint on all changes files'
             set files (git status --short | awk '{print $2}')
         end
         if test -n "$files"
-            pre-commit run $args --files $files $diff $args
+            pre-commit run $args --files $files $diff
         else
             pre-commit run $args $diff
         end
