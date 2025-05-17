@@ -20,16 +20,17 @@ all:: pandoc
 
 minimal: pacman/base-devel # sudo, which, sed, etc
 minimal: brew/btop pacman/btop  # c version of bpytop
+minimal: brew/fd pacman/fd  # better find - used in fzf
 minimal: cask/firefox
 minimal: brew/fish pacman/fish
 minimal: cask/font-hack-nerd-font
 minimal: brew/fzf pacman/fzf
-minimal: brew/fd pacman/fd  # better find - used in fzf
 minimal: brew/git pacman/git pacman/git-lfs
 minimal: brew/git-absorb pacman/git-absorb
 minimal: brew/grep
 minimal: brew/htop pacman/htop
 minimal: brew/neovim pacman/neovim
+minimal: brew/starship pacman/starship  # shell prompt
 minimal: brew/tldr pacman/tldr
 minimal: cask/wezterm # gpu terminal emulator
 
@@ -79,7 +80,6 @@ tools: brew/par  yay/par # adjust line width in text in vim
 tools: brew/progress  # track progress of io programs like dd
 tools: brew/ripgrep pacman/ripgrep
 tools: brew/source-highlight  # used by less with default highlight
-tools: brew/starship pacman/starship  # shell prompt
 tools: brew/tree pacman/tree
 tools: brew/unzip
 tools: brew/watch
