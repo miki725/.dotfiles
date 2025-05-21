@@ -26,6 +26,7 @@ return {
                     ["sh"] = "sh",
                     ["sh.j2"] = "sh",
                     ["tf"] = "terraform", -- default is tf which doesnt match treesitter/LSP
+                    ["tfvars"] = "terraform", -- default is tf which doesnt match treesitter/LSP
                     ["toml.j2"] = "toml",
                     ["yaml"] = "yaml",
                     ["yml"] = "yaml",
