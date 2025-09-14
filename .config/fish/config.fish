@@ -123,9 +123,7 @@ end
 if type -q switcher
     and status --is-interactive
     switcher init fish | source
-    alias ks="kubeswitch"
     alias ktx="kubeswitch"
-    alias kctx="kubeswitch"
     alias kns="kubeswitch ns"
 end
 
