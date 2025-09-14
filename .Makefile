@@ -149,3 +149,10 @@ ssh: .ssh/authorized_keys
 
 .local/share/tridactyl/native_main:
 	curl -fsSl https://raw.githubusercontent.com/tridactyl/native_messenger/master/installers/install.sh | sh -s -- 1.24.2
+
+ifeq "$(shell grep Defaults:root /etc/sudoers 2> /dev/null)" ""
+.PHONY: /etc/sudoers
+endif
+/etc/sudoers:
+	grep Defaults:root $@ || echo Defaults:root runcwd=* >> $@
+	grep Defaults:%wheel $@ || echo Defaults:%wheel runcwd=* >> $@

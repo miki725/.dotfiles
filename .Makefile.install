@@ -35,9 +35,8 @@ minimal: brew/tldr pacman/tldr
 minimal: cask/wezterm # gpu terminal emulator
 
 installers: pyenv/2.7
-installers: pyenv/3.10
-installers: pyenv/3.11
 installers: pyenv/3.12
+installers: pyenv/3.13
 installers: brew/go pacman/go  # required for yay
 installers: npm/n
 installers: brew/node pacman/nodejs
@@ -66,8 +65,10 @@ tools: brew/gnu-which
 tools: brew/gzip
 tools: brew/hint
 tools: pipx/httpie
+tools: pacman/inetutils # ships hostname
 tools: npm/@jarred/git-peek # preview any github repo in vim
 tools: brew/jq pacman/jq
+tools: pacman/less
 tools: brew/lolcat  # colorful cats
 tools: brew/lsd pacman/lsd
 tools: pacman/lsof
@@ -93,8 +94,7 @@ tools: brew/dyff yay/dyff
 tools: brew/zoxide pacman/zoxide  # cd to folders quickly
 
 sec: brew/browserpass
-sec: brew/gnupg
-sec: brew/gnupg
+sec: brew/gnupg pacman/gnupg
 sec: brew/gopass
 sec: brew/gopass-jsonapi
 sec: brew/paperkey  # just secret from gpg key
@@ -191,11 +191,11 @@ dev: brew/watchman  # lib for watching files
 
 devcloud: yay/argo-bin
 devcloud: pacman/argocd
-devcloud: yay/aws-cli-v2-bin
+devcloud: yay/aws-cli-v2 # TODO switch to directly downloading zip
 devcloud: pipx/aws-mfa
-devcloud: yay/aws-session-manager-plugin
+# devcloud: yay/aws-session-manager-plugin
 devcloud: pipx/certbot
-devcloud: yay/chart-testing
+# devcloud: yay/chart-testing
 devcloud: pacman/eksctl
 devcloud: yay/helm
 devcloud: pacman/istio
@@ -246,6 +246,7 @@ devlua: yay/stylua
 
 devgo: pacman/gopls
 
+devnim: yay/choosenim-bin
 devnim: nimble/nimlangserver
 devnim: nimble/inim
 
@@ -346,6 +347,3 @@ $(BREW_PREFIX)/Cellar/pandoc-citeproc:
 # cask/virtualbox
 # cask/visual-studio-code
 # cask/wifi-explorer
-
-# devnim: yay/choosenim-bin
-# devnim: nimble/choosenim

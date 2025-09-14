@@ -14,7 +14,7 @@ upgrade/yay upgrade/pacman:: $(YAY)
 	sudo -u yay yay -Suy
 
 pacman/%: ## install with pacman
-pacman/%: $(PACMAN_MIRRORS) /var/lib/pacman/dotfiles/%.pacman
+pacman/%: /var/lib/pacman/dotfiles/pacman-contrib.pacman $(PACMAN_MIRRORS) /var/lib/pacman/dotfiles/%.pacman
 	@
 
 yay/%: ## install with yay
@@ -42,7 +42,7 @@ $(PACMAN_PREFIX)/%.yay: $(PACMAN_PREFIX)
 $(PACMAN_PREFIX):
 	mkdir $@
 
-$(PACMAN_MIRRORS): $(PACMAN_PREFIX)/pacman-contrib.pacman
+$(PACMAN_MIRRORS):
 	curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" \
 		| sed -e 's/^#Server/Server/' -e '/^#/d' \
 		| rankmirrors -n 5 - \
@@ -50,7 +50,7 @@ $(PACMAN_MIRRORS): $(PACMAN_PREFIX)/pacman-contrib.pacman
 	cp -f $@ /etc/pacman.d/mirrorlist
 	pacman -Sy
 
-$(YAY):
+$(YAY): /etc/sudoers
 	useradd --system --create-home --groups wheel yay
 	sed -i 's/^#\s*\(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
 	sudo -u yay git clone https://aur.archlinux.org/yay.git /tmp/yay
