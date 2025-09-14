@@ -30,6 +30,7 @@ minimal: brew/git-absorb pacman/git-absorb
 minimal: brew/grep
 minimal: brew/htop pacman/htop
 minimal: brew/neovim pacman/neovim
+minimal: brew/ripgrep pacman/ripgrep
 minimal: brew/starship pacman/starship  # shell prompt
 minimal: brew/tldr pacman/tldr
 minimal: cask/wezterm # gpu terminal emulator
@@ -79,7 +80,6 @@ tools: brew/openssh pacman/openssh
 tools: brew/openssl@3
 tools: brew/par  yay/par # adjust line width in text in vim
 tools: brew/progress  # track progress of io programs like dd
-tools: brew/ripgrep pacman/ripgrep
 tools: brew/source-highlight  # used by less with default highlight
 tools: brew/tree pacman/tree
 tools: brew/unzip
