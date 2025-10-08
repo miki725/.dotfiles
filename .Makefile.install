@@ -109,9 +109,7 @@ casks: cask/adobe-creative-cloud
 casks: cask/alfred
 casks: cask/android-file-transfer
 casks: cask/bartender
-casks: cask/cleanmymac
-casks: cask/datacolor-spyder-elite
-casks: cask/google-chrome-beta
+casks: cask/brave-browser
 casks: cask/istat-menus
 casks: cask/monodraw
 casks: cask/notion
@@ -186,26 +184,25 @@ dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
 dev: brew/universal-ctags pacman/ctags  # generates tags from codebase
 dev: yay/vale-bin # prose linter/spell checker
-dev: cask/vimr
 dev: brew/watchman  # lib for watching files
 
 devcloud: yay/argo-bin
 devcloud: pacman/argocd
-devcloud: yay/aws-cli-v2 # TODO switch to directly downloading zip
-devcloud: pipx/aws-mfa
+devcloud: yay/aws-cli-v2-bin # TODO switch to directly downloading zip
+# devcloud: pipx/aws-mfa
 # devcloud: yay/aws-session-manager-plugin
-devcloud: pipx/certbot
+# devcloud: pipx/certbot
 # devcloud: yay/chart-testing
 devcloud: pacman/eksctl
 devcloud: yay/helm
 devcloud: pacman/istio
 devcloud: pacman/k9s
-devcloud: yay/knative-client-bin
+# devcloud: yay/knative-client-bin
 devcloud: yay/krew-bin
 devcloud: yay/kubectl
 devcloud: yay/kubeswitch-bin
 devcloud: pacman/stern # k8s multi-pod logging
-devcloud: brew/tfenv yay/tfenv  # change terraform version
+# devcloud: brew/tfenv yay/tfenv  # change terraform version
 
 devpy: pipx/black
 devpy: pipx/check-manifest
@@ -253,6 +250,7 @@ devnim: nimble/inim
 music: cask/audio-hijack
 music: cask/ilok-license-manager
 music: cask/loopback
+music: cask/soundsource
 music: cask/waves-central
 
 pandoc: brew/librsvg  # necessary to embed svg images
@@ -268,7 +266,6 @@ cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 brew/dyff: TAP=homeport/tap/
 pipx/flake8: pipx-inject/flake8/flake8-bugbear
 pipx/flake8: pipx-inject/flake8/mccabe
-cask/font-hack-nerd-font: TAP=homebrew/cask-fonts/
 cask/google-chrome-beta: TAP=homebrew/cask-versions/
 brew/hint: TAP=miki725/brews/
 pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master
@@ -278,8 +275,6 @@ pipx/pandoc-fignos: VERSION=<2.3.1
 pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
 pipx/powerline-status: pipx-inject/powerline-status/psutil
 pipx/virtualfish: OPTIONS=--include-deps
-cask/yubico-authenticator: TAP=homebrew/cask-drivers/
-cask/yubico-yubiokey-manager: TAP=homebrew/cask-drivers/
 
 # manually downloading older versions as newer versions changed pandoc AST
 # see https://github.com/ickc/pantable
@@ -340,10 +335,15 @@ $(BREW_PREFIX)/Cellar/pandoc-citeproc:
 # cask/openvpn-connect
 # cask/serial # serial port connectivity
 # cask/signal-beta
-# cask/soundsource
 # cask/textual # irc
 # cask/ukelele # keyboard layout
 # cask/vagrant
 # cask/virtualbox
 # cask/visual-studio-code
 # cask/wifi-explorer
+# cask/vimr
+# casks: cask/cleanmymac
+# casks: cask/datacolor-spyder-elite # no longer available as cask
+
+# devnim: yay/choosenim-bin
+# devnim: nimble/choosenim

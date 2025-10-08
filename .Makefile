@@ -63,13 +63,26 @@ mac-notunes:
 	defaults write digital.twisted.noTunes replacement /Applications/Spotify.app
 
 ifeq "$(OS)" "Darwin"
-browserpass: brew/browserpass
+# add gpg to standard PATH so that browserpass can find it
+# https://github.com/browserpass/browserpass-native/issues/123
+/usr/local/bin/gpg:
+ifneq "$(shell which gpg 2>/dev/null)" ""
+	sudo ln -s $(shell which gpg) $@
+endif
+
+browserpass: brew/browserpass /usr/local/bin/gpg
 	cat $(shell brew --prefix)/opt/browserpass/lib/browserpass/Makefile \
 		| sed 's/Chrome/Chrome Beta/g' \
 		| PREFIX='$(shell brew --prefix)/opt/browserpass' \
-			make -f - hosts-firefox-user hosts-chrome-user hosts-brave-user
+			make -f - \
+				hosts-firefox-user \
+				hosts-chrome-user \
+				hosts-brave-user
 
-gopassbridge: brew/gopass-jsonapi
+.password-store:
+	git clone ssh://git@git.miki725.net:3001/miki725/pass.git $@
+
+gopassbridge: brew/gopass-jsonapi .password-store
 	gopass-jsonapi configure --browser=chrome
 	gopass-jsonapi configure --browser=firefox
 tridactyl: .local/share/tridactyl/native_main
