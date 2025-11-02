@@ -103,7 +103,7 @@ sec: brew/pinentry-mac  # gpg pin enter gui
 sec: brew/pwgen
 sec: brew/ykman  # yubikey manager cli version
 sec: cask/yubico-authenticator
-sec: cask/yubico-yubikey-manager
+# sec: cask/yubico-yubikey-manager
 
 casks: cask/adobe-creative-cloud
 casks: cask/alfred
