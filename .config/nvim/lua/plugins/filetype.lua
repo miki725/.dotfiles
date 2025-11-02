@@ -14,6 +14,7 @@ return {
                 },
                 extensions = {
                     ["c"] = "c",
+                    ["nc"] = "c",
                     ["c42spec"] = "con4m",
                     ["c4m"] = "con4m",
                     ["h"] = "c",
