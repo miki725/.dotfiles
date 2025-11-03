@@ -98,12 +98,12 @@ return {
         end,
         config = function()
             local is_lsp_installed = function(server)
-                return is_binary_installed(server.document_config.default_config.cmd[1])
+                if server == nil then
+                    return false
+                end
+                return is_binary_installed(server.cmd[1])
             end
 
-            local lspconfig = require("lspconfig")
-            local lspconfig_configs = require("lspconfig.configs")
-            local lspconfig_util = require("lspconfig.util")
             local null_ls = require("null-ls")
             local helpers = require("null-ls.helpers")
             local format_group = vim.api.nvim_create_augroup("LspFormat", { clear = true })
@@ -180,21 +180,6 @@ return {
                 })
             end
 
-            -- Check if the config is already defined (useful when reloading this file)
-            if not lspconfig_configs.nimlangserver then
-                lspconfig_configs.nimlangserver = {
-                    default_config = {
-                        cmd = { "nimlangserver" },
-                        filetypes = { "nim" },
-                        root_dir = function(fname)
-                            return lspconfig_util.root_pattern("*.nimble")(fname)
-                                or lspconfig_util.find_git_ancestor(fname)
-                        end,
-                        single_file_support = true,
-                    },
-                }
-            end
-
             local servers = {
                 nim_langserver = {},
                 pyright = {}, -- slow compared to pylsp for large files
@@ -219,11 +204,15 @@ return {
             }
 
             for lsp, opts in pairs(servers) do
-                if is_lsp_installed(lspconfig[lsp]) then
-                    lspconfig[lsp].setup(vim.tbl_extend("force", opts, {
-                        on_attach = on_attach_common,
-                        flags = { debounce_text_changes = 150 },
-                    }))
+                if is_lsp_installed(vim.lsp.config[lsp]) then
+                    vim.lsp.config(
+                        lsp,
+                        vim.tbl_extend("force", opts, {
+                            on_attach = on_attach_common,
+                            flags = { debounce_text_changes = 150 },
+                        })
+                    )
+                    vim.lsp.enable(lsp)
                 end
             end
 
