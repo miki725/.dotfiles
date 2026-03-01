@@ -8,11 +8,12 @@ function aws_pgcli
         'p/endpoint=!test -n "$_flag_value"' \
         s/psql \
         k/k8s \
+        shell \
         -- $argv
     or return 1
 
     if test $_flag_help
-        echo "aws_pgcli [-e/--env=] [-p/--endpoint=] -u/--user= -d/--db= [-s/--psql] [-k/--k8s]"
+        echo "aws_pgcli [-e/--env=] [-p/--endpoint=] -u/--user= -d/--db= [-s/--psql] [--shell] [-k/--k8s]"
         return 1
     end
 
@@ -54,15 +55,48 @@ function aws_pgcli
     set -l image ghcr.io/crashappsec/pgcli
     set -l cmd pgcli
     set -l args "--prompt=\u@$_flag_env/\d> "
+    set -l cargs
     if set -q _flag_psql
         set image postgres:alpine
         set cmd psql
         set -e args
+    else if set -q _flag_shell
+        set -l simple (echo "$uri" | tr / ":" | tr "@" ":")
+        set cargs $cargs "--env=PGUSER=$(echo $simple | cut -d: -f4)"
+        set cargs $cargs "--env=PGPASSWORD=$(echo $simple | cut -d: -f5)"
+        set cargs $cargs "--env=PGHOST=$(echo $simple | cut -d: -f6)"
+        set cargs $cargs "--env=PGPORT=$(echo $simple | cut -d: -f7)"
+        set cargs $cargs "--env=PGDATABASE=$(echo $simple | cut -d: -f8)"
+
+        set image postgres:alpine
+        set cmd bash
+        set -e args
+        set -e uri
     end
     if set -q _flag_k8s
-        kubectl run -it --rm aws-pgcli-(date +%s) --image=$image --command -- $cmd $args $uri
+        kubectl run \
+            -it \
+            --rm aws-pgcli-(date +%s) \
+            --image=$image \
+            --command \
+            $cargs \
+            -- \
+            $cmd \
+            $args \
+            $uri
     else
-        docker run -it --init --rm --entrypoint=$cmd $image $args $uri
+        docker run \
+            -it \
+            --init \
+            --rm \
+            --entrypoint=$cmd \
+            -v /tmp:/tmp \
+            -v $PWD:$PWD \
+            -w $PWD \
+            $cargs \
+            $image \
+            $args \
+            $uri
     end
 end
 if test "$_" != source -a "$_" != "."

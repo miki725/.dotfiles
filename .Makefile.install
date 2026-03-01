@@ -210,7 +210,7 @@ devpy: pipx/flake8
 devpy: pipx/importanize
 devpy: pipx/johnnydep
 devpy: pipx/mypy
-devpy: pipx/pipenv
+# devpy: pipx/pipenv
 devpy: pipx/pip-tools
 devpy: pipx/poetry
 devpy: pipx/ptpython
@@ -239,6 +239,7 @@ devsh: brew/shfmt pacman/shfmt
 devtf: yay/terraform-ls-bin
 
 devlua: brew/lua-language-server pacman/lua-language-server
+devlua: pacman/luarocks
 devlua: yay/stylua
 
 devgo: pacman/gopls

@@ -108,6 +108,13 @@ return {
                 desc = "Search files [Telescope]",
             },
             {
+                "<A-f>",
+                function()
+                    require("telescope.builtin").find_files()
+                end,
+                desc = "Search fs files [Telescope]",
+            },
+            {
                 "<A-p>",
                 function()
                     require("telescope").extensions["telescope-tabs"].list_tabs()

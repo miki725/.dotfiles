@@ -51,7 +51,7 @@ $(PACMAN_MIRRORS):
 	pacman -Sy
 
 $(YAY): /etc/sudoers
-	useradd --system --create-home --groups wheel yay
+	-useradd --system --create-home --groups wheel yay
 	sed -i 's/^#\s*\(%wheel.*NOPASSWD.*\)/\1/' /etc/sudoers
 	sudo -u yay git clone https://aur.archlinux.org/yay.git /tmp/yay
 	yes | sudo -u yay -D /tmp/yay env HOME=/tmp/yay makepkg -si

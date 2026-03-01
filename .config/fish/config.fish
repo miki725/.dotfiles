@@ -72,6 +72,7 @@ if type -q nvim
     set -gx EDITOR nvim
 end
 if type -q fzf
+    fzf --fish | source
     alias vimz='vim (fzf)'
     set -gx FZF_DEFAULT_COMMAND 'fd --type f --exclude .git --hidden'
 end
