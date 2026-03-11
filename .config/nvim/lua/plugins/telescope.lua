@@ -92,6 +92,15 @@ return {
                     lazy_plugins = {},
                 },
             }),
+            telescope_utils.register({
+                "nvim-telescope/telescope-smart-history.nvim",
+                dependencies = {
+                    "kkharji/sqlite.lua",
+                },
+                extensions = {
+                    smart_history = {},
+                },
+            }),
         },
         cmd = { "Telescope" },
         keys = {
@@ -159,7 +168,6 @@ return {
             {
                 "g*",
                 function()
-                    vim.notify("hello", vim.log.levels.ERROR)
                     require("telescope-live-grep-args.shortcuts").grep_word_under_cursor({
                         quote = true,
                         postfix = "",
@@ -177,6 +185,10 @@ return {
         },
         opts = telescope_utils.opts({
             defaults = {
+                history = {
+                    path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
+                    limit = 100,
+                },
                 mappings = {
                     n = {
                         ["q"] = "close",
@@ -191,6 +203,8 @@ return {
                         ["<C-\\>"] = "which_key",
                         ["<C-p>"] = toggle_preview,
                         ["<A-CR>"] = "select_default",
+                        ["<C-j>"] = require("telescope.actions").cycle_history_next,
+                        ["<C-k>"] = require("telescope.actions").cycle_history_prev,
                     },
                 },
             },
@@ -209,6 +223,8 @@ return {
                 }),
             },
         }),
-        config = telescope_utils.config(),
+        config = telescope_utils.config(function()
+            vim.fn.mkdir(vim.fn.expand("~/.local/share/nvim/databases"), "p")
+        end),
     },
 }

@@ -53,8 +53,9 @@ M.opts = function(opts)
     end
 end
 
-M.config = function()
+M.config = function(f)
     return function(_, opts)
+        f()
         local telescope = require("telescope")
         telescope.setup(opts)
         for _, extension in pairs(M.registered) do
