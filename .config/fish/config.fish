@@ -34,7 +34,7 @@ set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 set -gx N_PREFIX $HOME/.n
 
-if not contains $HOME/.fish-path-hook $PATH
+if not contains $HOME/.path-hook $PATH
     and status --is-interactive
     or status --is-login
 
@@ -42,7 +42,7 @@ if not contains $HOME/.fish-path-hook $PATH
         $HOME/.bin/generate_path.sh >$HOME/.path
     end
 
-    set -gx PATH (cat $HOME/.path) $HOME/.fish-path-hook
+    set -gx PATH (cat $HOME/.path) $HOME/.path-hook
 
     # sometimes within subshell when VIRTUAL_ENV is already set
     # above PATH adjustements will put VIRTUAL_ENV not on top of PATH
