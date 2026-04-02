@@ -63,9 +63,12 @@ mac-notunes:
 	defaults write digital.twisted.noTunes replacement /Applications/Spotify.app
 
 ifeq "$(OS)" "Darwin"
+/usr/local/bin:
+	sudo mkdir $@
+
 # add gpg to standard PATH so that browserpass can find it
 # https://github.com/browserpass/browserpass-native/issues/123
-/usr/local/bin/gpg:
+/usr/local/bin/gpg: /usr/local/bin
 ifneq "$(shell which gpg 2>/dev/null)" ""
 	sudo ln -s $(shell which gpg) $@
 endif
