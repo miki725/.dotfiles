@@ -1,7 +1,8 @@
 source $HOME/.bin/ensure_path.sh
 source $HOME/.bin/ensure_manpath.sh
 
-[ -n "$TMUX" ] && exec fish --login
+[[ $- == *i* ]] && [ -n "$TMUX" ] && exec fish --login
+
 
 export LSCOLORS=dxfxcxdxbxegedabagacad
 
