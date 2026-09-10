@@ -16,7 +16,7 @@ return {
             -- shows all violations in a project
             {
                 "folke/trouble.nvim",
-                cmd = { "TroubleToggle", "Trouble" },
+                cmd = { "Trouble" },
                 config = true,
             },
             {
@@ -55,24 +55,6 @@ return {
         init = function()
             -- delay before float appears or autocomplete shows up
             vim.o.updatetime = 250
-
-            -- show LSP floating window with border
-            local border = {
-                { "╭", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╮", "FloatBorder" },
-                { "│", "FloatBorder" },
-                { "╯", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╰", "FloatBorder" },
-                { "│", "FloatBorder" },
-            }
-            local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-            function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-                opts = opts or {}
-                opts.border = opts.border or border
-                return orig_util_open_floating_preview(contents, syntax, opts, ...)
-            end
 
             vim.diagnostic.config({
                 virtual_text = false,
@@ -147,8 +129,8 @@ return {
                 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename [LSP]" })
                 -- from dep above
                 map("n", "<leader>qf", vim.lsp.buf.code_action, { desc = "Quick fix menu [LSP]" })
-                map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto prev diagnostic [LSP]" })
-                map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next diagnostic [LSP]" })
+                map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Goto prev diagnostic [LSP]" })
+                map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Goto next diagnostic [LSP]" })
 
                 vim.api.nvim_buf_create_user_command(bufnr, "LspHover", vim.lsp.buf.hover, {})
                 vim.api.nvim_buf_create_user_command(bufnr, "LspSignature", vim.lsp.buf.signature_help, {})
@@ -160,8 +142,8 @@ return {
                 vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", vim.lsp.buf.code_action, {})
                 vim.api.nvim_buf_create_user_command(bufnr, "LspRename", vim.lsp.buf.rename, {})
                 vim.api.nvim_buf_create_user_command(bufnr, "LspDiagShow", vim.diagnostic.open_float, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagPrev", vim.diagnostic.goto_prev, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagNext", vim.diagnostic.goto_next, {})
+                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagPrev", function() vim.diagnostic.jump({ count = -1 }) end, {})
+                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagNext", function() vim.diagnostic.jump({ count = 1 }) end, {})
 
                 vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
                 vim.api.nvim_create_autocmd("BufWritePre", {

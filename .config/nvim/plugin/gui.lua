@@ -1,3 +1,5 @@
+vim.o.winborder = "rounded"
+
 -- for GUI apps like neovide
 vim.o.guifont = "Hack Nerd Font"
 
