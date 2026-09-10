@@ -204,19 +204,14 @@ devcloud: yay/kubeswitch-bin
 devcloud: pacman/stern # k8s multi-pod logging
 # devcloud: brew/tfenv yay/tfenv  # change terraform version
 
-devpy: pipx/black
+devpy: pipx/basedpyright
 devpy: pipx/check-manifest
-devpy: pipx/flake8
-devpy: pipx/importanize
-devpy: pipx/johnnydep
-devpy: pipx/mypy
-# devpy: pipx/pipenv
-devpy: pipx/pip-tools
+devpy: pipx/johnnydep # show dep tree
 devpy: pipx/poetry
 devpy: pipx/ptpython
-devpy: npm/pyright
-devpy: pipx/python-lsp-server
+devpy: pipx/ruff
 devpy: pipx/twine
+devpy: brew/uv pacman/uv
 devpy: pipx/virtualfish
 
 devnode: npm/eslint
@@ -265,8 +260,6 @@ pandoc: pipx/pandocfilter-sh
 brew/browserpass: TAP=amar1729/formulae/
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 brew/dyff: TAP=homeport/tap/
-pipx/flake8: pipx-inject/flake8/flake8-bugbear
-pipx/flake8: pipx-inject/flake8/mccabe
 cask/google-chrome-beta: TAP=homebrew/cask-versions/
 brew/hint: TAP=miki725/brews/
 pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master

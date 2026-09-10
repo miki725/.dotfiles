@@ -20,10 +20,6 @@ return {
                 config = true,
             },
             {
-                "weilbith/nvim-code-action-menu",
-                cmd = "CodeActionMenu",
-            },
-            {
                 "ray-x/lsp_signature.nvim",
                 opts = {
                     -- false until https://github.com/ray-x/lsp_signature.nvim/issues/252
@@ -73,21 +69,16 @@ return {
                 return orig_util_open_floating_preview(contents, syntax, opts, ...)
             end
 
-            -- show symbolc in the gutter for error types
-            local signs = {
-                Error = " ",
-                Warn = " ",
-                Info = " ",
-                Hint = "󰌵",
-            }
-            for type, icon in pairs(signs) do
-                local hl = "DiagnosticSign" .. type
-                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-            end
-
             vim.diagnostic.config({
                 virtual_text = false,
-                signs = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = " ",
+                        [vim.diagnostic.severity.WARN] = " ",
+                        [vim.diagnostic.severity.INFO] = " ",
+                        [vim.diagnostic.severity.HINT] = "󰌵",
+                    },
+                },
                 float = {
                     source = "always", -- "always" or "if_many"
                 },
@@ -105,7 +96,6 @@ return {
             end
 
             local null_ls = require("null-ls")
-            local helpers = require("null-ls.helpers")
             local format_group = vim.api.nvim_create_augroup("LspFormat", { clear = true })
 
             local lsp_format = function(bufnr)
@@ -151,7 +141,7 @@ return {
                 map("n", "L", vim.lsp.buf.signature_help, { desc = "Show signature [LSP]" })
                 map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename [LSP]" })
                 -- from dep above
-                map("n", "<leader>qf", ":CodeActionMenu<cr>", { desc = "Quick fix menu [LSP]" })
+                map("n", "<leader>qf", vim.lsp.buf.code_action, { desc = "Quick fix menu [LSP]" })
                 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Goto prev diagnostic [LSP]" })
                 map("n", "]d", vim.diagnostic.goto_next, { desc = "Goto next diagnostic [LSP]" })
 
@@ -168,6 +158,13 @@ return {
                 vim.api.nvim_buf_create_user_command(bufnr, "LspDiagPrev", vim.diagnostic.goto_prev, {})
                 vim.api.nvim_buf_create_user_command(bufnr, "LspDiagNext", vim.diagnostic.goto_next, {})
 
+                vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
+                vim.api.nvim_create_autocmd("BufWritePre", {
+                    group = format_group,
+                    buffer = bufnr,
+                    callback = lsp_format(bufnr),
+                })
+
                 -- disable semantic tokens and let treesitter handle syntax highlighting
                 client.server_capabilities.semanticTokensProvider = nil
 
@@ -182,13 +179,13 @@ return {
 
             local servers = {
                 nim_langserver = {},
-                pyright = {}, -- slow compared to pylsp for large files
+                basedpyright = {}, -- drop-in pyright replacement with stricter defaults
                 bashls = {},
                 clangd = {},
                 gopls = {},
                 graphql = {},
                 prismals = {},
-                pylsp = {},
+                ruff = {},
                 terraformls = {},
                 ts_ls = {},
                 lua_ls = {
@@ -218,14 +215,11 @@ return {
 
             local sources = {
                 require("none-ls.diagnostics.eslint_d"),
-                require("none-ls.diagnostics.flake8"),
-                null_ls.builtins.diagnostics.mypy,
                 require("none-ls-shellcheck.diagnostics"),
                 require("none-ls-shellcheck.code_actions"),
                 null_ls.builtins.diagnostics.vale,
                 require("none-ls.code_actions.eslint_d"),
                 null_ls.builtins.formatting.prettierd,
-                null_ls.builtins.formatting.black,
                 null_ls.builtins.formatting.fish_indent,
                 null_ls.builtins.formatting.gofmt,
                 -- null_ls.builtins.formatting.nimpretty,
@@ -243,21 +237,6 @@ return {
                 }),
                 null_ls.builtins.formatting.terraform_fmt.with({
                     filetypes = { "hcl", "terraform" },
-                }),
-                helpers.make_builtin({
-                    name = "importanize",
-                    meta = {
-                        url = "https://github.com/miki725/importanize",
-                        description = "Organize imports",
-                    },
-                    method = null_ls.methods.FORMATTING,
-                    filetypes = { "python" },
-                    generator_opts = {
-                        command = "importanize",
-                        args = {},
-                        to_stdin = true,
-                    },
-                    factory = helpers.formatter_factory,
                 }),
             }
 

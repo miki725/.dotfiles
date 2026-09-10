@@ -101,6 +101,12 @@ return {
                     smart_history = {},
                 },
             }),
+            telescope_utils.register({
+                "nvim-telescope/telescope-ui-select.nvim",
+                extensions = {
+                    ["ui-select"] = {},
+                },
+            }),
         },
         cmd = { "Telescope" },
         keys = {
