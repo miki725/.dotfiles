@@ -18,7 +18,6 @@ return {
             -- built-in modules
             highlight = {
                 enable = true,
-                use_languagetree = true,
                 disable = {},
                 additional_vim_regex_highlighting = false,
             },
@@ -29,11 +28,6 @@ return {
             autopairs = {
                 enable = true,
             },
-            rainbow = {
-                enable = true,
-                extended_mode = true,
-            },
-
             -- additinal plugins
             refactor = {
                 highlight_current_scope = {

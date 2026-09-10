@@ -3,7 +3,7 @@ vim.o.winborder = "rounded"
 -- for GUI apps like neovide
 vim.o.guifont = "Hack Nerd Font"
 
-local pwd = vim.api.nvim_exec("pwd", true)
+local pwd = vim.api.nvim_exec2("pwd", { output = true }).output
 local is_gui = vim.fn.has("gui_running") > 0
 if pwd == "/" and is_gui then
     vim.cmd.cd(vim.fn.expand("$HOME"))
