@@ -96,12 +96,6 @@ return {
         },
     },
     {
-        "nvim-treesitter/playground",
-        cmd = {
-            "TSPlaygroundToggle",
-        },
-    },
-    {
         -- not in treesitter yet
         -- https://github.com/helix-editor/helix/issues/3117
         "alaviss/nim.nvim",
