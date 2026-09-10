@@ -81,19 +81,8 @@ return {
         },
     },
     {
-        "romgrk/nvim-treesitter-context",
-        opts = {
-            patterns = {
-                default = {
-                    "class",
-                    "function",
-                    "method",
-                },
-                terraform = {
-                    "block",
-                },
-            },
-        },
+        "nvim-treesitter/nvim-treesitter-context",
+        opts = {},
     },
     {
         -- not in treesitter yet
