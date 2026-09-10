@@ -29,11 +29,16 @@ return {
                 },
             },
             {
-                "folke/neodev.nvim",
-                cond = function()
-                    return is_binary_installed("lua-language-server")
-                end,
-                config = true,
+                "folke/lazydev.nvim",
+                ft = "lua",
+                opts = {
+                    library = {
+                        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                    },
+                    integrations = {
+                        lspconfig = false,
+                    },
+                },
             },
             telescope_utils.register({
                 "adoyle-h/lsp-toggle.nvim",
@@ -190,6 +195,7 @@ return {
                 ts_ls = {},
                 lua_ls = {
                     -- https://github.com/LunarVim/LunarVim/issues/4049#issuecomment-1634539474
+                    root_markers = { "lazy-lock.json", "stylua.toml" },
                     settings = {
                         Lua = {
                             workspace = {
