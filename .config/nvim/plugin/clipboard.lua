@@ -3,17 +3,20 @@
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- use built-in OSC52 for SSH clipboard support (replaces ojroques/nvim-osc52)
-vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-        ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-        ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-    },
-    paste = {
-        ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-        ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-    },
-}
+-- skip in GUI environments (e.g. neovide) where OSC52 stalls waiting for the terminal
+if vim.fn.has("gui_running") == 0 then
+    vim.g.clipboard = {
+        name = "OSC 52",
+        copy = {
+            ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+        },
+        paste = {
+            ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+        },
+    }
+end
 
 -- https://stackoverflow.com/questions/916875/yank-file-name-path-of-current-buffer-in-vim
 -- copy current file name (relative/absolute) to system clipboard
