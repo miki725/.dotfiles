@@ -137,18 +137,18 @@ return {
                 map("n", "[d", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Goto prev diagnostic [LSP]" })
                 map("n", "]d", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Goto next diagnostic [LSP]" })
 
-                vim.api.nvim_buf_create_user_command(bufnr, "LspHover", vim.lsp.buf.hover, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspSignature", vim.lsp.buf.signature_help, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspDef", vim.lsp.buf.definition, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspTypeDef", vim.lsp.buf.type_definition, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspImplementation", vim.lsp.buf.implementation, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspRefs", vim.lsp.buf.references, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", lsp_format(bufnr), {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", vim.lsp.buf.code_action, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspRename", vim.lsp.buf.rename, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagShow", vim.diagnostic.open_float, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagPrev", function() vim.diagnostic.jump({ count = -1 }) end, {})
-                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagNext", function() vim.diagnostic.jump({ count = 1 }) end, {})
+                vim.api.nvim_buf_create_user_command(bufnr, "LspHover", vim.lsp.buf.hover, { desc = "Show hover documentation [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspSignature", vim.lsp.buf.signature_help, { desc = "Show signature help [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspDef", vim.lsp.buf.definition, { desc = "Goto definition [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspTypeDef", vim.lsp.buf.type_definition, { desc = "Goto type definition [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspImplementation", vim.lsp.buf.implementation, { desc = "Goto implementation [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspRefs", vim.lsp.buf.references, { desc = "Show references [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspFormat", lsp_format(bufnr), { desc = "Format buffer [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspCodeAction", vim.lsp.buf.code_action, { desc = "Show code actions [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspRename", vim.lsp.buf.rename, { desc = "Rename symbol [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagShow", vim.diagnostic.open_float, { desc = "Show diagnostics float [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagPrev", function() vim.diagnostic.jump({ count = -1 }) end, { desc = "Goto previous diagnostic [LSP]" })
+                vim.api.nvim_buf_create_user_command(bufnr, "LspDiagNext", function() vim.diagnostic.jump({ count = 1 }) end, { desc = "Goto next diagnostic [LSP]" })
 
                 vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
                 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -251,8 +251,8 @@ return {
                     })
 
                     vim.api.nvim_buf_create_user_command(bufnr, "NullLsStop", function()
-                        vim.lsp.stop_client(client.id)
-                    end, {})
+                        client:stop()
+                    end, { desc = "Stop null-ls client for this buffer" })
 
                     on_attach_common(client, bufnr)
                 end,

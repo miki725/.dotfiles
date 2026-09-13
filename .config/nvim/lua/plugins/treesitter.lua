@@ -20,7 +20,7 @@ return {
                 end, files)
                 table.sort(langs)
                 print(table.concat(langs, "\n"))
-            end, {})
+            end, { desc = "List installed treesitter parsers" })
 
             -- remaining languages are installed on-demand when a file is opened (see FileType autocmd below)
             require("nvim-treesitter").install({
