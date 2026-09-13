@@ -3,8 +3,9 @@
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
 -- use built-in OSC52 for SSH clipboard support (replaces ojroques/nvim-osc52)
--- skip in GUI environments (e.g. neovide) where OSC52 stalls waiting for the terminal
-if vim.fn.has("gui_running") == 0 then
+-- skip in GUI environments or local sessions where native clipboard works and OSC52 stalls
+local is_ssh = vim.env.SSH_TTY ~= nil or vim.env.SSH_CLIENT ~= nil
+if vim.fn.has("gui_running") == 0 and is_ssh then
     vim.g.clipboard = {
         name = "OSC 52",
         copy = {
