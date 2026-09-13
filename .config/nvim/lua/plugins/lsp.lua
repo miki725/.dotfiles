@@ -75,6 +75,10 @@ return {
             })
         end,
         config = function()
+            vim.api.nvim_create_user_command("LspInfo", function()
+                vim.cmd("checkhealth lsp")
+            end, { desc = "Show LSP status via checkhealth" })
+
             local is_lsp_installed = function(lsp_name)
                 local server = vim.lsp.config[lsp_name]
                 if server == nil then
