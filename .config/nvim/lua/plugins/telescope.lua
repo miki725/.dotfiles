@@ -165,7 +165,7 @@ return {
                 desc = "Show spelling suggestions [Telescope]",
             },
             {
-                "gr",
+                "grr",
                 function()
                     require("telescope.builtin").lsp_references()
                 end,
