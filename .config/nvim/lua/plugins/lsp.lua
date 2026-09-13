@@ -75,12 +75,17 @@ return {
             })
         end,
         config = function()
-            local is_lsp_installed = function(server)
+            local is_lsp_installed = function(lsp_name)
+                local server = vim.lsp.config[lsp_name]
                 if server == nil then
                     return false
                 end
-                -- nvim-lspconfig 1.0+ may define cmd as a function instead of a table
-                local cmd = type(server.cmd) == "function" and server.cmd() or server.cmd
+                local cmd = server.cmd
+                -- nvim-lspconfig v2: cmd may be a function for some servers (e.g. ts_ls)
+                -- can't call it without spawning, so optimistically assume installed
+                if type(cmd) == "function" then
+                    return true
+                end
                 if type(cmd) ~= "table" or type(cmd[1]) ~= "string" then
                     return false
                 end
@@ -194,7 +199,7 @@ return {
             }
 
             for lsp, opts in pairs(servers) do
-                if is_lsp_installed(vim.lsp.config[lsp]) then
+                if is_lsp_installed(lsp) then
                     vim.lsp.config(
                         lsp,
                         vim.tbl_extend("force", opts, {
