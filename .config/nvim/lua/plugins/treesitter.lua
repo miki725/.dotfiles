@@ -45,7 +45,8 @@ return {
             vim.api.nvim_create_autocmd("FileType", {
                 callback = function(args)
                     local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
-                    if lang and not vim.treesitter.language.add(lang, { silent = true }) then
+                    local parsers = require("nvim-treesitter.parsers")
+                    if lang and parsers[lang] and not vim.treesitter.language.add(lang, { silent = true }) then
                         vim.notify("Installing treesitter parser for " .. lang .. "...", vim.log.levels.INFO)
                         require("nvim-treesitter").install({ lang }):wait(60000)
                     end
