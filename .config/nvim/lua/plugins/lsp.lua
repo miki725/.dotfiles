@@ -79,7 +79,12 @@ return {
                 if server == nil then
                     return false
                 end
-                return is_binary_installed(server.cmd[1])
+                -- nvim-lspconfig 1.0+ may define cmd as a function instead of a table
+                local cmd = type(server.cmd) == "function" and server.cmd() or server.cmd
+                if type(cmd) ~= "table" or type(cmd[1]) ~= "string" then
+                    return false
+                end
+                return is_binary_installed(cmd[1])
             end
 
             local null_ls = require("null-ls")
