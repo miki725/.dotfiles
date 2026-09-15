@@ -5,9 +5,19 @@ if not vim.loop.fs_stat(lazypath) then
         "clone",
         "--filter=blob:none",
         "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
+        "--branch=stable",
         lazypath,
     })
+    -- checkout the exact commit from the lockfile so lazy.nvim itself is pinned
+    local lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json"
+    local f = io.open(lockfile, "r")
+    if f then
+        local ok, lock = pcall(vim.json.decode, f:read("*a"))
+        f:close()
+        if ok and lock["lazy.nvim"] then
+            vim.fn.system({ "git", "-C", lazypath, "checkout", lock["lazy.nvim"].commit })
+        end
+    end
 end
 vim.opt.rtp:prepend(lazypath)
 
