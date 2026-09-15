@@ -24,22 +24,23 @@ return {
 
             -- remaining languages are installed on-demand when a file is opened (see FileType autocmd below)
             require("nvim-treesitter").install({
-                "lua",
-                "python",
-                "typescript",
-                "javascript",
-                "go",
                 "bash",
                 "c",
-                "terraform",
+                "css",
+                "go",
                 "graphql",
+                "html",
+                "javascript",
                 "json",
-                "yaml",
-                "toml",
+                "lua",
+                "make",
                 "markdown",
                 "markdown_inline",
-                "css",
-                "html",
+                "python",
+                "terraform",
+                "toml",
+                "typescript",
+                "yaml",
             })
 
             vim.api.nvim_create_autocmd("FileType", {
