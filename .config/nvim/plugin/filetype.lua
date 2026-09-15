@@ -12,13 +12,15 @@ vim.filetype.add({
     },
     pattern = {
         -- Jinja2 templates: match the base extension before .j2
-        [".*%.ini%.j2$"] = "dosini",
-        [".*%.sh%.j2$"] = "sh",
-        [".*%.toml%.j2$"] = "toml",
-        [".*%.ya?ml%.j2$"] = "yaml",
+        -- note: vim.filetype.add wraps patterns with ^...$, so no trailing $ here
+        [".*%.ini%.j2"] = "dosini",
+        [".*%.sh%.j2"] = "sh",
+        [".*%.toml%.j2"] = "toml",
+        [".*%.ya?ml%.j2"] = "yaml",
         -- .envrc is native; .envrc.local etc. are not
-        ["%.envrc%..*$"] = "sh",
+        ["%.envrc%..*"] = "sh",
         -- .Makefile, .Makefile.local etc. are not native
-        ["%.Makefile[^/]*$"] = "make",
+        -- .*prefix required: [^/] makes has_slash=true so match runs against full path, not tail
+        [".*%.Makefile[^/]*"] = "make",
     },
 })
