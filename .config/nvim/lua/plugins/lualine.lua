@@ -9,23 +9,6 @@ return {
         },
         init = function()
             -- table.insert(require("lualine.extensions.fugitive").filetypes, "fugitiveblame")
-            local goyo_group = vim.api.nvim_create_augroup("GoyoGroup", { clear = true })
-            vim.api.nvim_create_autocmd("User", {
-                desc = "Hide lualine on goyo enter",
-                group = goyo_group,
-                pattern = "GoyoEnter",
-                callback = function()
-                    require("lualine").hide()
-                end,
-            })
-            vim.api.nvim_create_autocmd("User", {
-                desc = "Show lualine after goyo exit",
-                group = goyo_group,
-                pattern = "GoyoLeave",
-                callback = function()
-                    require("lualine").hide({ unhide = true })
-                end,
-            })
         end,
         opts = {
             options = {
@@ -35,7 +18,7 @@ return {
                 section_separators = { left = "", right = "" },
                 disabled_filetypes = {
                     "NvimTree",
-                    "alpha",
+                    "snacks_dashboard",
                     "fugitive",
                     "fugitiveblame",
                     "qf",

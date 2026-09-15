@@ -9,6 +9,7 @@ return {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
+            "saghen/blink.cmp",
             "nvimtools/none-ls.nvim",
             "nvimtools/none-ls-extras.nvim",
             "gbprod/none-ls-shellcheck.nvim",
@@ -37,6 +38,7 @@ return {
                     },
                     integrations = {
                         lspconfig = false,
+                        cmp = false,
                     },
                 },
             },
@@ -75,6 +77,10 @@ return {
             })
         end,
         config = function()
+            vim.lsp.config("*", {
+                capabilities = require("blink.cmp").get_lsp_capabilities(),
+            })
+
             vim.api.nvim_create_user_command("LspInfo", function()
                 vim.cmd("checkhealth lsp")
             end, { desc = "Show LSP status via checkhealth" })

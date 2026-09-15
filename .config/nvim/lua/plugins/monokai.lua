@@ -29,6 +29,9 @@ return {
                     GitSignsChange = {
                         fg = palette.orange,
                     },
+                    SnacksIndentScope = {
+                        fg = palette.base6,
+                    },
                     TabLine = {
                         bg = palette.base2,
                         fg = palette.base6,
