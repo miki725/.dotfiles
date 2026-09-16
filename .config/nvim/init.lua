@@ -1,8 +1,7 @@
--- Override global git insteadOf (ssh) so lazy.nvim plugin installs use HTTPS.
--- GIT_CONFIG_COUNT env vars apply at command-level priority, shadowing global config.
-vim.env.GIT_CONFIG_COUNT = "1"
-vim.env.GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf"
-vim.env.GIT_CONFIG_VALUE_0 = "https://github.com/"
+-- Bypass global git ssh-insteadOf so lazy.nvim plugin installs use HTTPS.
+-- gitconfig prepends an identity insteadOf before including ~/.gitconfig;
+-- git picks the first rule on prefix-length ties, so HTTPS wins over SSH.
+vim.env.GIT_CONFIG_GLOBAL = vim.fn.stdpath("config") .. "/gitconfig"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

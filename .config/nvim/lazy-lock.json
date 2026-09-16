@@ -13,7 +13,6 @@
   "flash.nvim": { "branch": "main", "commit": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a" },
   "gitlinker.nvim": { "branch": "master", "commit": "cc59f732f3d043b626c8702cb725c82e54d35c25" },
   "gitsigns.nvim": { "branch": "main", "commit": "f2421c550618d257048afa650413d9e542ddbe67" },
-  "jupyter-nvim": { "branch": "main", "commit": "90fdc9ba454189a1151b7c238bda58a9b78d29e7" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
   "lazydev.nvim": { "branch": "main", "commit": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d" },
   "lsp-toggle.nvim": { "branch": "master", "commit": "6eb2811eea333c73754e57679c3736e803ff9f6e" },
