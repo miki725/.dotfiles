@@ -20,12 +20,12 @@ $HOME/.istioctl/bin
 $HOME/.config/yarn/global/node_modules/.bin
 " | filter_valid_paths
 
-if [ -d $HOME/Library/Python ]; then
-    find $HOME/Library/Python/ -name bin -type d | sort -r
+if [ -d $HOME/.local/share/uv/python ]; then
+    find $HOME/.local/share/uv/python -maxdepth 2 -name bin -type d | sort -r --version-sort
 fi
 
-if [ -d $HOME/.pyenv/versions ]; then
-    find $HOME/.pyenv/versions -maxdepth 2 -name bin -type d | sort -r --version-sort
+if [ -d $HOME/Library/Python ]; then
+    find $HOME/Library/Python/ -name bin -type d | sort -r
 fi
 
 echo "\

@@ -25,7 +25,7 @@ upgrade:: update
 upgrade:: upgrade/brew
 upgrade:: upgrade/pacman
 upgrade:: upgrade/alfred
-upgrade:: upgrade/pipx
+upgrade:: upgrade/uv
 upgrade:: upgrade/fish
 upgrade:: upgrade/npm
 upgrade:: upgrade/tmux

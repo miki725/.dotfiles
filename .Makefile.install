@@ -18,9 +18,9 @@ all:: devnim
 all:: music
 all:: pandoc
 
-minimal: pacman/base-devel # sudo, which, sed, etc
-minimal: brew/btop pacman/btop  # c version of bpytop
-minimal: brew/fd pacman/fd  # better find - used in fzf
+minimal: pacman/base-devel     # sudo, which, sed, etc
+minimal: brew/btop pacman/btop # c version of bpytop
+minimal: brew/fd pacman/fd     # better find - used in fzf
 minimal: cask/firefox
 minimal: brew/fish pacman/fish
 minimal: cask/font-hack-nerd-font
@@ -31,30 +31,28 @@ minimal: brew/grep
 minimal: brew/htop pacman/htop
 minimal: brew/neovim pacman/neovim
 minimal: brew/ripgrep pacman/ripgrep
-minimal: brew/starship pacman/starship  # shell prompt
+minimal: brew/starship pacman/starship # shell prompt
 minimal: brew/tldr pacman/tldr
+minimal: brew/tree-sitter-cli pacman/tree-sitter-cli
 minimal: cask/wezterm # gpu terminal emulator
 
-installers: pyenv/2.7
-installers: pyenv/3.12
-installers: pyenv/3.13
-installers: brew/go pacman/go  # required for yay
+installers: uv/python/3.14
+installers: brew/go pacman/go # required for yay
 installers: npm/n
 installers: brew/node pacman/nodejs
 installers: npm/npm
-installers: brew/pipx pacman/python-pipx pacman/python-pip
-installers: brew/pyenv pacman/pyenv
+installers: brew/uv pacman/uv
 installers: brew/ruby
 
-tools: pacman/arch-install-scripts  # genfstab
+tools: pacman/arch-install-scripts # genfstab
 tools: brew/bash
 tools: brew/bash-completion pacman/bash-completion
-tools: brew/bat  # cat+colors
+tools: brew/bat # cat+colors
 tools: brew/colordiff pacman/colordiff
 tools: brew/coreutils
 tools: pacman/coreutils
 tools: brew/cowsay
-tools: pipx/csvkit # sqlite on top of csv files
+tools: uv/csvkit # sqlite on top of csv files
 tools: brew/curl pacman/curl
 tools: brew/diffutils
 tools: brew/findutils
@@ -65,43 +63,43 @@ tools: brew/gnu-tar
 tools: brew/gnu-which
 tools: brew/gzip
 tools: brew/hint
-tools: pipx/httpie
-tools: pacman/inetutils # ships hostname
+tools: uv/httpie
+tools: pacman/inetutils     # ships hostname
 tools: npm/@jarred/git-peek # preview any github repo in vim
 tools: brew/jq pacman/jq
 tools: pacman/less
-tools: brew/lolcat  # colorful cats
+tools: brew/lolcat # colorful cats
 tools: brew/lsd pacman/lsd
 tools: pacman/lsof
 tools: brew/make
 tools: brew/moreutils
-tools: brew/noti  # notify when command finishes
+tools: brew/noti # notify when command finishes
 tools: brew/openssh pacman/openssh
 tools: brew/openssl@3
-tools: brew/par  yay/par # adjust line width in text in vim
-tools: brew/progress  # track progress of io programs like dd
-tools: brew/source-highlight  # used by less with default highlight
+tools: brew/par yay/par      # adjust line width in text in vim
+tools: brew/progress         # track progress of io programs like dd
+tools: brew/source-highlight # used by less with default highlight
 tools: brew/tree pacman/tree
 tools: brew/unzip
 tools: brew/watch
 tools: brew/wget pacman/wget
 tools: pacman/xclip
 tools: pacman/xh brew/xh # httpie in rust
-tools: pacman/xorg-xauth  # X server auth
+tools: pacman/xorg-xauth # X server auth
 tools: pacman/xorg-xclock
 tools: brew/yq yay/go-yq
 tools: brew/dyff yay/dyff
-tools: brew/zoxide pacman/zoxide  # cd to folders quickly
+tools: brew/zoxide pacman/zoxide # cd to folders quickly
 
 sec: brew/browserpass
 sec: brew/gnupg pacman/gnupg
 sec: brew/gopass
 sec: brew/gopass-jsonapi
-sec: brew/paperkey  # just secret from gpg key
-sec: brew/pass  # browserpass uses pass vs gopass
-sec: brew/pinentry-mac  # gpg pin enter gui
+sec: brew/paperkey     # just secret from gpg key
+sec: brew/pass         # browserpass uses pass vs gopass
+sec: brew/pinentry-mac # gpg pin enter gui
 sec: brew/pwgen
-sec: brew/ykman  # yubikey manager cli version
+sec: brew/ykman # yubikey manager cli version
 sec: cask/yubico-authenticator
 # sec: cask/yubico-yubikey-manager
 
@@ -124,74 +122,71 @@ cask/alfred: alfred/alfred-ykman-oath
 cask/alfred: alfred/gopass-alfred
 cask/alfred: alfred/gpg-start-alfred
 
-net: pacman/bind  # dig
-net: brew/dog pacman/dog  # dig rust replacement
-net: pacman/inetutils  # telnet, ftp
+net: pacman/bind         # dig
+net: brew/dog pacman/dog # dig rust replacement
+net: pacman/inetutils    # telnet, ftp
 net: brew/iperf pacman/iperf
 net: pacman/iproute2  # ip
 net: pacman/iptraf-ng # network interface monitoring
-net: brew/ldns  # drill - sig with dnssec
+net: brew/ldns        # drill - sig with dnssec
 net: brew/mosh pacman/mosh
-net: brew/mtr  # traceroute and ping
-net: pacman/net-tools  # ifconfig
+net: brew/mtr         # traceroute and ping
+net: pacman/net-tools # ifconfig
 net: brew/nmap
 net: brew/rsync
 net: brew/socat
-net: brew/sslscan  # scan all cipher suites for https
+net: brew/sslscan # scan all cipher suites for https
 net: pacman/tcpdump
 net: brew/tcptraceroute yay/tcptraceroute
 net: brew/telnet
 net: brew/termshark yay/termshark
-net: brew/testssl  # similar to ssltest in terminal
+net: brew/testssl # similar to ssltest in terminal
 net: pacman/traceroute
 net: cask/wireshark pacman/wireshark-cli
-net: brew/wrk yay/wrk  # http benchmarks - load testing
+net: brew/wrk yay/wrk # http benchmarks - load testing
 
-dev: brew/browser  # pipe html to browser
-dev: brew/cloc  # stats for code
+dev: brew/browser # pipe html to browser
+dev: brew/cloc    # stats for code
 dev: brew/ctop yay/ctop-bin
 dev: cask/dash
 dev: brew/direnv yay/direnv
-dev: brew/distribution  # histograms
-dev: pacman/dive # inspect docker layers
+dev: brew/distribution # histograms
+dev: pacman/dive       # inspect docker layers
 dev: cask/docker
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
 dev: cask/docker pacman/docker pacman/docker-buildx
 dev: npm/doctoc
-dev: brew/entr  # watch files and execute - similar to fswatch
-dev: brew/fswatch  yay/fswatch  # watch files and execute
+dev: brew/entr                # watch files and execute - similar to fswatch
+dev: brew/fswatch yay/fswatch # watch files and execute
 dev: brew/gcc
-dev: brew/gettext  # i18n - internatiolization
-dev: brew/git-delta pacman/git-delta  # git diff syntax highlighting
+dev: brew/gettext                    # i18n - internatiolization
+dev: brew/git-delta pacman/git-delta # git diff syntax highlighting
 dev: brew/git-lfs
-dev: pipx/git-of-theseus
+dev: uv/git-of-theseus
 dev: brew/git-quick-stats yay/git-quick-stats
-dev: pacman/gvim  # installs GTK/X support for clipboard forwarding
+dev: pacman/gvim # installs GTK/X support for clipboard forwarding
 dev: brew/lazydocker yay/lazydocker-bin
 dev: brew/lazygit pacman/lazygit
 dev: brew/libyaml
 dev: pacman/man-pages
 dev: cask/neovide
-dev: pipx/neovim-sh
 dev: cask/pop # screen sharing conference
 dev: cask/postman
-dev: pipx/powerline-status
-dev: pipx/pre-commit
-dev: pipx/pygments
+dev: uv/pre-commit
 dev: yay/regclient-regctl
 dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
-dev: brew/universal-ctags pacman/ctags  # generates tags from codebase
-dev: yay/vale-bin # prose linter/spell checker
-dev: brew/watchman  # lib for watching files
+dev: brew/universal-ctags pacman/ctags # generates tags from codebase
+dev: yay/vale-bin                      # prose linter/spell checker
+dev: brew/watchman                     # lib for watching files
 
 devcloud: yay/argo-bin
 devcloud: pacman/argocd
 devcloud: yay/aws-cli-v2-bin # TODO switch to directly downloading zip
-# devcloud: pipx/aws-mfa
+# devcloud: uv/aws-mfa
 # devcloud: yay/aws-session-manager-plugin
-# devcloud: pipx/certbot
+# devcloud: uv/certbot
 # devcloud: yay/chart-testing
 devcloud: pacman/eksctl
 devcloud: yay/helm
@@ -204,15 +199,14 @@ devcloud: yay/kubeswitch-bin
 devcloud: pacman/stern # k8s multi-pod logging
 # devcloud: brew/tfenv yay/tfenv  # change terraform version
 
-devpy: pipx/basedpyright
-devpy: pipx/check-manifest
-devpy: pipx/johnnydep # show dep tree
-devpy: pipx/poetry
-devpy: pipx/ptpython
-devpy: pipx/ruff
-devpy: pipx/twine
+devpy: uv/basedpyright
+devpy: uv/check-manifest
+devpy: uv/johnnydep # show dep tree
+devpy: uv/poetry
+devpy: uv/ptpython
+devpy: uv/ruff
+devpy: uv/twine
 devpy: brew/uv pacman/uv
-devpy: pipx/virtualfish
 
 devnode: npm/eslint
 devnode: npm/eslint_d
@@ -225,10 +219,10 @@ devnode: npm/typescript-language-server
 devnode: npm/yarn
 devnode: npm/yarn-why
 
-devc: brew/llvm  # clangd for c language server in coc-vim
+devc: brew/llvm # clangd for c language server in coc-vim
 
 devsh: npm/bash-language-server
-devsh: pipx/shellcheck-py
+devsh: uv/shellcheck-py
 devsh: brew/shfmt pacman/shfmt
 
 devtf: yay/terraform-ls-bin
@@ -249,26 +243,9 @@ music: cask/loopback
 music: cask/soundsource
 music: cask/waves-central
 
-pandoc: brew/librsvg  # necessary to embed svg images
-pandoc: cask/mactex-no-gui  # latex
-pandoc: brew/pandoc
-pandoc: brew/pandoc-citeproc
-pandoc: brew/pandoc-crossref
-pandoc: pipx/pandoc-fignos
-pandoc: pipx/pandocfilter-sh
-
 brew/browserpass: TAP=amar1729/formulae/
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 brew/dyff: TAP=homeport/tap/
-cask/google-chrome-beta: TAP=homebrew/cask-versions/
-brew/hint: TAP=miki725/brews/
-pipx/importanize: NAME=git+https://github.com/miki725/importanize.git@master
-brew/itermocil: TAP=tomanthony/brews/
-pipx/neovim-sh: pipx-inject/neovim-sh/nbformat
-pipx/pandoc-fignos: VERSION=<2.3.1
-pipx/powerline-status: pipx-inject/powerline-status/powerline-mem-segment
-pipx/powerline-status: pipx-inject/powerline-status/psutil
-pipx/virtualfish: OPTIONS=--include-deps
 
 # manually downloading older versions as newer versions changed pandoc AST
 # see https://github.com/ickc/pantable
@@ -278,17 +255,26 @@ pipx/virtualfish: OPTIONS=--include-deps
 # > https://github.com/sergiocorreia/panflute/issues/142. Until that is resolved,
 # > please stick with 2.9.2.1 or below when used together with pantable.
 
-$(BREW_PREFIX)/Cellar/pandoc:
-	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-2.9.2.1.catalina.bottle.tar.gz \
-		| tar -zxv -C /usr/local/Cellar
+# pandoc: brew/librsvg       # necessary to embed svg images
+# pandoc: cask/mactex-no-gui # latex
+# pandoc: brew/pandoc
+# pandoc: brew/pandoc-citeproc
+# pandoc: brew/pandoc-crossref
+# pandoc: uv/pandoc-fignos
+# pandoc: uv/pandocfilter-sh
+# uv/pandoc-fignos: VERSION= < 2.3.1
 
-$(BREW_PREFIX)/Cellar/pandoc-crossref:
-	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-crossref-0.3.6.4.catalina.bottle.tar.gz \
-		| tar -zxv -C /usr/local/Cellar
-
-$(BREW_PREFIX)/Cellar/pandoc-citeproc:
-	curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-citeproc-0.17.0.1.catalina.bottle.tar.gz \
-		| tar -zxv -C /usr/local/Cellar
+# $(BREW_PREFIX)/Cellar/pandoc:
+# curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-2.9.2.1.catalina.bottle.tar.gz \
+#     | tar -zxv -C /usr/local/Cellar
+#
+# $(BREW_PREFIX)/Cellar/pandoc-crossref:
+# curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-crossref-0.3.6.4.catalina.bottle.tar.gz \
+#     | tar -zxv -C /usr/local/Cellar
+#
+# $(BREW_PREFIX)/Cellar/pandoc-citeproc:
+# curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-citeproc-0.17.0.1.catalina.bottle.tar.gz \
+#     | tar -zxv -C /usr/local/Cellar
 
 # brew/sshuttle  # proxy over ssh
 # brew/cipherscan  # scan all cipher suites for https
@@ -301,7 +287,6 @@ $(BREW_PREFIX)/Cellar/pandoc-citeproc:
 # brew/zbar  # reading barcode
 
 # brew/awsprey: TAP=gamechanger/brews/
-# brew/itermocil  # split screen iterm2
 # brew/brew-gem
 # brew/pv  # monitor pipe progress
 # brew/rockymadden/rockymadden/slack-cli

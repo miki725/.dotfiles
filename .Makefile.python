@@ -1,52 +1,35 @@
-PIPX_VENVS=$(HOME)/.local/share/pipx/venvs
+UV_TOOLS=$(HOME)/.local/share/uv/tools
 
-pipx-clean:  ## clean pipx
-	-rm -rf $(PIPX_VENVS)/..
+uv-tools-clean:  ## clean uv tools
+	-rm -rf $(UV_TOOLS)
 
-upgrade/pipx::
+upgrade/uv::
 	@
 
-ifneq "$(shell which pipx 2> /dev/null)" ""
-upgrade/pipx::
-	# handle when pipx underlying python version changed
-	pipx list > /dev/null 2>&1 \
-		&& black --version > /dev/null 2>&1 \
-		|| $(MAKE) $(OPTIONS) \
-			pipx-clean \
-			$(addprefix pipx/,$(notdir $(wildcard $(PIPX_ENVS)/*)))
-	pipx upgrade-all --include-injected --skip pandoc-fignos
+ifneq "$(shell which uv 2> /dev/null)" ""
+upgrade/uv::
+	uv tool upgrade --all
 endif
 
-ifneq "$(wildcard .pyenv/versions/*)" ""
-pipx/%: ## install pip package
-pipx/%: $(PIPX_VENVS)/%/bin
+uv/%: ## install uv tool package
+uv/%: $(UV_TOOLS)/%/bin
 	@
 
-pipx-inject/%: ## inject dep into pipx venv
-pipx-inject/%: $(PIPX_VENVS)/%.inject
+uv/inject/%: ## inject dep into uv tool venv
+uv/inject/%: $(UV_TOOLS)/%.inject
 	@
-
-else
-pipx/%:
-	@eecho there is no pyenv versions for pipx to use. skipping
-pipx-inject/%:
-	@eecho there is no pyenv versions for pipx to use. skipping
-endif
 
 .SECONDEXPANSION:
-$(PIPX_VENVS)/%.inject: $$(dir $$@)bin
-	pipx inject $(firstword $(subst /, ,$*)) $(word 2,$(subst /, ,$*))
+# reinstall with all previously injected deps (existing *.inject files) plus the new one ($@)
+$(UV_TOOLS)/%.inject: $$(dir $$@)bin
+	uv tool install \
+		$(foreach f,$(wildcard $(dir $@)*.inject) $@,--with $(basename $(notdir $f))) \
+		$(firstword $(subst /, ,$*))
 	touch $@
 
-$(PIPX_VENVS)/%/bin:
-	pipx install '$(firstword $(NAME) $*)$(VERSION)' $(PIPX_OPTIONS)
+$(UV_TOOLS)/%/bin:
+	uv tool install '$(firstword $(NAME) $*)$(VERSION)' $(UV_TOOL_OPTIONS)
 
-pyenv-clean:  ## clean pyenv
-	rm -rf ~/.pyenv
-
-pyenv/%: ## install python version with pyenv
-pyenv/%: fish-clean
-pyenv/%: brew/pyenv pacman/pyenv
-	@# path hack https://stackoverflow.com/questions/69459268/cant-install-python-3-10-0-with-pyenv-on-macos
-	$(eval export PATH=$(subst $(SPACE),:,$(call not-containing,llvm,$(subst :, ,$(PATH)))))
-	pyenv install --skip-existing $$(pyenv install --list | grep -P -o '(?<=\s)($*.\d+)' | sort -V | tail -1)
+uv/python/%: ## install python version with uv
+uv/python/%: brew/uv pacman/uv
+	uv python install $*
