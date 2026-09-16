@@ -1,2 +1,12 @@
 #!/bin/sh
-tmux a || tmux
+sessions=$(tmux ls -F '#{session_name}' 2>/dev/null)
+if [ -z "$sessions" ]; then
+    exec tmux
+elif [ "$(echo "$sessions" | wc -l)" -eq 1 ]; then
+    exec tmux attach -t "$sessions"
+elif command -v fzf > /dev/null; then
+    session=$(echo "$sessions" | fzf)
+    [ -n "$session" ] && exec tmux attach -t "$session"
+else
+    exec tmux attach
+fi
