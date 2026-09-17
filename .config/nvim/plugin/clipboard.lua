@@ -2,8 +2,8 @@
 -- https://medium.com/swlh/8-vim-tricks-that-will-take-you-from-beginner-to-expert-817ff4870245
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
--- use built-in OSC52 for SSH clipboard support (replaces ojroques/nvim-osc52)
--- skip in GUI environments or local sessions where native clipboard works and OSC52 stalls
+-- Native OSC52 clipboard for SSH sessions. Requires tmux allow-passthrough so
+-- OSC52 escapes reach wezterm, which responds to read queries without blocking.
 local is_ssh = vim.env.SSH_TTY ~= nil or vim.env.SSH_CLIENT ~= nil
 if vim.fn.has("gui_running") == 0 and is_ssh then
     vim.g.clipboard = {
