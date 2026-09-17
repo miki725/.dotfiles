@@ -1,0 +1,64 @@
+# shell — exec_first_found picks first available: fish → bash → zsh
+command = ~/.bin/login.sh
+
+# use a widely-supported TERM so remote servers have the terminfo (xterm-ghostty is unknown to most)
+term = xterm-256color
+
+# window
+scrollback-limit = 100000
+window-height = 40
+window-width = 120
+window-padding-x = 0
+window-padding-y = 0
+
+# font — list multiple for fallback
+font-family = Hack Nerd Font
+font-family = Menlo
+font-size = 15
+bold-is-bright = false
+
+# clipboard
+clipboard-read = allow
+
+# colors
+background = #26282a
+foreground = #f0f0f0
+cursor-color = #f8f8f0
+cursor-text = #272822
+selection-background = #FFD73F
+selection-foreground = #263137
+
+# ansi (0-7) and bright (8-15) palette
+palette = 0=#26282a
+palette = 1=#ff8878
+palette = 2=#b4fb73
+palette = 3=#fffcb7
+palette = 4=#8bbce5
+palette = 5=#ffb2fe
+palette = 6=#a2e1f8
+palette = 7=#f1f1f1
+palette = 8=#6f6f6f
+palette = 9=#fe978b
+palette = 10=#d6fcba
+palette = 11=#fffed5
+palette = 12=#c2e3ff
+palette = 13=#ffc6ff
+palette = 14=#c0e9f8
+palette = 15=#ffffff
+
+# keybindings — clear ghostty defaults then redefine
+keybind = clear
+
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+keybind = super+n=new_window
+keybind = super+t=new_tab
+keybind = super+w=close_tab
+keybind = super+alt+left=previous_tab
+keybind = super+alt+right=next_tab
+keybind = super+minus=decrease_font_size
+keybind = super+equal=increase_font_size
+keybind = super+zero=reset_font_size
+keybind = super+enter=toggle_fullscreen
+# alt+o sends ø natively on macOS — add explicit binding if needed:
+# keybind = alt+o=text:ø
