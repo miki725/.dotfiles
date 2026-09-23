@@ -15,7 +15,7 @@ return {
                 preset = "none",
                 ["<C-Space>"] = { "show", "fallback" },
                 ["<C-e>"] = { "hide", "fallback" },
-                ["<CR>"] = { "accept", "fallback" },
+                ["<CR>"] = { "select_and_accept", "fallback" },
                 ["<Tab>"] = { "select_next", "fallback" },
                 ["<S-Tab>"] = { "select_prev", "fallback" },
                 ["<C-b>"] = { "scroll_documentation_up", "fallback" },
@@ -59,7 +59,7 @@ return {
                     treesitter = {
                         name = "treesitter",
                         module = "blink.compat.source",
-                        score_offset = 90,
+                        score_offset = 30,
                         max_items = 10,
                         opts = { name = "treesitter" },
                     },
@@ -89,6 +89,8 @@ return {
                 keymap = {
                     preset = "none",
                     ["<C-Space>"] = { "show", "fallback" },
+                    ["<C-e>"] = { "cancel", "fallback" },
+                    ["<CR>"] = { "select_accept_and_enter", "fallback" },
                     ["<Tab>"] = { "select_next", "show", "fallback" },
                     ["<S-Tab>"] = { "select_prev", "fallback" },
                 },
@@ -103,6 +105,9 @@ return {
                     return {}
                 end,
                 completion = {
+                    list = {
+                        selection = { preselect = true, auto_insert = true },
+                    },
                     menu = { auto_show = false },
                 },
             },
