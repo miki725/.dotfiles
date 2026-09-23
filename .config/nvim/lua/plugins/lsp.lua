@@ -188,7 +188,7 @@ return {
                 prismals = {},
                 ruff = {},
                 terraformls = {},
-                ts_ls = {},
+                vtsls = {},
                 lua_ls = {
                     -- https://github.com/LunarVim/LunarVim/issues/4049#issuecomment-1634539474
                     root_markers = { "lazy-lock.json", "stylua.toml" },

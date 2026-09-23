@@ -213,7 +213,7 @@ devnode: volta/graphql-language-service-cli
 devnode: volta/prettier
 devnode: volta/@prisma/language-server
 devnode: volta/typescript
-devnode: volta/typescript-language-server
+devnode: volta/@vtsls/language-server
 devnode: volta/yarn
 devnode: volta/yarn-why
 
