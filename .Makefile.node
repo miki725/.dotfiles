@@ -18,8 +18,18 @@ volta/%: $(VOLTA_HOME)/tools/image/packages/%
 	@
 
 # .SECONDEXPANSION allows wildcard to be evaluated at rule-match time rather than parse time.
-# If any node version is installed, use its inventory file as the prereq (node present, skip install).
-# If inventory is empty, fall back to volta/node/lts to install node before the tool.
+# If a version is installed, its inventory file satisfies the prereq (skip install).
+# If inventory is empty, fall back to the /lts or /latest target to install first.
 .SECONDEXPANSION:
 $(VOLTA_HOME)/tools/image/packages/%: brew/volta yay/volta-bin $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/node/*)),volta/node/lts)
 	volta install $*
+
+# yarn and pnpm are package managers stored outside tools/image/packages/ — need explicit rules
+volta/yarn: $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/yarn/*)),volta/yarn/latest)
+	@
+
+volta/pnpm: $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/pnpm/*)),volta/pnpm/latest)
+	@
+
+volta/yarn/latest volta/pnpm/latest: brew/volta yay/volta-bin $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/node/*)),volta/node/lts)
+	volta install $(word 2,$(subst /, ,$@))
