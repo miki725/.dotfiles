@@ -11,8 +11,7 @@ $HOME/.bin
 $HOME/.local/bin
 $HOME/.cargo/bin
 $HOME/.nimble/bin
-$HOME/.yarn/bin
-$HOME/.n/bin
+$HOME/.volta/bin
 $HOME/go/bin
 $HOME/.go/bin
 $HOME/.krew/bin

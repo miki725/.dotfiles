@@ -1,20 +1,25 @@
-N_PREFIX=$(HOME)/.n
-PATH:=$(N_PREFIX)/bin:$(PATH)
+VOLTA_HOME=$(HOME)/.volta
+PATH:=$(VOLTA_HOME)/bin:$(PATH)
 
-upgrade/npm::
+upgrade/volta::
 	@
 
-ifneq "$(shell which npm)" ""
-upgrade/npm::
-	npm upgrade -g
+ifneq "$(shell which volta)" ""
+upgrade/volta::
+	volta install $(addsuffix @latest,$(shell volta list --format plain | grep '^package' | awk '{print $$2}' | sed 's/@[^@]*$$//'))
 endif
 
-npm/%: ## install node package
-npm/%: $(N_PREFIX)/bin/node $(N_PREFIX)/lib/node_modules/%
+volta/node/%: ## install node version with volta
+volta/node/%: brew/volta yay/volta-bin
+	volta install node@$*
+
+volta/%: ## install node package via volta
+volta/%: $(VOLTA_HOME)/tools/image/packages/%
 	@
 
-$(N_PREFIX)/lib/node_modules/%:
-	npm install -g $*
-
-$(N_PREFIX)/bin/node:
-	bash -c 'bash <(curl https://raw.githubusercontent.com/tj/n/master/bin/n) lts'
+# .SECONDEXPANSION allows wildcard to be evaluated at rule-match time rather than parse time.
+# If any node version is installed, use its inventory file as the prereq (node present, skip install).
+# If inventory is empty, fall back to volta/node/lts to install node before the tool.
+.SECONDEXPANSION:
+$(VOLTA_HOME)/tools/image/packages/%: brew/volta yay/volta-bin $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/node/*)),volta/node/lts)
+	volta install $*
