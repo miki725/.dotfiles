@@ -27,6 +27,7 @@ return {
                 "bash",
                 "c",
                 "css",
+                "gitcommit",
                 "go",
                 "graphql",
                 "html",
