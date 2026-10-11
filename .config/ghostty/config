@@ -56,6 +56,7 @@ keybind = super+v=paste_from_clipboard
 keybind = super+n=new_window
 keybind = super+t=new_tab
 keybind = super+w=close_tab
+keybind = super+q=quit
 keybind = super+alt+left=previous_tab
 keybind = super+alt+right=next_tab
 keybind = super+minus=decrease_font_size:1
