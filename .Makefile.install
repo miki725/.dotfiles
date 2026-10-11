@@ -101,16 +101,13 @@ sec: brew/ykman # yubikey manager cli version
 sec: cask/yubico-authenticator
 # sec: cask/yubico-yubikey-manager
 
-casks: cask/adobe-creative-cloud
 casks: cask/alfred
-casks: cask/android-file-transfer
 casks: cask/bartender
 casks: cask/brave-browser
 casks: cask/istat-menus
 casks: cask/monodraw
 casks: cask/notion
 casks: cask/notunes
-casks: cask/peakhour
 casks: cask/slack
 casks: cask/spotify
 casks: cask/vlc
@@ -294,6 +291,8 @@ brew/dyff: TAP=homeport/tap/
 # brew/xz  # data-compession similar to gzip
 # brew/zstd  # data-compression from facebook
 
+# cask/adobe-creative-cloud
+# cask/android-file-transfer
 # cask/android-platform-tools
 # cask/charles # proxy
 # cask/chrysalis # keyboardio
@@ -319,8 +318,9 @@ brew/dyff: TAP=homeport/tap/
 # cask/visual-studio-code
 # cask/wifi-explorer
 # cask/vimr
-# casks: cask/cleanmymac
-# casks: cask/datacolor-spyder-elite # no longer available as cask
+# cask/cleanmymac
+# cask/datacolor-spyder-elite # no longer available as cask
+# cask/peakhour # moved to app store
 
 # devnim: yay/choosenim-bin
 # devnim: nimble/choosenim
