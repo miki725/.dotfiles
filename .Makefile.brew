@@ -34,8 +34,15 @@ upgrade/brew:: $(BREW)
 	$(BREW_CMD) upgrade --cask
 	$(BREW_CMD) cleanup
 
-tidy::
+tidy:: tidy/brew
+
+tidy/brew::
+	@
+
+ifeq "$(OS)" "Darwin"
+tidy/brew::
 	$(BREW_CMD) cleanup
+endif
 
 brew/%: ## install brew formula
 brew/%: $(BREW_PREFIX)/Cellar/%

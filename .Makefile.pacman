@@ -11,6 +11,16 @@ update/pacman::
 
 update/yay: update/pacman
 
+tidy:: tidy/pacman
+
+tidy/pacman::
+	@
+
+ifneq "$(PACMAN)" ""
+tidy/pacman::
+	paccache -rk2
+endif
+
 upgrade:: upgrade/pacman
 
 upgrade/pacman::

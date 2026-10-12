@@ -1,4 +1,6 @@
-tidy::
+tidy:: tidy/fish
+
+tidy/fish::
 	-rm .path
 	-rm .manpath
 
