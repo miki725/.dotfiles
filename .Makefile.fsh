@@ -1,3 +1,4 @@
+##@ Setup
 tidy:: tidy/fish
 
 tidy/fish::

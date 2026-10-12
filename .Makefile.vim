@@ -1,3 +1,4 @@
+##@ Setup
 vim:  ## configure vim
 vim: .config/nvim/plugin/dotfiles_python_host.vim
 

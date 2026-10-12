@@ -1,3 +1,4 @@
+##@ Packages
 export HOMEBREW_NO_AUTO_UPDATE=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_FORCE_BREWED_CURL=1
@@ -37,6 +38,7 @@ tidy/brew::
 endif
 
 brew/%: ## install brew formula
+## taps are set per target, e.g. brew/dyff: TAP=homeport/tap/
 brew/%: $(BREW_PREFIX)/Cellar/%
 	@
 

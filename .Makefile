@@ -5,19 +5,25 @@ SPACE=$(EMPTY) $(EMPTY)
 containing = $(foreach v,$2,$(if $(findstring $1,$v),$v))
 not-containing = $(foreach v,$2,$(if $(findstring $1,$v),,$v))
 
+# see .bin/make_help.awk for help format
+##@ Bundles
+##@ Setup
+##@ Packages
+##@ Maintenance
+
 help:  ## show help
-	@grep -E '^[a-zA-Z_\/%\-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
-		cut -d':' -f2- | \
-		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}' | \
-		sort -t % -k 2.1,2.1
+	@awk -v os=$(OS) -f .bin/make_help.awk $(MAKEFILE_LIST)
 
 OS=$(shell uname)
 SYSTEMD=$(shell which systemctl 2> /dev/null)
 
-update::  ## update things for install/upgrade
+update::  ## update package manager indexes
+## brew update / pacman -Sy - runs automatically before upgrade
 	@
 
 upgrade::  ## upgrade everything
+## packages (brew, pacman/yay, uv tools, mise, nimble) and
+## plugins (fish, tmux, nvim, alfred workflows)
 upgrade:: update
 	@
 
@@ -29,9 +35,12 @@ include .Makefile.nem
 include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
 
 tidy::  ## tidy things up
+## removes package caches, unused mise versions and cached .path/.manpath
 	@
 
+##@ Bundles
 all::  ## install everything
+## then runs upgrade and tidy
 all:: minimal
 all:: mac
 all:: fish
@@ -41,8 +50,11 @@ all:: git
 all:: gpg
 	$(MAKE) $(OPTIONS) upgrade tidy
 
+##@ Setup
 ifeq "$(OS)" "Darwin"
 mac:  ## adjust various mac settings
+## key repeat, notunes -> spotify and browser native hosts
+## for browserpass, gopass and tridactyl
 mac: browserpass
 mac: gopassbridge
 mac: mac-keyboard
@@ -91,7 +103,9 @@ gopassbridge:
 tridactyl:
 endif
 
-git:  ## adjust git cofig - conditionally enable gpg signing
+git:  ## adjust git config
+## generates .gitconfig.user (enables gpg signing when key is present)
+## and .gitconfig.diff as well as pre-commit template hooks
 git: .gitconfig.user
 git: .gitconfig.diff
 git: .git-template/hooks/pre-commit
@@ -113,6 +127,8 @@ else
 endif
 
 gpg:  ## setup gpg config
+## imports public key from github and configures gpg-agent
+## with ssh support (and pinentry-mac on mac)
 gpg: .gnupg/pubring.kbx
 gpg: .gnupg/gpg-agent.conf
 gpg: .gnupg/sshcontrol
@@ -148,6 +164,7 @@ else
 endif
 
 ssh:  ## setup ssh to allow ssh from gpg key
+## authorizes github public keys in .ssh/authorized_keys
 ssh: gpg
 ssh: .ssh/authorized_keys
 

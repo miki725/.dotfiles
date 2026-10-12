@@ -1,3 +1,4 @@
+##@ Packages
 PACMAN_MIRRORS=$(HOME)/.cache/pacman-mirrors
 PACMAN_DB=/var/lib/pacman/sync/core.db
 PACMAN_PREFIX=/var/lib/pacman/dotfiles
@@ -45,7 +46,8 @@ pacman/%: /var/lib/pacman/dotfiles/%.pacman
 $(PACMAN_DB):
 	$(MAKE) update/pacman
 
-yay/%: ## install with yay
+yay/%: ## install aur package with yay
+## yay itself is built on first use
 yay/%: $(YAY)
 yay/%: /var/lib/pacman/dotfiles/%.yay
 	@

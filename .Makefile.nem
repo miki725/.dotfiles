@@ -1,3 +1,4 @@
+##@ Packages
 NIMBLE_PREFIX=$(HOME)/.nimble
 PATH:=$(NIMBLE_PREFIX)/bin:$(PATH)
 
@@ -11,7 +12,7 @@ upgrade/nimble::
 	nimble upgrade
 endif
 
-nimble/%: ## install node package
+nimble/%: ## install nim package with nimble
 nimble/%: $(NIMBLE_PREFIX)/bin/%
 	@
 

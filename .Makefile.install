@@ -1,5 +1,7 @@
 # !sort -t / -k2
 
+##@ Bundles
+
 all:: installers
 all:: tools
 all:: sec
@@ -18,6 +20,7 @@ all:: devnim
 all:: music
 all:: pandoc
 
+minimal: ## shell, editor, terminal and core cli tools
 minimal: pacman/base-devel     # sudo, which, sed, etc
 minimal: brew/btop pacman/btop # c version of bpytop
 minimal: brew/fd pacman/fd     # better find - used in fzf
@@ -37,12 +40,13 @@ minimal: brew/tldr pacman/tldr
 minimal: brew/tree-sitter-cli pacman/tree-sitter-cli
 minimal: cask/wezterm # gpu terminal emulator
 
-installers: uv/python/3.14
+installers: ## language runtimes and installers
 installers: brew/go pacman/go # required for yay
 installers: brew/mise pacman/mise
 installers: brew/uv pacman/uv
 installers: brew/ruby
 
+tools: ## general cli utilities
 tools: pacman/arch-install-scripts # genfstab
 tools: brew/bash
 tools: brew/bash-completion pacman/bash-completion
@@ -90,6 +94,7 @@ tools: brew/yq yay/go-yq
 tools: brew/dyff yay/dyff
 tools: brew/zoxide pacman/zoxide # cd to folders quickly
 
+sec: ## gpg, password managers and yubikey tools
 sec: brew/browserpass
 sec: brew/gnupg pacman/gnupg
 sec: brew/gopass
@@ -102,6 +107,7 @@ sec: brew/ykman # yubikey manager cli version
 sec: cask/yubico-authenticator
 # sec: cask/yubico-yubikey-manager
 
+casks: ## mac gui apps
 casks: cask/alfred
 # casks: cask/bartender
 casks: cask/brave-browser
@@ -118,6 +124,7 @@ cask/alfred: alfred/alfred-ykman-oath
 cask/alfred: alfred/gopass-alfred
 cask/alfred: alfred/gpg-start-alfred
 
+net: ## network debugging tools
 net: pacman/bind         # dig
 net: brew/dog pacman/dog # dig rust replacement
 net: pacman/inetutils    # telnet, ftp
@@ -141,6 +148,7 @@ net: pacman/traceroute
 net: cask/wireshark pacman/wireshark-cli
 net: brew/wrk yay/wrk # http benchmarks - load testing
 
+dev: ## general dev tools
 dev: brew/browser # pipe html to browser
 dev: brew/cloc    # stats for code
 dev: brew/ctop yay/ctop-bin
@@ -177,6 +185,7 @@ dev: brew/universal-ctags pacman/ctags # generates tags from codebase
 dev: yay/vale-bin                      # prose linter/spell checker
 dev: brew/watchman                     # lib for watching files
 
+devcloud: ## aws and kubernetes clis (arch only)
 devcloud: yay/argo-bin
 devcloud: pacman/argocd
 devcloud: yay/aws-cli-v2-bin # TODO switch to directly downloading zip
@@ -195,6 +204,7 @@ devcloud: yay/kubeswitch-bin
 devcloud: pacman/stern # k8s multi-pod logging
 # devcloud: brew/tfenv yay/tfenv  # change terraform version
 
+devpy: ## python dev tools
 devpy: uv/basedpyright
 devpy: uv/check-manifest
 devpy: uv/johnnydep # show dep tree
@@ -204,6 +214,7 @@ devpy: uv/ruff
 devpy: uv/twine
 devpy: brew/uv pacman/uv
 
+devnode: ## node dev tools
 devnode: mise/npm/eslint
 devnode: mise/npm/eslint_d
 devnode: mise/npm/@fsouza/prettierd
@@ -214,24 +225,31 @@ devnode: mise/npm/typescript
 devnode: mise/npm/@vtsls/language-server
 devnode: mise/npm/yarn
 
+devc: ## c dev tools (llvm/clangd)
 devc: brew/llvm # clangd for c language server in coc-vim
 
+devsh: ## shell dev tools
 devsh: mise/npm/bash-language-server
 devsh: uv/shellcheck-py
 devsh: brew/shfmt pacman/shfmt
 
+devtf: ## terraform language server (arch only)
 devtf: yay/terraform-ls-bin
 
+devlua: ## lua language server and stylua
 devlua: brew/lua-language-server pacman/lua-language-server
 devlua: pacman/luarocks
 devlua: yay/stylua
 
-devgo: pacman/gopls
+devgo: ## go language server
+devgo: brew/gopls pacman/gopls
 
+devnim: ## nim toolchain and language server
 devnim: yay/choosenim-bin
 devnim: nimble/nimlangserver
 devnim: nimble/inim
 
+music: ## mac audio apps
 music: cask/audio-hijack
 music: cask/ilok-license-manager
 music: cask/loopback
