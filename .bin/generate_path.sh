@@ -9,9 +9,9 @@ function filter_valid_paths {
 echo "\
 $HOME/.bin
 $HOME/.local/bin
+$HOME/.local/share/mise/shims
 $HOME/.cargo/bin
 $HOME/.nimble/bin
-$HOME/.volta/bin
 $HOME/go/bin
 $HOME/.go/bin
 $HOME/.krew/bin

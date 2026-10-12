@@ -1,4 +1,12 @@
 UV_TOOLS=$(HOME)/.local/share/uv/tools
+UV_PYTHON_DIR=$(HOME)/.local/share/uv/python
+
+ifeq "$(OS)" "Linux"
+UV_PYTHON_LIBC=$(shell ldd /usr/bin/env 2>&1 | grep -qF musl && echo musl || echo gnu)
+UV_PYTHON_PLATFORM=linux-$(shell uname -m)-$(UV_PYTHON_LIBC)
+else ifeq "$(OS)" "Darwin"
+UV_PYTHON_PLATFORM=macos-$(subst arm64,aarch64,$(shell uname -m))-none
+endif
 
 uv-tools-clean:  ## clean uv tools
 	-rm -rf $(UV_TOOLS)
@@ -33,5 +41,8 @@ $(UV_TOOLS)/%/bin:
 	uv tool install '$(firstword $(NAME) $*)$(VERSION)' $(UV_TOOL_OPTIONS)
 
 uv/python/%: ## install python version with uv
-uv/python/%: brew/uv pacman/uv
+uv/python/%: $(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM)
+	@
+
+$(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM): | brew/uv pacman/uv
 	uv python install $*

@@ -39,7 +39,7 @@ minimal: cask/wezterm # gpu terminal emulator
 
 installers: uv/python/3.14
 installers: brew/go pacman/go # required for yay
-installers: brew/volta yay/volta-bin
+installers: brew/mise pacman/mise
 installers: brew/uv pacman/uv
 installers: brew/ruby
 
@@ -64,7 +64,7 @@ tools: brew/gzip
 tools: brew/hint
 tools: uv/httpie
 tools: pacman/inetutils     # ships hostname
-tools: volta/@jarred/git-peek # preview any github repo in vim
+tools: mise/npm/@jarred/git-peek # preview any github repo in vim
 tools: brew/jq pacman/jq
 tools: pacman/less
 tools: brew/lolcat # colorful cats
@@ -152,7 +152,7 @@ dev: cask/docker
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
 dev: cask/docker pacman/docker pacman/docker-buildx
-dev: volta/doctoc
+dev: mise/npm/doctoc
 dev: brew/entr                # watch files and execute - similar to fswatch
 dev: brew/fswatch yay/fswatch # watch files and execute
 dev: brew/gcc
@@ -204,20 +204,19 @@ devpy: uv/ruff
 devpy: uv/twine
 devpy: brew/uv pacman/uv
 
-devnode: volta/eslint
-devnode: volta/eslint_d
-devnode: volta/@fsouza/prettierd
-devnode: volta/graphql-language-service-cli
-devnode: volta/prettier
-devnode: volta/@prisma/language-server
-devnode: volta/typescript
-devnode: volta/@vtsls/language-server
-devnode: volta/yarn
-devnode: volta/yarn-why
+devnode: mise/npm/eslint
+devnode: mise/npm/eslint_d
+devnode: mise/npm/@fsouza/prettierd
+devnode: mise/npm/graphql-language-service-cli
+devnode: mise/npm/prettier
+devnode: mise/npm/@prisma/language-server
+devnode: mise/npm/typescript
+devnode: mise/npm/@vtsls/language-server
+devnode: mise/npm/yarn
 
 devc: brew/llvm # clangd for c language server in coc-vim
 
-devsh: volta/bash-language-server
+devsh: mise/npm/bash-language-server
 devsh: uv/shellcheck-py
 devsh: brew/shfmt pacman/shfmt
 

@@ -1,37 +1,37 @@
-VOLTA_HOME=$(HOME)/.volta
-PATH:=$(VOLTA_HOME)/bin:$(PATH)
+MISE_DATA_DIR=$(HOME)/.local/share/mise
+MISE_NPM_STAMPS=$(MISE_DATA_DIR)/.npm
 
-upgrade:: upgrade/volta
+upgrade:: upgrade/mise
 
-upgrade/volta::
+upgrade/mise::
 	@
 
-ifneq "$(shell which volta)" ""
-upgrade/volta::
-	volta install $(addsuffix @latest,$(shell volta list --format plain | grep '^package' | awk '{print $$2}' | sed 's/@[^@]*$$//'))
+ifneq "$(shell which mise)" ""
+upgrade/mise::
+	mise upgrade
 endif
 
-volta/node/%: ## install node version with volta
-volta/node/%: brew/volta yay/volta-bin
-	volta install node@$*
+tidy:: tidy/mise
 
-volta/%: ## install node package via volta
-volta/%: $(VOLTA_HOME)/tools/image/packages/%
+tidy/mise::
 	@
 
-# .SECONDEXPANSION allows wildcard to be evaluated at rule-match time rather than parse time.
-# If a version is installed, its inventory file satisfies the prereq (skip install).
-# If inventory is empty, fall back to the /lts or /latest target to install first.
-.SECONDEXPANSION:
-$(VOLTA_HOME)/tools/image/packages/%: brew/volta yay/volta-bin $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/node/*)),volta/node/lts)
-	volta install $*
+ifneq "$(shell which mise)" ""
+tidy/mise::
+	mise prune
+endif
 
-# yarn and pnpm are package managers stored outside tools/image/packages/ — need explicit rules
-volta/yarn: $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/yarn/*)),volta/yarn/latest)
+mise/node/%: ## install node version with mise
+mise/node/%: $(MISE_DATA_DIR)/installs/node/%
 	@
 
-volta/pnpm: $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/pnpm/*)),volta/pnpm/latest)
+$(MISE_DATA_DIR)/installs/node/%: | brew/mise pacman/mise
+	mise use -g node@$*
+
+mise/npm/%: ## install npm package via mise
+mise/npm/%: $(MISE_NPM_STAMPS)/%
 	@
 
-volta/yarn/latest volta/pnpm/latest: brew/volta yay/volta-bin $$(or $$(firstword $$(wildcard $(VOLTA_HOME)/tools/inventory/node/*)),volta/node/lts)
-	volta install $(word 2,$(subst /, ,$@))
+$(MISE_NPM_STAMPS)/%: | brew/mise pacman/mise
+	mise use -g 'npm:$*'
+	@mkdir -p $(@D) && touch $@

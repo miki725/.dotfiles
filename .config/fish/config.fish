@@ -88,9 +88,14 @@ for i in $compilepath[-1..1]
     end
 end
 
+if type -q mise
+    and status --is-interactive
+    mise activate fish | source
+end
+
 if type -q direnv
     and status --is-interactive
-    eval (direnv hook fish)
+    direnv hook fish | source
 end
 
 if type -q switcher
