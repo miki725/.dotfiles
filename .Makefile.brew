@@ -3,15 +3,8 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_FORCE_BREWED_CURL=1
 export PATH:=/usr/local/bin:/opt/homebrew/bin:$(PATH)
 
-IS_M1=$(shell uname -v | grep -i arm > /dev/null && echo true || echo false)
 BREW_PREFIX=$(shell brew --prefix 2> /dev/null)
-ifeq "$(IS_M1)" "true"
-BREW=/opt/homebrew/bin/brew
-BREW_CMD=arch -arm64 brew
-else
-BREW=/usr/local/bin/brew
-BREW_CMD=brew
-endif
+BREW=$(BREW_PREFIX)/bin/brew
 
 OS=$(shell uname)
 
@@ -27,12 +20,11 @@ upgrade/brew::
 
 ifeq "$(OS)" "Darwin"
 update/brew::
-	$(BREW_CMD) update
+	brew update
 
 upgrade/brew:: $(BREW)
-	$(BREW_CMD) list --formula | grep -v pandoc | xargs $(BREW_CMD) upgrade
-	$(BREW_CMD) upgrade --cask
-	$(BREW_CMD) cleanup
+	brew upgrade
+	brew cleanup
 
 tidy:: tidy/brew
 
@@ -41,7 +33,7 @@ tidy/brew::
 
 ifeq "$(OS)" "Darwin"
 tidy/brew::
-	$(BREW_CMD) cleanup
+	brew cleanup
 endif
 
 brew/%: ## install brew formula
@@ -53,14 +45,14 @@ cask/%: $(BREW_PREFIX)/Caskroom/%
 	@
 
 $(BREW_PREFIX)/Cellar/%: | $(BREW)
-	$(BREW_CMD) install $(TAP)$* $(BREW_OPTIONS)
+	brew install $(TAP)$* $(BREW_OPTIONS)
 
 $(BREW_PREFIX)/Caskroom/%: | $(BREW)
-	$(BREW_CMD) install --cask $(TAP)$* $(BREW_OPTIONS)
+	brew install --cask $(TAP)$* $(BREW_OPTIONS)
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	$(BREW_CMD) tap homebrew/cask
+	brew tap homebrew/cask
 
 else
 brew/%:
