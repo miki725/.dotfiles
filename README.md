@@ -10,7 +10,7 @@ Everything is directly in git. Just make `$HOME` a git folder:
 git init
 git remote add origin https://github.com/miki725/.dotfiles.git
 git fetch
-git reset --hard origin/master
+git reset --hard origin/main
 ```
 
 ## Help
@@ -18,7 +18,7 @@ git reset --hard origin/master
 Most targets can be seen in help:
 
 ```sh
-make -f .Makefile minimal
+make -f .Makefile help
 ```
 
 ## Deps
@@ -28,17 +28,27 @@ Deps are managed via makefile helpers for package managers:
 ```sh
 make -f .Makefile brew/fzf
 make -f .Makefile cask/firefox
-make -f .Makefile npm/prettier
 make -f .Makefile pacman/fzf
-make -f .Makefile pipx/awscli
-make -f .Makefile pyenv/3.10
 make -f .Makefile yay/zoxide-bin
+make -f .Makefile uv/httpie
+make -f .Makefile uv/python/3.14
+make -f .Makefile mise/npm/prettier
+make -f .Makefile mise/node/24
+make -f .Makefile nimble/inim
 ```
 
 There are some install bundles like:
 
 ```sh
 make -f .Makefile minimal
+make -f .Makefile dev
+make -f .Makefile all
+```
+
+Everything installed can be upgraded and cleaned up with:
+
+```sh
+make -f .Makefile upgrade tidy
 ```
 
 ## Other Files
