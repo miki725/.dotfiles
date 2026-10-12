@@ -7,7 +7,7 @@ macos-titlebar-style = tabs
 term = xterm-256color
 
 # window
-scrollback-limit = 100000
+scrollback-limit = 100000000
 window-height = 40
 window-width = 120
 window-padding-x = 0
