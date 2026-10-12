@@ -103,7 +103,7 @@ sec: cask/yubico-authenticator
 # sec: cask/yubico-yubikey-manager
 
 casks: cask/alfred
-casks: cask/bartender
+# casks: cask/bartender
 casks: cask/brave-browser
 casks: cask/istat-menus
 casks: cask/monodraw
@@ -111,7 +111,7 @@ casks: cask/notion
 casks: cask/notunes
 casks: cask/slack
 casks: cask/spotify
-casks: cask/vlc
+# casks: cask/vlc
 
 cask/alfred: alfred/alfred-type-clipboard-workflow
 cask/alfred: alfred/alfred-ykman-oath
