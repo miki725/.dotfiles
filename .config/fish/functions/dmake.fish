@@ -1,3 +1,3 @@
 function dmake --wraps='make -f ~/.Makefile' --wraps='make -f ~/.Makefile -C ~' --description 'run dotfiles make'
-    make -f ~/.Makefile -C ~ $argv
+    command make -f ~/.Makefile -C ~ --no-print-directory $argv
 end
