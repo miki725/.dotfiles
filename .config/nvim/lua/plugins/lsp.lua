@@ -215,12 +215,29 @@ return {
                 end
             end
 
+            -- eslint_d v15+ (eslint v9+) outputs plain-text errors instead of JSON when
+            -- no config is found, which breaks none-ls JSON parsing; only enable in projects that have one
+            local eslint_condition = function(utils)
+                return utils.root_has_file({
+                    ".eslintrc",
+                    ".eslintrc.js",
+                    ".eslintrc.cjs",
+                    ".eslintrc.json",
+                    ".eslintrc.yaml",
+                    ".eslintrc.yml",
+                    "eslint.config.js",
+                    "eslint.config.mjs",
+                    "eslint.config.cjs",
+                    "eslint.config.ts",
+                })
+            end
+
             local sources = {
-                require("none-ls.diagnostics.eslint_d"),
+                require("none-ls.diagnostics.eslint_d").with({ condition = eslint_condition }),
                 require("none-ls-shellcheck.diagnostics"),
                 require("none-ls-shellcheck.code_actions"),
                 null_ls.builtins.diagnostics.vale,
-                require("none-ls.code_actions.eslint_d"),
+                require("none-ls.code_actions.eslint_d").with({ condition = eslint_condition }),
                 null_ls.builtins.formatting.prettierd,
                 null_ls.builtins.formatting.fish_indent,
                 null_ls.builtins.formatting.gofmt,
@@ -244,8 +261,15 @@ return {
 
             for _, v in pairs(sources) do
                 local cmd = v._opts.command
-                v.condition = function()
-                    return is_binary_installed(cmd)
+                local existing_condition = v.condition
+                v.condition = function(utils)
+                    if not is_binary_installed(cmd) then
+                        return false
+                    end
+                    if existing_condition then
+                        return existing_condition(utils)
+                    end
+                    return true
                 end
             end
 
