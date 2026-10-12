@@ -25,8 +25,9 @@ minimal: cask/firefox
 minimal: brew/fish pacman/fish
 minimal: cask/font-hack-nerd-font
 minimal: brew/fzf pacman/fzf
-minimal: brew/git pacman/git pacman/git-lfs
+minimal: cask/ghostty # gpu terminal emulator
 minimal: brew/git-absorb pacman/git-absorb
+minimal: brew/git pacman/git pacman/git-lfs
 minimal: brew/grep
 minimal: brew/htop pacman/htop
 minimal: brew/neovim pacman/neovim
