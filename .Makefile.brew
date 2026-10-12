@@ -15,11 +15,18 @@ endif
 
 OS=$(shell uname)
 
+update:: update/brew
+
+update/brew::
+	@
+
+upgrade:: upgrade/brew
+
 upgrade/brew::
 	@
 
 ifeq "$(OS)" "Darwin"
-update::
+update/brew::
 	$(BREW_CMD) update
 
 upgrade/brew:: $(BREW)

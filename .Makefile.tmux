@@ -1,5 +1,7 @@
 TMUX_TPM=$(HOME)/.tmux/plugins/tpm
 
+upgrade:: upgrade/tmux
+
 upgrade/tmux::
 	@
 

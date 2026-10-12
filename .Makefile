@@ -14,23 +14,19 @@ help:  ## show help
 OS=$(shell uname)
 SYSTEMD=$(shell which systemctl 2> /dev/null)
 
-include .Makefile.brew .Makefile.pacman
-include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
-
 update::  ## update things for install/upgrade
 	@
 
 upgrade::  ## upgrade everything
 upgrade:: update
-upgrade:: upgrade/brew
-upgrade:: upgrade/pacman
-upgrade:: upgrade/alfred
-upgrade:: upgrade/uv
-upgrade:: upgrade/fish
-upgrade:: upgrade/npm
-upgrade:: upgrade/tmux
-upgrade:: upgrade/vim
 	@
+
+include .Makefile.brew
+include .Makefile.pacman
+include .Makefile.python
+include .Makefile.node
+include .Makefile.nem
+include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
 
 tidy::  ## tidy things up
 	@

@@ -3,6 +3,8 @@ UV_TOOLS=$(HOME)/.local/share/uv/tools
 uv-tools-clean:  ## clean uv tools
 	-rm -rf $(UV_TOOLS)
 
+upgrade:: upgrade/uv
+
 upgrade/uv::
 	@
 

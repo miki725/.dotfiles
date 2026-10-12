@@ -1,6 +1,16 @@
 NIMBLE_PREFIX=$(HOME)/.nimble
 PATH:=$(NIMBLE_PREFIX)/bin:$(PATH)
 
+upgrade:: upgrade/nimble
+
+upgrade/nimble::
+	@
+
+ifneq "$(shell which nimble 2> /dev/null)" ""
+upgrade/nimble::
+	nimble upgrade
+endif
+
 nimble/%: ## install node package
 nimble/%: $(NIMBLE_PREFIX)/bin/%
 	@

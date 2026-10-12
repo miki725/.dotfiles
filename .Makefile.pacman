@@ -1,24 +1,43 @@
-PACMAN_MIRRORS=/tmp/pacman-mirrors
+PACMAN_MIRRORS=$(HOME)/.cache/pacman-mirrors
+PACMAN_DB=/var/lib/pacman/sync/core.db
 PACMAN_PREFIX=/var/lib/pacman/dotfiles
 PACMAN=$(shell which pacman 2> /dev/null)
 YAY=/usr/bin/yay
 
-upgrade/pacman upgrade/yay::
+update:: update/pacman
+
+update/pacman::
 	@
 
+update/yay: update/pacman
+
+upgrade:: upgrade/pacman
+
+upgrade/pacman::
+	@
+
+upgrade/yay: upgrade/pacman
+
 ifneq "$(PACMAN)" ""
-update:: $(PACMAN_MIRRORS)
+update/pacman:: $(PACMAN_MIRRORS)
 	pacman -Sy
 
-upgrade/yay upgrade/pacman:: $(YAY)
+upgrade/pacman:: $(YAY)
 	sudo -u yay yay -Suy
 
 pacman/%: ## install with pacman
-pacman/%: /var/lib/pacman/dotfiles/pacman-contrib.pacman $(PACMAN_MIRRORS) /var/lib/pacman/dotfiles/%.pacman
+pacman/%: /var/lib/pacman/dotfiles/pacman-contrib.pacman
+pacman/%: $(PACMAN_MIRRORS)
+pacman/%: $(PACMAN_DB)
+pacman/%: /var/lib/pacman/dotfiles/%.pacman
 	@
 
+$(PACMAN_DB):
+	$(MAKE) update/pacman
+
 yay/%: ## install with yay
-yay/%: $(YAY) /var/lib/pacman/dotfiles/%.yay
+yay/%: $(YAY)
+yay/%: /var/lib/pacman/dotfiles/%.yay
 	@
 
 $(PACMAN_PREFIX)/%.pacman: $(PACMAN_PREFIX)
@@ -48,7 +67,6 @@ $(PACMAN_MIRRORS):
 		| rankmirrors -n 5 - \
 		| tee $@
 	cp -f $@ /etc/pacman.d/mirrorlist
-	pacman -Sy
 
 $(YAY): /etc/sudoers
 	-useradd --system --create-home --groups wheel yay
