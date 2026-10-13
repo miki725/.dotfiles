@@ -106,7 +106,7 @@ endif
 git:  ## adjust git config
 ## generates .gitconfig.user (enables gpg signing when key is present)
 ## .gitconfig.diff and .gitconfig.credential (keychain/cache + oauth
-## credential helpers, device flow over ssh) as well as pre-commit template hooks
+## credential helpers, ssh friendly) as well as pre-commit template hooks
 git: .gitconfig.user
 git: .gitconfig.diff
 git: .gitconfig.credential
