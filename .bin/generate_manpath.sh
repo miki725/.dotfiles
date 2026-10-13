@@ -5,7 +5,7 @@ function generate_manpath_for_root {
     [ -d $root ] || return
 
     for i in $(
-        find -L /usr/local/opt -name '*man*' -type d \
+        find -L $root -name '*man*' -type d \
             | grep -vE 'man[0-9]' \
             | grep -vi command \
             | grep -vi resources \

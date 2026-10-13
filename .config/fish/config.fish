@@ -24,10 +24,10 @@ if not contains $HOME/.path-hook $PATH
     end
 end
 
-if ! test -e $HOME/.man_path
-    $HOME/.bin/generate_manpath.sh >$HOME/.man_path
+if ! test -e $HOME/.manpath
+    $HOME/.bin/generate_manpath.sh >$HOME/.manpath
 end
-set -gx MANPATH (cat $HOME/.man_path)
+set -gx MANPATH (cat $HOME/.manpath)
 
 if type -q starship
     starship init fish | source

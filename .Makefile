@@ -47,7 +47,6 @@ all:: minimal
 all:: mac
 all:: fish
 all:: tmux
-all:: vim
 all:: git
 all:: gpg
 	$(MAKE) $(OPTIONS) upgrade tidy
@@ -151,7 +150,7 @@ ifneq "$(shell which pinentry-mac 2> /dev/null)" ""
 	echo "pinentry-program $(shell which pinentry-mac)" >> $@
 endif
 
-.gnupg/pubring.kbx:
+.gnupg/pubring.kbx: | brew/gnupg pacman/gnupg
 	curl -sfSL https://github.com/miki725.gpg | gpg --import
 	chmod 0600 $@
 

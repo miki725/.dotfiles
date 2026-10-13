@@ -144,7 +144,7 @@ net: brew/telnet
 # net: brew/termshark yay/termshark
 net: brew/testssl # similar to ssltest in terminal
 net: pacman/traceroute
-net: cask/wireshark pacman/wireshark-cli
+net: cask/wireshark-app pacman/wireshark-cli
 net: brew/wrk yay/wrk # http benchmarks - load testing
 
 dev: ## general dev tools
@@ -154,10 +154,10 @@ dev: cask/dash
 dev: brew/direnv yay/direnv
 dev: brew/distribution # histograms
 dev: pacman/dive       # inspect docker layers
-dev: cask/docker
+dev: cask/docker-desktop
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
-dev: cask/docker pacman/docker pacman/docker-buildx
+dev: cask/docker-desktop pacman/docker pacman/docker-buildx
 dev: mise/npm/doctoc
 dev: brew/entr                # watch files and execute - similar to fswatch
 dev: brew/fswatch yay/fswatch # watch files and execute
@@ -173,8 +173,8 @@ dev: brew/lazydocker yay/lazydocker-bin
 dev: brew/lazygit pacman/lazygit
 dev: brew/libyaml
 dev: pacman/man-pages
-dev: cask/neovide
-dev: cask/pop # screen sharing conference
+dev: cask/neovide-app
+dev: cask/pop-app # screen sharing conference
 dev: cask/postman
 dev: uv/pre-commit
 dev: yay/regclient-regctl

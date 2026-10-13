@@ -17,6 +17,6 @@ tmux:  ## configure tmux package manager
 tmux: $(TMUX_TPM)
 
 $(TMUX_TPM):
-	mkdir -p $@
+	mkdir -p $(@D)
 	git clone https://github.com/tmux-plugins/tpm $(TMUX_TPM)
 	$(TMUX_TPM)/bin/install_plugins

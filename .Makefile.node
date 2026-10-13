@@ -1,6 +1,8 @@
 ##@ Packages
 MISE_DATA_DIR=$(HOME)/.local/share/mise
 MISE_NPM_STAMPS=$(MISE_DATA_DIR)/.npm
+MISE_NODE=$(MISE_DATA_DIR)/installs/node
+MISE_NODE_VERSION?=lts
 
 upgrade:: upgrade/mise
 
@@ -33,6 +35,10 @@ mise/npm/%: ## install npm package via mise
 mise/npm/%: $(MISE_NPM_STAMPS)/%
 	@
 
-$(MISE_NPM_STAMPS)/%: | brew/mise pacman/mise
+# npm packages need some node version - install default one if there is none
+$(MISE_NODE): | brew/mise pacman/mise
+	mise use -g node@$(MISE_NODE_VERSION)
+
+$(MISE_NPM_STAMPS)/%: | brew/mise pacman/mise $(MISE_NODE)
 	mise use -g 'npm:$*'
 	@mkdir -p $(@D) && touch $@

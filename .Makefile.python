@@ -25,14 +25,18 @@ upgrade/uv::
 	uv tool upgrade --all
 endif
 
-uv/%: ## install python cli as uv tool
-## pin with VERSION, e.g. make uv/poetry VERSION===2.1.0
-uv/%: $(UV_TOOLS)/%/bin
+uv/python/%: ## install python version with uv
+uv/python/%: $(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM)
 	@
 
 uv/inject/%: ## inject dep into uv tool venv
 ## e.g. make uv/inject/poetry/poetry-plugin-export
 uv/inject/%: $(UV_TOOLS)/%.inject
+	@
+
+uv/%: ## install python cli as uv tool
+## pin with VERSION, e.g. make uv/poetry VERSION===2.1.0
+uv/%: $(UV_TOOLS)/%/bin
 	@
 
 .SECONDEXPANSION:
@@ -43,12 +47,8 @@ $(UV_TOOLS)/%.inject: $$(dir $$@)bin
 		$(firstword $(subst /, ,$*))
 	touch $@
 
-$(UV_TOOLS)/%/bin:
+$(UV_TOOLS)/%/bin: | brew/uv pacman/uv
 	uv tool install '$(firstword $(NAME) $*)$(VERSION)' $(UV_TOOL_OPTIONS)
-
-uv/python/%: ## install python version with uv
-uv/python/%: $(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM)
-	@
 
 $(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM): | brew/uv pacman/uv
 	uv python install $*
