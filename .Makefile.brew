@@ -4,7 +4,15 @@ export HOMEBREW_NO_INSTALL_CLEANUP=1
 export HOMEBREW_FORCE_BREWED_CURL=1
 export PATH:=/usr/local/bin:/opt/homebrew/bin:$(PATH)
 
-BREW_PREFIX=$(shell brew --prefix 2> /dev/null)
+BREW_PREFIX:=$(shell brew --prefix 2> /dev/null)
+# brew is not on PATH yet on a fresh machine so fallback to arch default
+ifeq "$(BREW_PREFIX)" ""
+ifeq "$(shell uname -m)" "arm64"
+BREW_PREFIX=/opt/homebrew
+else
+BREW_PREFIX=/usr/local
+endif
+endif
 BREW=$(BREW_PREFIX)/bin/brew
 
 OS=$(shell uname)
@@ -54,7 +62,6 @@ $(BREW_PREFIX)/Caskroom/%: | $(BREW)
 
 $(BREW):
 	/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	brew tap homebrew/cask
 
 else
 brew/%:

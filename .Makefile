@@ -15,6 +15,8 @@ help:  ## show help
 	@awk -v os=$(OS) -f .bin/make_help.awk $(MAKEFILE_LIST)
 
 OS=$(shell uname)
+# flags for nested $(MAKE) calls as -f is not passed down via MAKEFLAGS
+OPTIONS?=-f $(firstword $(MAKEFILE_LIST))
 SYSTEMD=$(shell which systemctl 2> /dev/null)
 
 update::  ## update package manager indexes
@@ -82,9 +84,9 @@ ifneq "$(shell which gpg 2>/dev/null)" ""
 endif
 
 browserpass: brew/browserpass /usr/local/bin/gpg
-	cat $(shell brew --prefix)/opt/browserpass/lib/browserpass/Makefile \
+	cat $(BREW_PREFIX)/opt/browserpass/lib/browserpass/Makefile \
 		| sed 's/Chrome/Chrome Beta/g' \
-		| PREFIX='$(shell brew --prefix)/opt/browserpass' \
+		| PREFIX='$(BREW_PREFIX)/opt/browserpass' \
 			make -f - \
 				hosts-firefox-user \
 				hosts-chrome-user \

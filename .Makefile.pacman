@@ -44,7 +44,7 @@ pacman/%: /var/lib/pacman/dotfiles/%.pacman
 	@
 
 $(PACMAN_DB):
-	$(MAKE) update/pacman
+	$(MAKE) $(OPTIONS) update/pacman
 
 yay/%: ## install aur package with yay
 ## yay itself is built on first use
