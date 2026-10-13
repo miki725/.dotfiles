@@ -105,8 +105,8 @@ endif
 
 git:  ## adjust git config
 ## generates .gitconfig.user (enables gpg signing when key is present)
-## .gitconfig.diff and .gitconfig.credential (keychain + oauth
-## credential helpers on mac) as well as pre-commit template hooks
+## .gitconfig.diff and .gitconfig.credential (keychain/cache + oauth
+## credential helpers, device flow over ssh) as well as pre-commit template hooks
 git: .gitconfig.user
 git: .gitconfig.diff
 git: .gitconfig.credential
@@ -119,7 +119,7 @@ git: .git-template/hooks/pre-commit
 .gitconfig.diff: .bin/gitconfig.diff.sh
 	./$< > $@
 
-.gitconfig.credential: brew/git-credential-oauth
+.gitconfig.credential: brew/git-credential-oauth pacman/git-credential-oauth
 .gitconfig.credential: .bin/gitconfig.credential.sh
 	./$< > $@
 

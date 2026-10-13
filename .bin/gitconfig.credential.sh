@@ -1,15 +1,21 @@
 #!/usr/bin/env sh
 
-if [ "$(uname)" != "Darwin" ]; then
-    exit 0
-fi
+echo "[credential]"
 
-cat << EOF
-[credential]
-    helper = osxkeychain
-EOF
+# storage helper
+if [ "$(uname)" = "Darwin" ]; then
+    echo "    helper = osxkeychain"
+else
+    echo "    helper = cache --timeout 21600  # six hours"
+fi
 
 # oauth needs to come after the storage helper
 if which git-credential-oauth > /dev/null 2>&1; then
-    echo "    helper = oauth"
+    # over ssh there is no local browser so use device flow
+    # which prints a code to enter on another device
+    if [ -n "$SSH_CONNECTION" ] || [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        echo "    helper = oauth -device"
+    else
+        echo "    helper = oauth"
+    fi
 fi
