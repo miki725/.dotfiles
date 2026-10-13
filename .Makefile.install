@@ -165,6 +165,7 @@ dev: brew/entr                # watch files and execute - similar to fswatch
 dev: brew/fswatch yay/fswatch # watch files and execute
 dev: brew/gcc
 dev: brew/gettext                    # i18n - internatiolization
+dev: brew/git-credential-oauth       # git https auth via browser oauth
 dev: brew/git-delta pacman/git-delta # git diff syntax highlighting
 dev: brew/git-lfs
 dev: uv/git-of-theseus

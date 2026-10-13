@@ -4,6 +4,7 @@
 [include]
     path = .gitconfig.user
     path = .gitconfig.diff
+    path = .gitconfig.credential
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f

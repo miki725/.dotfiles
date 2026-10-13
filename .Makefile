@@ -105,18 +105,23 @@ endif
 
 git:  ## adjust git config
 ## generates .gitconfig.user (enables gpg signing when key is present)
-## and .gitconfig.diff as well as pre-commit template hooks
+## .gitconfig.diff and .gitconfig.credential (keychain + oauth
+## credential helpers on mac) as well as pre-commit template hooks
 git: .gitconfig.user
 git: .gitconfig.diff
+git: .gitconfig.credential
 git: .git-template/hooks/pre-commit
 
-.PHONY: .gitconfig.user
-.gitconfig.user: .gnupg/pubring.kbx
-	./.bin/gitconfig.user.sh > $@
+.gitconfig.user: .bin/gitconfig.user.sh .gnupg/pubring.kbx
+	./$< > $@
 
-.PHONY: .gitconfig.diff
-.gitconfig.diff:
-	./.bin/gitconfig.diff.sh > $@
+.gitconfig.diff: brew/git-delta pacman/git-delta
+.gitconfig.diff: .bin/gitconfig.diff.sh
+	./$< > $@
+
+.gitconfig.credential: brew/git-credential-oauth
+.gitconfig.credential: .bin/gitconfig.credential.sh
+	./$< > $@
 
 ifneq "$(shell which pre-commit 2> /dev/null)" ""
 .git-template/hooks/pre-commit:
