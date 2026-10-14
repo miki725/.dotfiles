@@ -53,7 +53,10 @@ return {
                         require("nvim-treesitter").install({ lang }):wait(60000)
                     end
                     pcall(vim.treesitter.start)
-                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    -- markdown sets its own list-aware indentexpr in ftplugin/markdown.lua
+                    if vim.bo[args.buf].filetype ~= "markdown" then
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
                     vim.wo[0][0].foldmethod = "expr"
                     vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
                     vim.wo[0][0].foldenable = false
