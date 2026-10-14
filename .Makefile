@@ -77,10 +77,8 @@ ifeq "$(OS)" "Darwin"
 
 # add gpg to standard PATH so that browserpass can find it
 # https://github.com/browserpass/browserpass-native/issues/123
-/usr/local/bin/gpg: /usr/local/bin
-ifneq "$(shell which gpg 2>/dev/null)" ""
-	sudo ln -s $(shell which gpg) $@
-endif
+/usr/local/bin/gpg: | /usr/local/bin brew/gnupg
+	sudo ln -sf $(BREW_PREFIX)/bin/gpg $@
 
 browserpass: brew/browserpass /usr/local/bin/gpg
 	cat $(BREW_PREFIX)/opt/browserpass/lib/browserpass/Makefile \
