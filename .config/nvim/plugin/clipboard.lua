@@ -37,3 +37,11 @@ for key, lookup in pairs(names) do
         print(value)
     end, { desc = lookup.desc })
 end
+
+-- briefly highlight yanked text (e.g. yaw, yap)
+vim.api.nvim_create_autocmd("TextYankPost", {
+    group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
+    callback = function()
+        vim.hl.on_yank({ higroup = "Search", timeout = 250 })
+    end,
+})
