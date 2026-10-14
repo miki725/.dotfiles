@@ -14,4 +14,8 @@ if vim.g.neovide then
     vim.keymap.set({ "n", "v" }, "<C-+>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>")
     vim.keymap.set({ "n", "v" }, "<C-->", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor - 0.1<CR>")
     vim.keymap.set({ "n", "v" }, "<C-0>", ":lua vim.g.neovide_scale_factor = 1<CR>")
+    -- cmd+v pastes the system clipboard in every mode like a terminal paste does
+    vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<D-v>", function()
+        vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+    end, { desc = "Paste system clipboard [neovide]" })
 end
