@@ -207,6 +207,7 @@ devpy: ## python dev tools
 devpy: uv/basedpyright
 devpy: uv/check-manifest
 devpy: uv/johnnydep # show dep tree
+devpy: uv/mypy
 devpy: uv/poetry
 devpy: uv/ptpython
 devpy: uv/ruff
