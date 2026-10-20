@@ -1,0 +1,8 @@
+/* mdkite pins html and body to height: 100%, which caps the sticky
+   header's containing block at one viewport, so the header (with the
+   connection dot and status) scrolls away past the first screen. Let
+   body grow with the content so the header stays up. */
+body {
+    height: auto;
+    min-height: 100%;
+}

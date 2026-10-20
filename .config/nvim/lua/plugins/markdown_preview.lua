@@ -12,14 +12,20 @@ return {
                 -- mdkite bakes the theme in at render time (no "system"
                 -- value); default to light and use the in-page toggle for dark
                 default_theme = "light",
+                -- a server and browser tab per Neovim instance on an
+                -- OS-assigned port, so separate Neovims can preview
+                -- different files side by side
+                instance_mode = "multi",
+                -- keep the header (connection dot + status) pinned on scroll
+                custom_css = vim.fn.stdpath("config") .. "/assets/mdkite.css",
                 -- bind all interfaces so the preview is reachable when
                 -- editing over SSH; mdkite gates a network bind with a
                 -- per-session token, so peers cannot read the buffer
                 -- without the tokenized URL
                 host = "0.0.0.0",
-                -- do not try to open a browser on the (possibly remote)
-                -- server; print the tokenized URL to open yourself instead
-                open_browser = false,
+                -- over SSH a browser would open on the remote server, so only
+                -- print the tokenized URL to open yourself; locally open it
+                open_browser = vim.env.SSH_CONNECTION == nil and vim.env.SSH_TTY == nil,
                 hooks = {
                     on_start = function(url)
                         -- echo to the command line (and :messages) so the
