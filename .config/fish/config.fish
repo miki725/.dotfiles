@@ -2,6 +2,7 @@ set -gx ANDROID_HOME /usr/local/opt/android-sdk
 set -gx GOPATH $HOME/.go
 set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/.ripgreprc
 set -gx PTPYTHON_CONFIG_HOME $HOME/.config/ptpython
+set -gx LG_CONFIG_FILE $HOME/.config/lazygit/config.yml
 set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 set -gx N_PREFIX $HOME/.n
