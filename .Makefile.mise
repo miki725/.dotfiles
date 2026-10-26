@@ -1,8 +1,7 @@
 ##@ Packages
 MISE_DATA_DIR=$(HOME)/.local/share/mise
 
-# sub-mise rules must be before generic mise/% as make 3.81 uses first matching
-# pattern rule and MISE_DATA_DIR must be defined before as its used in targets
+# MISE_DATA_DIR must be defined before includes as its used in targets
 include .Makefile.python
 include .Makefile.node
 

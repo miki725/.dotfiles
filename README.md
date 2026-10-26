@@ -30,10 +30,10 @@ make -f .Makefile brew/fzf
 make -f .Makefile cask/firefox
 make -f .Makefile pacman/fzf
 make -f .Makefile yay/zoxide-bin
-make -f .Makefile uv/httpie
-make -f .Makefile uv/python/3.14
-make -f .Makefile mise/npm/prettier
-make -f .Makefile mise/node/24
+make -f .Makefile pypi/httpie
+make -f .Makefile python/3.14
+make -f .Makefile npm/prettier
+make -f .Makefile node/24
 make -f .Makefile nimble/inim
 ```
 

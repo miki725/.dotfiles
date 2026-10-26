@@ -3,15 +3,15 @@ MISE_NPM_STAMPS=$(MISE_DATA_DIR)/.npm
 MISE_NODE=$(MISE_DATA_DIR)/installs/node
 MISE_NODE_VERSION?=lts
 
-mise/node/%: ## install node version with mise
-mise/node/%: $(MISE_DATA_DIR)/installs/node/%
+node/%: ## install node version with mise
+node/%: $(MISE_DATA_DIR)/installs/node/%
 	@
 
 $(MISE_DATA_DIR)/installs/node/%: | brew/mise pacman/mise
 	mise use -g node@$*
 
-mise/npm/%: ## install npm package via mise
-mise/npm/%: $(MISE_NPM_STAMPS)/%
+npm/%: ## install npm package via mise
+npm/%: $(MISE_NPM_STAMPS)/%
 	@
 
 # npm packages need some node version - install default one if there is none

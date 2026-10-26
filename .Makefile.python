@@ -11,27 +11,27 @@ mise_pypi_install = mise use -g -f \
 
 ##@ Maintenance
 uv-tools-clean:  ## remove all legacy uv tools
-## python tools are now managed by mise - see mise/pypi/%
+## python tools are now managed by mise - see pypi/%
 	uv tool uninstall --all
 
 ##@ Packages
 
-mise/python/%: ## install python version with mise
-mise/python/%: $(MISE_DATA_DIR)/installs/python/%
+python/%: ## install python version with mise
+python/%: $(MISE_DATA_DIR)/installs/python/%
 	@
 
 $(MISE_DATA_DIR)/installs/python/%: | brew/mise pacman/mise
 	mise install python@$*
 
 # with rules must be before tool ones as make 3.81 uses first matching pattern rule
-mise/pypi/with/%: ## inject dep into pypi tool venv
-## e.g. mise/pypi/poetry: mise/pypi/with/poetry/poetry-plugin-export
-mise/pypi/with/%: $(MISE_PYPI_STAMPS)/with/%
+pypi/with/%: ## inject dep into pypi tool venv
+## e.g. pypi/poetry: pypi/with/poetry/poetry-plugin-export
+pypi/with/%: $(MISE_PYPI_STAMPS)/with/%
 	@
 
-mise/pypi/%: ## install python cli via mise (uv backend)
-## pin with VERSION, e.g. make mise/pypi/poetry VERSION=2.1.0
-mise/pypi/%: $(MISE_PYPI_STAMPS)/%
+pypi/%: ## install python cli via mise (uv backend)
+## pin with VERSION, e.g. make pypi/poetry VERSION=2.1.0
+pypi/%: $(MISE_PYPI_STAMPS)/%
 	@
 
 # tool stamp is built before its with deps so each new with dep reinstalls the tool

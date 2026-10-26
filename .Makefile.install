@@ -55,7 +55,7 @@ tools: brew/colordiff pacman/colordiff
 tools: brew/coreutils
 tools: pacman/coreutils
 tools: brew/cowsay
-tools: mise/pypi/csvkit # sqlite on top of csv files
+tools: pypi/csvkit # sqlite on top of csv files
 tools: brew/curl pacman/curl
 tools: brew/diffutils
 tools: brew/findutils
@@ -65,9 +65,9 @@ tools: brew/gnu-sed
 tools: brew/gnu-tar
 tools: brew/gnu-which
 tools: brew/gzip
-tools: mise/pypi/httpie
+tools: pypi/httpie
 tools: pacman/inetutils     # ships hostname
-tools: mise/npm/@jarred/git-peek # preview any github repo in vim
+tools: npm/@jarred/git-peek # preview any github repo in vim
 tools: brew/jq pacman/jq
 tools: pacman/less
 tools: brew/lolcat # colorful cats
@@ -158,7 +158,7 @@ dev: cask/docker-desktop
 dev: pacman/docker-compose
 dev: brew/docker-machine pacman/docker-machine
 dev: cask/docker-desktop pacman/docker pacman/docker-buildx
-dev: mise/npm/doctoc
+dev: npm/doctoc
 dev: brew/entr                # watch files and execute - similar to fswatch
 dev: brew/fswatch yay/fswatch # watch files and execute
 dev: brew/gcc
@@ -166,7 +166,7 @@ dev: brew/gettext                    # i18n - internatiolization
 dev: brew/git-credential-oauth pacman/git-credential-oauth # git https auth via browser oauth
 dev: brew/git-delta pacman/git-delta # git diff syntax highlighting
 dev: brew/git-lfs
-dev: mise/pypi/git-of-theseus
+dev: pypi/git-of-theseus
 dev: brew/git-quick-stats yay/git-quick-stats
 dev: pacman/gvim # installs GTK/X support for clipboard forwarding
 dev: brew/lazydocker yay/lazydocker-bin
@@ -176,7 +176,7 @@ dev: pacman/man-pages
 dev: cask/neovide-app
 dev: cask/pop-app # screen sharing conference
 dev: cask/postman
-dev: mise/pypi/pre-commit
+dev: pypi/pre-commit
 dev: yay/regclient-regctl
 dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
@@ -187,9 +187,9 @@ dev: brew/watchman                     # lib for watching files
 devcloud: ## aws and kubernetes clis
 devcloud: mise/argocd
 devcloud: mise/aws-cli
-# devcloud: mise/pypi/aws-mfa
+# devcloud: pypi/aws-mfa
 # devcloud: yay/aws-session-manager-plugin
-# devcloud: mise/pypi/certbot
+# devcloud: pypi/certbot
 # devcloud: yay/chart-testing
 devcloud: mise/eksctl
 devcloud: mise/helm
@@ -202,33 +202,33 @@ devcloud: mise/kubeswitch # ships switcher binary - see fish config
 devcloud: mise/stern # k8s multi-pod logging
 
 devpy: ## python dev tools
-devpy: mise/pypi/basedpyright
-devpy: mise/pypi/check-manifest
-devpy: mise/pypi/johnnydep # show dep tree
-devpy: mise/pypi/mypy
-devpy: mise/pypi/poetry
-devpy: mise/pypi/ptpython
-devpy: mise/pypi/ruff
-devpy: mise/pypi/twine
+devpy: pypi/basedpyright
+devpy: pypi/check-manifest
+devpy: pypi/johnnydep # show dep tree
+devpy: pypi/mypy
+devpy: pypi/poetry
+devpy: pypi/ptpython
+devpy: pypi/ruff
+devpy: pypi/twine
 devpy: brew/uv pacman/uv
 
 devnode: ## node dev tools
-devnode: mise/npm/eslint
-devnode: mise/npm/eslint_d
-devnode: mise/npm/@fsouza/prettierd
-devnode: mise/npm/graphql-language-service-cli
-devnode: mise/npm/prettier
-devnode: mise/npm/@prisma/language-server
-devnode: mise/npm/typescript
-devnode: mise/npm/@vtsls/language-server
-devnode: mise/npm/yarn
+devnode: npm/eslint
+devnode: npm/eslint_d
+devnode: npm/@fsouza/prettierd
+devnode: npm/graphql-language-service-cli
+devnode: npm/prettier
+devnode: npm/@prisma/language-server
+devnode: npm/typescript
+devnode: npm/@vtsls/language-server
+devnode: npm/yarn
 
 devc: ## c dev tools (llvm/clangd)
 devc: brew/llvm # clangd for c language server in coc-vim
 
 devsh: ## shell dev tools
-devsh: mise/npm/bash-language-server
-devsh: mise/pypi/shellcheck-py
+devsh: npm/bash-language-server
+devsh: pypi/shellcheck-py
 devsh: brew/shfmt pacman/shfmt
 
 devtf: ## terraform language server (arch only)
@@ -271,9 +271,9 @@ brew/dyff: TAP=homeport/tap/
 # pandoc: brew/pandoc
 # pandoc: brew/pandoc-citeproc
 # pandoc: brew/pandoc-crossref
-# pandoc: mise/pypi/pandoc-fignos
-# pandoc: mise/pypi/pandocfilter-sh
-# mise/pypi/pandoc-fignos: VERSION=2.3.0 # mise has no ranges, was < 2.3.1
+# pandoc: pypi/pandoc-fignos
+# pandoc: pypi/pandocfilter-sh
+# pypi/pandoc-fignos: VERSION=2.3.0 # mise has no ranges, was < 2.3.1
 
 # $(BREW_PREFIX)/Cellar/pandoc:
 # curl -L https://bintray.com/homebrew/bottles/download_file?file_path=pandoc-2.9.2.1.catalina.bottle.tar.gz \
