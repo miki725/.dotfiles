@@ -1,0 +1,37 @@
+##@ Packages
+MISE_DATA_DIR=$(HOME)/.local/share/mise
+
+# sub-mise rules must be before generic mise/% as make 3.81 uses first matching
+# pattern rule and MISE_DATA_DIR must be defined before as its used in targets
+include .Makefile.python
+include .Makefile.node
+
+upgrade:: upgrade/mise
+
+upgrade/mise::
+	@
+
+ifneq "$(shell which mise)" ""
+upgrade/mise::
+	mise upgrade
+endif
+
+tidy:: tidy/mise
+
+tidy/mise::
+	@
+
+ifneq "$(shell which mise)" ""
+tidy/mise::
+	mise prune
+endif
+
+mise/%: ## install top-level tool via mise
+## e.g. mise/kubectl - name from `mise registry`
+# mise links installs/<tool>/global to the globally used version
+# vs just installs/<tool> as tool can be installed for a project but not globally
+mise/%: $(MISE_DATA_DIR)/installs/%/global
+	@
+
+$(MISE_DATA_DIR)/installs/%/global: | brew/mise pacman/mise
+	mise use -g $*@latest

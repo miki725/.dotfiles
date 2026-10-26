@@ -1,0 +1,3 @@
+# use uv (uv tool install) instead of pipx for pypi: tools
+[settings.pypi]
+uvx = true

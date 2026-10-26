@@ -1,54 +1,44 @@
 ##@ Packages
-UV_TOOLS=$(HOME)/.local/share/uv/tools
-UV_PYTHON_DIR=$(HOME)/.local/share/uv/python
+MISE_PYPI_STAMPS=$(MISE_DATA_DIR)/.pypi
 
-ifeq "$(OS)" "Linux"
-UV_PYTHON_LIBC=$(shell ldd /usr/bin/env 2>&1 | grep -qF musl && echo musl || echo gnu)
-UV_PYTHON_PLATFORM=linux-$(shell uname -m)-$(UV_PYTHON_LIBC)
-else ifeq "$(OS)" "Darwin"
-UV_PYTHON_PLATFORM=macos-$(subst arm64,aarch64,$(shell uname -m))-none
-endif
+# $(call mise_pypi_install,<tool>[,<new with dep>]) - (re)install tool with all its with deps
+# -f as mise does not reinstall when only "with" deps change
+# with deps are read via $(shell) as $(wildcard) caches dirs before stamps are created
+mise_pypi_with = $(patsubst %,"%",$(sort $2 $(shell ls $(MISE_PYPI_STAMPS)/with/$1 2> /dev/null)))
+mise_pypi_install = mise use -g -f \
+	$(if $(call mise_pypi_with,$1,$2),--tool-option 'with=[$(subst $(SPACE),$(COMMA),$(call mise_pypi_with,$1,$2))]') \
+	'pypi:$(firstword $(NAME) $1)$(if $(VERSION),@$(VERSION))'
 
 ##@ Maintenance
-uv-tools-clean:  ## remove all installed uv tools
-	-rm -rf $(UV_TOOLS)
+uv-tools-clean:  ## remove all legacy uv tools
+## python tools are now managed by mise - see mise/pypi/%
+	uv tool uninstall --all
 
 ##@ Packages
 
-upgrade:: upgrade/uv
-
-upgrade/uv::
+mise/python/%: ## install python version with mise
+mise/python/%: $(MISE_DATA_DIR)/installs/python/%
 	@
 
-ifneq "$(shell which uv 2> /dev/null)" ""
-upgrade/uv::
-	uv tool upgrade --all
-endif
+$(MISE_DATA_DIR)/installs/python/%: | brew/mise pacman/mise
+	mise install python@$*
 
-uv/python/%: ## install python version with uv
-uv/python/%: $(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM)
+# with rules must be before tool ones as make 3.81 uses first matching pattern rule
+mise/pypi/with/%: ## inject dep into pypi tool venv
+## e.g. mise/pypi/poetry: mise/pypi/with/poetry/poetry-plugin-export
+mise/pypi/with/%: $(MISE_PYPI_STAMPS)/with/%
 	@
 
-uv/inject/%: ## inject dep into uv tool venv
-## e.g. make uv/inject/poetry/poetry-plugin-export
-uv/inject/%: $(UV_TOOLS)/%.inject
+mise/pypi/%: ## install python cli via mise (uv backend)
+## pin with VERSION, e.g. make mise/pypi/poetry VERSION=2.1.0
+mise/pypi/%: $(MISE_PYPI_STAMPS)/%
 	@
 
-uv/%: ## install python cli as uv tool
-## pin with VERSION, e.g. make uv/poetry VERSION===2.1.0
-uv/%: $(UV_TOOLS)/%/bin
-	@
+# tool stamp is built before its with deps so each new with dep reinstalls the tool
+$(MISE_PYPI_STAMPS)/with/%: | brew/mise pacman/mise brew/uv pacman/uv
+	$(call mise_pypi_install,$(firstword $(subst /, ,$*)),$(notdir $*))
+	@mkdir -p $(@D) && touch $@
 
-.SECONDEXPANSION:
-# reinstall with all previously injected deps (existing *.inject files) plus the new one ($@)
-$(UV_TOOLS)/%.inject: $$(dir $$@)bin
-	uv tool install \
-		$(foreach f,$(wildcard $(dir $@)*.inject) $@,--with $(basename $(notdir $f))) \
-		$(firstword $(subst /, ,$*))
-	touch $@
-
-$(UV_TOOLS)/%/bin: | brew/uv pacman/uv
-	uv tool install '$(firstword $(NAME) $*)$(VERSION)' $(UV_TOOL_OPTIONS)
-
-$(UV_PYTHON_DIR)/cpython-%-$(UV_PYTHON_PLATFORM): | brew/uv pacman/uv
-	uv python install $*
+$(MISE_PYPI_STAMPS)/%: | brew/mise pacman/mise brew/uv pacman/uv
+	$(call mise_pypi_install,$*)
+	@mkdir -p $(@D) && touch $@

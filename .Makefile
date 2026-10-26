@@ -1,6 +1,7 @@
 .SECONDARY:
 EMPTY=
 SPACE=$(EMPTY) $(EMPTY)
+COMMA=,
 # https://stackoverflow.com/questions/12315834/makefile-how-to-apply-an-equivalent-to-filter-on-multiple-wildcards
 containing = $(foreach v,$2,$(if $(findstring $1,$v),$v))
 not-containing = $(foreach v,$2,$(if $(findstring $1,$v),,$v))
@@ -24,16 +25,15 @@ update::  ## update package manager indexes
 	@
 
 upgrade::  ## upgrade everything
-## packages (brew, pacman/yay, uv tools, mise, nimble) and
+## packages (brew, pacman/yay, mise incl pypi/npm tools, nimble) and
 ## plugins (fish, tmux, nvim, alfred workflows)
 upgrade:: update
 	@
 
 include .Makefile.brew
 include .Makefile.pacman
-include .Makefile.python
-include .Makefile.node
 include .Makefile.nem
+include .Makefile.mise
 include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
 
 tidy::  ## tidy things up

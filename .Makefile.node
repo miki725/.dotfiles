@@ -1,28 +1,7 @@
 ##@ Packages
-MISE_DATA_DIR=$(HOME)/.local/share/mise
 MISE_NPM_STAMPS=$(MISE_DATA_DIR)/.npm
 MISE_NODE=$(MISE_DATA_DIR)/installs/node
 MISE_NODE_VERSION?=lts
-
-upgrade:: upgrade/mise
-
-upgrade/mise::
-	@
-
-ifneq "$(shell which mise)" ""
-upgrade/mise::
-	mise upgrade
-endif
-
-tidy:: tidy/mise
-
-tidy/mise::
-	@
-
-ifneq "$(shell which mise)" ""
-tidy/mise::
-	mise prune
-endif
 
 mise/node/%: ## install node version with mise
 mise/node/%: $(MISE_DATA_DIR)/installs/node/%
