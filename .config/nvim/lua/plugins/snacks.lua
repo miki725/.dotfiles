@@ -32,7 +32,7 @@ return {
                 show = { statusline = false, tabline = false },
                 toggles = { dim = false },
             },
-            notifier = { enabled = true },
+            notifier = { enabled = true, timeout = 5000 },
             bigfile = { enabled = true },
             input = { enabled = true },
             animate = { enabled = false },
@@ -45,6 +45,13 @@ return {
                     Snacks.zen()
                 end,
                 desc = "Toggle Zen Mode [Snacks.zen]",
+            },
+            {
+                "<leader>n",
+                function()
+                    Snacks.notifier.show_history()
+                end,
+                desc = "Notification History [Snacks.notifier]",
             },
         },
     },
