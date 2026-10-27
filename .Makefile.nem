@@ -4,7 +4,7 @@ PATH:=$(NIMBLE_PREFIX)/bin:$(PATH)
 
 upgrade:: upgrade/nimble
 
-upgrade/nimble::
+upgrade/nimble::  ## nimble upgrade
 	@
 
 ifneq "$(shell which nimble 2> /dev/null)" ""

@@ -4,6 +4,7 @@
 #   target: ## ... - target description
 #   ## ...         - lines right after a target extend its description
 # targets in "Bundles" also list what they install on the current os (-v os=...)
+# targets also list their "x/<name>" variants registered via "x:: x/<name>"
 
 function row(name, text) { return sprintf("  \033[36m%-15s\033[0m %s\n", name, text) }
 function dim(text) { return "\033[2m" text "\033[0m" }
@@ -38,14 +39,28 @@ $1 ~ /:$/ && bundle[name] {
     }
 }
 
+# variants of a documented target, e.g. "upgrade:: upgrade/brew"
+$1 ~ /:$/ && !bundle[name] && name in help {
+    for (i = 2; i <= NF && $i !~ /^#/; i++) {
+        if (index($i, name "/") != 1 || $i in variant) continue
+        variant[$i] = name
+        if ((substr($i, length(name) + 2) "/") !~ skip) variants[name] = variants[name] " " $i
+    }
+}
+
 END {
     print "Usage: make -f .Makefile \033[36m<target>\033[0m ..."
     for (g = 1; g <= n; g++) {
         if (!split(targets[groups[g]], names, " ")) continue
         printf "\n\033[1m%s\033[0m\n", groups[g]
         for (i = 1; names[i] != ""; i++) {
+            # documented variants are listed under their parent instead
+            if (names[i] in variant) continue
             printf "%s", help[names[i]]
             if (line[names[i]] != "") printf "%s", row("", dim(line[names[i]]))
+            split(variants[names[i]], vs, " ")
+            for (j = 1; vs[j] != ""; j++) printf "%s", vs[j] in help ? help[vs[j]] : row(vs[j], "")
+            delete vs
         }
     }
 }

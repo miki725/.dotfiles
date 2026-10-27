@@ -3,7 +3,7 @@ TMUX_TPM=$(HOME)/.tmux/plugins/tpm
 
 upgrade:: upgrade/tmux
 
-upgrade/tmux::
+upgrade/tmux::  ## update tpm and tmux plugins
 	@
 
 ifneq "$(wildcard $(TMUX_TPM))" ""

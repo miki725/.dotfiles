@@ -1,12 +1,13 @@
 ##@ Setup
 tidy:: tidy/fish
 
-tidy/fish::
+tidy/fish::  ## remove cached .path/.manpath
 	-rm .path
 	-rm .manpath
 
 upgrade:: upgrade/fish
 
+upgrade/fish::  ## update fisher plugins and completions
 upgrade/fish:: fish-virtualfish
 	fish -c 'fisher update'
 	fish -c 'fish_update_completions'

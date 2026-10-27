@@ -13,12 +13,12 @@ mise_pypi_install = mise use -g -f \
 tidy:: tidy/pipx tidy/uv
 
 # pipx home moved to platform dirs in pipx 1.3 unless ~/.local/pipx existed
-tidy/pipx::
+tidy/pipx::  ## remove legacy pipx tools
 	$(call tidy_dir,$(HOME)/.local/pipx)
 	$(call tidy_dir,$(HOME)/.local/share/pipx)
 	$(call tidy_dir,$(HOME)/Library/Application Support/pipx)
 
-tidy/uv::
+tidy/uv::  ## remove legacy uv tools
 	$(call tidy_dir,$(HOME)/.local/share/uv/tools)
 
 ##@ Packages

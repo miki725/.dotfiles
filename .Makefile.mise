@@ -7,7 +7,7 @@ include .Makefile.node
 
 upgrade:: upgrade/mise
 
-upgrade/mise::
+upgrade/mise::  ## mise upgrade incl pypi/npm tools
 	@
 
 ifneq "$(shell which mise)" ""
@@ -17,7 +17,7 @@ endif
 
 tidy:: tidy/mise
 
-tidy/mise::
+tidy/mise::  ## mise prune unused versions
 	@
 
 ifneq "$(shell which mise)" ""

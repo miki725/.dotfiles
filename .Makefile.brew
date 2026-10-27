@@ -19,12 +19,12 @@ OS=$(shell uname)
 
 update:: update/brew
 
-update/brew::
+update/brew::  ## brew update
 	@
 
 upgrade:: upgrade/brew
 
-upgrade/brew::
+upgrade/brew::  ## brew upgrade and cleanup
 	@
 
 ifeq "$(OS)" "Darwin"
@@ -37,7 +37,7 @@ upgrade/brew:: $(BREW)
 
 tidy:: tidy/brew
 
-tidy/brew::
+tidy/brew::  ## brew cleanup
 	@
 
 ifeq "$(OS)" "Darwin"

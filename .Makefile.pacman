@@ -7,14 +7,14 @@ YAY=/usr/bin/yay
 
 update:: update/pacman
 
-update/pacman::
+update/pacman::  ## pacman -Sy
 	@
 
 update/yay: update/pacman
 
 tidy:: tidy/pacman
 
-tidy/pacman::
+tidy/pacman::  ## remove old package versions from pacman cache
 	@
 
 ifneq "$(PACMAN)" ""
@@ -24,7 +24,7 @@ endif
 
 upgrade:: upgrade/pacman
 
-upgrade/pacman::
+upgrade/pacman::  ## yay -Suy
 	@
 
 upgrade/yay: upgrade/pacman

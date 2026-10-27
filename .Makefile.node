@@ -13,7 +13,7 @@ $(MISE_DATA_DIR)/installs/node/%: | brew/mise pacman/mise
 # legacy node tool manager - node tools are now managed by mise, see npm/%
 tidy:: tidy/volta
 
-tidy/volta::
+tidy/volta::  ## remove legacy volta tools
 	$(call tidy_dir,$(HOME)/.volta)
 
 npm/%: ## install npm package via mise
