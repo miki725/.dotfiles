@@ -2,9 +2,13 @@
 EMPTY=
 SPACE=$(EMPTY) $(EMPTY)
 COMMA=,
-# https://stackoverflow.com/questions/12315834/makefile-how-to-apply-an-equivalent-to-filter-on-multiple-wildcards
-containing = $(foreach v,$2,$(if $(findstring $1,$v),$v))
-not-containing = $(foreach v,$2,$(if $(findstring $1,$v),,$v))
+# $(call tidy_dir,<dir>) - remove legacy tool dir along with its ~/.local/bin symlinks
+# removes dir directly as the tool managing it might already be uninstalled
+tidy_dir = @if [ -e "$1" ]; then \
+	echo 'rm -rf "$1"'; \
+	find $(HOME)/.local/bin -lname "$1/*" -delete 2> /dev/null; \
+	rm -rf "$1"; \
+fi
 
 # see .bin/make_help.awk for help format
 ##@ Bundles
@@ -37,7 +41,8 @@ include .Makefile.mise
 include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
 
 tidy::  ## tidy things up
-## removes package caches, unused mise versions and cached .path/.manpath
+## removes package caches, unused mise versions, cached .path/.manpath
+## and tools left over from legacy managers (pipx, uv tool, volta)
 	@
 
 ##@ Bundles

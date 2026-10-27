@@ -9,10 +9,17 @@ mise_pypi_install = mise use -g -f \
 	$(if $(call mise_pypi_with,$1,$2),--tool-option 'with=[$(subst $(SPACE),$(COMMA),$(call mise_pypi_with,$1,$2))]') \
 	'pypi:$(firstword $(NAME) $1)$(if $(VERSION),@$(VERSION))'
 
-##@ Maintenance
-uv-tools-clean:  ## remove all legacy uv tools
-## python tools are now managed by mise - see pypi/%
-	uv tool uninstall --all
+# legacy python tool managers - python tools are now managed by mise, see pypi/%
+tidy:: tidy/pipx tidy/uv
+
+# pipx home moved to platform dirs in pipx 1.3 unless ~/.local/pipx existed
+tidy/pipx::
+	$(call tidy_dir,$(HOME)/.local/pipx)
+	$(call tidy_dir,$(HOME)/.local/share/pipx)
+	$(call tidy_dir,$(HOME)/Library/Application Support/pipx)
+
+tidy/uv::
+	$(call tidy_dir,$(HOME)/.local/share/uv/tools)
 
 ##@ Packages
 
