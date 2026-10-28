@@ -5,14 +5,14 @@ PACMAN_PREFIX=/var/lib/pacman/dotfiles
 PACMAN=$(shell which pacman 2> /dev/null)
 YAY=/usr/bin/yay
 
-update:: update/pacman
+update:: $(call unskipped,update/pacman)
 
 update/pacman::  ## pacman -Sy
 	@
 
 update/yay: update/pacman
 
-tidy:: tidy/pacman
+tidy:: $(call unskipped,tidy/pacman)
 
 tidy/pacman::  ## remove old package versions from pacman cache
 	@
@@ -22,7 +22,7 @@ tidy/pacman::
 	paccache -rk2
 endif
 
-upgrade:: upgrade/pacman
+upgrade:: $(call unskipped,upgrade/pacman)
 
 upgrade/pacman::  ## yay -Suy
 	@

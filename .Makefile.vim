@@ -1,4 +1,4 @@
-upgrade:: upgrade/vim
+upgrade:: $(call unskipped,upgrade/vim)
 
 upgrade/vim:  ## sync nvim lazy plugins
 upgrade/vim:

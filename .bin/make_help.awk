@@ -39,8 +39,9 @@ $1 ~ /:$/ && bundle[name] {
     }
 }
 
-# variants of a documented target, e.g. "upgrade:: upgrade/brew"
+# variants of a documented target, e.g. "upgrade:: $(call unskipped,upgrade/brew)"
 $1 ~ /:$/ && !bundle[name] && name in help {
+    gsub(/\$\(call unskipped,|\)/, "")
     for (i = 2; i <= NF && $i !~ /^#/; i++) {
         if (index($i, name "/") != 1 || $i in variant) continue
         variant[$i] = name

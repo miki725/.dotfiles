@@ -1,11 +1,11 @@
 ##@ Setup
-tidy:: tidy/fish
+tidy:: $(call unskipped,tidy/fish)
 
 tidy/fish::  ## remove cached .path/.manpath
 	-rm .path
 	-rm .manpath
 
-upgrade:: upgrade/fish
+upgrade:: $(call unskipped,upgrade/fish)
 
 upgrade/fish::  ## update fisher plugins and completions
 upgrade/fish:: fish-virtualfish

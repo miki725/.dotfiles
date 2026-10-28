@@ -17,12 +17,12 @@ BREW=$(BREW_PREFIX)/bin/brew
 
 OS=$(shell uname)
 
-update:: update/brew
+update:: $(call unskipped,update/brew)
 
 update/brew::  ## brew update
 	@
 
-upgrade:: upgrade/brew
+upgrade:: $(call unskipped,upgrade/brew)
 
 upgrade/brew::  ## brew upgrade and cleanup
 	@
@@ -35,7 +35,7 @@ upgrade/brew:: $(BREW)
 	brew upgrade
 	brew cleanup
 
-tidy:: tidy/brew
+tidy:: $(call unskipped,tidy/brew)
 
 tidy/brew::  ## brew cleanup
 	@

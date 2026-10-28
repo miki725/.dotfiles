@@ -1,7 +1,7 @@
 ##@ Setup
 TMUX_TPM=$(HOME)/.tmux/plugins/tpm
 
-upgrade:: upgrade/tmux
+upgrade:: $(call unskipped,upgrade/tmux)
 
 upgrade/tmux::  ## update tpm and tmux plugins
 	@

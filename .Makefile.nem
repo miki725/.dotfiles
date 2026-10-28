@@ -2,7 +2,7 @@
 NIMBLE_PREFIX=$(HOME)/.nimble
 PATH:=$(NIMBLE_PREFIX)/bin:$(PATH)
 
-upgrade:: upgrade/nimble
+upgrade:: $(call unskipped,upgrade/nimble)
 
 upgrade/nimble::  ## nimble upgrade
 	@

@@ -10,6 +10,11 @@ tidy_dir = @if [ -e "$1" ]; then \
 	rm -rf "$1"; \
 fi
 
+# $(call unskipped,<target>/<name> ...) - drop targets whose <name> is in SKIP
+# e.g. make upgrade SKIP=vim,alfred or SKIP="vim alfred"
+SKIP?=
+unskipped = $(filter-out $(addprefix %/,$(subst $(COMMA),$(SPACE),$(SKIP))),$1)
+
 # see .bin/make_help.awk for help format
 ##@ Bundles
 ##@ Setup
@@ -31,6 +36,7 @@ update::  ## update package manager indexes
 upgrade::  ## upgrade everything
 ## packages (brew, pacman/yay, mise incl pypi/npm tools, nimble) and
 ## plugins (fish, tmux, nvim, alfred workflows)
+## skip some with SKIP, e.g. SKIP=vim,alfred
 upgrade:: update
 	@
 
@@ -43,6 +49,7 @@ include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
 tidy::  ## tidy things up
 ## removes package caches, unused mise versions, cached .path/.manpath
 ## and tools left over from legacy managers (pipx, uv tool, volta)
+## skip some with SKIP, e.g. SKIP=brew
 	@
 
 ##@ Bundles
