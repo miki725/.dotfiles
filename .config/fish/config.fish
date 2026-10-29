@@ -99,13 +99,6 @@ if type -q direnv
     direnv hook fish | source
 end
 
-if type -q switcher
-    and status --is-interactive
-    switcher init fish | source
-    alias ktx="kubeswitch"
-    alias kns="kubeswitch ns"
-end
-
 if test -e $HOME/.iterm2_shell_integration.fish
     source $HOME/.iterm2_shell_integration.fish
 end

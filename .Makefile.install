@@ -198,7 +198,6 @@ devcloud: mise/k9s
 # devcloud: yay/knative-client-bin
 devcloud: mise/krew
 devcloud: mise/kubectl
-devcloud: mise/kubeswitch # ships switcher binary - see fish config
 devcloud: mise/stern # k8s multi-pod logging
 
 devpy: ## python dev tools
