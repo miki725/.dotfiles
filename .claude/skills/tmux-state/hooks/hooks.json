@@ -1,11 +1,21 @@
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" idle"
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude running"
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" running"
           }
         ]
       }
@@ -15,7 +25,27 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude running"
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" tool"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" waiting"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" tool"
           }
         ]
       }
@@ -25,7 +55,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude waiting"
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" stop"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" stop"
           }
         ]
       }
@@ -35,18 +75,18 @@
         "hooks": [
           {
             "type": "command",
-            "command": "[ -z \"$TMUX\" ] || tmux set -wu -t \"$TMUX_PANE\" @claude"
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" clear"
           }
         ]
       }
     ],
     "Notification": [
       {
-        "matcher": "permission_prompt|idle_prompt|elicitation_dialog",
+        "matcher": "elicitation_dialog|elicitation_url_dialog",
         "hooks": [
           {
             "type": "command",
-            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude waiting"
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/state.sh\" waiting"
           }
         ]
       }
