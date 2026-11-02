@@ -1,5 +1,5 @@
 -- save session per cwd on exit and restore it when nvim starts without file args
--- tmux-resurrect relaunches plain nvim to restore it. see @resurrect-processes in ~/.tmux.conf
+-- tmux-resurrect reruns nvim with its original args so plain nvim gets its session back
 return {
     {
         "rmagatti/auto-session",
