@@ -1,8 +1,13 @@
 #!/bin/sh
 # set @claude on the tmux window: running, waiting, background, idle or clear
-# waiting is only for when input is definitely needed. otherwise when turn ends ring the bell
-# as claude might be just done which clears on visiting the window unlike @claude
+# waiting is only for when input is definitely needed and also rings the bell to get attention.
+# otherwise when turn ends only ring the bell as claude might be just done
+# which clears on visiting the window unlike @claude
 [ -n "$TMUX" ] || exit 0
+
+bell() {
+    printf '\a' > "$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
+}
 
 case "$1" in
     tool)
@@ -23,7 +28,7 @@ case "$1" in
             state=background
         else
             state=idle
-            printf '\a' > "$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
+            bell
         fi
         ;;
     start)
@@ -36,6 +41,8 @@ case "$1" in
         state=$1
         ;;
 esac
+
+[ "$state" = waiting ] && bell
 
 if [ "$state" = clear ]; then
     tmux set -wu -t "$TMUX_PANE" @claude
