@@ -37,8 +37,16 @@ return {
             input = { enabled = true },
             animate = { enabled = false },
             scroll = { enabled = false },
+            lazygit = {},
         },
         keys = {
+            {
+                "<leader>lg",
+                function()
+                    Snacks.lazygit()
+                end,
+                desc = "Lazygit [Snacks.lazygit]",
+            },
             {
                 "<leader>z",
                 function()

@@ -1,1 +1,4 @@
 promptToReturnFromSubprocess: false
+os:
+  # opens files in parent nvim when lazygit runs inside nvim, otherwise new nvim in place
+  editPreset: nvim-remote
