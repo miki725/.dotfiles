@@ -1,0 +1,4 @@
+{
+  "name": "tmux-state",
+  "description": "Track whether Claude is running or waiting in the @claude tmux window option"
+}

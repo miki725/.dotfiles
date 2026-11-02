@@ -1,0 +1,55 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude running"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude running"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude waiting"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TMUX\" ] || tmux set -wu -t \"$TMUX_PANE\" @claude"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|idle_prompt|elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -z \"$TMUX\" ] || tmux set -w -t \"$TMUX_PANE\" @claude waiting"
+          }
+        ]
+      }
+    ]
+  }
+}
