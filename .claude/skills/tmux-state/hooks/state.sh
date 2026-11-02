@@ -26,6 +26,12 @@ case "$1" in
             printf '\a' > "$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
         fi
         ;;
+    start)
+        # remember conversation on the pane so tmux-resurrect can resume it. see resurrect.sh
+        session=$(jq -r '.session_id // empty' 2> /dev/null)
+        [ -n "$session" ] && tmux set -p -t "$TMUX_PANE" @claude_session "$session"
+        state=idle
+        ;;
     *)
         state=$1
         ;;
@@ -33,6 +39,7 @@ esac
 
 if [ "$state" = clear ]; then
     tmux set -wu -t "$TMUX_PANE" @claude
+    tmux set -pu -t "$TMUX_PANE" @claude_session
 else
     tmux set -w -t "$TMUX_PANE" @claude "$state"
 fi
