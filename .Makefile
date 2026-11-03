@@ -144,21 +144,12 @@ endif
 
 gpg:  ## setup gpg config
 ## imports public key from github and configures gpg-agent
-## with ssh support (and pinentry-mac on mac)
+## with ssh support and pinentry showing which session asks for the pin
 gpg: .gnupg/pubring.kbx
-gpg: .gnupg/gpg-agent.conf
 gpg: .gnupg/sshcontrol
 gpg: /etc/ssh/sshd_config
 gpg: .gitconfig.user
 	chmod 0700 .gnupg
-
-.gnupg/gpg-agent.conf::
-	echo "enable-ssh-support" > $@
-
-ifneq "$(shell which pinentry-mac 2> /dev/null)" ""
-.gnupg/gpg-agent.conf::
-	echo "pinentry-program $(shell which pinentry-mac)" >> $@
-endif
 
 .gnupg/pubring.kbx: | brew/gnupg pacman/gnupg
 	curl -sfSL https://github.com/miki725.gpg | gpg --import

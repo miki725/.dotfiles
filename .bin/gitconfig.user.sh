@@ -19,5 +19,5 @@ cat << EOF
 [tag]
     gpgsign = true
 [gpg]
-    program = $(which gpg)
+    program = $HOME/.bin/gpg-context.sh
 EOF
