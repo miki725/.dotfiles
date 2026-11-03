@@ -27,6 +27,23 @@ if [ -z "$PINENTRY_USER_DATA" ]; then
     fi
     context=$(tilde "$context")
 
+    # when git signs (-bsau) the commit or tag object is on stdin so buffer it to
+    # show the first message line which is after the headers and a blank line.
+    # file is kept open on fd 3 after removing it to pass the exact bytes to gpg
+    case "$*" in
+        *-bsau*)
+            payload=$(mktemp)
+            cat > "$payload"
+            exec 3< "$payload"
+            subject=$(sed -n '/^$/{n;p;q;}' "$payload")
+            kind=$(head -1 "$payload" | sed 's/^tree .*/commit/; s/^object .*/tag/')
+            rm -f "$payload"
+            if [ -n "$subject" ]; then
+                context="$context\\n$kind $subject"
+            fi
+            ;;
+    esac
+
     if [ -n "$TMUX_PANE" ]; then
         tmux=$(tmux display -p -t "$TMUX_PANE" '#{window_index}:#{window_name}' 2> /dev/null)
         # title is the most specific but tmux defaults it to the hostname which is
@@ -68,4 +85,7 @@ if [ -z "$PINENTRY_USER_DATA" ]; then
     export PINENTRY_USER_DATA
 fi
 
+if [ -n "$payload" ]; then
+    exec gpg "$@" <&3 3<&-
+fi
 exec gpg "$@"
