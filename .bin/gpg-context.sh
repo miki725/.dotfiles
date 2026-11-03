@@ -3,6 +3,8 @@
 # via PINENTRY_USER_DATA so that with multiple sessions (claude, tmux panes)
 # it is obvious which one triggered the yubikey prompt. see pinentry-context.sh
 # gpg truncates the value at a newline so lines are separated with literal \n
+# within tmux the first line is "@tmux <pane> <socket>" so that pinentry can flag
+# the window while the prompt is up
 
 if [ -z "$PINENTRY_USER_DATA" ]; then
     context=$(git rev-parse --show-toplevel 2> /dev/null)
@@ -27,6 +29,7 @@ if [ -z "$PINENTRY_USER_DATA" ]; then
         if [ -n "$tmux" ]; then
             context="$context\\ntmux $tmux"
         fi
+        context="@tmux $TMUX_PANE ${TMUX%%,*}\\n$context"
     fi
 
     if [ -n "$CLAUDECODE" ]; then

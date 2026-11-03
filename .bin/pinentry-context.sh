@@ -23,6 +23,24 @@ if [ -z "$PINENTRY_USER_DATA" ]; then
     exec "$real" "$@"
 fi
 
+# while the prompt is up flag the tmux window which asks for the pin (shown with a
+# cyan lock icon, see .tmux.conf) and ring its bell so it is easy to find in window lists
+case "$PINENTRY_USER_DATA" in
+    "@tmux "*)
+        read -r _ pane socket << EOF
+$(printf '%s' "$PINENTRY_USER_DATA" | sed 's/\\n.*//')
+EOF
+        PINENTRY_USER_DATA=$(printf '%s' "$PINENTRY_USER_DATA" | sed 's/^@tmux [^\\]*\\n//')
+        tty=$(tmux -S "$socket" display -p -t "$pane" '#{pane_tty}' 2> /dev/null)
+        if [ -n "$tty" ]; then
+            tmux -S "$socket" set -w -t "$pane" @pinentry 1
+            printf '\a' > "$tty"
+            trap 'tmux -S "$socket" set -wu -t "$pane" @pinentry 2> /dev/null' EXIT
+            trap 'exit 1' HUP INT TERM
+        fi
+        ;;
+esac
+
 # assuan is line based so rewrite SETDESC lines from gpg-agent on the fly
 # (data is percent-escaped as per assuan and literal \n become newlines)
 # and pass everything else through as is
@@ -33,4 +51,5 @@ context=$(
         | sed -e 's/%/%25/g' -e 's/\\n/%0A/g' -e 's/[\\&|]/\\&/g'
 )
 # -u to not buffer as pinentry needs each command right away
-sed -u "s|^SETDESC .*|&%0A%0A$context|" | exec "$real" "$@"
+# no exec so that the tmux flag above is cleared once pinentry is done
+sed -u "s|^SETDESC .*|&%0A%0A$context|" | "$real" "$@"
