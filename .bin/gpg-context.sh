@@ -15,10 +15,11 @@ if [ -z "$PINENTRY_USER_DATA" ]; then
 
     if [ -n "$TMUX_PANE" ]; then
         tmux=$(tmux display -p -t "$TMUX_PANE" '#{window_index}:#{window_name}' 2> /dev/null)
-        # title is the most specific (e.g. claude session title) but tmux defaults
-        # it to the hostname which is meaningless so then leave it out
+        # title is the most specific but tmux defaults it to the hostname which is
+        # meaningless so then leave it out. claude sets it to its session title
+        # which the claude line below already shows so leave it out there too
         title=$(tmux display -p -t "$TMUX_PANE" '#{pane_title}' 2> /dev/null)
-        if [ -n "$title" ] && [ "$title" != "$(tmux display -p '#{host}')" ]; then
+        if [ -z "$CLAUDECODE" ] && [ -n "$title" ] && [ "$title" != "$(tmux display -p '#{host}')" ]; then
             tmux="$tmux | $title"
         fi
         # session name only helps to tell sessions apart when there are multiple
