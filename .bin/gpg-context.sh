@@ -6,12 +6,26 @@
 # within tmux the first line is "@tmux <pane> <socket>" so that pinentry can flag
 # the window while the prompt is up
 
+tilde() {
+    printf '%s' "$1" | sed "s|^$HOME|~|"
+}
+
 if [ -z "$PINENTRY_USER_DATA" ]; then
     context=$(git rev-parse --show-toplevel 2> /dev/null)
     if [ -z "$context" ]; then
         context=$(pwd)
+    else
+        # in a worktree show the main repo root first and the worktree after it
+        # but only when the worktree lives outside of the repo as otherwise the
+        # repo is obvious from the worktree path itself
+        common=$(git rev-parse --path-format=absolute --git-common-dir 2> /dev/null)
+        root=$(dirname "$common")
+        case "$context/" in
+            "$root/"*) ;;
+            *) context="$(tilde "$root")\\nworktree $(tilde "$context")" ;;
+        esac
     fi
-    context=$(printf '%s' "$context" | sed "s|^$HOME|~|")
+    context=$(tilde "$context")
 
     if [ -n "$TMUX_PANE" ]; then
         tmux=$(tmux display -p -t "$TMUX_PANE" '#{window_index}:#{window_name}' 2> /dev/null)
