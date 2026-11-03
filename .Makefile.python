@@ -21,6 +21,19 @@ tidy/pipx::  ## remove legacy pipx tools
 tidy/uv::  ## remove legacy uv tools
 	$(call tidy_dir,$(HOME)/.local/share/uv/tools)
 
+# pre-commit is replaced by prek, see mise/prek
+tidy:: $(call unskipped,tidy/pre-commit)
+
+tidy/pre-commit::  ## remove legacy pre-commit and its hook envs cache
+# install is removed directly as mise does not see it once unused
+	@if grep -qs '"pypi:pre-commit"' $(HOME)/.config/mise/config.toml; then \
+		echo 'mise unuse -g pypi:pre-commit'; \
+		mise unuse -g --no-prune pypi:pre-commit; \
+	fi
+	@rm -f "$(MISE_PYPI_STAMPS)/pre-commit"
+	$(call tidy_dir,$(MISE_DATA_DIR)/installs/pypi-pre-commit)
+	$(call tidy_dir,$(HOME)/.cache/pre-commit)
+
 ##@ Packages
 
 python/%: ## install python version with mise

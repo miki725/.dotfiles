@@ -176,7 +176,7 @@ dev: pacman/man-pages
 dev: cask/neovide-app
 dev: cask/pop-app # screen sharing conference
 dev: cask/postman
-dev: pypi/pre-commit
+dev: mise/prek # pre-commit in rust
 dev: yay/regclient-regctl
 dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes

@@ -63,6 +63,9 @@ end
 if type -q lazygit
     alias lg="lazygit"
 end
+if type -q prek
+    alias pre-commit="prek"
+end
 
 set -l compilepath \
     /usr/local/opt/openssl \

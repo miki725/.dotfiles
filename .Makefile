@@ -48,7 +48,7 @@ include $(filter-out $(MAKEFILE_LIST),$(wildcard .Makefile.*))
 
 tidy::  ## tidy things up
 ## removes package caches, unused mise versions, cached .path/.manpath
-## and tools left over from legacy managers (pipx, uv tool, volta)
+## and tools left over from legacy managers (pipx, uv tool, volta, pre-commit)
 ## skip some with SKIP, e.g. SKIP=brew
 	@
 
@@ -134,9 +134,11 @@ git: .git-template/hooks/pre-commit
 .gitconfig.credential: .bin/gitconfig.credential.sh
 	./$< > $@
 
-ifneq "$(shell which pre-commit 2> /dev/null)" ""
+ifneq "$(shell which prek 2> /dev/null)" ""
+# prek does not expand ~ in init.templateDir hence the absolute override
 .git-template/hooks/pre-commit:
-	pre-commit init-templatedir .git-template
+	GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=init.templateDir GIT_CONFIG_VALUE_0=$(CURDIR)/.git-template \
+		prek util init-template-dir .git-template
 else
 .git-template/hooks/pre-commit:
 	@
