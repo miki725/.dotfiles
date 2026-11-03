@@ -6,6 +6,12 @@
 file=${XDG_STATE_HOME:-$HOME/.local/state}/tmux/claude-sessions
 
 case "$1" in
+    layout)
+        # $2 is the resurrect save file. drop gopass commands and titles from panes
+        # so secret names or decrypted temp paths are neither saved nor rerun on restore
+        awk -F '\t' -v OFS='\t' '$1 == "pane" { for (i = 7; i <= NF; i++) if ($i ~ /gopass/) $i = ($i ~ /^:/) ? ":" : "" } 1' \
+            "$2" > "$2.tmp" && mv "$2.tmp" "$2"
+        ;;
     save)
         mkdir -p "$(dirname "$file")"
         # session id first as session names can have spaces. panes without claude start with a space

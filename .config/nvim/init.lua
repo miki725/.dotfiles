@@ -27,6 +27,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", {
+    -- no plugins when editing gopass secrets as many persist file paths or contents
+    defaults = {
+        cond = not require("gopass").active,
+    },
     dev = {
         path = "~/Code/miki725",
     },
@@ -35,6 +39,7 @@ require("lazy").setup("plugins", {
 -- On startup, if any installed plugin's commit differs from the lockfile,
 -- restore all plugins so machines stay in sync when the lockfile is updated elsewhere.
 vim.defer_fn(function()
+    if require("gopass").active then return end
     local lockfile_path = vim.fn.stdpath("config") .. "/lazy-lock.json"
     local f = io.open(lockfile_path, "r")
     if not f then return end

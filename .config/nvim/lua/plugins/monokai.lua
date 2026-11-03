@@ -3,6 +3,8 @@ return {
         "tanvirtin/monokai.nvim",
         lazy = false,
         priority = 1000,
+        -- safe to keep when editing gopass secrets. see init.lua
+        cond = true,
         opts = function()
             local monokai = require("monokai")
             local palette = monokai.classic
