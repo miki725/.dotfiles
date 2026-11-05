@@ -44,12 +44,31 @@ esac
 # assuan is line based so rewrite SETDESC lines from gpg-agent on the fly
 # (data is percent-escaped as per assuan and literal \n become newlines)
 # and pass everything else through as is
-# context is also escaped for the sed replacement below (\ & and | delimiter)
-context=$(
+# assuan lines are limited to ~1000 bytes and pinentry fails on longer ones
+# so cut the context to fit without splitting a %XX escape or utf-8 character
+PINENTRY_CONTEXT=$(
     printf '%s' "$PINENTRY_USER_DATA" \
         | tr -d '\r' \
-        | sed -e 's/%/%25/g' -e 's/\\n/%0A/g' -e 's/[\\&|]/\\&/g'
+        | sed -e 's/%/%25/g' -e 's/\\n/%0A/g'
 )
-# -u to not buffer as pinentry needs each command right away
-# no exec so that the tmux flag above is cleared once pinentry is done
-sed -u "s|^SETDESC .*|&%0A%0A$context|" | "$real" "$@"
+export PINENTRY_CONTEXT
+# stdin is saved on fd 4 as background commands otherwise get /dev/null
+exec 4<&0
+# awk flushes each line as pinentry needs each command right away
+LC_ALL=C awk -v max=990 '
+    /^SETDESC / {
+        $0 = $0 "%0A%0A" ENVIRON["PINENTRY_CONTEXT"]
+        if (length($0) > max) {
+            $0 = substr($0, 1, max - 6)
+            sub(/%.?$/, "")
+            sub(/[\300-\377][\200-\277]*$/, "")
+            $0 = $0 "%0A..."
+        }
+    }
+    { print; fflush() }
+' <&4 4<&- | "$real" "$@" 4<&- &
+# no exec so that the tmux flag above is cleared once pinentry is done but then
+# close the copies of gpg-agent pipes here. otherwise when pinentry fails gpg-agent
+# never sees its output close and hangs along with every pinentry request after it
+exec 0<&- 1>&- 4<&-
+wait $!
