@@ -3,13 +3,44 @@
 # waiting is only for when input is definitely needed and also rings the bell to get attention.
 # otherwise when turn ends only ring the bell as claude might be just done
 # which clears on visiting the window unlike @claude
-# also keep claude's cwd in the @claude_cwd pane option so other panes can follow it into worktrees
+# also keep the dir claude works in (its last worktree) in the @claude_cwd pane option so other panes can follow it
 [ -n "$TMUX" ] || exit 0
 
 input=$(cat)
 
 bell() {
     printf '\a' > "$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
+}
+
+# claude mostly works in worktrees via absolute paths while its cwd stays at the repo root
+# so prefer the last worktree mentioned in tool input and dont let the repo root cwd overwrite it
+track_cwd() {
+    cwd=$(printf '%s' "$input" | jq -r '.cwd // empty' 2> /dev/null)
+    [ -n "$cwd" ] || return
+    worktree=$(
+        printf '%s' "$input" \
+            | jq -r '.tool_input // {} | .. | strings' 2> /dev/null \
+            | grep -oE "[^[:space:]\"'=:;&|<>()]*worktrees/[^/[:space:]\"'=:;&|<>()]+" \
+            | while read -r dir; do
+                case "$dir" in
+                    (/*) ;;
+                    (*) dir="$cwd/${dir#./}" ;;
+                esac
+                [ -d "$dir" ] && printf '%s\n' "$dir"
+            done \
+            | tail -n 1
+    )
+    if [ -n "$worktree" ]; then
+        dir=$worktree
+    else
+        current=$(tmux display -p -t "$TMUX_PANE" '#{@claude_cwd}')
+        case "$current" in
+            # still somewhere within cwd such as one of its worktrees
+            "$cwd"/*) return ;;
+        esac
+        dir=$cwd
+    fi
+    tmux set -p -t "$TMUX_PANE" @claude_cwd "$dir"
 }
 
 case "$1" in
@@ -52,6 +83,5 @@ if [ "$state" = clear ]; then
     tmux set -pu -t "$TMUX_PANE" @claude_cwd
 else
     tmux set -w -t "$TMUX_PANE" @claude "$state"
-    cwd=$(printf '%s' "$input" | jq -r '.cwd // empty' 2> /dev/null)
-    [ -n "$cwd" ] && tmux set -p -t "$TMUX_PANE" @claude_cwd "$cwd"
+    track_cwd
 fi
