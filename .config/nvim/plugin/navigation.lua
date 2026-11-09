@@ -34,3 +34,7 @@ vim.api.nvim_create_autocmd({
         end
     end,
 })
+
+-- jump between diff changes (native ]c/[c is shadowed by treesitter class navigation)
+vim.keymap.set("n", "]D", "]c", { desc = "Next diff change [navigation]" })
+vim.keymap.set("n", "[D", "[c", { desc = "Prev diff change [navigation]" })
