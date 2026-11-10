@@ -70,7 +70,8 @@ case "$1" in
         ;;
     stop)
         # turn ended but background work can still wake claude up
-        if printf '%s' "$input" | jq -e '((.background_tasks // []) + (.session_crons // []) | length) > 0' > /dev/null 2>&1; then
+        # except artifact watches which are armed on every publish and never finish
+        if printf '%s' "$input" | jq -e '((.background_tasks // []) | map(select((.description // "") | startswith("live updates for artifact") | not))) + (.session_crons // []) | length > 0' > /dev/null 2>&1; then
             state=background
         else
             state=idle
