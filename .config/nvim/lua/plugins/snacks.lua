@@ -32,6 +32,27 @@ local git_link = function(opts)
     })
 end
 
+-- neo-tree style yank of explorer node path into both clipboards
+local explorer_yank = function(modifier)
+    return function(_, item)
+        if not item then
+            return
+        end
+        local value = vim.fn.fnamemodify(item.file, modifier)
+        vim.fn.setreg("*", value)
+        vim.fn.setreg("+", value)
+        print(value)
+    end
+end
+
+-- reveal current file and focus explorer, opening it if needed
+local explorer_focus = function()
+    local picker = Snacks.explorer.reveal()
+    if picker then
+        picker:focus()
+    end
+end
+
 -- keep telescope muscle memory in snacks pickers
 local picker_keys = {
     ["<CR>"] = { "drop", mode = { "n", "i" } },
@@ -72,6 +93,29 @@ return {
         branch = "ms/tags-stream",
         priority = 1000,
         lazy = false,
+        init = function()
+            -- close explorer when it would be the last window (neo-tree close_if_last_window)
+            vim.api.nvim_create_autocmd("QuitPre", {
+                callback = function()
+                    local current = vim.api.nvim_get_current_win()
+                    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                        local is_float = vim.api.nvim_win_get_config(win).relative ~= ""
+                        if win ~= current and not is_float and not vim.w[win].snacks_layout then
+                            return
+                        end
+                    end
+                    for _, picker in ipairs(Snacks.picker.get({ source = "explorer" })) do
+                        picker:close()
+                    end
+                    -- picker:close() removes windows async which is too late for :q
+                    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+                        if vim.w[win].snacks_layout then
+                            pcall(vim.api.nvim_win_close, win, true)
+                        end
+                    end
+                end,
+            })
+        end,
         opts = snacks_utils.opts({
             -- replaces alpha-nvim
             dashboard = {
@@ -96,6 +140,8 @@ return {
             animate = { enabled = false },
             scroll = { enabled = false },
             lazygit = {},
+            -- dirbuf handles directory buffers
+            explorer = { replace_netrw = false },
             -- replaces telescope. plugins add their own pickers with utils.snacks.register()
             picker = {
                 ui_select = true,
@@ -109,6 +155,87 @@ return {
                     list = { keys = picker_keys },
                 },
                 sources = {
+                    -- replaces neo-tree
+                    explorer = {
+                        hidden = true,
+                        exclude = { "/.git", "/node_modules" },
+                        layout = {
+                            -- explorer default preview=false drops sidebar's preview="main"
+                            -- so toggled preview would split inside the tree instead of the editor
+                            preview = { enabled = false, main = true },
+                            layout = { width = 30, min_width = 30 },
+                        },
+                        icons = {
+                            git = {
+                                staged = "",
+                                added = "󰄱",
+                                modified = "󰄱",
+                                deleted = "✖",
+                                renamed = "󰁕",
+                                untracked = "",
+                                ignored = "",
+                                unmerged = "",
+                            },
+                        },
+                        -- trailing slash on directories.
+                        -- dotfiles (and anything under a dot dir) are dimmed same as git ignored
+                        -- which is misleading in ~ dotfiles repo so only dim ignored like neo-tree
+                        format = function(item, picker)
+                            local ret = Snacks.picker.format.file(item, picker)
+                            for _, part in ipairs(ret) do
+                                if part.field == "file" then
+                                    if item.dir then
+                                        part[1] = part[1]:gsub("/?$", "/")
+                                    end
+                                    if part[2] == "SnacksPickerPathHidden" then
+                                        part[2] = item.dir and "SnacksPickerDirectory" or "SnacksPickerFile"
+                                    end
+                                    break
+                                end
+                            end
+                            return ret
+                        end,
+                        actions = {
+                            -- move cursor to parent dir without collapsing it
+                            explorer_parent = function(picker, item)
+                                if item and item.parent then
+                                    require("snacks.explorer.actions").update(picker, { target = item.parent.file })
+                                end
+                            end,
+                            yank_relative_path = explorer_yank(":."),
+                            yank_absolute_path = explorer_yank(":p"),
+                            yank_filename = explorer_yank(":t"),
+                            yank_folder = explorer_yank(":p:h"),
+                        },
+                        win = {
+                            list = {
+                                keys = {
+                                    -- global picker_keys "drop" would open dirs instead of expanding them
+                                    ["<CR>"] = "confirm",
+                                    -- no preview so restore list scrolling
+                                    ["<C-d>"] = "list_scroll_down",
+                                    ["<C-u>"] = "list_scroll_up",
+                                    ["<BS>"] = false,
+                                    ["h"] = "explorer_parent",
+                                    ["<Left>"] = "explorer_parent",
+                                    ["l"] = "confirm",
+                                    ["<Right>"] = "confirm",
+                                    ["s"] = "edit_split",
+                                    ["<C-s>"] = "edit_split",
+                                    ["v"] = "edit_vsplit",
+                                    ["<C-v>"] = "edit_vsplit",
+                                    ["<C-t>"] = "tab",
+                                    ["u"] = "explorer_up",
+                                    ["R"] = "explorer_update",
+                                    ["F"] = "toggle_focus",
+                                    ["<leader>cf"] = "yank_relative_path",
+                                    ["<leader>cF"] = "yank_absolute_path",
+                                    ["<leader>ct"] = "yank_filename",
+                                    ["<leader>cT"] = "yank_folder",
+                                },
+                            },
+                        },
+                    },
                     -- close with <C-d>. their default <c-x> close would shadow split from picker_keys
                     buffers = {
                         win = {
@@ -142,6 +269,18 @@ return {
             },
         }),
         keys = {
+            {
+                "<leader>t",
+                function()
+                    Snacks.explorer()
+                end,
+                desc = "Toggle [Snacks.explorer]",
+            },
+            {
+                "<leader>T",
+                explorer_focus,
+                desc = "Focus [Snacks.explorer]",
+            },
             {
                 "<leader>ff",
                 function()
