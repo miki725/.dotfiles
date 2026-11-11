@@ -1,4 +1,4 @@
-local telescope_utils = require("utils.telescope")
+local snacks_utils = require("utils.snacks")
 
 return {
     {
@@ -12,31 +12,31 @@ return {
             archives_dir = vim.fn.stdpath("cache") .. "/fundo",
         },
     },
-    telescope_utils.register({
-        "debugloop/telescope-undo.nvim",
-        keys = {
-            {
-                "<leader>u",
-                function()
-                    require("telescope").extensions.undo.undo()
-                end,
-            },
-        },
-        extensions = {
-            undo = {
-                layout_strategy = "vertical",
-                layout_config = {
-                    preview_height = 0.8,
-                },
-            },
-        },
-    }),
-    telescope_utils.register({
-        "dawsers/telescope-file-history.nvim",
+    -- only history of the current file. backups are what it records
+    snacks_utils.register({
+        -- TODO switch back to dawsers/file-history.nvim once it registers snacks sources
+        -- https://github.com/dawsers/file-history.nvim/pull/7
+        "miki725/file-history.nvim",
+        branch = "ms/snacks-sources",
+        -- used but not documented by the plugin
+        dependencies = { "nvim-lua/plenary.nvim" },
         event = { "BufWritePost" },
-        main = "file_history",
+        cmd = { "FileHistory" },
         opts = {
             backup_dir = vim.fn.stdpath("cache") .. "/file-history-git",
+        },
+        config = function(_, opts)
+            local file_history = require("file_history")
+            file_history.setup(opts)
+            -- plugin command requires a subcommand. only history is used
+            vim.api.nvim_create_user_command("FileHistory", file_history.history, { desc = "File history" })
+        end,
+        pickers = {
+            -- plugin registers its source on setup which is lazy
+            file_history = snacks_utils.lazy_source(function()
+                require("file_history")
+                return require("snacks.picker").sources.file_history
+            end),
         },
     }),
 }

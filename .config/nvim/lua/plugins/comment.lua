@@ -1,14 +1,13 @@
-local telescope_utils = require("utils.telescope")
+local snacks_utils = require("utils.snacks")
 
 return {
-    telescope_utils.register({
+    snacks_utils.register({
         "folke/todo-comments.nvim",
         cond = function()
             return vim.fn.executable("fd") > 0
         end,
         cmd = {
             "TodoTrouble",
-            "TodoTelescope",
             "TodoQuickFix",
         },
         config = true,
@@ -28,8 +27,10 @@ return {
                 desc = "Previous todo comment [TodoComments]",
             },
         },
-        extensions = {
-            ["todo-comments"] = {},
+        pickers = {
+            todo_comments = snacks_utils.lazy_source(function()
+                return require("todo-comments.snacks").source
+            end),
         },
     }),
 }

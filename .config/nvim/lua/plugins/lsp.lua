@@ -1,4 +1,3 @@
-local telescope_utils = require("utils.telescope")
 
 local is_binary_installed = function(binary)
     return vim.fn.executable(binary) > 0
@@ -42,17 +41,13 @@ return {
                     },
                 },
             },
-            telescope_utils.register({
+            {
                 "adoyle-h/lsp-toggle.nvim",
                 cmd = { "ToggleLSP", "ToggleNullLSP" },
                 opts = {
-                    telescope = false, -- its loaded by register()
+                    telescope = false, -- uses vim.ui.select (snacks) instead
                 },
-                extensions = {
-                    ToggleLSP = {},
-                    ToggleNullLSP = {},
-                },
-            }),
+            },
         },
         init = function()
             -- delay before float appears or autocomplete shows up
