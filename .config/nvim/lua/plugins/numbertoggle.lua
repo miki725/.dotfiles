@@ -2,10 +2,19 @@ return {
     -- relative line numbers
     {
         "jeffkreeftmeijer/vim-numbertoggle",
-        init = function()
-            vim.keymap.set("n", "<leader>tn", function()
-                vim.o.relativenumber = not vim.o.relativenumber
-            end, { desc = "Toggle Relative Numbers [NumberToggle]" })
+        config = function()
+            Snacks.toggle
+                .new({
+                    id = "relativenumber",
+                    name = "Relative Numbers [NumberToggle]",
+                    get = function()
+                        return vim.o.relativenumber
+                    end,
+                    set = function(state)
+                        vim.o.relativenumber = state
+                    end,
+                })
+                :map("<leader>tn")
         end,
     },
 }

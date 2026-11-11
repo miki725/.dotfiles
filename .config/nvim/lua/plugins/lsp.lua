@@ -133,13 +133,13 @@ return {
                     opts.buffer = bufnr
                     vim.keymap.set(mode, lhs, rhs, opts)
                 end
-                map("n", "grD", vim.lsp.buf.declaration, { desc = "Goto declaration [LSP]" })
-                map("n", "gd", vim.lsp.buf.definition, { desc = "Goto definition [LSP]" })
+                map("n", "grD", Snacks.picker.lsp_declarations, { desc = "Picker: Goto declaration [LSP]" })
+                map("n", "gd", Snacks.picker.lsp_definitions, { desc = "Picker: Goto definition [LSP]" })
                 map("n", "L", vim.lsp.buf.signature_help, { desc = "Show signature [LSP]" })
                 map("n", "grn", vim.lsp.buf.rename, { desc = "Rename [LSP]" })
-                map("n", "grt", vim.lsp.buf.type_definition, { desc = "Goto type [LSP]" })
+                map("n", "grt", Snacks.picker.lsp_type_definitions, { desc = "Picker: Goto type [LSP]" })
                 map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "Code action [LSP]" })
-                map("n", "gri", vim.lsp.buf.implementation, { desc = "Goto implementation [LSP]" })
+                map("n", "gri", Snacks.picker.lsp_implementations, { desc = "Picker: Goto implementation [LSP]" })
                 map("n", "[d", function()
                     vim.diagnostic.jump({ count = -1 })
                 end, { desc = "Goto prev diagnostic [LSP]" })

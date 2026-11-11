@@ -75,12 +75,30 @@ return {
                 map("n", "<leader>hb", function()
                     gs.blame_line({ full = true })
                 end, { desc = "Show git blame for line [GitSigns]" })
-                map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "Toggle current line blames [GitSigns]" })
+                Snacks.toggle
+                    .new({
+                        id = "git_blame",
+                        name = "current line blames [GitSigns]",
+                        get = function()
+                            return require("gitsigns.config").config.current_line_blame
+                        end,
+                        set = gs.toggle_current_line_blame,
+                    })
+                    :map("<leader>tb", { buffer = bufnr })
                 map("n", "<leader>hd", gs.diffthis, { desc = "Diff buffer against git index [GitSigns]" })
                 map("n", "<leader>hD", function()
                     gs.diffthis("~")
                 end, { desc = "Diff buffer against last commit [GitSigns]" })
-                map("n", "<leader>td", gs.toggle_deleted, { desc = "Toggle showing deleted lines [GitSigns]" })
+                Snacks.toggle
+                    .new({
+                        id = "git_deleted",
+                        name = "showing deleted lines [GitSigns]",
+                        get = function()
+                            return require("gitsigns.config").config.show_deleted
+                        end,
+                        set = gs.toggle_deleted,
+                    })
+                    :map("<leader>td", { buffer = bufnr })
 
                 -- Text object
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk [GitSigns]" })

@@ -16,6 +16,22 @@ local project_files = function()
     end
 end
 
+-- copy permalink to clipboard instead of opening the browser (gitlinker behaviour)
+local git_link = function(opts)
+    Snacks.gitbrowse({
+        what = "permalink",
+        notify = false,
+        open = function(url)
+            if opts.strip_lines then
+                url = url:gsub("#.*$", "")
+            end
+            vim.fn.setreg("*", url)
+            vim.fn.setreg("+", url)
+            Snacks.notify(url, { title = "Git Link" })
+        end,
+    })
+end
+
 -- keep telescope muscle memory in snacks pickers
 local picker_keys = {
     ["<CR>"] = { "drop", mode = { "n", "i" } },
@@ -29,6 +45,23 @@ local picker_keys = {
     ["<C-d>"] = { "preview_scroll_down", mode = { "n", "i" } },
     ["<C-j>"] = { "history_forward", mode = "i" },
     ["<C-k>"] = { "history_back", mode = "i" },
+}
+
+-- replaces goyo + limelight
+-- passed per call instead of opts.zen so Snacks.zen.zoom() keeps normal window look
+local zen_opts = {
+    win = {
+        width = 83,
+        backdrop = { transparent = false, blend = 0 },
+        wo = {
+            winhighlight = "NormalFloat:Normal",
+            number = false,
+            relativenumber = false,
+            signcolumn = "no",
+        },
+    },
+    show = { statusline = false, tabline = false },
+    toggles = { dim = false },
 }
 
 return {
@@ -51,23 +84,12 @@ return {
             },
             -- replaces indent-blankline
             indent = { enabled = true },
+            -- ii/ai textobjects and [i/]i jumps on treesitter or indent scope
+            scope = { enabled = true },
+            -- inline images in markdown via kitty graphics (ghostty, tmux needs allow-passthrough)
+            image = { enabled = true },
             -- lsp-only, no treesitter/regex fallback (illuminate handles non-lsp files like markdown)
             words = { enabled = false },
-            -- replaces goyo + limelight
-            zen = {
-                win = {
-                    width = 83,
-                    backdrop = { transparent = false, blend = 0 },
-                    wo = {
-                        winhighlight = "NormalFloat:Normal",
-                        number = false,
-                        relativenumber = false,
-                        signcolumn = "no",
-                    },
-                },
-                show = { statusline = false, tabline = false },
-                toggles = { dim = false },
-            },
             notifier = { enabled = true, timeout = 5000 },
             bigfile = { enabled = true },
             input = { enabled = true },
@@ -191,9 +213,33 @@ return {
             {
                 "<leader>z",
                 function()
-                    Snacks.zen()
+                    Snacks.zen(zen_opts)
                 end,
                 desc = "Toggle Zen Mode [Snacks.zen]",
+            },
+            {
+                "<C-\\>",
+                function()
+                    Snacks.zen.zoom()
+                end,
+                mode = { "n", "v" },
+                desc = "Maximize Buffer [Snacks.zen.zoom]",
+            },
+            {
+                "<leader>gy",
+                function()
+                    git_link({})
+                end,
+                mode = { "n", "v" },
+                desc = "Copy line/selection git link [Snacks.gitbrowse]",
+            },
+            {
+                "<leader>gY",
+                function()
+                    git_link({ strip_lines = true })
+                end,
+                mode = { "n", "v" },
+                desc = "Copy file git link [Snacks.gitbrowse]",
             },
             {
                 "<leader>n",
