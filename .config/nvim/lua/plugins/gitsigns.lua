@@ -51,14 +51,8 @@ return {
                 -- Navigation
                 local function nav(key, direction, target, desc)
                     map("n", key, function()
-                        if vim.wo.diff then
-                            return key
-                        end
-                        vim.schedule(function()
-                            gs.nav_hunk(direction, { target = target })
-                        end)
-                        return "<Ignore>"
-                    end, { expr = true, desc = desc })
+                        gs.nav_hunk(direction, { target = target })
+                    end, { desc = desc })
                 end
                 nav("]h", "next", "all", "Goto next git hunk, staged or unstaged [GitSigns]")
                 nav("[h", "prev", "all", "Goto previous git hunk, staged or unstaged [GitSigns]")
