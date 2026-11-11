@@ -2,3 +2,7 @@ promptToReturnFromSubprocess: false
 os:
   # opens files in parent nvim when lazygit runs inside nvim, otherwise new nvim in place
   editPreset: nvim-remote
+gui:
+  # grow the focused side panel so the selected pane gets most of the height
+  expandFocusedSidePanel: true
+  expandedSidePanelWeight: 5
