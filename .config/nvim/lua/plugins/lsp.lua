@@ -120,6 +120,29 @@ return {
                 end
             end
 
+            -- <leader>tf skips formatting on save for current buffer. :LspFormat still works
+            local format_on_save = function(bufnr)
+                local format = lsp_format(bufnr)
+                return function()
+                    if vim.b[bufnr].format_on_save ~= false then
+                        format()
+                    end
+                end
+            end
+
+            Snacks.toggle
+                .new({
+                    id = "format_on_save",
+                    name = "format on save for buffer [LSP]",
+                    get = function()
+                        return vim.b.format_on_save ~= false
+                    end,
+                    set = function(state)
+                        vim.b.format_on_save = state
+                    end,
+                })
+                :map("<leader>tf")
+
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
             local on_attach_common = function(client, bufnr)
@@ -158,7 +181,7 @@ return {
                 vim.api.nvim_create_autocmd("BufWritePre", {
                     group = format_group,
                     buffer = bufnr,
-                    callback = lsp_format(bufnr),
+                    callback = format_on_save(bufnr),
                 })
 
                 -- disable semantic tokens and let treesitter handle syntax highlighting
@@ -275,7 +298,7 @@ return {
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         group = format_group,
                         buffer = bufnr,
-                        callback = lsp_format(bufnr),
+                        callback = format_on_save(bufnr),
                     })
 
                     vim.api.nvim_buf_create_user_command(bufnr, "NullLsStop", function()
