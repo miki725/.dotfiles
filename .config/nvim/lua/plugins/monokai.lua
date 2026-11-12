@@ -31,6 +31,10 @@ return {
                     GitSignsChange = {
                         fg = palette.orange,
                     },
+                    -- picker dirname defaults to NonText (base5) which is barely visible
+                    SnacksPickerDir = {
+                        fg = palette.grey,
+                    },
                     SnacksIndentScope = {
                         fg = palette.base6,
                     },
