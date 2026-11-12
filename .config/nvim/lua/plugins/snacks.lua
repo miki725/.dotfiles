@@ -87,10 +87,12 @@ local zen_opts = {
 
 return {
     snacks_utils.register({
-        -- TODO switch back to folke/snacks.nvim once tags picker streams tag files
-        -- https://github.com/folke/snacks.nvim/pull/2994
+        -- TODO switch back to folke/snacks.nvim once these are merged. ms/miki725 merges all of them
+        -- https://github.com/folke/snacks.nvim/pull/2994 tags picker streams tag files
+        -- https://github.com/folke/snacks.nvim/pull/2998 help picker preview matches case
+        -- https://github.com/folke/snacks.nvim/pull/2999 tags picker searches with 'magic' off
         "miki725/snacks.nvim",
-        branch = "ms/tags-stream",
+        branch = "ms/miki725",
         priority = 1000,
         lazy = false,
         init = function()

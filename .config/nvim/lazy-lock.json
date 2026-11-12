@@ -40,7 +40,7 @@
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "quicker.nvim": { "branch": "master", "commit": "4a6883cb13fe097a20a046eb55f6dffd239276e3" },
   "snacks-tabs.nvim": { "branch": "main", "commit": "58324410f49491f3f0a679c9af8feb9d04a28a62" },
-  "snacks.nvim": { "branch": "ms/tags-stream", "commit": "81c2ae0093926f39a51a0fb3194df95a740cb69c" },
+  "snacks.nvim": { "branch": "ms/miki725", "commit": "b5b812c20c2b5d1df64b41874e2bd3dafa0a482b" },
   "tidy.nvim": { "branch": "main", "commit": "8b6921150b16f38f48a2459a844a0c2b4c916914" },
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
