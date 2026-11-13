@@ -157,6 +157,12 @@ return {
                     list = { keys = picker_keys },
                 },
                 sources = {
+                    -- servers can return several locations on one line, e.g. lua_ls returns
+                    -- both M.fn field and function assigned to it for M.fn = function()
+                    lsp_declarations = { unique_lines = true },
+                    lsp_definitions = { unique_lines = true },
+                    lsp_implementations = { unique_lines = true },
+                    lsp_type_definitions = { unique_lines = true },
                     -- replaces neo-tree
                     explorer = {
                         hidden = true,
