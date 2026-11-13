@@ -1,32 +1,77 @@
+local tool_pairs = require("utils.tool_pairs")
 
-local is_binary_installed = function(binary)
-    return vim.fn.executable(binary) > 0
+local semantic_tokens_max_lines = 5000
+
+-- detached client ids are kept in buffer var so <leader>tl can reattach them
+local detach = function(bufnr, client)
+    vim.b[bufnr].lsp_detached = vim.list_extend(vim.b[bufnr].lsp_detached or {}, { client.id })
+    vim.lsp.buf_detach_client(bufnr, client.id)
+end
+
+local on_attach = function()
+    -- dont overwrite vim formatting with LSP so things like gq keep working as normal.
+    -- nvim sets it on attach and again whenever a server registers any capability later
+    vim.api.nvim_create_autocmd("OptionSet", {
+        group = vim.api.nvim_create_augroup("LspNoFormatexpr", { clear = true }),
+        pattern = "formatexpr",
+        callback = function()
+            if vim.v.option_new == "v:lua.vim.lsp.formatexpr()" then
+                vim.bo.formatexpr = ""
+            end
+        end,
+    })
+
+    Snacks.util.lsp.on(function(bufnr, client)
+        -- servers which finish starting after <leader>tl disabled them
+        if vim.b[bufnr].lsp_detached then
+            detach(bufnr, client)
+            return
+        end
+
+        -- semantic tokens re-request highlights on every edit which lags in large files
+        -- so treesitter handles those alone. <leader>ts toggles. snacks bigfile disables lsp above 1.5MB
+        if vim.api.nvim_buf_line_count(bufnr) > semantic_tokens_max_lines then
+            vim.lsp.semantic_tokens.enable(false, { bufnr = bufnr })
+        end
+    end)
+end
+
+local keymaps = function()
+    -- snacks only maps in buffers where some server supports the method so vim defaults
+    -- like gd and L keep working with servers which dont, e.g. oxfmt or vale_ls in markdown
+    local map = function(method, lhs, rhs, desc)
+        Snacks.keymap.set("n", lhs, rhs, { lsp = { method = method }, desc = desc })
+    end
+    -- nvim defaults:
+    --   grn - rename
+    --   gra - code action
+    --   grr - references
+    --   grx - run codelens
+    --   K   - hover
+    --   [d  - prev diagnostic
+    --   ]d  - next diagnostic
+    -- overrides of defaults and extras:
+    map("textDocument/declaration", "grD", Snacks.picker.lsp_declarations, "Picker: Goto declaration [LSP]")
+    map("textDocument/definition", "gd", Snacks.picker.lsp_definitions, "Picker: Goto definition [LSP]")
+    map("textDocument/typeDefinition", "grt", Snacks.picker.lsp_type_definitions, "Picker: Goto type [LSP]")
+    map("textDocument/implementation", "gri", Snacks.picker.lsp_implementations, "Picker: Goto implementation [LSP]")
+    map("textDocument/signatureHelp", "L", vim.lsp.buf.signature_help, "Show signature [LSP]")
 end
 
 return {
     {
         "neovim/nvim-lspconfig",
-        event = { "BufReadPre", "BufNewFile" },
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
         dependencies = {
             "saghen/blink.cmp",
-            "nvimtools/none-ls.nvim",
-            "nvimtools/none-ls-extras.nvim",
-            "gbprod/none-ls-shellcheck.nvim",
-            "nvim-lua/plenary.nvim",
             -- shows all violations in a project
             {
                 "folke/trouble.nvim",
                 cmd = { "Trouble" },
                 config = true,
-            },
-            {
-                "ray-x/lsp_signature.nvim",
-                opts = {
-                    -- false until https://github.com/ray-x/lsp_signature.nvim/issues/252
-                    floating_window = true,
-                    toggle_key = "<C-L>",
-                    hint_enable = false,
-                },
             },
             {
                 "folke/lazydev.nvim",
@@ -41,34 +86,14 @@ return {
                     },
                 },
             },
-            {
-                "adoyle-h/lsp-toggle.nvim",
-                cmd = { "ToggleLSP", "ToggleNullLSP" },
-                opts = {
-                    telescope = false, -- uses vim.ui.select (snacks) instead
-                },
-            },
         },
         init = function()
             -- delay before float appears or autocomplete shows up
             vim.o.updatetime = 250
 
-            vim.diagnostic.config({
-                virtual_text = false,
-                signs = {
-                    text = {
-                        [vim.diagnostic.severity.ERROR] = " ",
-                        [vim.diagnostic.severity.WARN] = " ",
-                        [vim.diagnostic.severity.INFO] = " ",
-                        [vim.diagnostic.severity.HINT] = "󰌵",
-                    },
-                },
-                float = {
-                    source = "always", -- "always" or "if_many"
-                },
-                underline = true,
-                update_in_insert = false,
-                severity_sort = true,
+            -- lspconfig skips its :Lsp* commands since nvim 0.12 has :lsp enable/disable/stop/restart
+            vim.api.nvim_create_user_command("LspInfo", "checkhealth vim.lsp", {
+                desc = "Language server status [LSP]",
             })
         end,
         config = function()
@@ -76,140 +101,83 @@ return {
                 capabilities = require("blink.cmp").get_lsp_capabilities(),
             })
 
-            vim.api.nvim_create_user_command("LspInfo", function()
-                vim.cmd("checkhealth lsp")
-            end, { desc = "Show LSP status via checkhealth" })
+            on_attach()
+            keymaps()
 
-            local is_lsp_installed = function(lsp_name)
-                local server = vim.lsp.config[lsp_name]
-                if server == nil then
-                    return false
-                end
-                local cmd = server.cmd
-                -- nvim-lspconfig v2: cmd may be a function for some servers (e.g. ts_ls)
-                -- can't call it without spawning, so optimistically assume installed
-                if type(cmd) == "function" then
-                    return true
-                end
-                if type(cmd) ~= "table" or type(cmd[1]) ~= "string" then
-                    return false
-                end
-                return is_binary_installed(cmd[1])
-            end
-
-            local null_ls = require("null-ls")
-            local format_group = vim.api.nvim_create_augroup("LspFormat", { clear = true })
-
-            local lsp_format = function(bufnr)
-                return function()
-                    vim.lsp.buf.format({
-                        filter = function(client)
-                            -- if null-ls has formatter for this filetype,
-                            -- then only let null-ls format this buffer
-                            -- otherwise anything is valid
-                            local filetype = vim.bo.filetype
-                            for _, source in pairs(null_ls.get_sources()) do
-                                if source.methods[null_ls.methods.FORMATTING] and source.filetypes[filetype] then
-                                    return client.name == "null-ls"
+            -- <leader>tl detaches language servers from current buffer and reattaches them.
+            -- :lsp disable/enable/stop/restart [name] for individual servers
+            Snacks.toggle
+                .new({
+                    id = "lsp",
+                    name = "language servers for buffer [LSP]",
+                    -- enabled unless disabled for buffer. servers which are still starting
+                    -- are not attached yet so counting attached ones shows disabled
+                    get = function()
+                        return vim.b.lsp_detached == nil
+                    end,
+                    set = function(state)
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        if state then
+                            for _, id in ipairs(vim.b[bufnr].lsp_detached or {}) do
+                                if vim.lsp.get_client_by_id(id) then
+                                    vim.lsp.buf_attach_client(bufnr, id)
                                 end
                             end
-                            return true
-                        end,
-                        bufnr = bufnr,
-                    })
-                end
-            end
-
-            -- <leader>tf skips formatting on save for current buffer. :LspFormat still works
-            local format_on_save = function(bufnr)
-                local format = lsp_format(bufnr)
-                return function()
-                    if vim.b[bufnr].format_on_save ~= false then
-                        format()
-                    end
-                end
-            end
+                            vim.b[bufnr].lsp_detached = nil
+                        else
+                            vim.b[bufnr].lsp_detached = {}
+                            for _, client in ipairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+                                detach(bufnr, client)
+                            end
+                        end
+                    end,
+                })
+                :map("<leader>tl")
 
             Snacks.toggle
                 .new({
-                    id = "format_on_save",
-                    name = "format on save for buffer [LSP]",
+                    id = "semantic_tokens",
+                    name = "semantic tokens for buffer [LSP]",
                     get = function()
-                        return vim.b.format_on_save ~= false
+                        return vim.lsp.semantic_tokens.is_enabled({ bufnr = 0 })
                     end,
                     set = function(state)
-                        vim.b.format_on_save = state
+                        vim.lsp.semantic_tokens.enable(state, { bufnr = 0 })
                     end,
                 })
-                :map("<leader>tf")
-
-            -- Use an on_attach function to only map the following keys
-            -- after the language server attaches to the current buffer
-            local on_attach_common = function(client, bufnr)
-                -- dont overwrite vim formatting with LSP
-                -- so things like gq keep working as normal
-                -- https://github.com/jose-elias-alvarez/null-ls.nvim/issues/1131
-                vim.bo[bufnr].formatexpr = nil
-
-                local map = function(mode, lhs, rhs, opts)
-                    opts = opts or {}
-                    opts.buffer = bufnr
-                    vim.keymap.set(mode, lhs, rhs, opts)
-                end
-                map("n", "grD", Snacks.picker.lsp_declarations, { desc = "Picker: Goto declaration [LSP]" })
-                map("n", "gd", Snacks.picker.lsp_definitions, { desc = "Picker: Goto definition [LSP]" })
-                map("n", "L", vim.lsp.buf.signature_help, { desc = "Show signature [LSP]" })
-                map("n", "grn", vim.lsp.buf.rename, { desc = "Rename [LSP]" })
-                map("n", "grt", Snacks.picker.lsp_type_definitions, { desc = "Picker: Goto type [LSP]" })
-                map({ "n", "x" }, "gra", vim.lsp.buf.code_action, { desc = "Code action [LSP]" })
-                map("n", "gri", Snacks.picker.lsp_implementations, { desc = "Picker: Goto implementation [LSP]" })
-                map("n", "[d", function()
-                    vim.diagnostic.jump({ count = -1 })
-                end, { desc = "Goto prev diagnostic [LSP]" })
-                map("n", "]d", function()
-                    vim.diagnostic.jump({ count = 1 })
-                end, { desc = "Goto next diagnostic [LSP]" })
-
-                vim.api.nvim_buf_create_user_command(
-                    bufnr,
-                    "LspFormat",
-                    lsp_format(bufnr),
-                    { desc = "Format buffer [LSP]" }
-                )
-
-                vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = format_group,
-                    buffer = bufnr,
-                    callback = format_on_save(bufnr),
-                })
-
-                -- disable semantic tokens and let treesitter handle syntax highlighting
-                client.server_capabilities.semanticTokensProvider = nil
-
-                -- show diagnostic popup for violations on hover
-                vim.api.nvim_create_autocmd("CursorHold", {
-                    buffer = bufnr,
-                    callback = function()
-                        vim.diagnostic.open_float(nil, { focusable = false })
-                    end,
-                })
-            end
+                :map("<leader>ts")
 
             local servers = {
-                nim_langserver = {},
-                basedpyright = {}, -- drop-in pyright replacement with stricter defaults
-                bashls = {},
+                -- only one side of each pair runs per buffer: legacy tool in repos configured for it
+                -- otherwise the newer one. see utils/tool_pairs
+                eslint = tool_pairs.lsp("eslint"), -- or oxlint
+                oxlint = tool_pairs.lsp("oxlint"), -- or eslint
+                oxfmt = tool_pairs.lsp("oxfmt"), -- or prettierd via conform
+                basedpyright = tool_pairs.lsp("basedpyright"), -- or ty
+                ty = tool_pairs.lsp("ty"), -- or basedpyright
+
+                -- runs shellcheck and formats with shfmt when installed.
+                -- repo .editorconfig wins over these and buffer indent is used
+                bashls = {
+                    settings = {
+                        bashIde = {
+                            shfmt = {
+                                caseIndent = true, -- indent switch cases
+                                spaceRedirects = true, -- redirect operators are followed by space
+                                binaryNextLine = true, -- binary ops like && or | (pipe) start the line
+                            },
+                        },
+                    },
+                },
                 clangd = {},
                 gopls = {},
                 graphql = {},
-                prismals = {},
-                ruff = {},
-                terraformls = {},
-                vtsls = {},
                 lua_ls = {
                     -- https://github.com/LunarVim/LunarVim/issues/4049#issuecomment-1634539474
-                    root_markers = { "lazy-lock.json", "stylua.toml" },
+                    root_markers = {
+                        "lazy-lock.json",
+                        "stylua.toml",
+                    },
                     settings = {
                         Lua = {
                             workspace = {
@@ -218,96 +186,35 @@ return {
                         },
                     },
                 },
+                nim_langserver = {},
+                prismals = {},
+                ruff = {},
+                terraformls = {},
+                -- typescript 7 native language server
+                tsc = {
+                    binary = "tsc",
+                    -- oxfmt formats ts when installed. prettier repos format with prettierd via conform
+                    -- which skips language servers anyway. otherwise tsc formats
+                    on_init = function(client)
+                        if vim.fn.executable("oxfmt") == 1 then
+                            client.server_capabilities.documentFormattingProvider = false
+                            client.server_capabilities.documentRangeFormattingProvider = false
+                        end
+                    end,
+                },
+                vale_ls = {}, -- prose linter/spell checker
             }
 
-            for lsp, opts in pairs(servers) do
-                if is_lsp_installed(lsp) then
-                    vim.lsp.config(
-                        lsp,
-                        vim.tbl_extend("force", opts, {
-                            on_attach = on_attach_common,
-                            flags = { debounce_text_changes = 150 },
-                        })
-                    )
-                    vim.lsp.enable(lsp)
+            for name, opts in pairs(servers) do
+                -- nvim skips servers whose cmd is not executable
+                -- but some lspconfig cmds are functions so those specify binary
+                local binary = opts.binary
+                opts.binary = nil
+                if not binary or vim.fn.executable(binary) == 1 then
+                    vim.lsp.config(name, opts)
+                    vim.lsp.enable(name)
                 end
             end
-
-            -- eslint_d v15+ (eslint v9+) outputs plain-text errors instead of JSON when
-            -- no config is found, which breaks none-ls JSON parsing; only enable in projects that have one
-            local eslint_condition = function(utils)
-                return utils.root_has_file({
-                    ".eslintrc",
-                    ".eslintrc.js",
-                    ".eslintrc.cjs",
-                    ".eslintrc.json",
-                    ".eslintrc.yaml",
-                    ".eslintrc.yml",
-                    "eslint.config.js",
-                    "eslint.config.mjs",
-                    "eslint.config.cjs",
-                    "eslint.config.ts",
-                })
-            end
-
-            local sources = {
-                require("none-ls.diagnostics.eslint_d").with({ condition = eslint_condition }),
-                require("none-ls-shellcheck.diagnostics"),
-                require("none-ls-shellcheck.code_actions"),
-                null_ls.builtins.diagnostics.vale,
-                require("none-ls.code_actions.eslint_d").with({ condition = eslint_condition }),
-                null_ls.builtins.formatting.prettierd,
-                null_ls.builtins.formatting.fish_indent,
-                null_ls.builtins.formatting.gofmt,
-                -- null_ls.builtins.formatting.nimpretty,
-                null_ls.builtins.formatting.shfmt.with({
-                    extra_args = {
-                        "-i",
-                        "4", -- 4 spaces
-                        "-ci", -- indent switch cases
-                        "-sr", -- redirect operators are followed by space
-                        "-bn", -- binary ops like && or | (pipe) start the line
-                    },
-                }),
-                null_ls.builtins.formatting.stylua.with({
-                    extra_args = { "--indent-type", "spaces" },
-                }),
-                null_ls.builtins.formatting.terraform_fmt.with({
-                    filetypes = { "hcl", "terraform" },
-                }),
-            }
-
-            for _, v in pairs(sources) do
-                local cmd = v._opts.command
-                local existing_condition = v.condition
-                v.condition = function(utils)
-                    if not is_binary_installed(cmd) then
-                        return false
-                    end
-                    if existing_condition then
-                        return existing_condition(utils)
-                    end
-                    return true
-                end
-            end
-
-            null_ls.setup({
-                sources = sources,
-                on_attach = function(client, bufnr)
-                    vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
-                    vim.api.nvim_create_autocmd("BufWritePre", {
-                        group = format_group,
-                        buffer = bufnr,
-                        callback = format_on_save(bufnr),
-                    })
-
-                    vim.api.nvim_buf_create_user_command(bufnr, "NullLsStop", function()
-                        client:stop()
-                    end, { desc = "Stop null-ls client for this buffer" })
-
-                    on_attach_common(client, bufnr)
-                end,
-            })
         end,
     },
 }

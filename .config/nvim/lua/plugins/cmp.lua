@@ -21,7 +21,11 @@ return {
                 ["<S-Tab>"] = { "select_prev", "fallback" },
                 ["<C-b>"] = { "scroll_documentation_up", "fallback" },
                 ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+                ["<C-l>"] = { "show_signature", "hide_signature", "fallback" },
             },
+
+            -- function signature while typing arguments
+            signature = { enabled = true },
 
             completion = {
                 trigger = {

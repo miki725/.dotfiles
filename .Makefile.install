@@ -182,6 +182,7 @@ dev: brew/tmux pacman/tmux
 dev: brew/tmux-xpanes yay/tmux-xpanes
 dev: brew/universal-ctags pacman/ctags # generates tags from codebase
 dev: yay/vale-bin                      # prose linter/spell checker
+dev: yay/vale-ls                       # vale language server
 dev: brew/watchman                     # lib for watching files
 
 devcloud: ## aws and kubernetes clis
@@ -209,17 +210,20 @@ devpy: pypi/poetry
 devpy: pypi/ptpython
 devpy: pypi/ruff
 devpy: pypi/twine
+devpy: pypi/ty # type checker in rust
 devpy: brew/uv pacman/uv
 
 devnode: ## node dev tools
 devnode: npm/eslint
-devnode: npm/eslint_d
 devnode: npm/@fsouza/prettierd
 devnode: npm/graphql-language-service-cli
+devnode: npm/oxfmt # prettier compatible formatter in rust
+devnode: npm/oxlint # eslint compatible linter in rust
+devnode: npm/oxlint-tsgolint # oxlint type aware rules
 devnode: npm/prettier
+devnode: npm/vscode-langservers-extracted # eslint language server
 devnode: npm/@prisma/language-server
 devnode: npm/typescript
-devnode: npm/@vtsls/language-server
 devnode: npm/yarn
 
 devc: ## c dev tools (llvm/clangd)
