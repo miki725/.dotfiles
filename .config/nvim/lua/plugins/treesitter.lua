@@ -22,6 +22,37 @@ return {
                 print(table.concat(langs, "\n"))
             end, { desc = "List installed treesitter parsers" })
 
+            -- highlighting, plus indent/folds when the language has queries for them.
+            -- buffers without a parser are left alone
+            local function attach(buf, lang)
+                if not pcall(vim.treesitter.start, buf, lang) then
+                    return
+                end
+                -- markdown sets its own list-aware indentexpr in ftplugin/markdown.lua
+                if vim.bo[buf].filetype ~= "markdown" and vim.treesitter.query.get(lang, "indents") then
+                    vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
+                if vim.treesitter.query.get(lang, "folds") then
+                    vim.b[buf].treesitter_folds = true
+                    local function set_folds(win)
+                        vim.wo[win][0].foldmethod = "expr"
+                        vim.wo[win][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                        vim.wo[win][0].foldenable = false
+                    end
+                    for _, win in ipairs(vim.fn.win_findbuf(buf)) do
+                        set_folds(win)
+                    end
+                    -- buffers loaded in the background get folds once shown
+                    vim.api.nvim_create_autocmd("BufWinEnter", {
+                        group = vim.api.nvim_create_augroup("treesitter_folds_" .. buf, {}),
+                        buffer = buf,
+                        callback = function()
+                            set_folds(0)
+                        end,
+                    })
+                end
+            end
+
             -- remaining languages are installed on-demand when a file is opened (see FileType autocmd below)
             require("nvim-treesitter").install({
                 "bash",
@@ -44,22 +75,38 @@ return {
                 "yaml",
             })
 
+            -- parsers that failed to install, not retried this session so open doesn't block again
+            local failed = {}
             vim.api.nvim_create_autocmd("FileType", {
                 callback = function(args)
-                    local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
-                    local parsers = require("nvim-treesitter.parsers")
-                    if lang and parsers[lang] and not vim.treesitter.language.add(lang, { silent = true }) then
+                    -- filetype changed: undo folds attach() set up for the old filetype.
+                    -- its BufWinEnter autocmd would keep setting them in new windows and
+                    -- open windows keep them as window options. attach() below redoes both if supported
+                    if vim.b[args.buf].treesitter_folds then
+                        vim.b[args.buf].treesitter_folds = nil
+                        pcall(vim.api.nvim_del_augroup_by_name, "treesitter_folds_" .. args.buf)
+                        for _, win in ipairs(vim.fn.win_findbuf(args.buf)) do
+                            vim.wo[win][0].foldmethod = vim.go.foldmethod
+                            vim.wo[win][0].foldexpr = vim.go.foldexpr
+                            vim.wo[win][0].foldenable = vim.go.foldenable
+                        end
+                    end
+                    local lang = vim.treesitter.language.get_lang(args.match)
+                    if not lang then
+                        return
+                    end
+                    if
+                        not vim.treesitter.language.add(lang)
+                        and require("nvim-treesitter.parsers")[lang]
+                        and not failed[lang]
+                    then
                         vim.notify("Installing treesitter parser for " .. lang .. "...", vim.log.levels.INFO)
-                        require("nvim-treesitter").install({ lang }):wait(60000)
+                        pcall(function()
+                            require("nvim-treesitter").install({ lang }):wait(60000)
+                        end)
+                        failed[lang] = not vim.treesitter.language.add(lang) or nil
                     end
-                    pcall(vim.treesitter.start)
-                    -- markdown sets its own list-aware indentexpr in ftplugin/markdown.lua
-                    if vim.bo[args.buf].filetype ~= "markdown" then
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                    end
-                    vim.wo[0][0].foldmethod = "expr"
-                    vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-                    vim.wo[0][0].foldenable = false
+                    attach(args.buf, lang)
                 end,
             })
 
