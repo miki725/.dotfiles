@@ -4,7 +4,9 @@
 
 vim.keymap.set("n", "<space>", "za", { desc = "Toggle fold [folding]" })
 
-vim.o.foldlevel = 1
+-- start with all folds open so the first <space> (which enables folding) only closes
+-- the fold under cursor instead of everything below level 1. zM folds all, zR unfolds all
+vim.o.foldlevel = 99
 
 -- so that paragraph jumps do not open folded blocks
 vim.opt.foldopen:remove("block")
