@@ -48,6 +48,7 @@ end
 local write_lock = Lock.update
 local updating = false
 vim.api.nvim_create_autocmd("User", { pattern = "LazyUpdatePre", callback = function() updating = true end })
+---@diagnostic disable-next-line: duplicate-set-field
 Lock.update = function()
     if updating or not out_of_sync() then
         write_lock()

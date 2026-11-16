@@ -174,9 +174,12 @@ return {
                 graphql = {},
                 lua_ls = {
                     -- https://github.com/LunarVim/LunarVim/issues/4049#issuecomment-1634539474
+                    -- nested list has equal priority so nvim config root wins over dotfiles .git.
+                    -- .git fallback gives other lua repos a root (no root = no diagnostics)
                     root_markers = {
-                        "lazy-lock.json",
-                        "stylua.toml",
+                        { "lazy-lock.json", "stylua.toml" },
+                        ".luarc.json",
+                        ".git",
                     },
                     settings = {
                         Lua = {
