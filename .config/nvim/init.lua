@@ -26,6 +26,34 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local Lock = require("lazy.manage.lock")
+
+-- whether any installed plugin is checked out at a different commit than the lockfile
+local function out_of_sync()
+    local Config = require("lazy.core.config")
+    local Git = require("lazy.manage.git")
+    for _, plugin in pairs(Config.plugins) do
+        local entry = plugin._.installed and not plugin._.is_local and Lock.get(plugin)
+        if entry and not Git.eq(Git.info(plugin.dir) or {}, entry) then
+            return true
+        end
+    end
+    return false
+end
+
+-- lazy rewrites the lockfile from on-disk commits after every install/clean/restore.
+-- When a pulled lockfile adds plugins, startup installs them and would record the
+-- stale commits of the rest, so skip those writes until plugins match the lockfile.
+-- :Lazy update (and sync) always write.
+local write_lock = Lock.update
+local updating = false
+vim.api.nvim_create_autocmd("User", { pattern = "LazyUpdatePre", callback = function() updating = true end })
+Lock.update = function()
+    if updating or not out_of_sync() then
+        write_lock()
+    end
+end
+
 require("lazy").setup("plugins", {
     -- no plugins when editing gopass secrets as many persist file paths or contents
     defaults = {
@@ -40,27 +68,7 @@ require("lazy").setup("plugins", {
 -- restore all plugins so machines stay in sync when the lockfile is updated elsewhere.
 vim.defer_fn(function()
     if require("gopass").active then return end
-    local lockfile_path = vim.fn.stdpath("config") .. "/lazy-lock.json"
-    local f = io.open(lockfile_path, "r")
-    if not f then return end
-    local ok, lock = pcall(vim.json.decode, f:read("*a"))
-    f:close()
-    if not ok then return end
-
-    local needs_restore = false
-    local Config = require("lazy.core.config")
-    local Git = require("lazy.manage.git")
-    for name, plugin in pairs(Config.plugins) do
-        if plugin._.installed and not plugin._.is_local then
-            local entry = lock[name]
-            if entry and not Git.eq(Git.info(plugin.dir) or {}, entry) then
-                needs_restore = true
-                break
-            end
-        end
-    end
-
-    if needs_restore then
+    if out_of_sync() then
         vim.notify("Plugins out of sync with lockfile — restoring", vim.log.levels.INFO)
         require("lazy").restore()
     end
