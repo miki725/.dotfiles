@@ -35,6 +35,15 @@ return {
                     SnacksPickerDir = {
                         fg = palette.grey,
                     },
+                    -- inline git blame pill on cursor line. see gitsigns.lua
+                    GitSignsCurrentLineBlame = {
+                        bg = palette.base5,
+                        fg = palette.base7,
+                        style = "italic",
+                    },
+                    GitSignsCurrentLineBlameEdge = {
+                        fg = palette.base5,
+                    },
                     SnacksIndentScope = {
                         fg = palette.base6,
                     },

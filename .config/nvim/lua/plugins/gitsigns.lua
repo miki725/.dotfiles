@@ -1,3 +1,13 @@
+-- rounded virtual text pill like tiny-inline-diagnostic "modern" preset
+local function blame_pill(text)
+    return {
+        { "    " },
+        { "\u{e0b6}", "GitSignsCurrentLineBlameEdge" }, -- 
+        { "\u{f417} " .. text, "GitSignsCurrentLineBlame" }, -- 
+        { "\u{e0b4}", "GitSignsCurrentLineBlameEdge" }, -- 
+    }
+end
+
 return {
     {
         "lewis6991/gitsigns.nvim",
@@ -26,7 +36,14 @@ return {
                 delay = 1000,
                 ignore_whitespace = false,
             },
-            current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
+            -- same rounded pill as tiny-inline-diagnostic. colors in monokai.lua
+            current_line_blame_formatter = function(_, info)
+                local time = require("gitsigns.util").get_relative_time(info.author_time)
+                return blame_pill(("%s, %s - %s"):format(info.author, time, info.summary))
+            end,
+            current_line_blame_formatter_nc = function()
+                return blame_pill("Not committed yet")
+            end,
             sign_priority = 6,
             update_debounce = 100,
             status_formatter = nil, -- Use default
@@ -98,7 +115,7 @@ return {
                         end,
                         set = gs.toggle_deleted,
                     })
-                    :map("<leader>td", { buffer = bufnr })
+                    :map("<leader>tD", { buffer = bufnr })
 
                 -- Text object
                 map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk [GitSigns]" })
