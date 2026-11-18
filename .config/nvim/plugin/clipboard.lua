@@ -2,8 +2,9 @@
 -- https://medium.com/swlh/8-vim-tricks-that-will-take-you-from-beginner-to-expert-817ff4870245
 vim.opt.clipboard = { "unnamed", "unnamedplus" }
 
--- Native OSC52 clipboard for SSH sessions. Requires tmux allow-passthrough so
--- OSC52 escapes reach wezterm, which responds to read queries without blocking.
+-- Native OSC52 clipboard for SSH sessions. tmux handles OSC52 itself (not passthrough):
+-- set-clipboard forwards copies and get-clipboard request forwards pastes to the terminal,
+-- through every tmux when nested. ghostty answers reads with clipboard-read = allow.
 local is_ssh = vim.env.SSH_TTY ~= nil or vim.env.SSH_CLIENT ~= nil
 if vim.fn.has("gui_running") == 0 and is_ssh then
     vim.g.clipboard = {
