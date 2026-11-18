@@ -12,6 +12,15 @@ bell() {
     printf '\a' > "$(tmux display -p -t "$TMUX_PANE" '#{pane_tty}')"
 }
 
+common_dir() {
+    git -C "$1" rev-parse --path-format=absolute --git-common-dir 2> /dev/null
+}
+
+# linked worktrees have their own git dir while the main checkout uses the common one
+is_worktree() {
+    [ "$(git -C "$1" rev-parse --absolute-git-dir 2> /dev/null)" != "$(common_dir "$1")" ]
+}
+
 # claude mostly works in worktrees or other repos via absolute paths while its cwd stays at the session root
 # so follow the last other repo (worktrees are their own) mentioned in tool input
 # and ignore cwd when its the session root as claude often resets back to it
@@ -19,7 +28,7 @@ track_cwd() {
     cwd=$(printf '%s' "$input" | jq -r '.cwd // empty' 2> /dev/null)
     [ -n "$cwd" ] || return
     root=$(git -C "$cwd" rev-parse --show-toplevel 2> /dev/null || printf '%s' "$cwd")
-    repo=$(
+    repos=$(
         printf '%s' "$input" \
             | jq -r '.tool_input // {} | .file_path, .notebook_path, .path, .command | strings' 2> /dev/null \
             | grep -oE "[^[:space:]\"'=:;&|<>()]*/[^[:space:]\"'=:;&|<>()]*" \
@@ -42,13 +51,27 @@ track_cwd() {
             | while read -r top; do
                 # dotfiles repo in $HOME contains everything so only stray reads would land there
                 [ "$top" != "$root" ] && [ "$top" != "$HOME" ] && printf '%s\n' "$top"
-            done \
-            | tail -n 1
+            done
     )
+    prev=$(tmux display -p -t "$TMUX_PANE" '#{@claude_cwd}')
+    repo=$(printf '%s\n' "$repos" | tail -n 1)
+    # claude goes back to the main checkout only for repo wide commands like gh pr create
+    # so stay in the worktree of the same repo from earlier in the tool input or from before
+    if [ -n "$repo" ] && ! is_worktree "$repo"; then
+        worktree=$(
+            printf '%s\n%s\n' "$prev" "$repos" \
+                | while read -r top; do
+                    [ -n "$top" ] && is_worktree "$top" \
+                        && [ "$(common_dir "$top")" = "$(common_dir "$repo")" ] && printf '%s\n' "$top"
+                done \
+                | tail -n 1
+        )
+        [ -n "$worktree" ] && repo=$worktree
+    fi
     if [ -n "$repo" ]; then
         dir=$repo
     # cwd only says something when claude moved away from the session root
-    elif [ "$cwd" != "$CLAUDE_PROJECT_DIR" ] || [ -z "$(tmux display -p -t "$TMUX_PANE" '#{@claude_cwd}')" ]; then
+    elif [ "$cwd" != "$CLAUDE_PROJECT_DIR" ] || [ -z "$prev" ]; then
         dir=$cwd
     else
         return

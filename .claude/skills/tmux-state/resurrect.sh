@@ -1,9 +1,11 @@
 #!/bin/sh
 # tmux-resurrect hooks to resume claude conversations in the same panes
-# save: dump @claude_session pane options (set by hooks/state.sh) next to the resurrect save
+# save: dump @claude_session and @claude_cwd pane options (set by hooks/state.sh) next to the resurrect save
 # restore: run claude --resume in each restored pane which is still sitting at a shell prompt
+# and put back @claude_cwd as on resume claude only knows its session root
 # session:window.pane targets are stable across resurrect unlike pane ids
 file=${XDG_STATE_HOME:-$HOME/.local/state}/tmux/claude-sessions
+tab=$(printf '\t')
 
 case "$1" in
     layout)
@@ -14,16 +16,17 @@ case "$1" in
         ;;
     save)
         mkdir -p "$(dirname "$file")"
-        # session id first as session names can have spaces. panes without claude start with a space
-        tmux list-panes -a -F '#{@claude_session} #{session_name}:#{window_index}.#{pane_index}' \
-            | grep -v '^ ' > "$file.tmp"
+        # tab separated as dirs and session names can have spaces. cwd last as it can be empty. panes without claude start with a tab
+        tmux list-panes -a -F "#{@claude_session}$tab#{session_name}:#{window_index}.#{pane_index}$tab#{@claude_cwd}" \
+            | grep -v "^$tab" > "$file.tmp"
         mv "$file.tmp" "$file"
         ;;
     restore)
         [ -f "$file" ] || exit 0
-        while read -r session target; do
+        while IFS=$tab read -r session target cwd; do
             case "$(tmux display -p -t "$target" '#{pane_current_command}' 2> /dev/null)" in
                 zsh | bash | sh | fish)
+                    [ -n "$cwd" ] && tmux set -p -t "$target" @claude_cwd "$cwd"
                     tmux send-keys -t "$target" "claude --resume $session" Enter
                     ;;
             esac
