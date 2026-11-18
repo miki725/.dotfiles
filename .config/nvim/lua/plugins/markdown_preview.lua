@@ -16,6 +16,15 @@ return {
                 -- OS-assigned port, so separate Neovims can preview
                 -- different files side by side
                 instance_mode = "multi",
+                -- defaults plus FileChangedShellPost so files reloaded after external edits
+                -- (plugin/autoread.lua) refresh too. TextChanged only fires for the current buffer
+                auto_refresh_events = {
+                    "InsertLeave",
+                    "TextChanged",
+                    "TextChangedI",
+                    "BufWritePost",
+                    "FileChangedShellPost",
+                },
                 -- keep the header (connection dot + status) pinned on scroll
                 custom_css = vim.fn.stdpath("config") .. "/assets/mdkite.css",
                 -- bind all interfaces so the preview is reachable when
