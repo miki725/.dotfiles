@@ -54,6 +54,9 @@ keybind = clear
 keybind = super+c=copy_to_clipboard
 keybind = super+v=paste_from_clipboard
 keybind = super+n=new_window
+# cmd+` / cmd+~ cycle windows like other macOS apps
+keybind = super+backquote=goto_window:next
+keybind = super+shift+backquote=goto_window:previous
 keybind = super+t=new_tab
 keybind = super+w=close_tab
 keybind = super+q=quit
