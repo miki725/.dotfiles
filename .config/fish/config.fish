@@ -41,7 +41,9 @@ end
 alias l="ls -la"
 alias fish_config.vim="vim ~/.config/fish/config.fish"
 if type -q nvim
-    alias vim=nvim
+    # start on the dashboard instead of restoring the session. plain nvim still restores
+    # (tmux-resurrect). see .config/nvim/lua/plugins/session.lua
+    alias vim="NVIM_NO_RESTORE=1 nvim"
     set -gx EDITOR nvim
 end
 if type -q fzf
