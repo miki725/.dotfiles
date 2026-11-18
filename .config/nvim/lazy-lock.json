@@ -10,7 +10,6 @@
   "committia.vim": { "branch": "master", "commit": "c8c0f255e8090ed90dd9d5dd2e8672994f8e3671" },
   "conform.nvim": { "branch": "master", "commit": "016802de402556da54c36bd7359b441266b01cdd" },
   "dirbuf.nvim": { "branch": "main", "commit": "ac7ad3c8e61630d15af1f6266441984f54f54fd2" },
-  "editorconfig-vim": { "branch": "master", "commit": "c0227885a06b155d5aa5465e08b9800e8c939f70" },
   "file-history.nvim": { "branch": "ms/snacks-sources", "commit": "70b3d085f8323dcf92ac0c264652f13c6c0dbfdb" },
   "file-line": { "branch": "main", "commit": "067ebe45dd3da0344d543b09441ee9b7fd886851" },
   "flash.nvim": { "branch": "main", "commit": "5f0f270fdc7c5b0c21d903ee85b9cb06f2ac636a" },

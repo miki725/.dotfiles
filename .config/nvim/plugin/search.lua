@@ -4,6 +4,8 @@ vim.o.hlsearch = true
 vim.o.incsearch = true
 -- insensitive case
 vim.o.ignorecase = true
+-- unless the pattern has an uppercase letter
+vim.o.smartcase = true
 -- allow to disable seach highlight with leader+h
 vim.keymap.set({ "n", "v" }, "<leader>h", function()
     vim.o.hlsearch = not vim.o.hlsearch
