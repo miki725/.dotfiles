@@ -1,0 +1,5 @@
+# only markdown docs (in any subdirectory) are tracked
+*
+!*/
+!*.md
+!.gitignore
