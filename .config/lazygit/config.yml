@@ -6,3 +6,7 @@ gui:
   # grow the focused side panel so the selected pane gets most of the height
   expandFocusedSidePanel: true
   expandedSidePanelWeight: 5
+git:
+  diffRenderers:
+    - colorArg: always
+      command: if command -v delta >/dev/null; then delta --paging=never --max-line-distance=0.3; else cat; fi
