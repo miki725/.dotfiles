@@ -62,9 +62,6 @@ if type -q k9s
     alias 9="k9s"
     alias k9="k9s"
 end
-if type -q lazygit
-    alias lg="lazygit"
-end
 if type -q prek
     alias pre-commit="prek"
 end
