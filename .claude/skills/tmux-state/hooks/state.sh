@@ -1,5 +1,7 @@
 #!/bin/sh
 # set @claude on the tmux window: running, waiting, background, idle or clear
+# each claude keeps its own state in the @claude_state pane option and the window shows
+# the loudest of them so several claudes can share a window
 # waiting is only for when input is definitely needed and also rings the bell to get attention.
 # otherwise when turn ends only ring the bell as claude might be just done
 # which clears on visiting the window unlike @claude
@@ -19,6 +21,19 @@ common_dir() {
 # linked worktrees have their own git dir while the main checkout uses the common one
 is_worktree() {
     [ "$(git -C "$1" rev-parse --absolute-git-dir 2> /dev/null)" != "$(common_dir "$1")" ]
+}
+
+# claude only reads under ~/.* (plugins, caches, tool configs) for reference so ignore those
+# unless the session itself is in there
+hidden() {
+    case "$1" in
+        ("$HOME"/.*)
+            case "$CLAUDE_PROJECT_DIR" in
+                ("$HOME"/.*) return 1 ;;
+            esac
+            ;;
+        (*) return 1 ;;
+    esac
 }
 
 # claude mostly works in worktrees or other repos via absolute paths while its cwd stays at the session root
@@ -50,10 +65,12 @@ track_cwd() {
             done \
             | while read -r top; do
                 # dotfiles repo in $HOME contains everything so only stray reads would land there
-                [ "$top" != "$root" ] && [ "$top" != "$HOME" ] && printf '%s\n' "$top"
+                [ "$top" != "$root" ] && [ "$top" != "$HOME" ] && ! hidden "$top" && printf '%s\n' "$top"
             done
     )
     prev=$(tmux display -p -t "$TMUX_PANE" '#{@claude_cwd}')
+    # forget a removed worktree as popups in a missing dir open in $HOME instead
+    [ -d "$prev" ] || prev=
     repo=$(printf '%s\n' "$repos" | tail -n 1)
     # claude goes back to the main checkout only for repo wide commands like gh pr create
     # so stay in the worktree of the same repo from earlier in the tool input or from before
@@ -71,7 +88,7 @@ track_cwd() {
     if [ -n "$repo" ]; then
         dir=$repo
     # cwd only says something when claude moved away from the session root
-    elif [ "$cwd" != "$CLAUDE_PROJECT_DIR" ] || [ -z "$prev" ]; then
+    elif [ -z "$prev" ] || { [ "$cwd" != "$CLAUDE_PROJECT_DIR" ] && ! hidden "$cwd"; }; then
         dir=$cwd
     else
         return
@@ -115,10 +132,28 @@ esac
 [ "$state" = waiting ] && bell
 
 if [ "$state" = clear ]; then
-    tmux set -wu -t "$TMUX_PANE" @claude
+    tmux set -pu -t "$TMUX_PANE" @claude_state
     tmux set -pu -t "$TMUX_PANE" @claude_session
-    tmux set -pu -t "$TMUX_PANE" @claude_cwd
+    # /clear starts a new session right away which usually continues in the same worktree
+    if ! printf '%s' "$input" | jq -e '.reason == "clear"' > /dev/null 2>&1; then
+        tmux set -pu -t "$TMUX_PANE" @claude_cwd
+    fi
 else
-    tmux set -w -t "$TMUX_PANE" @claude "$state"
+    tmux set -p -t "$TMUX_PANE" @claude_state "$state"
     track_cwd
+fi
+
+# same order as the claude picker in .tmux.conf
+loudest=$(
+    tmux list-panes -t "$TMUX_PANE" -F '#{@claude_state}' \
+        | awk '
+            BEGIN { rank["waiting"] = 4; rank["background"] = 3; rank["running"] = 2; rank["idle"] = 1 }
+            rank[$0] > best { best = rank[$0]; state = $0 }
+            END { print state }
+        '
+)
+if [ -n "$loudest" ]; then
+    tmux set -w -t "$TMUX_PANE" @claude "$loudest"
+else
+    tmux set -wu -t "$TMUX_PANE" @claude
 fi
