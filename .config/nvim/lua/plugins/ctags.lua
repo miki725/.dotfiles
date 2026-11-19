@@ -23,7 +23,11 @@ return {
                 desc = "Picker: Search tags",
             },
         },
+        -- own cond replaces defaults.cond so keep it off when editing gopass secrets. see init.lua
         cond = function()
+            if require("gopass").active then
+                return false
+            end
             if vim.fn.executable("fd") == 0 then
                 return false
             end

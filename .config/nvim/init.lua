@@ -1,10 +1,37 @@
 -- Bypass global git ssh-insteadOf so lazy.nvim plugin installs use HTTPS.
 -- gitconfig prepends an identity insteadOf before including ~/.gitconfig;
 -- git picks the first rule on prefix-length ties, so HTTPS wins over SSH.
-vim.env.GIT_CONFIG_GLOBAL = vim.fn.stdpath("config") .. "/gitconfig"
+-- Only set while lazy runs git as everything nvim starts (terminals, lazygit) inherits it,
+-- which would push https remotes over HTTPS and send git config --global writes to that file.
+local lazy_gitconfig = vim.fn.stdpath("config") .. "/gitconfig"
+-- inherited when nvim started from another nvim while it was updating
+if vim.env.GIT_CONFIG_GLOBAL == lazy_gitconfig then
+    vim.env.GIT_CONFIG_GLOBAL = nil
+end
+-- count runs as sync runs clean, install and update within its own Pre/post events
+local lazy_runs = 0
+for _, mode in ipairs({ "Install", "Update", "Restore", "Check", "Log", "Build", "Clean", "Sync" }) do
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "Lazy" .. mode .. "Pre",
+        callback = function()
+            lazy_runs = lazy_runs + 1
+            vim.env.GIT_CONFIG_GLOBAL = lazy_gitconfig
+        end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "Lazy" .. mode,
+        callback = function()
+            lazy_runs = math.max(lazy_runs - 1, 0)
+            if lazy_runs == 0 then
+                vim.env.GIT_CONFIG_GLOBAL = nil
+            end
+        end,
+    })
+end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
+    vim.env.GIT_CONFIG_GLOBAL = lazy_gitconfig
     vim.fn.system({
         "git",
         "clone",
@@ -23,6 +50,7 @@ if not vim.uv.fs_stat(lazypath) then
             vim.fn.system({ "git", "-C", lazypath, "checkout", lock["lazy.nvim"].commit })
         end
     end
+    vim.env.GIT_CONFIG_GLOBAL = nil
 end
 vim.opt.rtp:prepend(lazypath)
 
