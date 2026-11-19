@@ -186,6 +186,7 @@ dev: yay/vale-ls                       # vale language server
 dev: brew/watchman                     # lib for watching files
 
 devcloud: ## aws and kubernetes clis
+devcloud: mise/argo-rollouts # kubectl-argo-rollouts plugin
 devcloud: mise/argocd
 devcloud: mise/aws-cli
 # devcloud: pypi/aws-mfa
