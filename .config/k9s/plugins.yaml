@@ -1,0 +1,290 @@
+# k9s plugins - mostly from https://github.com/derailed/k9s/tree/master/plugins
+# plugins run outside fish so kubectl is plain kubectl, not kubecolor
+# every command passes --context $CONTEXT as switching context in k9s
+# does not change the kubeconfig current-context
+plugins:
+  # --- generic
+
+  # kubectl -o yaml without managedFields/status noise (krew/neat)
+  neat:
+    shortCut: Ctrl-N
+    confirm: false
+    description: YAML (neat)
+    scopes:
+      - all
+    command: sh
+    background: false
+    args:
+      - -c
+      - kubectl get --context $CONTEXT ${NAMESPACE:+-n $NAMESPACE} $RESOURCE_NAME${RESOURCE_GROUP:+.$RESOURCE_GROUP} $NAME -o yaml | kubectl neat | less -K
+
+  # objects owned by the selected resource (krew/tree)
+  tree:
+    shortCut: Ctrl-T
+    confirm: false
+    description: Owned tree
+    scopes:
+      - all
+    command: sh
+    background: false
+    args:
+      - -c
+      - kubectl tree --context $CONTEXT ${NAMESPACE:+-n $NAMESPACE} $RESOURCE_NAME${RESOURCE_GROUP:+.$RESOURCE_GROUP} $NAME | less -K
+
+  # upstream used ${RESOURCE_GROUP:+.RESOURCE_GROUP} which never expands the group
+  watch-events:
+    shortCut: Shift-E
+    confirm: false
+    description: Watch events
+    scopes:
+      - all
+    command: sh
+    background: false
+    args:
+      - -c
+      - kubectl events --context $CONTEXT ${NAMESPACE:+-n $NAMESPACE} --for $RESOURCE_NAME${RESOURCE_GROUP:+.$RESOURCE_GROUP}/$NAME --watch
+
+  # unblock resources stuck deleting - may leave dangling resources
+  remove-finalizers:
+    shortCut: Ctrl-F
+    confirm: true
+    dangerous: true
+    description: Remove finalizers
+    scopes:
+      - all
+    command: kubectl
+    background: true
+    args:
+      - patch
+      - --context
+      - $CONTEXT
+      - --namespace
+      - $NAMESPACE
+      - $RESOURCE_NAME.$RESOURCE_GROUP
+      - $NAME
+      - -p
+      - '{"metadata":{"finalizers":null}}'
+      - --type
+      - merge
+
+  # --- pods and containers
+
+  stern:
+    shortCut: Ctrl-Y
+    confirm: false
+    description: Logs <Stern>
+    scopes:
+      - pods
+    command: stern
+    background: false
+    args:
+      - --tail
+      - 50
+      - $FILTER
+      - -n
+      - $NAMESPACE
+      - --context
+      - $CONTEXT
+
+  # ephemeral debug container next to the selected container
+  debug:
+    shortCut: Shift-D
+    description: Add debug container
+    dangerous: true
+    scopes:
+      - containers
+    command: bash
+    background: false
+    confirm: true
+    inputs:
+      - name: image
+        label: Debug image
+        type: dropdown
+        required: true
+        default: nicolaka/netshoot:v0.15
+        options:
+          - nicolaka/netshoot:v0.15
+          - busybox:1.37
+          - alpine:3.23
+          - ubuntu:26.04
+      - name: profile
+        label: Debug profile
+        type: dropdown
+        required: true
+        default: sysadmin
+        options:
+          - general
+          - baseline
+          - restricted
+          - netadmin
+          - sysadmin
+          - legacy
+      - name: share_processes
+        label: Share processes
+        type: bool
+        required: true
+        default: true
+    args:
+      - -c
+      - >-
+        kubectl debug -it --context $CONTEXT -n=$NAMESPACE $POD
+        --target=$NAME
+        --image=$INPUT_IMAGE
+        --profile=$INPUT_PROFILE
+        $([ "$INPUT_SHARE_PROCESSES" = "true" ] && echo "--share-processes")
+        -- sh
+
+  # --- argo rollouts (mise/argo-rollouts)
+
+  argo-rollouts-get:
+    shortCut: g
+    confirm: false
+    description: Get details
+    scopes:
+      - rollouts
+    command: bash
+    background: false
+    args:
+      - -c
+      - kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE |& less
+  # w is k9s's built-in warp to namespace
+  argo-rollouts-watch:
+    shortCut: Shift-W
+    confirm: false
+    description: Watch progress
+    scopes:
+      - rollouts
+    command: bash
+    background: false
+    args:
+      - -c
+      - kubectl argo rollouts get rollout $NAME --context $CONTEXT -n $NAMESPACE -w
+  argo-rollouts-promote:
+    shortCut: p
+    confirm: true
+    description: Promote
+    scopes:
+      - rollouts
+    command: bash
+    background: false
+    args:
+      - -c
+      - kubectl argo rollouts promote $NAME --context $CONTEXT -n $NAMESPACE |& less
+  argo-rollouts-restart:
+    shortCut: r
+    confirm: true
+    description: Restart
+    scopes:
+      - rollouts
+    command: bash
+    background: false
+    args:
+      - -c
+      - kubectl argo rollouts restart $NAME --context $CONTEXT -n $NAMESPACE |& less
+
+  # --- argo cd applications, via the k8s api so no argocd login needed
+  # mutating ones are dangerous so read-only contexts hide them
+
+  argocd-out-of-sync:
+    shortCut: Shift-D
+    description: Argo drift + app health
+    scopes:
+      - applications
+    command: sh
+    background: false
+    confirm: false
+    args:
+      - -c
+      - |-
+        a=$(kubectl --context $CONTEXT -n $NAMESPACE get application $NAME -o json) || exit 1
+        {
+          echo "$a" | jq -r '"sync: \(.status.sync.status // "-")   health: \(.status.health.status // "-")   \(.status.health.message // "")"'
+          echo
+          echo "$a" | jq -r '.status.resources[]? | select(.status != "Synced") | "\(.kind)/\(.name)\t\(.status)\t\(.health.status // "-")"' | column -t
+        } | less -K
+  argocd-why:
+    shortCut: Shift-G
+    description: Argo health, conditions + last sync error
+    scopes:
+      - applications
+    command: sh
+    background: false
+    confirm: false
+    args:
+      - -c
+      - |-
+        kubectl --context $CONTEXT -n $NAMESPACE get application $NAME -o json |
+          jq -r '"== health ==", "status: \(.status.health.status // "-")", "message: \(.status.health.message // "-")", "", "== conditions ==", (if (.status.conditions | length) > 0 then (.status.conditions[] | "\(.type): \(.message)") else "(none)" end), "", "== last operation ==", "phase: \(.status.operationState.phase // "-")", "message: \(.status.operationState.message // "-")", "revision: \(.status.sync.revision // "-")"' |
+          less -K
+  argocd-history:
+    shortCut: Shift-H
+    description: Argo sync history
+    scopes:
+      - applications
+    command: sh
+    background: false
+    confirm: false
+    args:
+      - -c
+      - |-
+        kubectl --context $CONTEXT -n $NAMESPACE get application $NAME -o json |
+          jq -r '.status.history[]? | "\(.id)\t\(.deployedAt)\t\(.revision[0:12])"' |
+          column -t | less -K
+  argocd-refresh:
+    shortCut: Shift-R
+    description: Argo refresh (re-compare against git)
+    confirm: true
+    scopes:
+      - applications
+    command: kubectl
+    background: false
+    args:
+      - --context
+      - $CONTEXT
+      - -n
+      - $NAMESPACE
+      - annotate
+      - --overwrite
+      - application
+      - $NAME
+      - argocd.argoproj.io/refresh=normal
+  argocd-hard-refresh:
+    shortCut: Shift-Y
+    description: Argo HARD refresh (drop the manifest cache)
+    confirm: true
+    dangerous: true
+    scopes:
+      - applications
+    command: kubectl
+    background: false
+    args:
+      - --context
+      - $CONTEXT
+      - -n
+      - $NAMESPACE
+      - annotate
+      - --overwrite
+      - application
+      - $NAME
+      - argocd.argoproj.io/refresh=hard
+  # patching .operation is how the argo cd ui triggers a sync
+  argocd-sync:
+    shortCut: Shift-Z
+    description: Argo SYNC (mutation)
+    confirm: true
+    dangerous: true
+    scopes:
+      - applications
+    command: sh
+    background: false
+    args:
+      - -c
+      - |-
+        u=$(kubectl --context $CONTEXT auth whoami -o jsonpath='{.status.userInfo.username}')
+        kubectl --context $CONTEXT -n $NAMESPACE patch application $NAME --type=merge -p "{\"operation\":{\"initiatedBy\":{\"username\":\"$u\"},\"sync\":{}}}" || exit 1
+        echo
+        echo 'Sync triggered.'
+        sleep 3
+        kubectl --context $CONTEXT -n $NAMESPACE get application $NAME -o json |
+          jq -r '"phase: \(.status.operationState.phase)", "message: \(.status.operationState.message)"' |
+          less -K

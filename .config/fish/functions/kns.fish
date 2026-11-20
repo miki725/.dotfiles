@@ -4,7 +4,15 @@ function kns --description 'Switch kube namespace for this shell only'
         return 1
     end
 
-    if kubectl config set-context --current --namespace $ns >/dev/null
+    # set-context edits whatever KUBECONFIG points at, so move to a per-shell
+    # copy first or the namespace would change for every shell
+    if test "$KUBECONFIG" != "$__ktx_file"
+        set -l ctx (command kubectl config current-context)
+        or return 1
+        __ktx_switch $ctx; or return 1
+    end
+
+    if command kubectl config set-context --current --namespace $ns >/dev/null
         echo "namespace $ns"
     end
 end

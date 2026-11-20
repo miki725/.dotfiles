@@ -3,6 +3,7 @@ set -gx GOPATH $HOME/.go
 set -gx RIPGREP_CONFIG_PATH $HOME/.config/ripgrep/.ripgreprc
 set -gx PTPYTHON_CONFIG_HOME $HOME/.config/ptpython
 set -gx LG_CONFIG_FILE $HOME/.config/lazygit/config.yml
+set -gx K9S_CONFIG_DIR $HOME/.config/k9s
 set -gx LANG en_US.UTF-8
 set -gx EDITOR vim
 set -gx N_PREFIX $HOME/.n
@@ -56,6 +57,10 @@ if type -q lsd
     alias lt='la --tree'
 end
 if type -q kubectl
+    if type -q kubecolor
+        # colorizes output on a tty, plain when piped; wraps kubectl so completions still work
+        alias kubectl="kubecolor"
+    end
     alias k="kubectl"
 end
 if type -q k9s

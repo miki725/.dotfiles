@@ -1,0 +1,21 @@
+##@ Packages
+KREW_ROOT=$(HOME)/.krew
+
+upgrade:: $(call unskipped,upgrade/krew)
+
+upgrade/krew::  ## upgrade kubectl plugins installed via krew
+	@
+
+ifneq "$(shell which krew 2> /dev/null)" ""
+upgrade/krew::
+	krew upgrade
+endif
+
+krew/%: ## install kubectl plugin via krew
+## e.g. krew/neat - name from `krew search`
+krew/%: $(KREW_ROOT)/receipts/%.yaml
+	@
+
+# krew writes a receipt per installed plugin
+$(KREW_ROOT)/receipts/%.yaml: | mise/krew
+	krew install $*
