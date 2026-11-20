@@ -46,6 +46,24 @@ return {
                     end,
                 })
                 :map("<leader>td")
+
+            -- inline popup is virtual text so it cant be selected. copies its messages instead.
+            -- for a selectable popup press <C-w>d twice: first opens float, second enters it
+            vim.keymap.set("n", "<leader>cd", function()
+                local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
+                local diagnostics = vim.diagnostic.get(0, { lnum = lnum })
+                if #diagnostics == 0 then
+                    vim.notify("No diagnostics on line", vim.log.levels.WARN)
+                    return
+                end
+                local lines = vim.tbl_map(function(d)
+                    local source = d.source and (d.source .. ": ") or ""
+                    local code = d.code and (" [" .. d.code .. "]") or ""
+                    return source .. d.message .. code
+                end, diagnostics)
+                vim.fn.setreg("+", table.concat(lines, "\n"))
+                vim.notify("Copied " .. #lines .. " diagnostic(s)")
+            end, { desc = "Copy diagnostics on line" })
         end,
     },
 }

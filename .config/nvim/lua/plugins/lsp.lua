@@ -21,6 +21,21 @@ local on_attach = function()
         end,
     })
 
+    -- nvim only clears pull diagnostics of a detached server when no other pull server remains
+    -- so restarting basedpyright next to ruff kept its old diagnostics as duplicates
+    vim.api.nvim_create_autocmd("LspDetach", {
+        group = vim.api.nvim_create_augroup("LspClearPullDiagnostics", { clear = true }),
+        callback = function(ev)
+            local client = vim.lsp.get_client_by_id(ev.data.client_id)
+            local prefix = ("nvim.lsp.%s.%d."):format(client and client.name or "unknown", ev.data.client_id)
+            for id, ns in pairs(vim.diagnostic.get_namespaces()) do
+                if vim.startswith(ns.name, prefix) then
+                    vim.diagnostic.reset(id, ev.buf)
+                end
+            end
+        end,
+    })
+
     Snacks.util.lsp.on(function(bufnr, client)
         -- servers which finish starting after <leader>tl disabled them
         if vim.b[bufnr].lsp_detached then
@@ -146,6 +161,23 @@ return {
                     end,
                 })
                 :map("<leader>ts")
+
+            Snacks.toggle
+                .new({
+                    id = "tool_pairs_both",
+                    name = "both servers of tool pairs e.g. ty and basedpyright [LSP]",
+                    get = function()
+                        return tool_pairs.both
+                    end,
+                    set = function(state)
+                        tool_pairs.both = state
+                        -- restarting reevaluates root_dir for every open buffer
+                        local names = vim.tbl_filter(vim.lsp.is_enabled, tool_pairs.paired_lsps())
+                        vim.lsp.enable(names, false)
+                        vim.lsp.enable(names)
+                    end,
+                })
+                :map("<leader>tp")
 
             local servers = {
                 -- only one side of each pair runs per buffer: legacy tool in repos configured for it

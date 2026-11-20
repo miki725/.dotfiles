@@ -1,5 +1,9 @@
 local M = {}
 
+-- experiment: run both language servers of pairs where both sides are one, e.g. ty and basedpyright.
+-- formatters still pick one side. <leader>tp toggles
+M.both = false
+
 -- newer tools (oxc, ty) are used by default but repos configured for older tools
 -- keep using them so saves and diagnostics match their CI.
 -- each pair defines both sides together:
@@ -182,7 +186,8 @@ local root_dir = function(pair, side)
     vim.list_extend(markers, pair.root_markers)
     return function(bufnr, on_dir)
         local fname = vim.api.nvim_buf_get_name(bufnr)
-        if fname == "" or not is_active(bufnr, pair, side) then
+        local both = M.both and pair.legacy.lsp and pair.new.lsp
+        if fname == "" or not (both or is_active(bufnr, pair, side)) then
             return
         end
         on_dir(vim.fs.root(bufnr, markers) or vim.fs.dirname(fname))
@@ -210,6 +215,17 @@ M.lsp = function(name)
         binary = tool.binary,
         root_dir = root_dir(pair, side),
     })
+end
+
+-- language servers of pairs where both sides are one
+M.paired_lsps = function()
+    local names = {}
+    for _, pair in ipairs(M.pairs) do
+        if pair.legacy.lsp and pair.new.lsp then
+            vim.list_extend(names, { pair.legacy.lsp, pair.new.lsp })
+        end
+    end
+    return names
 end
 
 -- conform formatter for one side of a pair which only runs when that side is active
