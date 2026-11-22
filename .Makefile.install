@@ -114,9 +114,12 @@ casks: cask/istat-menus
 casks: cask/monodraw
 casks: cask/notion
 casks: cask/notunes
+casks: mas/PeakHour
 casks: cask/slack
+casks: mas/Spark
 casks: cask/spotify
 # casks: cask/vlc
+casks: mas/WireGuard
 
 cask/alfred: alfred/alfred-type-clipboard-workflow
 cask/alfred: alfred/alfred-ykman-oath
@@ -267,6 +270,10 @@ brew/browserpass: TAP=amar1729/formulae/
 cask/datacolor-spyder-elite: TAP=homebrew/cask-drivers/
 brew/dyff: TAP=homeport/tap/
 
+mas/PeakHour: MAS_ID=1560576252
+mas/Spark: MAS_ID=1176895641
+mas/WireGuard: MAS_ID=1451685025
+
 # manually downloading older versions as newer versions changed pandoc AST
 # see https://github.com/ickc/pantable
 # > Warning: panflute and pantable only support pandoc < 2.10 and is so
@@ -345,7 +352,6 @@ brew/dyff: TAP=homeport/tap/
 # cask/vimr
 # cask/cleanmymac
 # cask/datacolor-spyder-elite # no longer available as cask
-# cask/peakhour # moved to app store
 
 # devnim: yay/choosenim-bin
 # devnim: nimble/choosenim

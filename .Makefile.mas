@@ -1,0 +1,18 @@
+##@ Packages
+ifeq "$(OS)" "Darwin"
+# MAS_ID is required even when the app is already installed
+mas_id = $(or $(MAS_ID),$(error MAS_ID is not set, add: mas/$*: MAS_ID=<app store id>))
+
+mas/%: ## install mac app store app
+## name is the .app name and id is set per target, e.g. mas/WireGuard: MAS_ID=1451685025
+## app must already be owned by the signed in apple id
+mas/%: /Applications/%.app
+	@: $(mas_id)
+
+/Applications/%.app: | brew/mas
+	mas install $(mas_id)
+
+else
+mas/%:
+	@
+endif
