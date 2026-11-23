@@ -217,6 +217,19 @@ M.lsp = function(name)
     })
 end
 
+-- on_attach for language servers which also format, e.g. tsc, so they only format buffers
+-- which neither side of the pair of given tool formats. legacy side formats when installed and
+-- configured, new side whenever installed. capabilities are per client, not per buffer
+M.format_fallback = function(name)
+    local pair = find("lsp", name)
+    return function(client, bufnr)
+        if uses_legacy(bufnr, pair) or vim.fn.executable(pair.new.binary) == 1 then
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+        end
+    end
+end
+
 -- language servers of pairs where both sides are one
 M.paired_lsps = function()
     local names = {}

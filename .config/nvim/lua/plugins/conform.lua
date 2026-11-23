@@ -95,7 +95,7 @@ return {
                 formatters = formatters,
                 default_format_opts = {
                     -- language servers which are already running format filetypes without a formatter above.
-                    -- tsc formatting is disabled in lsp.lua when oxfmt is installed
+                    -- tsc and yamlls formatting is disabled when oxfmt or prettierd formats. see utils/tool_pairs
                     lsp_format = "fallback",
                 },
                 format_on_save = function(bufnr)

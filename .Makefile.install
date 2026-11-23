@@ -14,6 +14,7 @@ all:: devpy
 all:: devnode
 all:: devc
 all:: devsh
+all:: devyaml
 all:: devtf
 all:: devlua
 all:: devgo
@@ -242,6 +243,9 @@ devsh: ## shell dev tools
 devsh: npm/bash-language-server
 devsh: pypi/shellcheck-py
 devsh: brew/shfmt pacman/shfmt
+
+devyaml: ## yaml language server (json schema validation, completion, hover)
+devyaml: npm/yaml-language-server
 
 devtf: ## terraform language server (arch only)
 devtf: yay/terraform-ls-bin

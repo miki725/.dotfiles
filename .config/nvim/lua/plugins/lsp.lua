@@ -234,16 +234,16 @@ return {
                 -- typescript 7 native language server
                 tsc = {
                     binary = "tsc",
-                    -- oxfmt formats ts when installed. prettier repos format with prettierd via conform
-                    -- which skips language servers anyway. otherwise tsc formats
-                    on_init = function(client)
-                        if vim.fn.executable("oxfmt") == 1 then
-                            client.server_capabilities.documentFormattingProvider = false
-                            client.server_capabilities.documentRangeFormattingProvider = false
-                        end
-                    end,
+                    -- formats only without oxfmt or prettierd. see utils/tool_pairs
+                    on_attach = tool_pairs.format_fallback("oxfmt"),
                 },
                 vale_ls = {}, -- prose linter/spell checker
+                -- json schema validation/completion/hover. schema from `# yaml-language-server: $schema=`
+                -- modeline or schemastore
+                yamlls = {
+                    -- formats only without oxfmt or prettierd. see utils/tool_pairs
+                    on_attach = tool_pairs.format_fallback("oxfmt"),
+                },
             }
 
             for name, opts in pairs(servers) do
