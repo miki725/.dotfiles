@@ -224,6 +224,7 @@ devpy: pypi/ty # type checker in rust
 devpy: brew/uv pacman/uv
 
 devnode: ## node dev tools
+devnode: mise/bun # not npm/bun as its postinstall fetching the binary does not run
 devnode: npm/eslint
 devnode: npm/@fsouza/prettierd
 devnode: npm/graphql-language-service-cli
