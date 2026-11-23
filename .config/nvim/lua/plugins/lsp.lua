@@ -1,4 +1,5 @@
 local tool_pairs = require("utils.tool_pairs")
+local ts_lsp = require("utils.ts_lsp")
 
 local semantic_tokens_max_lines = 5000
 
@@ -225,6 +226,11 @@ return {
                 prismals = {},
                 ruff = {},
                 terraformls = {},
+                -- in-process treesitter answers where other servers dont. see utils/ts_lsp
+                [ts_lsp.name] = {
+                    cmd = ts_lsp.cmd,
+                    filetypes = ts_lsp.filetypes(),
+                },
                 -- typescript 7 native language server
                 tsc = {
                     binary = "tsc",
