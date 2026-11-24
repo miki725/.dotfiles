@@ -8,6 +8,7 @@ return {
         opts = function()
             local monokai = require("monokai")
             local palette = monokai.classic
+            local ignored_fg = "#8a93a0"
             local cursor_hold = {
                 bg = palette.red,
                 fg = palette.white,
@@ -34,6 +35,20 @@ return {
                     -- picker dirname defaults to NonText (base5) which is barely visible
                     SnacksPickerDir = {
                         fg = palette.grey,
+                    },
+                    -- untracked defaults to NonText (base5) which makes explorer in fresh repos
+                    -- (e.g. ~/Documents) unreadable
+                    SnacksPickerGitStatusUntracked = {
+                        fg = palette.base7,
+                        style = "italic",
+                    },
+                    -- ignored also defaults to NonText. keep it dimmer than untracked but readable
+                    -- with a slight cool tint to tell it apart from neutral grey untracked
+                    SnacksPickerGitStatusIgnored = {
+                        fg = ignored_fg,
+                    },
+                    SnacksPickerPathIgnored = {
+                        fg = ignored_fg,
                     },
                     -- inline git blame pill on cursor line. see gitsigns.lua
                     GitSignsCurrentLineBlame = {
