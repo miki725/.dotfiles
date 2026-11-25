@@ -76,7 +76,7 @@ local names = {
 }
 
 for key, lookup in pairs(names) do
-    vim.keymap.set("n", "<leader>" .. key, function()
+    vim.keymap.set({ "n", "x" }, "<leader>" .. key, function()
         local value = vim.fn.expand(lookup.expand)
         vim.fn.setreg("+", value)
         -- setreg("+") does not set the unnamed register which p pastes when the clipboard

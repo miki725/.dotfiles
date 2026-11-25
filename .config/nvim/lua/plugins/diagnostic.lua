@@ -49,11 +49,18 @@ return {
 
             -- inline popup is virtual text so it cant be selected. copies its messages instead.
             -- for a selectable popup press <C-w>d twice: first opens float, second enters it
-            vim.keymap.set("n", "<leader>cd", function()
-                local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
-                local diagnostics = vim.diagnostic.get(0, { lnum = lnum })
+            -- in visual mode copies diagnostics on all selected lines
+            vim.keymap.set({ "n", "x" }, "<leader>cd", function()
+                local first = vim.fn.line("v") - 1
+                local last = vim.fn.line(".") - 1
+                if first > last then
+                    first, last = last, first
+                end
+                local diagnostics = vim.tbl_filter(function(d)
+                    return d.lnum >= first and d.lnum <= last
+                end, vim.diagnostic.get(0))
                 if #diagnostics == 0 then
-                    vim.notify("No diagnostics on line", vim.log.levels.WARN)
+                    vim.notify("No diagnostics on line(s)", vim.log.levels.WARN)
                     return
                 end
                 local lines = vim.tbl_map(function(d)
