@@ -14,6 +14,7 @@ vim.filetype.add({
         -- Jinja2 templates: match the base extension before .j2
         -- note: vim.filetype.add wraps patterns with ^...$, so no trailing $ here
         [".*%.ini%.j2"] = "dosini",
+        [".*%.ini%.tpl"] = "dosini",
         [".*%.sh%.j2"] = "sh",
         [".*%.toml%.j2"] = "toml",
         [".*%.ya?ml%.j2"] = "yaml",
