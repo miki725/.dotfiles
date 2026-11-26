@@ -92,14 +92,12 @@ ifeq "$(OS)" "Darwin"
 /usr/local/bin/gpg: | /usr/local/bin brew/gnupg
 	sudo ln -sf $(BREW_PREFIX)/bin/gpg $@
 
+# brave on mac reads native hosts from the Chrome dir (not BraveSoftware)
 browserpass: brew/browserpass /usr/local/bin/gpg
-	cat $(BREW_PREFIX)/opt/browserpass/lib/browserpass/Makefile \
-		| sed 's/Chrome/Chrome Beta/g' \
-		| PREFIX='$(BREW_PREFIX)/opt/browserpass' \
-			make -f - \
-				hosts-firefox-user \
-				hosts-chrome-user \
-				hosts-brave-user
+	PREFIX='$(BREW_PREFIX)/opt/browserpass' \
+		make -f $(BREW_PREFIX)/opt/browserpass/lib/browserpass/Makefile \
+			hosts-firefox-user \
+			hosts-brave-user
 
 .password-store:
 	git clone ssh://git@git.miki725.net:3001/miki725/pass.git $@
