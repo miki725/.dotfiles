@@ -2,6 +2,8 @@
 command = ~/.bin/login.sh
 
 macos-titlebar-style = tabs
+quit-after-last-window-closed = true
+quit-after-last-window-closed-delay = 5s
 
 # use a widely-supported TERM so remote servers have the terminfo (xterm-ghostty is unknown to most)
 term = xterm-256color
